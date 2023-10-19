@@ -11,7 +11,7 @@ import SwiftUI
 struct PangeaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MapView()
         }
     }
 }
