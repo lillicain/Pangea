@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import PhotosUI
+import MapKit
 
 @MainActor
 class PostViewModel: ObservableObject {
