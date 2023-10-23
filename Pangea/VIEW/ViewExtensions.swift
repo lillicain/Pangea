@@ -127,3 +127,66 @@ extension Array {
         return dict
     }
 }
+
+
+extension String {
+func StringToColor() -> Color {
+    switch self {
+    case "Red" : return .red
+    case "Pink" : return .pink.opacity(0.75)
+    case "Orange" : return .orange
+    case "Yellow" : return .yellow.opacity(0.75)
+    case "Green" : return .green.opacity(0.75)
+    case "Mint" : return .mint.opacity(0.75)
+    case "Indigo" : return .indigo.opacity(0.75)
+    case "Cyan" : return .cyan
+    case "Blue" : return .blue.opacity(0.75)
+    case "Purple" : return .purple.opacity(0.75)
+    case "Black" : return .black
+    case "Gray" : return .gray
+    case "Brown" : return .brown
+    case "SystemPink" : return Color(.systemPink)
+    case "System Red" : return Color(.systemRed)
+    case "LightOrange" : return .orange.opacity(0.5)
+    case "SystemGreen" : return Color(.systemGreen)
+    case "SystemMint" : return Color(.systemMint)
+    case "SystemCyan" : return Color(.systemCyan)
+    case "SystemBlue" : return Color(.systemBlue)
+    case "SystemPurple" : return Color(.systemPurple)
+        
+    default: return Color(.systemGroupedBackground)
+        
+    }
+}
+}
+
+extension Color {
+func ColorToString() -> String {
+    switch self {
+    case .red : return "Red"
+    case .pink.opacity(0.75) : return "Pink"
+    case .orange : return "Orange"
+    case .yellow.opacity(0.75) : return "Yellow"
+    case .green.opacity(0.75) : return "Green"
+    case .mint.opacity(0.75) : return "Mint"
+    case .indigo.opacity(0.75) : return "Indigo"
+    case .cyan : return "Cyan"
+    case .blue.opacity(0.75) : return "Blue"
+    case .purple.opacity(0.75) : return "Purple"
+    case .black : return "Black"
+    case .gray : return "Gray"
+    case .brown : return "Brown"
+    case Color(.systemPink) : return "SystemPink"
+    case Color(.systemRed) : return "System Red"
+    case .orange.opacity(0.5) : return "LightOrange"
+    case Color(.systemGreen) : return "SystemGreen"
+    case Color(.systemMint) : return "SystemMint"
+    case Color(.systemCyan) : return "SystemCyan"
+    case Color(.systemBlue) : return "SystemBlue"
+    case Color(.systemPurple) : return "SystemPurple"
+        
+    default: return "Black"
+        
+    }
+}
+}
