@@ -47,6 +47,18 @@
 		6AB302472AE626C00036DB06 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302462AE626C00036DB06 /* EditUserView.swift */; };
 		6AB302492AE628660036DB06 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302482AE628660036DB06 /* ItemView.swift */; };
 		6AB3024B2AE62A050036DB06 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3024A2AE62A050036DB06 /* MapManager.swift */; };
+		6AB3024D2AE635600036DB06 /* 5curvo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3024C2AE635600036DB06 /* 5curvo.ttf */; };
+		6AB3024F2AE635720036DB06 /* 13_Misa.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3024E2AE635720036DB06 /* 13_Misa.TTF */; };
+		6AB302512AE635910036DB06 /* Abuela Grillo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302502AE635910036DB06 /* Abuela Grillo.ttf */; };
+		6AB302532AE635A70036DB06 /* almonte.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302522AE635A70036DB06 /* almonte.otf */; };
+		6AB302552AE635CA0036DB06 /* Aerobics.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302542AE635CA0036DB06 /* Aerobics.ttf */; };
+		6AB302572AE635DE0036DB06 /* arnprior.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302562AE635DE0036DB06 /* arnprior.otf */; };
+		6AB302592AE636200036DB06 /* Goolangola-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302582AE636200036DB06 /* Goolangola-Light.otf */; };
+		6AB3025B2AE6362A0036DB06 /* Goolangola-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3025A2AE6362A0036DB06 /* Goolangola-Bold.otf */; };
+		6AB3025D2AE636740036DB06 /* pallini.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3025C2AE636730036DB06 /* pallini.ttf */; };
+		6AB3025F2AE636A10036DB06 /* Orbitronio.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3025E2AE636A10036DB06 /* Orbitronio.ttf */; };
+		6AB302612AE636BF0036DB06 /* Trag.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302602AE636BF0036DB06 /* Trag.ttf */; };
+		6AB302632AE636D70036DB06 /* Views.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302622AE636D70036DB06 /* Views.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +93,18 @@
 		6AB302462AE626C00036DB06 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		6AB302482AE628660036DB06 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		6AB3024A2AE62A050036DB06 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		6AB3024C2AE635600036DB06 /* 5curvo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 5curvo.ttf; sourceTree = "<group>"; };
+		6AB3024E2AE635720036DB06 /* 13_Misa.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = 13_Misa.TTF; sourceTree = "<group>"; };
+		6AB302502AE635910036DB06 /* Abuela Grillo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Abuela Grillo.ttf"; sourceTree = "<group>"; };
+		6AB302522AE635A70036DB06 /* almonte.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = almonte.otf; sourceTree = "<group>"; };
+		6AB302542AE635CA0036DB06 /* Aerobics.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aerobics.ttf; sourceTree = "<group>"; };
+		6AB302562AE635DE0036DB06 /* arnprior.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arnprior.otf; sourceTree = "<group>"; };
+		6AB302582AE636200036DB06 /* Goolangola-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Goolangola-Light.otf"; sourceTree = "<group>"; };
+		6AB3025A2AE6362A0036DB06 /* Goolangola-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Goolangola-Bold.otf"; sourceTree = "<group>"; };
+		6AB3025C2AE636730036DB06 /* pallini.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pallini.ttf; sourceTree = "<group>"; };
+		6AB3025E2AE636A10036DB06 /* Orbitronio.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Orbitronio.ttf; sourceTree = "<group>"; };
+		6AB302602AE636BF0036DB06 /* Trag.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trag.ttf; sourceTree = "<group>"; };
+		6AB302622AE636D70036DB06 /* Views.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Views.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +172,8 @@
 		6A5A13DC2AE1E8940041E188 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				6A5A13DD2AE1E8A30041E188 /* Font */,
 				6A5A13DE2AE1E8B20041E188 /* FontManager.swift */,
+				6A5A13DD2AE1E8A30041E188 /* Font */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -157,6 +181,18 @@
 		6A5A13DD2AE1E8A30041E188 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				6AB302562AE635DE0036DB06 /* arnprior.otf */,
+				6AB3024E2AE635720036DB06 /* 13_Misa.TTF */,
+				6AB3024C2AE635600036DB06 /* 5curvo.ttf */,
+				6AB302502AE635910036DB06 /* Abuela Grillo.ttf */,
+				6AB302542AE635CA0036DB06 /* Aerobics.ttf */,
+				6AB3025A2AE6362A0036DB06 /* Goolangola-Bold.otf */,
+				6AB3025C2AE636730036DB06 /* pallini.ttf */,
+				6AB3025E2AE636A10036DB06 /* Orbitronio.ttf */,
+				6AB302582AE636200036DB06 /* Goolangola-Light.otf */,
+				6AB302602AE636BF0036DB06 /* Trag.ttf */,
+				6AB302522AE635A70036DB06 /* almonte.otf */,
+				6AB302622AE636D70036DB06 /* Views.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -295,9 +331,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AB302552AE635CA0036DB06 /* Aerobics.ttf in Resources */,
+				6AB302512AE635910036DB06 /* Abuela Grillo.ttf in Resources */,
+				6AB3024F2AE635720036DB06 /* 13_Misa.TTF in Resources */,
+				6AB3025F2AE636A10036DB06 /* Orbitronio.ttf in Resources */,
 				6A5A13C82AE1E6EE0041E188 /* Preview Assets.xcassets in Resources */,
+				6AB3025D2AE636740036DB06 /* pallini.ttf in Resources */,
+				6AB302612AE636BF0036DB06 /* Trag.ttf in Resources */,
 				6A5509AC2AE61029005B48F6 /* GoogleService-Info.plist in Resources */,
+				6AB302632AE636D70036DB06 /* Views.ttf in Resources */,
+				6AB3024D2AE635600036DB06 /* 5curvo.ttf in Resources */,
+				6AB3025B2AE6362A0036DB06 /* Goolangola-Bold.otf in Resources */,
+				6AB302572AE635DE0036DB06 /* arnprior.otf in Resources */,
+				6AB302592AE636200036DB06 /* Goolangola-Light.otf in Resources */,
 				6A5A13C52AE1E6EE0041E188 /* Assets.xcassets in Resources */,
+				6AB302532AE635A70036DB06 /* almonte.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
