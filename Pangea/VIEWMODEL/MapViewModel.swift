@@ -57,7 +57,7 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func startCurrentLocationUpdates() async throws {
         for try await locationUpdate in CLLocationUpdate.liveUpdates() {
-            guard let location = locationUpdate.location else { return }
+            guard let _ = locationUpdate.location else { return }
             
         }
     }

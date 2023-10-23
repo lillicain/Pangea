@@ -26,7 +26,6 @@ struct PostItemView: View {
                     .scaledToFill()
                     .frame(width: imageDimension, height: imageDimension)
                     .clipped()
-                
             }
         }
     }
@@ -81,6 +80,9 @@ struct FeedItemView: View {
             Text("\(post.caption)")
                 .padding(.all, 5)
         
+            Text(post.location?.latitude.description ?? "")
+            Text(post.location?.longitude.description ?? "")
+            
         }
     }
 }

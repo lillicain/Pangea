@@ -64,38 +64,20 @@ struct EditUserView: View {
             .padding(.vertical, 10)
             
             VStack {
-                EditProfile(text: $editUserViewModel.name, title: "Name", placeholder: "Enter Name")
-                EditProfile(text: $editUserViewModel.profileInformation, title: "Information", placeholder: "Enter Information")
+                HStack {
+                    Text(editUserViewModel.name)
+                        .padding(.leading)
+                        .frame(alignment: .leading)
+                    
+                    VStack {
+                        TextField("\(editUserViewModel.name)", text: $editUserViewModel.name)
+                    }
+                }
             }
+            Divider()
             
             Spacer()
         }
     }
 }
-
-//#Preview {
-//    EditUserView()
-//}
-
-struct EditProfile: View {
-    @Binding var text: String
-    
-    let title: String
-    let placeholder: String
-    
-    var body: some View {
-        HStack {
-            Text(title)
-                .padding(.leading, 5)
-                .frame(width: 100, alignment: .leading)
-            VStack {
-                TextField(placeholder, text: $text)
-                
-                Divider()
-            }
-        }
-        .frame(height: 50)
-    }
-}
-
 

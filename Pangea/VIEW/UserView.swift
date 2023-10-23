@@ -55,9 +55,9 @@ struct UserView: View {
                 PostView()
                     .tabItem { Image(systemName: "photo") }
                 
-        
-                    .tabItem { Image(systemName: "photo") }
-           
+                FeedView()
+                        .tabItem { Image(systemName: "photo") }
+            
                 
             }
         }
