@@ -14,6 +14,7 @@ struct UserView: View {
     @AppStorage("backgroundColors") var backgroundColors: String = ""
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @ObservedObject var mapViewModel = MapViewModel()
     
     @State var username = ""
     @State var size: CGFloat = 17.5
@@ -52,6 +53,8 @@ struct UserView: View {
                 
                 MapView()
                     .tabItem { Image(systemName: "globe") }
+                MapViewRepresentable()
+                    .tabItem { Image(systemName: "globe")}
                 
                 PostView()
                     .tabItem { Image(systemName: "photo") }
@@ -125,21 +128,33 @@ extension UserView {
     
     var locationInformation: some View {
         VStack {
-            NavigationLink {
-                MapViewRepresentable(username: self.username)
-                    .ignoresSafeArea(.all)
-            } label: {
-                Text("\(username)")
+//            NavigationLink {
+//                MapViewRepresentable(username: self.username)
+//                    .ignoresSafeArea(.all)
+//            } label: {
+//                Text("\(username)")
+//            }
+            
+//            LocationButton(.currentLocation) { }
+//                .cornerRadius(5)
+//                .frame(maxWidth: .infinity)
+//                .foregroundColor(.white)
+//                .labelStyle(.titleAndIcon)
+//                .symbolVariant(.fill)
+            
+        
+            HStack {
+                if let place = mapViewModel.place {
+                    Text("\(place)")
+                    
+                }
+                
+                LocationButton(.currentLocation) {
+                    mapViewModel.requestLocation()
+                }
             }
-            
-            LocationButton(.currentLocation) { }
-                .cornerRadius(5)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .labelStyle(.titleAndIcon)
-                .symbolVariant(.fill)
-            
         }
+
     }
     
     var colorInformation: some View {

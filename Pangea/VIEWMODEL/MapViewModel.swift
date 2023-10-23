@@ -12,21 +12,35 @@ import MapKit
 import CoreLocationUI
 import CoreLocation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var place: String?
-    
+    @Published var region = MKCoordinateRegion()
+    var post = [Post]()
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     let manager = CLLocationManager()
+    let myPosition = CLLocationCoordinate2D()
+    let mapView = MKMapView()
    
     override init() {
         super.init()
         manager.delegate = self
+        self.manager.desiredAccuracy = kCLLocationAccuracyBest
+        mapView.userTrackingMode = MKUserTrackingMode.follow
     }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        lookUpCurrentLocation { placemark in
-            self.place = placemark
-        }
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        locations.last.map {
+//            region = MKCoordinateRegion(center: $0.coordinate, span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
+//        }
+//        
+//        lookUpCurrentLocation { placemark in
+//            self.place = placemark
+//        }
+//    }
+    
+    
     
     func lookUpCurrentLocation(completionHandler: @escaping (String?) -> Void) {
         if let lastLocation = manager.location {
@@ -74,4 +88,27 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
+        let last = locations.last
+        locations.last.map {
+            region = MKCoordinateRegion(center: $0.coordinate, span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        }
+        
+        lookUpCurrentLocation { placemark in
+            self.place = placemark
+        }
+        
+
+        Firestore.firestore().collection("locations").document("sharing").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]]) { (err) in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
+           
+                
+        }
+    }
+    
 }

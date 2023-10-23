@@ -7,9 +7,13 @@
 
 import SwiftUI
 import Kingfisher
+import MapKit
+import CoreLocationUI
 
 struct PostItemView: View {
     @StateObject var postItemViewModel: PostItemViewModel
+    
+    @StateObject var mapViewModel = MapViewModel()
     
     init(user: User) {
         self._postItemViewModel = StateObject(wrappedValue: PostItemViewModel(user: user))
@@ -33,7 +37,7 @@ struct PostItemView: View {
 
 struct FeedItemView: View {
     let post: Post
-    
+  
     var body: some View {
         VStack {
             ZStack {
@@ -51,7 +55,7 @@ struct FeedItemView: View {
                 Spacer()
             }
             .padding(.leading, 25)
-        
+            
             
             KFImage(URL(string: post.imageUrl))
                 .resizable()
@@ -63,8 +67,9 @@ struct FeedItemView: View {
                         NavigationLink {
                             MapViewRepresentable(username: user.username)
                                 .ignoresSafeArea(.all)
+                            
                         } label: {
-                            Image(systemName: "mappin")
+                            Image(systemName: "mappin.square")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 45, height: 45)
@@ -74,15 +79,15 @@ struct FeedItemView: View {
                     }
                 }
             
-            Text("\(post.timestamp.dateValue())")
+            Text("\(post.timestamp.dateValue().formatted(date: .abbreviated, time: .standard))")
                 .padding(.all, 5)
             
             Text("\(post.caption)")
                 .padding(.all, 5)
-        
+            
             Text(post.location?.latitude.description ?? "")
             Text(post.location?.longitude.description ?? "")
-            
+    
         }
     }
 }

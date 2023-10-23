@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import CoreLocationUI
 
 struct PostView: View {
     @Environment(\.dismiss) var dismiss
+    
     @StateObject var postViewModel = PostViewModel()
+//    @StateObject var mapViewModel = MapViewModel()
+
     @State var caption = ""
     @State var imagePickerPresented = false
     @State var image: UIImage?
@@ -35,8 +39,10 @@ struct PostView: View {
                         Task {
                             try await postViewModel.uploadPost(caption: caption)
                             clearData()
+                            
+                            
                         }
-                       
+                        
                         
                         
                     } label: {
@@ -59,6 +65,7 @@ struct PostView: View {
                     }
                     TextField("Enter...", text: $caption, axis: .vertical)
                 }
+                
                 .padding()
                 .padding(.top)
                 
@@ -79,6 +86,7 @@ struct PostView: View {
                 imagePickerPresented.toggle()
             }
             .photosPicker(isPresented: $imagePickerPresented, selection: $postViewModel.selectedImage)
+            
         }
     }
 }
