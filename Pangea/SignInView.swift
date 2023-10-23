@@ -1,59 +1,55 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  Pangea
 //
-//  Created by Lillian Cain on 10/19/23.
+//  Created by Lillian Cain on 10/22/23.
 //
 
 import SwiftUI
 
-struct SignUpView: View {
+struct SignInView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-    @State var email = ""
     @State var username = ""
+    @State var email = ""
     @State var password = ""
-    @State var confirmPassword = ""
     
     var body: some View {
         ZStack {
-            
             LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             
             VStack(alignment: .leading) {
-                Text("Sign Up".uppercased())
+                Text("Sign In".uppercased())
                     .fontWeight(.bold)
-                    .font(.title)
-                    .padding()
+                    .font(.largeTitle)
+                    .padding(.leading, 15)
+                    .padding(.bottom, 5)
                 
-                Text("Create An Account".capitalized)
+                Text("Sign in to your account".uppercased())
                     .fontWeight(.semibold)
-                    .padding()
+                    .lineLimit(1)
+                    .font(.system(size: 15))
+                    .padding(.leading, 15)
                 
                 Divider()
+                    .padding(5)
                 
-                VStack(spacing: 0) {
+                VStack(spacing: 25) {
                     TextField("Enter Username", text: $username)
-                        .modifier(MaterialViewModifier())
-                    TextField("Enter Email", text: $email)
-                        .modifier(MaterialViewModifier())
-                    SecureField("Enter Password", text: $password)
+                        .textInputAutocapitalization(.never)
                         .modifier(MaterialViewModifier())
                     
-                    ZStack {
-                        SecureField("Confirm Password", text: $confirmPassword)
-                            .modifier(MaterialViewModifier())
-                        
-                        if password.isEmpty && !confirmPassword.isEmpty {
-                            if password == confirmPassword {
-                                self.foregroundColor(.green)
-                            } else {
-                                self.foregroundColor(.red)
-                            }
-                        }
-                    }
+                    TextField("Enter Email", text: $email)
+                        .textInputAutocapitalization(.never)
+                        .modifier(MaterialViewModifier())
+                    
+                    SecureField("Enter Passsword", text: $password)
+                        .modifier(MaterialViewModifier())
                 }
+                .fontWeight(.bold)
+                .font(.system(size: 17.5))
+                .padding(.bottom)
                 
                 Divider()
                     .padding(5)
@@ -65,9 +61,8 @@ struct SignUpView: View {
                 
                 Button {
                     Task {
-                        try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                        try await authenticationViewModel.signIn(withEmail: email, password: password)
                     }
-                    
                 } label: {
                     Text("Sign Up".uppercased())
                         .frame(maxWidth: .infinity)
@@ -81,24 +76,24 @@ struct SignUpView: View {
                 .padding(10)
                 
                 NavigationLink {
-                    SignInView()
+                    SignUpView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
-                    Text("Already have an Account? **Sign In** ")
+                    Text("Don't have an Account? **Sign Up** ")
+                        .padding(.leading, 15)
                         .font(.system(size: 15))
+                        .padding(.bottom, 5)
                 }
-                
             }
             .padding()
             .background(.ultraThinMaterial)
             .foregroundStyle(.ultraThinMaterial)
             .cornerRadius(15)
             .padding(25)
-    
         }
     }
 }
 
 #Preview {
-    SignUpView()
+    SignInView()
 }

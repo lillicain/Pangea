@@ -22,10 +22,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PangeaApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authenticationViewModel = AuthenticationViewModel()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignUpView()
+                .environmentObject(authenticationViewModel)
         }
     }
 }
