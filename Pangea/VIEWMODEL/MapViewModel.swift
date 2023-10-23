@@ -14,10 +14,10 @@ import CoreLocation
 import Firebase
 
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    
-    let manager = CLLocationManager()
     @Published var place: String?
     
+    let manager = CLLocationManager()
+   
     override init() {
         super.init()
         manager.delegate = self
@@ -45,10 +45,16 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             completionHandler(nil)
         }
     }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
     
+    func requestLocation() {
+        manager.requestLocation()
+    }
     
     func requestAllowOnceLocationPermission() {
-        manager.requestLocation()
+        manager.requestAlwaysAuthorization()
     }
     
     func requestUserAuthorization() async throws {

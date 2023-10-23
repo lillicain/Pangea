@@ -13,7 +13,7 @@ import MapKit
 
 struct MapViewRepresentable: UIViewRepresentable {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    
+    @State var place: String?
     var username = ""
     
     func makeCoordinator() -> MapViewRepresentable.Coordinator {
@@ -50,6 +50,9 @@ struct MapViewRepresentable: UIViewRepresentable {
             }
         }
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//            lookUpCurrentLocation { placemark in
+//                self.parent.place = placemark
+//            }
             guard let uid = self.authenticationViewModel.userSession?.uid else { return }
             let last = locations.last
             Firestore.firestore().collection("locations").document("sharing").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]]) { (err) in
@@ -59,6 +62,25 @@ struct MapViewRepresentable: UIViewRepresentable {
                 }
             }
         }
+   
+        
+//        func lookUpCurrentLocation(completionHandler: @escaping (String?) -> Void) {
+//            if let lastLocation = manager.requestLocation() {
+//                let geocoder = CLGeocoder()
+//                
+//                geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
+//                    
+//                    if error == nil {
+//                        let firstLocation = placemarks?[0].name
+//                        completionHandler(firstLocation)
+//                    } else {
+//                        completionHandler(nil)
+//                    }
+//                })
+//            } else {
+//                completionHandler(nil)
+//            }
+//        }
     }
 }
 

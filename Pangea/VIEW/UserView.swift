@@ -50,14 +50,15 @@ struct UserView: View {
                 .toolbarBackground(.ultraThinMaterial, for: .tabBar)
                 .tabItem { Image(systemName: "house") }
                 
-             MapView()
+                MapView()
                     .tabItem { Image(systemName: "globe") }
+                
                 PostView()
                     .tabItem { Image(systemName: "photo") }
                 
                 FeedView()
-                        .tabItem { Image(systemName: "photo") }
-            
+                    .tabItem { Image(systemName: "photo") }
+                
                 
             }
         }

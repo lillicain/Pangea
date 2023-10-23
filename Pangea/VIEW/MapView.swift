@@ -11,10 +11,19 @@ import CoreLocationUI
 import CoreLocation
 
 struct MapView: View {
-    
+    @StateObject var locationManager = MapViewModel()
    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            if let place = locationManager.place {
+                Text("\(place)")
+                
+            }
+            
+            LocationButton(.currentLocation) {
+                locationManager.requestLocation()
+            }
+        }
     }
 }
 
