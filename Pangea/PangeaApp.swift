@@ -30,7 +30,7 @@ struct PangeaApp: App {
                     if authenticationViewModel.userSession == nil {
                         SignUpView()
                     } else {
-                        PostView()
+                        UserView()
                     }
                 }
             }
