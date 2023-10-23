@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @State var email = ""
     @State var username = ""
     @State var password = ""
@@ -52,7 +54,47 @@ struct SignUpView: View {
                         }
                     }
                 }
+                
+                Divider()
+                    .padding(5)
+                
+                Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
+                    .padding(.leading, 15)
+                    .font(.system(size: 15))
+                    .padding(.bottom, 5)
+                
+                Button {
+                    Task {
+                        try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                    }
+                    
+                } label: {
+                    Text("Sign Up".uppercased())
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .fontWeight(.semibold)
+                        .font(.system(size: 25))
+                        .padding()
+                        .modifier(MaterialViewModifier())
+                        .padding(.bottom, 5)
+                }
+                .padding(10)
+                
+                NavigationLink {
+                    SignInView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    Text("Already have an Account? **Sign In** ")
+                        .font(.system(size: 15))
+                }
+                
             }
+            .padding()
+            .background(.ultraThinMaterial)
+            .foregroundStyle(.ultraThinMaterial)
+            .cornerRadius(15)
+            .padding(25)
+    
         }
     }
 }
