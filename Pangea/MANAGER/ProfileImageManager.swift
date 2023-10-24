@@ -24,7 +24,7 @@ struct ProfileImageManager: View {
                 .resizable()
                 .frame(width: size.dimension, height: size.dimension)
                 .clipShape(.circle)
-                .foregroundStyle(.regularMaterial)
+                .foregroundStyle(.ultraThickMaterial)
         }
     }
 }

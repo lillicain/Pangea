@@ -35,14 +35,15 @@ enum ProfileImageSize {
     case small
     case medium
     case large
+    case extraLarge
     
     var dimension: CGFloat {
         switch self {
-        case .extraSmall: return 45
-        case .small: return 50
-        case .medium: return 75
-        case .large: return 90
-            
+        case .extraSmall: return 50
+        case .small: return 75
+        case .medium: return 95
+        case .large: return 125
+        case .extraLarge: return 150
         }
     }
 }

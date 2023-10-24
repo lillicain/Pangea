@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A188E8A2AE7471D00DDB5DC /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A188E892AE7471D00DDB5DC /* LocationView.swift */; };
+		6A188E8C2AE7597D00DDB5DC /* FirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A188E8B2AE7597D00DDB5DC /* FirstView.swift */; };
 		6A296DEC2AE726B900C906F0 /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A296DEB2AE726B900C906F0 /* MapExtensions.swift */; };
 		6A5509AC2AE61029005B48F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */; };
 		6A5509AF2AE61080005B48F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5509AE2AE61080005B48F6 /* FirebaseAnalytics */; };
@@ -66,6 +68,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A188E892AE7471D00DDB5DC /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		6A188E8B2AE7597D00DDB5DC /* FirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstView.swift; sourceTree = "<group>"; };
 		6A296DEB2AE726B900C906F0 /* MapExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapExtensions.swift; sourceTree = "<group>"; };
 		6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A5A13BD2AE1E6EE0041E188 /* Pangea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pangea.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				6A5A13DA2AE1E87E0041E188 /* ViewExtensions.swift */,
+				6A188E8B2AE7597D00DDB5DC /* FirstView.swift */,
 				6A296DEB2AE726B900C906F0 /* MapExtensions.swift */,
 				6A5A13D42AE1E7ED0041E188 /* ViewOne.swift */,
 				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
@@ -228,6 +233,7 @@
 				6AB302382AE618A80036DB06 /* Camera.swift */,
 				6AB302682AE69D650036DB06 /* SearchView.swift */,
 				6A5A13D22AE1E71B0041E188 /* MapView.swift */,
+				6A188E892AE7471D00DDB5DC /* LocationView.swift */,
 			);
 			path = VIEW;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AB302652AE69CCC0036DB06 /* FeedView.swift in Sources */,
+				6A188E8A2AE7471D00DDB5DC /* LocationView.swift in Sources */,
 				6AB3021E2AE612060036DB06 /* AuthenticationViewModel.swift in Sources */,
 				6AB302472AE626C00036DB06 /* EditUserView.swift in Sources */,
 				6AB3023B2AE618DD0036DB06 /* CameraManager.swift in Sources */,
@@ -398,6 +405,7 @@
 				6A296DEC2AE726B900C906F0 /* MapExtensions.swift in Sources */,
 				6A5A13C12AE1E6EE0041E188 /* PangeaApp.swift in Sources */,
 				6AB302172AE611410036DB06 /* User.swift in Sources */,
+				6A188E8C2AE7597D00DDB5DC /* FirstView.swift in Sources */,
 				6AB302452AE622B20036DB06 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

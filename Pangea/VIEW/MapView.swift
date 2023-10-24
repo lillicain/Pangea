@@ -12,6 +12,7 @@ import CoreLocation
 import Firebase
 import FirebaseFirestore
 
+
 struct MapView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
