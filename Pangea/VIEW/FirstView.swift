@@ -24,9 +24,19 @@ struct FirstView: View {
                     .cornerRadius(50)
                     .padding(.bottom, 50)
                 }
-                ZStack {
-                    ProfileImageManager(user: user, size: .extraLarge)
+//                ZStack {
+//                    Circle()
+//                        .frame(width: 155, height: 155)
+//                        .foregroundColor(.white)
                     
+                        ZStack {
+                            ProfileImageManager(user: user, size: .extraLarge)
+                                .background(
+                                Circle() 
+                                    .frame(width: 155, height: 155)
+                                    .foregroundColor(.white)
+                                )
+                        
                 }
                 .background(.white)
                 .clipShape(Circle())
