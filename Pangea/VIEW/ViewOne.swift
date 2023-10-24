@@ -5,25 +5,25 @@
 //  Created by Lillian Cain on 10/19/23.
 //
 
-import SwiftUI
-
-struct UserStatusView: View {
-    let value: Int
-    let title: String
-    
-    var body: some View {
-        VStack {
-            Text("\(value)")
-            Text(title)
-        }
-        .frame(width: 75)
-    }
-}
+//import SwiftUI
+//
+//struct UserStatusView: View {
+//    let value: Int
+//    let title: String
+//
+//    var body: some View {
+//        VStack {
+//            Text("\(value)")
+//            Text(title)
+//        }
+//        .frame(width: 75)
+//    }
+//}
 
 //struct ViewOne: View {
 //    var body: some View {
 //        ZStack {
-//            
+//
 //        }
 //    }
 //}
@@ -34,7 +34,7 @@ struct UserStatusView: View {
 //
 //struct ProfileView: View {
 //    let user: User
-//    
+//
 //    var body: some View {
 //        ScrollView {
 //           Screen(user: user)
@@ -45,7 +45,7 @@ struct UserStatusView: View {
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                NavigationLink {
-//           
+//
 //                } label: {
 //                    Text("Nothing yet")
 //                }
@@ -56,7 +56,7 @@ struct UserStatusView: View {
 
 //struct CurrentUserProfileView: View {
 //    let user: User
-//    
+//
 //    var body: some View {
 //        ScrollView {
 //            ProfileInformationView(user: user)
@@ -77,17 +77,17 @@ struct UserStatusView: View {
 //
 //struct ProfileInformationView: View {
 //    @State var showEditProfile = false
-//    
+//
 //    let user: User
-//    
+//
 //    var body: some View {
 //        VStack {
 //            HStack {
 //                ProfileImageManager(user: user, size: .large)
 //                    .padding(.top)
-//                
+//
 ////                Spacer()
-////                
+////
 ////                HStack(spacing: 5) {
 //////                    UserStatusView(value: 3, title: "Posts")
 //////                    UserStatusView(value: 3, title: "Friends")
@@ -96,11 +96,11 @@ struct UserStatusView: View {
 //            }
 ////            .padding(.horizontal)
 ////            .padding(2.5)
-//            
+//
 //            VStack {
 //                Text(user.username)
 //                    .fontWeight(.bold)
-//                
+//
 //                if let name = user.name {
 //                    Text(name)
 //                        .fontWeight(.bold)
@@ -114,12 +114,12 @@ struct UserStatusView: View {
 //            .frame(maxWidth: .infinity, alignment: .leading)
 //            .padding(.horizontal)
 //            .padding(2.5)
-//            
+//
 //            Button {
 //                if user.isCurrentUser {
 //                    showEditProfile.toggle()
 //                }
-//                
+//
 //            } label: {
 //                Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
 //                    .frame(width: 100, height: 50)
@@ -134,7 +134,7 @@ struct UserStatusView: View {
 //        }
 //        .fullScreenCover(isPresented: $showEditProfile) {
 //            EditUserView(user: user)
-//                
+//
 //        }
 //    }
 //}

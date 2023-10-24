@@ -41,7 +41,6 @@ struct Screen: View {
                 }
                 
                 ZStack {
-                    
                     VStack(spacing: 7.5) {
                         Text(user.username)
                             .fontWeight(.bold)
@@ -54,6 +53,10 @@ struct Screen: View {
                         }
                         
                         HStack {
+                            UserInformation(value: 1, title: "Post")
+                            UserInformation(value: 1, title: "Post")
+                            
+                            
                             Spacer()
                             
                             NavigationLink {
@@ -71,9 +74,12 @@ struct Screen: View {
                             }
                             .padding(.trailing)
                         }
+                        Divider()
+                        
+                        Spacer()
                     }
-                    Divider()
                 }
+                
                 VStack {
                     PostItemView(user: user)
                 }
