@@ -7,39 +7,52 @@
 
 import SwiftUI
 
-struct ViewOne: View {
-    var body: some View {
-        ZStack {
-            
-        }
-    }
-}
-
-#Preview {
-    ViewOne()
-}
-
-struct ProfileView: View {
-    let user: User
+struct UserStatusView: View {
+    let value: Int
+    let title: String
     
     var body: some View {
-        ScrollView {
-           Screen(user: user)
-            PostItemView(user: user)
+        VStack {
+            Text("\(value)")
+            Text(title)
         }
-        .navigationTitle(user.username)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-           
-                } label: {
-                    Text("Nothing yet")
-                }
-            }
-        }
+        .frame(width: 75)
     }
 }
+
+//struct ViewOne: View {
+//    var body: some View {
+//        ZStack {
+//            
+//        }
+//    }
+//}
+//
+//#Preview {
+//    ViewOne()
+//}
+//
+//struct ProfileView: View {
+//    let user: User
+//    
+//    var body: some View {
+//        ScrollView {
+//           Screen(user: user)
+//            PostItemView(user: user)
+//        }
+//        .navigationTitle(user.username)
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                NavigationLink {
+//           
+//                } label: {
+//                    Text("Nothing yet")
+//                }
+//            }
+//        }
+//    }
+//}
 
 //struct CurrentUserProfileView: View {
 //    let user: User
@@ -126,15 +139,3 @@ struct ProfileView: View {
 //    }
 //}
 
-struct UserStatusView: View {
-    let value: Int
-    let title: String
-    
-    var body: some View {
-        VStack {
-            Text("\(value)")
-            Text(title)
-        }
-        .frame(width: 75)
-    }
-}

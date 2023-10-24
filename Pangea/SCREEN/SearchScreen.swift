@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct SearchScreen: View {
     @StateObject var searchViewModel = SearchViewModel()
     
     @State var searchText = ""
@@ -16,7 +16,7 @@ struct SearchView: View {
         ScrollView {
             LazyVStack(spacing: 25) {
                 ForEach(searchViewModel.users) { user in
-                    NavigationLink(value: user) {
+                    NavigationLink(destination: Screen(user: user)) {
                         HStack {
                             ProfileImageManager(user: user, size: .small)
                             VStack(alignment: .leading) {
@@ -35,13 +35,10 @@ struct SearchView: View {
             .padding(.top)
             .searchable(text: $searchText, prompt: "Search...")
         }
-        .navigationDestination(for: User.self, destination: { user in
-            ProfileView(user: user)
-        })
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    SearchView()
+    SearchScreen()
 }

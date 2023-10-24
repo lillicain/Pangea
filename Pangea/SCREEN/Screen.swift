@@ -39,47 +39,47 @@ struct Screen: View {
                     .clipShape(.circle)
                     .padding(.top, 75)
                 }
-                VStack(spacing: 7.5) {
-                    Text(user.username)
-                        .fontWeight(.bold)
-                    
-                    if let name = user.name {
-                        Text(name)
-                    }
-                    if let profileInformation = user.profileInformation {
-                        Text(profileInformation)
-                    }
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            if user.isCurrentUser {
-                                showScreen.toggle()
-                            }
-                        } label: {
-                            Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
-                                .padding(7.5)
-                                .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
-                                .foregroundStyle(.ultraThickMaterial)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .padding(.bottom, 250)
-                        }
-                        .padding(.bottom, 25)
-                        .padding(.trailing)
-                    }
-                    .sheet(isPresented: $showScreen) {
-                        EditScreen(user: user)
-                    }
-                    
-                }
-                Divider()
                 
+                ZStack {
+                    
+                    VStack(spacing: 7.5) {
+                        Text(user.username)
+                            .fontWeight(.bold)
+                        
+                        if let name = user.name {
+                            Text(name)
+                        }
+                        if let profileInformation = user.profileInformation {
+                            Text(profileInformation)
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            
+                            NavigationLink {
+                                EditScreen(user: user)
+                                
+                            } label: {
+                                Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
+                                    .padding(7.5)
+                                    .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
+                                    .foregroundStyle(.ultraThickMaterial)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                                    .padding(.bottom, 250)
+                            }
+                            .padding(.bottom, 25)
+                            .padding(.trailing)
+                        }
+                    }
+                    Divider()
+                }
                 VStack {
                     PostItemView(user: user)
                 }
             }
+            
             .tabItem { Image(systemName: "person.fill") }
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
@@ -90,16 +90,10 @@ struct Screen: View {
             PostScreen()
                 .tabItem { Image(systemName: "globe") }
             
-            
         }
-   
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    EditScreen(user: user)
-                } label: {
-                    Text("Edit")
-                }
+                
             }
         }
     }

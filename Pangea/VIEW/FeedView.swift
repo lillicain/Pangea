@@ -21,14 +21,15 @@ struct FeedView: View {
                 }
                 .padding(.top)
                 .searchable(text: $searchText, prompt: "Search...")
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink {
-//                        PostView()
-                    } label: {
-                        Text("Post")
+                
+//                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink {
+                            SearchScreen()
+                        } label: {
+                            Text("Search")
+                        }
                     }
                 }
             }
