@@ -69,7 +69,6 @@ struct Screen: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 15))
                                     .padding(.bottom, 250)
                             }
-                            .padding(.bottom, 25)
                             .padding(.trailing)
                         }
                     }
