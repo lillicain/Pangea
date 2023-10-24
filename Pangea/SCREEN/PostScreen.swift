@@ -21,13 +21,27 @@ struct PostScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                    if let image = postViewModel.postImage {
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 250, height: 250)
-                            .clipped()
-                    }
+                if let image = postViewModel.postImage {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 300, height: 300)
+                        .clipped()
+                } else if image != nil {
+                    Image(uiImage: image!)
+                        .scaledToFill()
+                        .frame(width: 300, height: 300)
+                        .clipped()
+                }
+                
+//                    if image != nil {
+//                        Image(uiImage: image!)
+//                            .scaledToFill()
+//                            .frame(width: 300, height: 300)
+//                            .clipped()
+//                    
+//                }
+                    
                 
                 TextField("Enter Text...", text: $caption)
                     .frame(width: UIScreen.main.bounds.width, height: 100)
@@ -40,6 +54,7 @@ struct PostScreen: View {
                     Button {
                         showCamera.toggle()
                         image = postViewModel.uiImage
+                       
                     } label: {
                         Text("Use Camera")
                             .padding()
@@ -48,11 +63,12 @@ struct PostScreen: View {
                             .padding()
                     }
                    
-                    if image != nil {
-                        Image(uiImage: image!)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width, height: 350)
-                    }
+//                    if image != nil {
+//                        Image(uiImage: image!)
+//                            .resizable()
+//                            .frame(width: UIScreen.main.bounds.width, height: 350)
+//                    
+//                    }
                 
                 Spacer()
              
@@ -61,6 +77,7 @@ struct PostScreen: View {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
             }
+            
             .onAppear {
                 showImagePicker.toggle()
             }
@@ -72,6 +89,7 @@ struct PostScreen: View {
                 Button {
                     Task {
                         try await postViewModel.uploadPost(caption: caption)
+                      postViewModel.uiImage = image
                     }
                         caption = ""
                         postViewModel.selectedImage = nil
