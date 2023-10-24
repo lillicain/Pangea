@@ -48,19 +48,19 @@ struct EditScreen: View {
                     }
                     .padding(.vertical)
                 }
-                
-                VStack(alignment: .leading, spacing: 7.5) {
-                    Text(editUserViewModel.user.username)
-                    Text(editUserViewModel.user.name ?? "")
-                    Text(editUserViewModel.user.email)
-                }
-                .padding(.trailing, 175)
-                
-                
-                Divider()
-                Spacer()
-                
-                VStack {
+         
+                    VStack(alignment: .leading, spacing: 7.5) {
+                        Text(editUserViewModel.user.username)
+                        Text(editUserViewModel.user.name ?? "")
+                        Text(editUserViewModel.user.email)
+                    }
+                    .padding(.trailing, 175)
+                   
+                    
+                    Divider()
+                    Spacer()
+                    
+                    VStack {
                         Button {
                             AuthenticationViewModel.shared.signOut()
                             
@@ -85,43 +85,41 @@ struct EditScreen: View {
                                 .frame(width: 150, height: 50)
                                 .background(Color(.systemGray5))
                                 .clipShape(RoundedRectangle(cornerRadius: 7.5))
-                                
+                            
                         }
                         .padding(.trailing, 175)
                     }
-                Divider()
-        
-                VStack {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 5) {
-                            
-                            ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
-                                Button(action: {
-                                    backgroundColor = color
-                                    authenticationViewModel.backgroundColor = color
-                                    backgroundColors = color.hexString ?? color.ColorToString()
-                                    
-                                }, label: {
-                                    ZStack {
+                    Divider()
+                    
+                    VStack {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 5) {
+                                
+                                ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
+                                    Button(action: {
+                                        backgroundColor = color
+                                        authenticationViewModel.backgroundColor = color
+                                        backgroundColors = color.hexString!
+                                        
+                                        
+                                    }, label: {
+                                        
                                         withAnimation(.spring()) {
                                             Circle()
                                                 .fill(color)
                                                 .frame(width: 50, height: 50)
                                                 .padding(3.5)
+                                            
                                         }
-                                    }
-                                })
-                                .padding(.leading, 5)
+                                    })
+                                    .padding(.leading, 5)
+                                }
                             }
                         }
                     }
-                }
-                
-               Spacer()
-                
-               
-                
+                Spacer()
             }
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -133,6 +131,7 @@ struct EditScreen: View {
                     }
                 }
             }
+            .background(backgroundColor)
         }
     }
 }

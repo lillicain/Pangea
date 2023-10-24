@@ -25,23 +25,15 @@ struct PostScreen: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 300, height: 300)
+                        .frame(width: 350, height: 350)
                         .clipped()
                 } else if image != nil {
                     Image(uiImage: image!)
                         .scaledToFill()
-                        .frame(width: 300, height: 300)
+                        .frame(width: 350, height: 350)
                         .clipped()
                 }
                 
-//                    if image != nil {
-//                        Image(uiImage: image!)
-//                            .scaledToFill()
-//                            .frame(width: 300, height: 300)
-//                            .clipped()
-//                    
-//                }
-                    
                 
                 TextField("Enter Text...", text: $caption)
                     .frame(width: UIScreen.main.bounds.width, height: 100)
@@ -62,13 +54,6 @@ struct PostScreen: View {
                             .clipShape(RoundedRectangle(cornerRadius: 15))
                             .padding()
                     }
-                   
-//                    if image != nil {
-//                        Image(uiImage: image!)
-//                            .resizable()
-//                            .frame(width: UIScreen.main.bounds.width, height: 350)
-//                    
-//                    }
                 
                 Spacer()
              
