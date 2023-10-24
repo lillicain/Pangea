@@ -48,7 +48,7 @@
 		6AB3023F2AE61DC10036DB06 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3023E2AE61DC10036DB06 /* FeedViewModel.swift */; };
 		6AB302412AE61DED0036DB06 /* EditUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302402AE61DED0036DB06 /* EditUserViewModel.swift */; };
 		6AB302452AE622B20036DB06 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302442AE622B20036DB06 /* MapViewModel.swift */; };
-		6AB302472AE626C00036DB06 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302462AE626C00036DB06 /* EditUserView.swift */; };
+		6AB302472AE626C00036DB06 /* EditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302462AE626C00036DB06 /* EditScreen.swift */; };
 		6AB302492AE628660036DB06 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302482AE628660036DB06 /* ItemView.swift */; };
 		6AB3024B2AE62A050036DB06 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3024A2AE62A050036DB06 /* MapManager.swift */; };
 		6AB3024D2AE635600036DB06 /* 5curvo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB3024C2AE635600036DB06 /* 5curvo.ttf */; };
@@ -101,7 +101,7 @@
 		6AB3023E2AE61DC10036DB06 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		6AB302402AE61DED0036DB06 /* EditUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserViewModel.swift; sourceTree = "<group>"; };
 		6AB302442AE622B20036DB06 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		6AB302462AE626C00036DB06 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
+		6AB302462AE626C00036DB06 /* EditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScreen.swift; sourceTree = "<group>"; };
 		6AB302482AE628660036DB06 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		6AB3024A2AE62A050036DB06 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		6AB3024C2AE635600036DB06 /* 5curvo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 5curvo.ttf; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
 				6AB3021B2AE611C00036DB06 /* SignInView.swift */,
 				6A5A13CE2AE1E7050041E188 /* UserView.swift */,
-				6AB302462AE626C00036DB06 /* EditUserView.swift */,
+				6AB302462AE626C00036DB06 /* EditScreen.swift */,
 				6A5A13D02AE1E7130041E188 /* PostView.swift */,
 				6AB302482AE628660036DB06 /* ItemView.swift */,
 				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
@@ -388,7 +388,7 @@
 				6AB302652AE69CCC0036DB06 /* FeedView.swift in Sources */,
 				6A188E8A2AE7471D00DDB5DC /* LocationView.swift in Sources */,
 				6AB3021E2AE612060036DB06 /* AuthenticationViewModel.swift in Sources */,
-				6AB302472AE626C00036DB06 /* EditUserView.swift in Sources */,
+				6AB302472AE626C00036DB06 /* EditScreen.swift in Sources */,
 				6AB3023B2AE618DD0036DB06 /* CameraManager.swift in Sources */,
 				6AB302372AE618290036DB06 /* PostItemViewModel.swift in Sources */,
 				6AB302302AE617860036DB06 /* ImageManager.swift in Sources */,

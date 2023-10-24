@@ -31,7 +31,7 @@ struct PangeaApp: App {
                     if authenticationViewModel.userSession == nil {
                         SignUpView()
                     } else {
-                        Screen(user: User.MOCK_USER)
+                        Screen(user: User.MOCK_USER[0])
                     }
                 }
             }

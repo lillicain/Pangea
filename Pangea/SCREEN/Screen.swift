@@ -10,7 +10,7 @@ import MapKit
 
 struct Screen: View {
     
-    @State var settings = false
+    @State var showScreen = false
     
     let user: User
     
@@ -51,10 +51,10 @@ struct Screen: View {
                     }
                     HStack {
                         Spacer()
+                        
                         Button {
-                            //                            EditUserView(user: user)
                             if user.isCurrentUser {
-                                settings.toggle()
+                                showScreen.toggle()
                             }
                         } label: {
                             Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
@@ -69,9 +69,10 @@ struct Screen: View {
                         .padding(.bottom, 25)
                         .padding(.trailing)
                     }
-//                    .sheet(isPresented: $settings) {
-//                        EditUserView(user: user)
-//                    }
+                    .sheet(isPresented: $showScreen) {
+                        EditScreen(user: user)
+                    }
+
                 }
                 VStack {
                     PostItemView(user: user)
@@ -86,25 +87,23 @@ struct Screen: View {
                 .tabItem { Image(systemName: "globe") }
         }
         
-        
-        .navigationTitle(user.username)
+
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    EditUserView(user: user)
+                    EditScreen(user: user)
                 } label: {
                     Text("Edit")
                 }
                 
             }
         }
-      
     }
 }
 
 #Preview {
-    Screen(user: User.MOCK_USER)
+    Screen(user: User.MOCK_USER[0])
 }
 
 
