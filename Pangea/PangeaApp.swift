@@ -21,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PangeaApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     @StateObject var authenticationViewModel = AuthenticationViewModel()
     
     var body: some Scene {
@@ -30,7 +31,7 @@ struct PangeaApp: App {
                     if authenticationViewModel.userSession == nil {
                         SignUpView()
                     } else {
-                        UserView()
+                        Screen(user: User.MOCK_USER)
                     }
                 }
             }

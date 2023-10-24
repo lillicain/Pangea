@@ -24,7 +24,7 @@ struct ProfileView: View {
     
     var body: some View {
         ScrollView {
-            FirstView(user: user)
+           Screen(user: user)
             PostItemView(user: user)
         }
         .navigationTitle(user.username)
