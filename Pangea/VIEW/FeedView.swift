@@ -26,7 +26,7 @@ struct FeedView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
-//                        PostView()
+                        PostView()
                     } label: {
                         Text("Post")
                     }

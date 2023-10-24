@@ -32,27 +32,31 @@ struct FirstView: View {
                 .clipShape(Circle())
                 .padding(.top, 75)
             }
-            VStack {
+            VStack(spacing: 7.5) {
                     Text(user.username)
                     .fontWeight(.bold)
+                
+                if let name = user.name {
+                    Text(name)
+                }
+                if let profileInformation = user.profileInformation {
+                    Text(profileInformation)
+                }
                 HStack {
-                    Spacer()
+                   Spacer()
                     Button {
                         if user.isCurrentUser {
                             settings.toggle()
                         }
-                        
                     } label: {
-                        Text(user.isCurrentUser ? "Edit" : "Add Friend")
-                            .padding(10)
-                            .background(user.isCurrentUser ? .white : Color(.systemGreen))
-                            .foregroundStyle(.ultraThickMaterial).fontWeight(.bold)
-                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(user.isCurrentUser ? .white : .clear))
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            
-                            
+                            Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
+                                .padding(7.5)
+                                .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
+                                .foregroundStyle(.ultraThickMaterial).fontWeight(.bold)
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                .padding(.bottom, 250)
                     }
-//                    .padding(.bottom)
+                    .padding(.bottom, 25)
                     .padding(.trailing)
                     
                     
@@ -64,18 +68,20 @@ struct FirstView: View {
                 
             
                 }
-                if let name = user.name {
-                    Text(name)
-                }
-                if let profileInformation = user.profileInformation {
-                    Text(profileInformation)
-                }
+              
             
                    
             VStack {
                 PostItemView(user: user)
             }
             
+        }
+        .navigationTitle(user.username)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                
+            }
         }
     }
 }

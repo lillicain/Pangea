@@ -49,7 +49,8 @@ struct FeedItemView: View {
                             .fontWeight(.bold)
                     }
                     .navigationDestination(for: User.self, destination: { user in
-                        ProfileView(user: user)
+//                        ProfileView(user: user)
+                        FirstView(user: user)
                     })
                 }
                 Spacer()
