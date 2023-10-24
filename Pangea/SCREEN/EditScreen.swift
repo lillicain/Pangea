@@ -101,6 +101,7 @@ struct EditScreen: View {
                                         authenticationViewModel.backgroundColor = color
                                         backgroundColors = color.hexString!
                                         
+                                        backgroundColors = color.ColorToString()
                                         
                                     }, label: {
                                         
