@@ -24,19 +24,14 @@ struct FirstView: View {
                     .cornerRadius(50)
                     .padding(.bottom, 50)
                 }
-//                ZStack {
-//                    Circle()
-//                        .frame(width: 155, height: 155)
-//                        .foregroundColor(.white)
+                ZStack {
+                    Circle()
+                        .frame(width: 155, height: 155)
+                        .foregroundColor(.white)
                     
-                        ZStack {
-                            ProfileImageManager(user: user, size: .extraLarge)
-                                .background(
-                                Circle() 
-                                    .frame(width: 155, height: 155)
-                                    .foregroundColor(.white)
-                                )
-                        
+                    ZStack {
+                        ProfileImageManager(user: user, size: .extraLarge)
+                    }
                 }
                 .background(.white)
                 .clipShape(Circle())
@@ -53,29 +48,30 @@ struct FirstView: View {
                     Text(profileInformation)
                 }
                 HStack {
-                   Spacer()
+                    Spacer()
                     Button {
                         if user.isCurrentUser {
                             settings.toggle()
                         }
                     } label: {
-                            Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
-                                .padding(7.5)
-                                .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
-                                .foregroundStyle(.ultraThickMaterial).fontWeight(.bold)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .padding(.bottom, 250)
+                        Text(user.isCurrentUser ? "Edit Profile" : "Add Friend")
+                            .padding(7.5)
+                            .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
+                            .foregroundStyle(.ultraThickMaterial).fontWeight(.bold)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .padding(.bottom, 250)
                     }
                     .padding(.bottom, 25)
                     .padding(.trailing)
                     
                     
+                    
+                    
+                    .sheet(isPresented: $settings) {
+                        EditUserView(user: user)
+                    }
+                    .frame(height: 50)
                 }
-                .sheet(isPresented: $settings) {
-                    EditUserView(user: user)
-                }
-                .frame(height: 50)
-                
             
                 }
               
