@@ -56,7 +56,7 @@ struct UserView: View {
                 MapViewRepresentable()
                     .tabItem { Image(systemName: "globe")}
                 
-                PostView()
+                PostScreen()
                     .tabItem { Image(systemName: "photo") }
                 
                 FeedView()

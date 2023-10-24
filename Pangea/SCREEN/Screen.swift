@@ -72,23 +72,27 @@ struct Screen: View {
                     .sheet(isPresented: $showScreen) {
                         EditScreen(user: user)
                     }
-
+                    
                 }
+                Divider()
+                
                 VStack {
                     PostItemView(user: user)
                 }
             }
-            
             .tabItem { Image(systemName: "person.fill") }
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
             FeedView()
                 .tabItem { Image(systemName: "globe") }
+            
+            PostScreen()
+                .tabItem { Image(systemName: "globe") }
+            
+            
         }
-        
-
-        .navigationBarTitleDisplayMode(.inline)
+   
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
@@ -96,7 +100,6 @@ struct Screen: View {
                 } label: {
                     Text("Edit")
                 }
-                
             }
         }
     }

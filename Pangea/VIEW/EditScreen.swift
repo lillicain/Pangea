@@ -12,8 +12,6 @@ struct EditScreen: View {
     @AppStorage("appearance") var appearance: Bool = false
     @AppStorage("backgroundColors") var backgroundColors: String = ""
     
-    @Environment(\.dismiss) var dismiss
-    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @StateObject var editUserViewModel: EditUserViewModel
@@ -31,43 +29,6 @@ struct EditScreen: View {
     var body: some View {
         ZStack {
             VStack {
-                //                HStack {
-                //                    Button("Cancel") {
-                //                        dismiss()
-                //                    }
-                //
-                //                    Spacer()
-                //
-                //                    Text("Edit Your Profile")
-                //
-                //                    Spacer()
-                //
-                //                    Button {
-                //                        Task {
-                //                            try await editUserViewModel.updateUserData()
-                //                            dismiss()
-                //                        }
-                //                    } label: {
-                //                        Text("Save")
-                //                    }
-                //                }
-                
-                //                .padding()
-                //                .navigationBarTitleDisplayMode(.inline)
-                //                .toolbar {
-                //                    ToolbarItem(placement: .navigationBarTrailing) {
-                //                        Button {
-                //                            Task {
-                //                                try await editUserViewModel.updateUserData()
-                //                            }
-                //                        } label: {
-                //                            Text("Save")
-                //                        }
-                //                    }
-                //                }
-                //            }
-                
-                
                 PhotosPicker(selection: $editUserViewModel.selectedImage) {
                     VStack {
                         if let image = editUserViewModel.profileImage {
@@ -78,27 +39,26 @@ struct EditScreen: View {
                                 .padding()
                             
                         } else {
-                            ProfileImageManager(user: editUserViewModel.user, size: .medium)
+                            ProfileImageManager(user: editUserViewModel.user, size: .large)
                         }
                         Text("Edit Profile Picture")
                             .fontWeight(.semibold)
                         
                         Divider()
                     }
-                    
                     .padding(.vertical)
                 }
                 
-                Spacer()
-                
-                VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: 7.5) {
                     Text(editUserViewModel.user.username)
                     Text(editUserViewModel.user.name ?? "")
                     Text(editUserViewModel.user.email)
                 }
                 .padding(.trailing, 175)
                 
+                
                 Divider()
+                Spacer()
                 
                 VStack {
                         Button {
@@ -129,9 +89,8 @@ struct EditScreen: View {
                         }
                         .padding(.trailing, 175)
                     }
-               
-                
                 Divider()
+        
                 VStack {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 5) {
@@ -152,6 +111,7 @@ struct EditScreen: View {
                                         }
                                     }
                                 })
+                                .padding(.leading, 5)
                             }
                         }
                     }
