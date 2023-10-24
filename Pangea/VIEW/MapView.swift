@@ -9,14 +9,206 @@ import SwiftUI
 import MapKit
 import CoreLocationUI
 import CoreLocation
+import Firebase
+import FirebaseFirestore
+
 
 struct MapView: View {
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-   
+    @StateObject var mapViewModel = MapViewModel()
+    
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: .init(37.0975), longitude: .init(-11359915)), latitudinalMeters: .init(10000), longitudinalMeters: .init(10000))
+    
+    @State var results = [MKMapItem]()
+    @State var searchText = ""
+    @State var cameraPosition: MapCameraPosition = .region(.userRegion)
+    @State var selectedResult: MKMapItem?
+    @State var position: MapCameraPosition = .automatic
+    @State var visibleRegion: MKCoordinateRegion?
+    @State var lookAroundScene: MKLookAroundScene?
+    @State var isLookingAround: Bool = false
+    @State var showDetails = false
+    @State var getDirections = false
+    @State var routeDisplaying = false
+    @State var route: MKRoute?
+    @State var routeDestination: MKMapItem?
+    @State var searching = false
+    @State var username = ""
+    
+    let post: [Post] = []
+    
+    private var travelTime: String? {
+        guard let route else { return nil }
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        return formatter.string(from: route.expectedTravelTime)
+    }
+    
+    func searchPlaces() async {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        request.region = .userRegion
+        let results = try? await MKLocalSearch(request: request).start()
+        self.results = results?.mapItems ?? []
+    }
+    
+    func fetchRoute() {
+        if let selectedResult {
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
+            request.destination = selectedResult
+            Task {
+                let result = try? await MKDirections(request: request).calculate()
+                route = result?.routes.first
+                routeDestination = selectedResult
+                withAnimation(.snappy) {
+                    routeDisplaying = true
+                    showDetails = false
+                    if let rect = route?.polyline.boundingMapRect, routeDisplaying {
+                        cameraPosition = .rect(rect)
+                    }
+                }
+            }
+        }
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            Map(position: $position, selection: $selectedResult) {
+                
+                UserAnnotation()
+                
+                
+                
+                
+                //                ForEach(post) {
+                //                    Marker("", coordinate: CLLocationCoordinate2D(latitude: $0.location?.latitude ?? 39.0974, longitude: $0.location?.longitude ?? -113.5991))
+                //                }
+                //                ForEach(results, id: \.self) { item in
+                //                    Marker(item: item)
+                //                }
+                //
+                //                if let route {
+                //                    MapPolyline(route.polyline)
+                //                        .stroke(Color(.systemGreen), lineWidth: 5)
+                //                }
+            }
+            .onAppear {
+                position = .automatic
+            }
+            //            .mapStyle(.standard(elevation: .realistic))
+            //            .safeAreaInset(edge: .bottom) {
+            //                HStack {
+            //                    Spacer()
+            //                    VStack {
+            //                        MapItemView(position: $position, results: $results, visibleRegion: $visibleRegion, username: $username)
+            //                            .padding(7.5)
+            //
+            //                    }
+            //                    Spacer()
+            //                }
+            //                .background(.regularMaterial)
+            //
+            //            }
+            .frame(width: 375, height: 700)
+            .cornerRadius(25)
+            .background(authenticationViewModel.backgroundColor?.edgesIgnoringSafeArea(.all))
+        }
     }
 }
+
+
+//     @State var showSheet = false
+//     @State var selectedImage: UIImage?
+//     @State var date: Date?
+//     @State var region = MKCoordinateRegion(
+//         center: CLLocationCoordinate2D(
+//            latitude: 37.094,
+//            longitude: -113.5991),
+//         latitudinalMeters: .init(10000),
+//         longitudinalMeters: .init(10000))
+//
+//     var body: some View {
+//         let regionWithOffset = Binding<MKCoordinateRegion>(
+//         get: {
+//             let offsetCenter = CLLocationCoordinate2D(latitude: region.center.latitude + region.span.latitudeDelta * 0.30, longitude: region.center.longitude)
+//             return MKCoordinateRegion(
+//                 center: offsetCenter,
+//                 span: region.span)
+//             },
+//             set: {
+//                 $0
+//             }
+//         )
+//         return ZStack {
+//             Map(coordinateRegion: regionWithOffset,
+//                 interactionModes: MapInteractionModes.all,
+//                 showsUserLocation: false,
+//                 annotationItems: [region.center]) { item in
+//
+//                 MapPin(coordinate: item)
+//
+//
+//
+//             }
+//             VStack {
+//                 if let date = date {
+//                     Text("\(date)")
+//                         .padding()
+//                         .background(LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.9), Color.black.opacity(0.7)]), startPoint: .top, endPoint: .bottom))
+//                         .cornerRadius(10.0)
+//                         .foregroundColor(.white)
+//                         .padding()
+//
+//                 }
+//                 if let image = selectedImage {
+//                     Image(uiImage: image)
+//                         .resizable()
+//                         .aspectRatio(contentMode: .fit)
+//                         .clipShape(Circle())
+//                         .overlay(Circle().stroke(Color.white, lineWidth: 5))
+//                         .shadow(radius: 10)
+//                         .padding()
+//                 }
+//                 Spacer()
+//                 Button(action: {
+//                     showSheet.toggle()
+//                 }) {
+//                     Image(systemName: "photo")
+//
+//                 }
+//                 .frame(width: 50, height: 50)
+//                 .background(Color.white)
+//                 .clipShape(Circle())
+//                 .shadow(radius: 10)
+//                 .padding()
+//             }
+//
+//
+//         }.sheet(isPresented: $showSheet) {
+//             CustomPhotoPickerView(selectedImage: $selectedImage, date: $date, location: $region.center)
+//         }
+//     }
+// }
+
+
+//    @StateObject var mapViewModel = MapViewModel()
+//   @State var posts = [Post]()
+
+//    var body: some View {
+//        ScrollView {
+//            Map(coordinateRegion: $mapViewModel.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow))
+//
+//
+//            .frame(width: 350, height: 500)
+//            .onAppear {
+//                mapViewModel.requestLocation()
+//            }
+//        }
+//    }
+//}
 
 #Preview {
     MapView()
@@ -67,8 +259,6 @@ struct MapItemView: View {
                 Image(systemName: "rotate.3d")
             }
             
-            LocationButton(.currentLocation) { }
-                
         }
         .labelStyle(.iconOnly)
         .buttonStyle(.borderedProminent)
@@ -112,9 +302,9 @@ struct LocationInformationView: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(selectedResult?.placemark.name ?? "")
-                
+                    
                     Text(selectedResult?.placemark.title ?? "")
-                       
+                    
                 }
                 
                 Spacer()

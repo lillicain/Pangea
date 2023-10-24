@@ -19,7 +19,7 @@ struct SignUpView: View {
         ZStack {
             
             LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
-                .ignoresSafeArea()
+                .ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
                 Text("Sign Up".uppercased())
@@ -35,21 +35,29 @@ struct SignUpView: View {
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
+                        .textInputAutocapitalization(.never)
                         .modifier(MaterialViewModifier())
+                    
                     TextField("Enter Email", text: $email)
+                        .textInputAutocapitalization(.never)
                         .modifier(MaterialViewModifier())
+                    
                     SecureField("Enter Password", text: $password)
                         .modifier(MaterialViewModifier())
                     
-                    ZStack {
+                    ZStack(alignment: .trailing) {
                         SecureField("Confirm Password", text: $confirmPassword)
                             .modifier(MaterialViewModifier())
                         
                         if password.isEmpty && !confirmPassword.isEmpty {
                             if password == confirmPassword {
-                                self.foregroundColor(.green)
+                                Image(systemName: "checkmark.square")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color(.systemGreen))
                             } else {
-                                self.foregroundColor(.red)
+                                Image(systemName: "xmark.square")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color(.systemRed))
                             }
                         }
                     }
