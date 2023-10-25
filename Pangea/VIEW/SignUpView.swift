@@ -36,14 +36,14 @@ struct SignUpView: View {
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
                         .textInputAutocapitalization(.never)
-                        .modifier(MaterialViewModifier())
+//                        .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
                         .textInputAutocapitalization(.never)
-                        .modifier(MaterialViewModifier())
+//                        .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Password", text: $password)
-                        .modifier(MaterialViewModifier())
+//                        .modifier(MaterialViewModifier())
                     
                     ZStack(alignment: .trailing) {
                         SecureField("Confirm Password", text: $confirmPassword)
@@ -51,11 +51,11 @@ struct SignUpView: View {
                         
                         if password.isEmpty && !confirmPassword.isEmpty {
                             if password == confirmPassword {
-                                Image(systemName: "checkmark.square")
+                                Image(systemName: "checkmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemGreen))
                             } else {
-                                Image(systemName: "xmark.square")
+                                Image(systemName: "xmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemRed))
                             }

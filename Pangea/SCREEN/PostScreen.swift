@@ -35,31 +35,31 @@ struct PostScreen: View {
                         .clipped()
                         .padding()
                 }
-                   
+                
                 
                 
                 TextField("Enter Text...", text: $caption)
                     .frame(width: UIScreen.main.bounds.width, height: 100)
                     .padding(.leading, 25)
                     .padding()
-                  
+                
                 Divider()
                 
                 
-                    Button {
-                        showCamera.toggle()
-                        image = postViewModel.uiImage
-                       
-                    } label: {
-                        Text("Use Camera")
-                            .padding()
-                            .background(Color(.systemGray5))
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            .padding()
-                    }
+                Button {
+                    showCamera.toggle()
+                    image = postViewModel.uiImage
+                    
+                } label: {
+                    Text("Use Camera")
+                        .padding()
+                        .background(Color(.systemGray5))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding()
+                }
                 
                 Spacer()
-             
+                
             }
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
@@ -71,20 +71,21 @@ struct PostScreen: View {
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    Task {
-                        try await postViewModel.uploadPost(caption: caption)
-                      postViewModel.uiImage = image
-                    }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        Task {
+                            try await postViewModel.uploadPost(caption: caption)
+                            postViewModel.uiImage = image
+                        }
                         caption = ""
                         postViewModel.selectedImage = nil
                         postViewModel.postImage = nil
-                    
-                } label: {
-                    Text("Post")
+                        
+                    } label: {
+                        Text("Post")
+                    }
                 }
             }
         }

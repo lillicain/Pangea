@@ -19,10 +19,10 @@ struct FeedView: View {
                 }
             }
             .padding(.top)
-            .searchable(text: $searchText, prompt: "Search...")
+//            .searchable(text: $searchText, prompt: "Search...")
         }
         
-        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 NavigationLink {
