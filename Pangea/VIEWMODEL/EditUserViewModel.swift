@@ -17,7 +17,7 @@ class EditUserViewModel: ObservableObject {
     @Published var name = ""
     @Published var profileInformation = ""
     @Published var profileImage: Image?
-    @Published var backgroundColor: Color?
+    
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
             Task {

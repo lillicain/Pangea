@@ -12,6 +12,7 @@ struct FeedView: View {
     @State var searchText = ""
     
     var body: some View {
+        // nav stack
         ScrollView {
             LazyVStack(spacing: 75) {
                 ForEach(feedViewModel.posts) { post in
@@ -19,7 +20,8 @@ struct FeedView: View {
                 }
             }
             .padding(.top)
-            .searchable(text: $searchText, prompt: "Search...")
+            
+//            .searchable(text: $searchText, prompt: "Search...")
         }
         
         .navigationBarTitleDisplayMode(.inline)

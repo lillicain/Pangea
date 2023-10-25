@@ -16,26 +16,24 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
-                .ignoresSafeArea(.all)
+//            LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
+//                .ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
                 Text("Sign In".uppercased())
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                    .padding(.leading, 15)
-                    .padding(.bottom, 5)
+                    .padding(2.5)
                 
                 Text("Sign in to your account".uppercased())
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .font(.system(size: 15))
-                    .padding(.leading, 15)
+                    .padding(2.5)
                 
                 Divider()
-                    .padding(5)
-                
-                VStack(spacing: 25) {
+               
+                VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
                         .textInputAutocapitalization(.never)
                         .modifier(MaterialViewModifier())
@@ -56,24 +54,30 @@ struct SignInView: View {
                 
                 Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
                     .padding(.leading, 15)
-                    .font(.system(size: 15))
-                    .padding(.bottom, 5)
+                    .font(.system(size: 12.5))
+                   
                 
                 Button {
                     Task {
                         try await authenticationViewModel.signIn(withEmail: email, password: password)
                     }
                 } label: {
-                    Text("Sign Up".uppercased())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .fontWeight(.semibold)
-                        .font(.system(size: 25))
-                        .padding()
-                        .modifier(MaterialViewModifier())
-                        .padding(.bottom, 5)
+                    HStack {
+                        Text("Sign Up".uppercased())
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 35)
+                            .fontWeight(.semibold)
+                            .font(.system(size: 25))
+                            .padding(5)
+                            .modifier(MaterialViewModifier())
+                            .padding(.bottom, 5)
+                    }
                 }
-                .padding(10)
+                .padding(5)
+                .disabled(!isValid)
+                .opacity(isValid ? 1.0 : 0.5)
+                .cornerRadius(5)
+                
                 
                 NavigationLink {
                     SignUpView()
@@ -87,6 +91,7 @@ struct SignInView: View {
             }
             .padding()
             .background(.ultraThinMaterial)
+            .foregroundColor(Color(.systemGray3))
             .foregroundStyle(.ultraThinMaterial)
             .cornerRadius(15)
             .padding(25)
@@ -96,4 +101,14 @@ struct SignInView: View {
 
 #Preview {
     SignInView()
+}
+
+extension SignInView: AuthenticationProtocol {
+    var isValid: Bool {
+        return !username.isEmpty
+        && !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 6
+    }
 }

@@ -73,3 +73,7 @@ class AuthenticationViewModel: ObservableObject {
         try await Auth.auth().currentUser?.delete()
     }
 }
+
+protocol AuthenticationProtocol {
+    var isValid: Bool { get }
+}

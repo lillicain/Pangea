@@ -21,7 +21,8 @@ struct FeedScreen: View {
                             Text(user.username)
                                 .fontWeight(.bold)
                         }
-                     
+                   
+                
                         .navigationDestination(for: User.self, destination: { user in
                             Screen(user: user)
                         })
@@ -40,14 +41,14 @@ struct FeedScreen: View {
                 .overlay {
                     if let user = post.user {
                         NavigationLink {
-                            MapViewRepresentable(username: user.username)
-                                .ignoresSafeArea(.all)
+                            MapScreen()
                             
                         } label: {
-                            Image(systemName: "mappin.square")
+                            Image(systemName: "mappin.and.ellipse.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 45, height: 45)
+                                .foregroundColor(.white)
+                                .frame(width: 75, height: 75)
                                 .padding(.leading, 275)
                                 .padding(.top, 275)
                         }
@@ -65,7 +66,7 @@ struct FeedScreen: View {
                 Button {
                     
                 } label: {
-                    Image(systemName: "person")
+                    Image(systemName: "network")
                         .imageScale(.large)
                 }
                 

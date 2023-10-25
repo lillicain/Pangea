@@ -31,7 +31,7 @@ struct CameraViewController: UIViewControllerRepresentable {
         var capturePhotoOutput: AVCapturePhotoOutput!
         var theCamera: AVCaptureDevice!
         var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-        let photoQualityPrioritizationMode = AVCapturePhotoOutput.QualityPrioritization.speed
+        let photoQualityPrioritizationMode = AVCapturePhotoOutput.QualityPrioritization.quality
         
         init(_ imagePickerController: CameraViewController) {
             self.parent = imagePickerController
@@ -41,6 +41,75 @@ struct CameraViewController: UIViewControllerRepresentable {
             guard let image = info[.originalImage] as? UIImage else { return }
             parent.selectedImage = image
             parent.presentationMode.wrappedValue.dismiss()
+            
+            if let asset: PHAsset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+                        print("Asset: \(asset)")
+                        print("Creation Data \(String(describing: asset.creationDate))")
+                        print("Location: \(String(describing: asset.location))")
+                    } else {
+                        print("Asset: nil")
+                    }
+        }
+    }
+}
+
+struct CustomPhotoPickerView: UIViewControllerRepresentable {
+        
+    @Binding var selectedImage: UIImage?
+    @Binding var date: Date?
+    @Binding var location: CLLocationCoordinate2D?
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        config.filter = .images
+        config.selectionLimit = 1
+        let controller = PHPickerViewController(configuration: config)
+        controller.delegate = context.coordinator
+        return controller
+    }
+    
+    func makeCoordinator() -> CustomPhotoPickerView.Coordinator {
+        return Coordinator(self)
+    }
+    
+    
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
+    }
+    
+    class Coordinator: PHPickerViewControllerDelegate {
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            parent.presentationMode.wrappedValue.dismiss()
+            guard !results.isEmpty else {
+                return
+            }
+            
+            let imageResult = results[0]
+            
+            if let assetId = imageResult.assetIdentifier {
+                let assetResults = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil)
+                DispatchQueue.main.async {
+                    self.parent.date = assetResults.firstObject?.creationDate
+                    self.parent.location = assetResults.firstObject?.location?.coordinate
+                }
+            }
+            if imageResult.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                imageResult.itemProvider.loadObject(ofClass: UIImage.self) { (selectedImage, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        DispatchQueue.main.async {
+                            self.parent.selectedImage = selectedImage as? UIImage
+                        }
+                    }
+                }
+            }
+        }
+        
+        private let parent: CustomPhotoPickerView
+        init(_ parent: CustomPhotoPickerView) {
+            self.parent = parent
         }
     }
 }
