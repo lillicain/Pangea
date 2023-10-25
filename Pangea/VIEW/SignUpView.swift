@@ -10,69 +10,67 @@ import SwiftUI
 struct SignUpView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-    @State var email = ""
     @State var username = ""
+    @State var email = ""
     @State var password = ""
     @State var confirmPassword = ""
     
     var body: some View {
         ZStack {
             
-            LinearGradient(colors: [.gray, .white, .gray], startPoint: .top, endPoint: .bottomTrailing)
-                .ignoresSafeArea(.all)
-          
-                Image(systemName: "globe")
+            //            LinearGradient(colors: [.gray, .white, .gray], startPoint: .top, endPoint: .bottomTrailing)
+            //                .ignoresSafeArea(.all)
+            
+            
+            
+            VStack(alignment: .leading) {
+                Text("Sign Up".uppercased())
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding(2.5)
                 
+                Text("Create An Account".capitalized)
+                    .fontWeight(.semibold)
+                    .padding(2.5)
                 
-                VStack(alignment: .leading) {
-                    Text("Sign Up".uppercased())
-                        .fontWeight(.bold)
-                        .font(.title)
-                        .padding(2.5)
+                Divider()
+                
+                VStack(spacing: 0) {
+                    TextField("Enter Username", text: $username)
+                        .textInputAutocapitalization(.never)
+                        .modifier(MaterialViewModifier())
                     
-                    Text("Create An Account".capitalized)
-                        .fontWeight(.semibold)
-                        .padding(2.5)
+                    TextField("Enter Email", text: $email)
+                        .textInputAutocapitalization(.never)
+                        .modifier(MaterialViewModifier())
                     
-                    Divider()
+                    SecureField("Enter Password", text: $password)
+                        .modifier(MaterialViewModifier())
                     
-                    VStack(spacing: 0) {
-                        TextField("Enter Username", text: $username)
-                            .textInputAutocapitalization(.never)
+                    ZStack(alignment: .trailing) {
+                        SecureField("Confirm Password", text: $confirmPassword)
                             .modifier(MaterialViewModifier())
                         
-                        TextField("Enter Email", text: $email)
-                            .textInputAutocapitalization(.never)
-                            .modifier(MaterialViewModifier())
-                        
-                        SecureField("Enter Password", text: $password)
-                            .modifier(MaterialViewModifier())
-                        
-                        ZStack(alignment: .trailing) {
-                            SecureField("Confirm Password", text: $confirmPassword)
-                                .modifier(MaterialViewModifier())
-                            
-                            if password.isEmpty && !confirmPassword.isEmpty {
-                                if password == confirmPassword {
-                                    Image(systemName: "checkmark.circle")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color(.systemGreen))
-                                } else {
-                                    Image(systemName: "xmark.circle")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color(.systemRed))
-                                }
+                        if password.isEmpty && !confirmPassword.isEmpty {
+                            if password == confirmPassword {
+                                Image(systemName: "checkmark.circle")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color(.systemGreen))
+                            } else {
+                                Image(systemName: "xmark.circle")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color(.systemRed))
                             }
                         }
                     }
+                }
                 
                 Divider()
                     .padding(5)
                 
                 Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
                     .padding(.leading, 15)
-                    .font(.system(size: 15))
-                    .padding(.bottom, 5)
+                    .font(.system(size: 12.5))
                 
                 Button {
                     Task {
@@ -80,28 +78,37 @@ struct SignUpView: View {
                     }
                     
                 } label: {
-                    Text("Sign Up".uppercased())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 35)
-                        .fontWeight(.semibold)
-                        .font(.system(size: 25))
-                        .padding()
-                        .modifier(MaterialViewModifier())
-                        .padding(.bottom, 5)
+                    HStack {
+                        Text("Sign Up".uppercased())
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 35)
+                            .fontWeight(.semibold)
+                            .font(.system(size: 25))
+                            .padding(5)
+                            .modifier(MaterialViewModifier())
+                            .padding(.bottom, 5)
+                    }
+                    
                 }
-                .padding(10)
+                .padding(5)
+                .disabled(!isValid)
                 .opacity(isValid ? 1.0 : 0.5)
+                .cornerRadius(5)
+                
                 NavigationLink {
                     SignInView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     Text("Already have an Account? **Sign In** ")
+                        .padding(.leading, 15)
                         .font(.system(size: 15))
+                        .padding(.bottom, 5)
                 }
                 
             }
             .padding()
             .background(.ultraThinMaterial)
+            .foregroundColor(Color(.systemGray3))
             .foregroundStyle(.ultraThinMaterial)
             .cornerRadius(15)
             .padding(25)
@@ -116,11 +123,11 @@ struct SignUpView: View {
 
 extension SignUpView: AuthenticationProtocol {
     var isValid: Bool {
-        return !email.isEmpty
+        return !username.isEmpty
+        && !email.isEmpty
         && email.contains("@")
         && !password.isEmpty
         && password.count > 6
         && confirmPassword == password
-        && !username.isEmpty
     }
 }

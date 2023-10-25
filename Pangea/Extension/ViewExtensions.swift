@@ -14,8 +14,8 @@ struct MaterialViewModifier: ViewModifier {
             .padding()
             .frame(height: 50)
             .background(.ultraThinMaterial)
-            .cornerRadius(15)
-            .shadow(color: .black.opacity(0.25), radius: 2.5, x: 0.5, y: 0.5)
+            .cornerRadius(7.5)
+            .shadow(color: .black.opacity(0.25), radius: 0.5)
             .padding()
     }
 }
