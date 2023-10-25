@@ -241,6 +241,19 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		6A7DD5222AE9D334003584F7 /* NotUsing */ = {
+			isa = PBXGroup;
+			children = (
+				6A5A13D42AE1E7ED0041E188 /* ViewOne.swift */,
+				6AB3023C2AE619060036DB06 /* SearchBarManager.swift */,
+				6A5A13D22AE1E71B0041E188 /* MapView.swift */,
+				6AB302442AE622B20036DB06 /* MapViewModel.swift */,
+				6AB302382AE618A80036DB06 /* Camera.swift */,
+				6A5A13CE2AE1E7050041E188 /* UserView.swift */,
+			);
+			path = NotUsing;
+			sourceTree = "<group>";
+		};
 		6AB302182AE611730036DB06 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,10 +269,7 @@
 				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
 				6AB3021B2AE611C00036DB06 /* SignInView.swift */,
 				6A5520D02AE86DF400D11498 /* UserInformation.swift */,
-				6A5A13D42AE1E7ED0041E188 /* ViewOne.swift */,
-				6A5A13CE2AE1E7050041E188 /* UserView.swift */,
-				6AB302382AE618A80036DB06 /* Camera.swift */,
-				6A5A13D22AE1E71B0041E188 /* MapView.swift */,
+				6A7DD5222AE9D334003584F7 /* NotUsing */,
 			);
 			path = VIEW;
 			sourceTree = "<group>";
@@ -273,7 +283,6 @@
 				6AB3023E2AE61DC10036DB06 /* FeedViewModel.swift */,
 				6AB302402AE61DED0036DB06 /* EditUserViewModel.swift */,
 				6AB302662AE69D4F0036DB06 /* SearchViewModel.swift */,
-				6AB302442AE622B20036DB06 /* MapViewModel.swift */,
 			);
 			path = VIEWMODEL;
 			sourceTree = "<group>";
@@ -295,7 +304,6 @@
 				6AB3022A2AE616980036DB06 /* PostManager.swift */,
 				6AB3022F2AE617860036DB06 /* ImageManager.swift */,
 				6AB3023A2AE618DD0036DB06 /* CameraManager.swift */,
-				6AB3023C2AE619060036DB06 /* SearchBarManager.swift */,
 				6AB302342AE617B90036DB06 /* ProfileImageManager.swift */,
 				6A7064942AE9B18F00B3A2E6 /* LocationManager.swift */,
 			);

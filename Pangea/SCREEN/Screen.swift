@@ -15,106 +15,98 @@ struct Screen: View {
     let user: User
     
     var body: some View {
-        TabView {
-            ScrollView {
-                ZStack {
-                    VStack {
-                     
-                            MapViewRepresentable()
-                        
-                        
-                        .frame(width: UIScreen.main.bounds.width, height: 250)
-                        .cornerRadius(50)
-                        .padding(.bottom, 50)
-                    }
+            TabView {
+                ScrollView {
                     ZStack {
-                        Circle()
-                            .frame(width: 152.5, height: 152.5)
-                            .foregroundColor(.white)
-                        
+                        VStack {
+                           MapScreen()
+                    
+                                .frame(width: UIScreen.main.bounds.width, height: 250)
+                                .cornerRadius(50)
+                                .padding(.bottom, 50)
+                        }
                         ZStack {
-                            ProfileImageManager(user: user, size: .extraLarge)
+                            Circle()
+                                .frame(width: 152.5, height: 152.5)
+                                .foregroundColor(.white)
+                            
+                            ZStack {
+                                ProfileImageManager(user: user, size: .extraLarge)
+                            }
                         }
+                        .background(.white)
+                        .clipShape(.circle)
+                        .padding(.top, 75)
                     }
-                    .background(.white)
-                    .clipShape(.circle)
-                    .padding(.top, 75)
-                }
-                
-                ZStack {
-                    VStack(spacing: 7.5) {
-                        Text(user.username)
-                            .fontWeight(.bold)
-                        
-                        
-                            .font(FontOne.large)
-                        
-                        if let name = user.name {
-                            Text(name)
+                    
+                    ZStack {
+                        VStack(spacing: 7.5) {
+                            Text(user.username)
+                                .fontWeight(.bold)
                             
-                                .font(FontTwo.small)
-                        }
-                        if let profileInformation = user.profileInformation {
-                            Text(profileInformation)
                             
-                                .font(FontFour.small)
+                                .font(FontOne.large)
+                            
+                            if let name = user.name {
+                                Text(name)
                                 
-                        }
-                        
-                        HStack {
-                            UserInformation(value: 1, title: "Post")
-                            UserInformation(value: 1, title: "Post")
+                                    .font(FontSix.small)
+                            }
+                            if let profileInformation = user.profileInformation {
+                                Text(profileInformation)
+                                
+                                    .font(FontSeven.small)
+                                
+                            }
                             
+                            HStack {
+                                UserInformation(value: 1, title: "Post")
+                                UserInformation(value: 1, title: "Post")
+                                
+                                
+                                Spacer()
+                                
+                                NavigationLink {
+                                    EditScreen(user: user)
+                                    
+                                } label: {
+                                    Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
+                                        .padding(7.5)
+                                        .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
+                                        .font(FontOne.small)
+                                        .foregroundStyle(.ultraThickMaterial)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                                        .padding(.bottom, 250)
+                                }
+                                .padding(.trailing)
+                            }
+                            Divider()
                             
                             Spacer()
-                            
-                            NavigationLink {
-                                EditScreen(user: user)
-                                
-                            } label: {
-                                Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
-                                    .padding(7.5)
-                                    .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
-                                    .foregroundStyle(.ultraThickMaterial)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(.bottom, 250)
-                            }
-                            .padding(.trailing)
                         }
-                        Divider()
-                        
-                        Spacer()
+                    }
+                    
+                    VStack {
+                        PostItemView(user: user)
                     }
                 }
                 
-                VStack {
-                    PostItemView(user: user)
-                }
-            }
-            
-            .tabItem { Image(systemName: "person.circle") }
-            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-            
-            FeedView()
-                .tabItem { Image(systemName: "globe") }
-            
-            PostScreen()
-                .tabItem { Image(systemName: "globe.americas") }
-            
-            MapScreen()
-                .tabItem { Image(systemName: "globe") }
-            
-       
-            
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+                .tabItem { Image(systemName: "person.circle") }
+                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+                
+                MapScreen()
+                    .tabItem { Image(systemName: "globe") }
+                
+                FeedView()
+                    .tabItem { Image(systemName: "globe") }
+                
+                PostScreen()
+                    .tabItem { Image(systemName: "globe.americas") }
                 
             }
-        }
     }
 }
 

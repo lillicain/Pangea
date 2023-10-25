@@ -22,6 +22,7 @@ struct PostScreen: View {
     @State var location: CLLocationCoordinate2D?
     
     var body: some View {
+        
         ZStack {
             VStack {
                 if let image = postViewModel.postImage {
@@ -80,24 +81,23 @@ struct PostScreen: View {
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
-            
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        Task {
-                            try await postViewModel.uploadPost(caption: caption)
-                            postViewModel.uiImage = image
-                        }
-                        caption = ""
-                        postViewModel.selectedImage = nil
-                        postViewModel.postImage = nil
-                        
-                        
-                        
-                    } label: {
-                        Text("Post")
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    Task {
+                        try await postViewModel.uploadPost(caption: caption)
+                        postViewModel.uiImage = image
                     }
+                    caption = ""
+                    postViewModel.selectedImage = nil
+                    postViewModel.postImage = nil
+                    
+                    
+                    
+                } label: {
+                    Text("Post")
                 }
             }
         }
