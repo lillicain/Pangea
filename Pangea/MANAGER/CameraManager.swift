@@ -31,7 +31,7 @@ struct CameraViewController: UIViewControllerRepresentable {
         var capturePhotoOutput: AVCapturePhotoOutput!
         var theCamera: AVCaptureDevice!
         var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-        let photoQualityPrioritizationMode = AVCapturePhotoOutput.QualityPrioritization.speed
+        let photoQualityPrioritizationMode = AVCapturePhotoOutput.QualityPrioritization.quality
         
         init(_ imagePickerController: CameraViewController) {
             self.parent = imagePickerController

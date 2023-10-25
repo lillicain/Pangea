@@ -27,12 +27,15 @@ struct PostScreen: View {
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                         .clipped()
+                        .padding()
                 } else if image != nil {
                     Image(uiImage: image!)
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                         .clipped()
+                        .padding()
                 }
+                   
                 
                 
                 TextField("Enter Text...", text: $caption)

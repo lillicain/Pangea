@@ -154,6 +154,15 @@
 			path = SCREEN;
 			sourceTree = "<group>";
 		};
+		6A28775A2AE8B7F4007C11E5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6A5A13DA2AE1E87E0041E188 /* ViewExtensions.swift */,
+				6A296DEB2AE726B900C906F0 /* MapExtensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		6A5A13B42AE1E6EE0041E188 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6A5A13C02AE1E6EE0041E188 /* PangeaApp.swift */,
+				6A28775A2AE8B7F4007C11E5 /* Extension */,
 				6AB3022C2AE616D40036DB06 /* VIEWMODEL */,
 				6AB3022E2AE616ED0036DB06 /* MANAGER */,
 				6AB3022D2AE616E30036DB06 /* MODEL */,
@@ -234,15 +244,13 @@
 		6AB302272AE616090036DB06 /* VIEW */ = {
 			isa = PBXGroup;
 			children = (
-				6A5A13DA2AE1E87E0041E188 /* ViewExtensions.swift */,
-				6A296DEB2AE726B900C906F0 /* MapExtensions.swift */,
+				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
+				6AB302482AE628660036DB06 /* PostItemView.swift */,
 				6A5A13D42AE1E7ED0041E188 /* ViewOne.swift */,
 				6A5520D02AE86DF400D11498 /* UserInformation.swift */,
 				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
 				6AB3021B2AE611C00036DB06 /* SignInView.swift */,
 				6A5A13CE2AE1E7050041E188 /* UserView.swift */,
-				6AB302482AE628660036DB06 /* PostItemView.swift */,
-				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
 				6AB302382AE618A80036DB06 /* Camera.swift */,
 				6A5A13D22AE1E71B0041E188 /* MapView.swift */,
 			);
