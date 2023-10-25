@@ -103,6 +103,11 @@ struct Screen: View {
             PostScreen()
                 .tabItem { Image(systemName: "globe.americas") }
             
+            MapScreen()
+                .tabItem { Image(systemName: "globe") }
+            
+       
+            
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

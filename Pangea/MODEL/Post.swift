@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import CoreLocation
 
 struct Post: Identifiable, Hashable, Codable {
     let id: String

@@ -6,12 +6,29 @@
 //
 
 import SwiftUI
+import CoreLocationUI
+import MapKit
 
 struct MapScreen: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @StateObject var locationManager = LocationManager()
+       
+       var body: some View {
+           ZStack(alignment: .bottom) {
+//               Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
+//                   .edgesIgnoringSafeArea(.all)
+               MapViewRepresentable()
+                   .ignoresSafeArea(.all)
+               
+               LocationButton {
+                   locationManager.requestLocation()
+               }
+               .cornerRadius(20)
+               .labelStyle(.titleAndIcon)
+               .symbolVariant(.fill)
+               .foregroundColor(Color.white)
+           }
+       }
+   }
 
 #Preview {
     MapScreen()

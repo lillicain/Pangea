@@ -44,6 +44,8 @@ struct FeedScreen: View {
                             
 //                            MapViewRepresentable(username: user.username)
 //                                .ignoresSafeArea(.all)
+//                            MapViewRepresentable()
+                            MapScreen()
                             
                         } label: {
                             Image(systemName: "mappin.and.ellipse.circle")

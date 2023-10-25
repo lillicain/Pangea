@@ -18,6 +18,9 @@ struct PostScreen: View {
     @State var showCamera = false
     @State var showImagePicker = false
     
+    @State var date: Date?
+    @State var location: CLLocationCoordinate2D?
+    
     var body: some View {
         ZStack {
             VStack {
@@ -35,7 +38,12 @@ struct PostScreen: View {
                         .clipped()
                         .padding()
                 }
-                
+                if let date = date {
+                    Text("Created \(date)")
+                }
+                if let location = location {
+                    Text("Location: lat \(location.latitude) long \(location.longitude)")
+                }
                 
                 
                 TextField("Enter Text...", text: $caption)
@@ -50,6 +58,7 @@ struct PostScreen: View {
                     showCamera.toggle()
                     image = postViewModel.uiImage
                     
+                    
                 } label: {
                     Text("Use Camera")
                         .padding()
@@ -61,6 +70,10 @@ struct PostScreen: View {
                 Spacer()
                 
             }
+//            .sheet(isPresented: $showCamera) {
+//                CustomPhotoPickerView(selectedImage: $image, date: $date, location: $location)
+//            }
+            
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
@@ -70,6 +83,7 @@ struct PostScreen: View {
                 showImagePicker.toggle()
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
+            
             
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
