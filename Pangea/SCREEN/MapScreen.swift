@@ -11,24 +11,29 @@ import MapKit
 
 struct MapScreen: View {
     @StateObject var locationManager = LocationManager()
-       
-       var body: some View {
-           ZStack(alignment: .bottom) {
-//               Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-//                   .edgesIgnoringSafeArea(.all)
-               MapViewRepresentable()
-                   .ignoresSafeArea(.all)
-               
-               LocationButton {
-                   locationManager.requestLocation()
-               }
-               .cornerRadius(20)
-               .labelStyle(.titleAndIcon)
-               .symbolVariant(.fill)
-               .foregroundColor(Color.white)
-           }
-       }
-   }
+    
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            
+            MapViewRepresentable()
+                .ignoresSafeArea(.all)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                LocationButton {
+                    locationManager.requestLocation()
+                }
+                .cornerRadius(15)
+                .labelStyle(.titleAndIcon)
+                .symbolVariant(.slash)
+                .foregroundColor(.white)
+                .padding()
+        
+            
+        }
+        }
+    }
+}
 
 #Preview {
     MapScreen()

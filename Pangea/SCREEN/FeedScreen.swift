@@ -41,10 +41,6 @@ struct FeedScreen: View {
                 .overlay {
                     if let user = post.user {
                         NavigationLink {
-                            
-//                            MapViewRepresentable(username: user.username)
-//                                .ignoresSafeArea(.all)
-//                            MapViewRepresentable()
                             MapScreen()
                             
                         } label: {

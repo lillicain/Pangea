@@ -70,10 +70,6 @@ struct PostScreen: View {
                 Spacer()
                 
             }
-//            .sheet(isPresented: $showCamera) {
-//                CustomPhotoPickerView(selectedImage: $image, date: $date, location: $location)
-//            }
-            
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
@@ -96,6 +92,8 @@ struct PostScreen: View {
                         caption = ""
                         postViewModel.selectedImage = nil
                         postViewModel.postImage = nil
+                        
+                        
                         
                     } label: {
                         Text("Post")

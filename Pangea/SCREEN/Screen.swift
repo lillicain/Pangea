@@ -19,9 +19,10 @@ struct Screen: View {
             ScrollView {
                 ZStack {
                     VStack {
-                        Map {
-                            
-                        }
+                     
+                            MapViewRepresentable()
+                        
+                        
                         .frame(width: UIScreen.main.bounds.width, height: 250)
                         .cornerRadius(50)
                         .padding(.bottom, 50)
