@@ -38,14 +38,14 @@ struct SignInView: View {
                 VStack(spacing: 25) {
                     TextField("Enter Username", text: $username)
                         .textInputAutocapitalization(.never)
-//                        .modifier(MaterialViewModifier())
+                        .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
                         .textInputAutocapitalization(.never)
-//                        .modifier(MaterialViewModifier())
+                        .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Passsword", text: $password)
-//                        .modifier(MaterialViewModifier())
+                        .modifier(MaterialViewModifier())
                 }
                 .fontWeight(.bold)
                 .font(.system(size: 17.5))

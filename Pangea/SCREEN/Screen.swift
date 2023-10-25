@@ -45,11 +45,19 @@ struct Screen: View {
                         Text(user.username)
                             .fontWeight(.bold)
                         
+                        
+                            .font(FontOne.large)
+                        
                         if let name = user.name {
                             Text(name)
+                            
+                                .font(FontTwo.small)
                         }
                         if let profileInformation = user.profileInformation {
                             Text(profileInformation)
+                            
+                                .font(FontFour.small)
+                                
                         }
                         
                         HStack {
@@ -85,7 +93,7 @@ struct Screen: View {
                 }
             }
             
-            .tabItem { Image(systemName: "person.fill") }
+            .tabItem { Image(systemName: "person.circle") }
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
@@ -93,7 +101,7 @@ struct Screen: View {
                 .tabItem { Image(systemName: "globe") }
             
             PostScreen()
-                .tabItem { Image(systemName: "globe") }
+                .tabItem { Image(systemName: "globe.americas") }
             
         }
         .toolbar {

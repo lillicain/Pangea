@@ -5,8 +5,8 @@
 //  Created by Lillian Cain on 10/19/23.
 //
 
-//import SwiftUI
-//
+import SwiftUI
+
 //struct UserStatusView: View {
 //    let value: Int
 //    let title: String
@@ -20,18 +20,29 @@
 //    }
 //}
 
-//struct ViewOne: View {
-//    var body: some View {
-//        ZStack {
-//
-//        }
-//    }
-//}
-//
-//#Preview {
-//    ViewOne()
-//}
-//
+struct ViewOne: View {
+    var body: some View {
+        VStack(spacing: 25) {
+            Text("Sample Text").font(FontOne.large)
+            
+            Text("Sample Text").font(FontTwo.large)
+            
+            Text("Sample Text").font(FontThree.large)
+        
+            Text("Sample Text").font(FontFour.large)
+            Text("Sample Text").font(FontFive.large)
+            Text("Sample Text").font(FontSix.large)
+            Text("Sample Text").font(FontSeven.large)
+            Text("Sample Text").font(FontEight.large)
+        }
+    }
+}
+
+#Preview {
+    ViewOne()
+}
+
+
 //struct ProfileView: View {
 //    let user: User
 //

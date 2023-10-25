@@ -18,50 +18,53 @@ struct SignUpView: View {
     var body: some View {
         ZStack {
             
-            LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
+            LinearGradient(colors: [.gray, .white, .gray], startPoint: .top, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
-            
-            VStack(alignment: .leading) {
-                Text("Sign Up".uppercased())
-                    .fontWeight(.bold)
-                    .font(.title)
-                    .padding()
+          
+                Image(systemName: "globe")
                 
-                Text("Create An Account".capitalized)
-                    .fontWeight(.semibold)
-                    .padding()
                 
-                Divider()
-                
-                VStack(spacing: 0) {
-                    TextField("Enter Username", text: $username)
-                        .textInputAutocapitalization(.never)
-//                        .modifier(MaterialViewModifier())
+                VStack(alignment: .leading) {
+                    Text("Sign Up".uppercased())
+                        .fontWeight(.bold)
+                        .font(.title)
+                        .padding(2.5)
                     
-                    TextField("Enter Email", text: $email)
-                        .textInputAutocapitalization(.never)
-//                        .modifier(MaterialViewModifier())
+                    Text("Create An Account".capitalized)
+                        .fontWeight(.semibold)
+                        .padding(2.5)
                     
-                    SecureField("Enter Password", text: $password)
-//                        .modifier(MaterialViewModifier())
+                    Divider()
                     
-                    ZStack(alignment: .trailing) {
-                        SecureField("Confirm Password", text: $confirmPassword)
+                    VStack(spacing: 0) {
+                        TextField("Enter Username", text: $username)
+                            .textInputAutocapitalization(.never)
                             .modifier(MaterialViewModifier())
                         
-                        if password.isEmpty && !confirmPassword.isEmpty {
-                            if password == confirmPassword {
-                                Image(systemName: "checkmark.circle")
-                                    .imageScale(.large)
-                                    .foregroundColor(Color(.systemGreen))
-                            } else {
-                                Image(systemName: "xmark.circle")
-                                    .imageScale(.large)
-                                    .foregroundColor(Color(.systemRed))
+                        TextField("Enter Email", text: $email)
+                            .textInputAutocapitalization(.never)
+                            .modifier(MaterialViewModifier())
+                        
+                        SecureField("Enter Password", text: $password)
+                            .modifier(MaterialViewModifier())
+                        
+                        ZStack(alignment: .trailing) {
+                            SecureField("Confirm Password", text: $confirmPassword)
+                                .modifier(MaterialViewModifier())
+                            
+                            if password.isEmpty && !confirmPassword.isEmpty {
+                                if password == confirmPassword {
+                                    Image(systemName: "checkmark.circle")
+                                        .imageScale(.large)
+                                        .foregroundColor(Color(.systemGreen))
+                                } else {
+                                    Image(systemName: "xmark.circle")
+                                        .imageScale(.large)
+                                        .foregroundColor(Color(.systemRed))
+                                }
                             }
                         }
                     }
-                }
                 
                 Divider()
                     .padding(5)
@@ -79,7 +82,7 @@ struct SignUpView: View {
                 } label: {
                     Text("Sign Up".uppercased())
                         .frame(maxWidth: .infinity)
-                        .frame(height: 50)
+                        .frame(height: 35)
                         .fontWeight(.semibold)
                         .font(.system(size: 25))
                         .padding()
@@ -87,7 +90,7 @@ struct SignUpView: View {
                         .padding(.bottom, 5)
                 }
                 .padding(10)
-                
+                .opacity(isValid ? 1.0 : 0.5)
                 NavigationLink {
                     SignInView()
                         .navigationBarBackButtonHidden(true)
@@ -102,11 +105,22 @@ struct SignUpView: View {
             .foregroundStyle(.ultraThinMaterial)
             .cornerRadius(15)
             .padding(25)
-    
+            
         }
     }
 }
 
 #Preview {
     SignUpView()
+}
+
+extension SignUpView: AuthenticationProtocol {
+    var isValid: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 6
+        && confirmPassword == password
+        && !username.isEmpty
+    }
 }

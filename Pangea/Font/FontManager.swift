@@ -64,6 +64,15 @@ struct FontSeven {
     static let large = Font.fontSeven(size: 35)
 }
 
+struct FontEight {
+    static let body = Font.fontEight(size: 25)
+    static let title = Font.fontEight(size: 45)
+    static let small = Font.fontEight(size: 20)
+    static let medium = Font.fontEight(size: 30)
+    static let large = Font.fontEight(size: 35)
+}
+
+
 extension Font {
     
     static func fontOne(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
@@ -79,7 +88,7 @@ extension Font {
     }
     
     static func fontFour(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
-        custom("Goolangola-Bold", size: size)
+        custom("pallini", size: size)
     }
     
     static func fontFive(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
@@ -91,7 +100,11 @@ extension Font {
     }
     
     static func fontSeven(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
-        custom("Oritronio", size: size)
+        custom("Orbitronio", size: size)
     }
     
+    
+    static func fontEight(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
+        custom("almonte", size: size)
+    }
 }

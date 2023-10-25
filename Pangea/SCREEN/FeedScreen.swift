@@ -45,10 +45,11 @@ struct FeedScreen: View {
                                 .ignoresSafeArea(.all)
                             
                         } label: {
-                            Image(systemName: "mappin.square")
+                            Image(systemName: "mappin.and.ellipse.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 45, height: 45)
+                                .foregroundColor(.white)
+                                .frame(width: 75, height: 75)
                                 .padding(.leading, 275)
                                 .padding(.top, 275)
                         }
@@ -66,7 +67,7 @@ struct FeedScreen: View {
                 Button {
                     
                 } label: {
-                    Image(systemName: "person")
+                    Image(systemName: "network")
                         .imageScale(.large)
                 }
                 
