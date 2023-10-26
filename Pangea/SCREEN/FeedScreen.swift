@@ -10,79 +10,77 @@ import Kingfisher
 
 struct FeedScreen: View {
     let post: Post
-  
+    
     var body: some View {
-            VStack {
-                HStack {
-                    if let user = post.user {
-                        NavigationLink(value: user) {
-                            ProfileImageManager(user: user, size: .small)
-                            
-                            Text(user.username)
-                                .fontWeight(.bold)
-                        }
+        VStack {
+            HStack {
+                if let user = post.user {
+                    NavigationLink(value: user) {
+                        ProfileImageManager(user: user, size: .small)
                         
-                        
-                        .navigationDestination(for: User.self, destination: { user in
-                            Screen(user: user)
-                        })
-                        .frame(alignment: .leading)
+                        Text(user.username)
+                            .fontWeight(.bold)
                     }
-                    Spacer()
+                    
+                    
+                    .navigationDestination(for: User.self, destination: { user in
+                        Screen(user: user)
+                    })
+                    .frame(alignment: .leading)
                 }
-                .padding(.leading, 25)
-                
-                
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 375, height: 475)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .overlay {
-//                        if let user = post.user {
-                            NavigationLink {
-                                MapScreen()
-                                
-                            } label: {
-                                Image(systemName: "mappin.and.ellipse.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .frame(width: 75, height: 75)
-                                    .padding(.leading, 275)
-                                    .padding(.top, 275)
-                            }
-                        }
-//                    }
+                Spacer()
+            }
+            .padding(.leading, 25)
             
-                HStack(spacing: 15) {
-                    Button {
+            
+            KFImage(URL(string: post.imageUrl))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 375, height: 375)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+                .overlay {
+                    NavigationLink {
+                        MapScreen()
                         
                     } label: {
-                        Image(systemName: "heart")
-                            .imageScale(.large)
+                        Image(systemName: "mappin.and.ellipse.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.white)
+                            .frame(width: 75, height: 75)
+                            .padding(.leading, 275)
+                            .padding(.top, 275)
                     }
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "network")
-                            .imageScale(.large)
-                    }
-                    
-                    Spacer()
                 }
-                .padding(.leading)
-                .padding()
+            
+            HStack(spacing: 15) {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "heart")
+                        .imageScale(.large)
+                }
                 
-                Text("\(post.timestamp.dateValue().formatted(date: .complete, time: .standard))")
-                    .padding(.all, 5)
+                Button {
+                    
+                } label: {
+                    Image(systemName: "network")
+                        .imageScale(.large)
+                }
                 
-                Text("\(post.caption)")
-                    .padding(.all, 5)
-                
-                Text(post.location ?? "")
-                    .padding(.all, 5)
+                Spacer()
+            }
+            .padding(.leading)
+            .padding()
+            
+            Text("\(post.timestamp.dateValue().formatted(date: .complete, time: .standard))")
+                .padding(.all, 5)
+            
+            Text("\(post.caption)")
+                .padding(.all, 5)
+            
+            Text(post.location ?? "")
+                .padding(.all, 5)
             
         }
     }
