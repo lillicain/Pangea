@@ -101,7 +101,7 @@ extension PostScreen {
                 CurrentLocationButton()
                     .padding(.trailing, 25)
                     .padding(.all)
-               
+//                let location = CurrentLocationButton().locationManager.currentLocation
                 
             }
             
