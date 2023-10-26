@@ -12,11 +12,12 @@ import MapKit
 struct MapScreen: View {
     @StateObject var locationManager = LocationManager()
     
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             MapViewRepresentable()
                 .edgesIgnoringSafeArea(.top)
-            
+        
             LocationButton {
                 locationManager.requestLocation()
             }
@@ -25,6 +26,7 @@ struct MapScreen: View {
             .foregroundColor(.white)
             .padding()
             
+          
         }
     }
 }

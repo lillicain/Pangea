@@ -101,8 +101,6 @@ extension PostScreen {
                 CurrentLocationButton()
                     .padding(.trailing, 25)
                     .padding(.all)
-                
-        
                
                 
             }
@@ -113,7 +111,6 @@ extension PostScreen {
             Button {
                 showCamera.toggle()
                 image = postViewModel.uiImage
-                
                 
             } label: {
                 Text("Use Camera")

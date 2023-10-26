@@ -11,10 +11,10 @@ import CoreLocation
 import CoreLocationUI
 
 extension CLLocationCoordinate2D {
-    static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.59915)
+    static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.5915)
     
     static var userLocation: CLLocationCoordinate2D {
-        return .init(latitude: 37.0975, longitude: -113.59915)
+        return .init(latitude: 37.0974, longitude: -113.5915)
     }
 }
 
