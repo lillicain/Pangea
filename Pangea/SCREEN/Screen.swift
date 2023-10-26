@@ -116,7 +116,7 @@ struct Screen: View {
             FeedView()
                 .tabItem { Image(systemName: "globe") }
             
-            PostScreen()
+            PostScreen(locationManager: LocationManager())
                 .tabItem { Image(systemName: "globe.americas") }
             
         }

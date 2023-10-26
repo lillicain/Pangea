@@ -81,6 +81,8 @@ struct FeedScreen: View {
                 Text("\(post.caption)")
                     .padding(.all, 5)
                 
+                Text(post.location ?? "")
+                    .padding(.all, 5)
             
         }
     }

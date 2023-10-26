@@ -32,3 +32,22 @@ struct MapScreen: View {
 #Preview {
     MapScreen()
 }
+
+struct CurrentLocationButton : View {
+    
+    @StateObject var locationManager = LocationManager()
+    
+    var body: some View {
+        HStack {
+            if let currentLocation = locationManager.currentLocation {
+                Text("\(currentLocation)")
+            }
+            LocationButton(.currentLocation) {
+                locationManager.requestLocation()
+            }
+            .labelStyle(.iconOnly)
+            .cornerRadius(7.5)
+            .foregroundColor(.white)
+        }
+    }
+}

@@ -8,10 +8,9 @@
 import SwiftUI
 import PhotosUI
 import AVKit
+import CoreLocationUI
 
 struct PostScreen: View {
-    
-    @EnvironmentObject var locationManager: LocationManager
     
     @StateObject var postViewModel = PostViewModel()
     
@@ -19,9 +18,8 @@ struct PostScreen: View {
     @State var image: UIImage?
     @State var showCamera = false
     @State var showImagePicker = false
-    
-    @State var date: Date?
-    @State var location: CLLocationCoordinate2D?
+    @State var location = ""
+
     
     var body: some View {
         ZStack {
@@ -31,8 +29,10 @@ struct PostScreen: View {
             
             VStack {
                 postInformation
-                
             }
+        
+            .padding(.all)
+
             
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
@@ -52,10 +52,13 @@ struct PostScreen: View {
                     Task {
                         try await postViewModel.uploadPost(caption: caption)
                         postViewModel.uiImage = image
+                        postViewModel.location = location
                     }
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
+                    location = ""
+                    
                     
                 } label: {
                     Text("Post")
@@ -63,10 +66,6 @@ struct PostScreen: View {
             }
         }
     }
-}
-
-#Preview {
-    PostScreen()
 }
 
 extension PostScreen {
@@ -86,17 +85,27 @@ extension PostScreen {
                     .clipped()
                     .padding()
             }
-            if let date = date {
-                Text("Created \(date)")
-            }
-            if let location = location {
-                Text("Location: lat \(location.latitude) long \(location.longitude)")
-            }
-            
+     
             TextField("Enter Text...", text: $caption)
                 .frame(width: UIScreen.main.bounds.width, height: 100)
                 .padding(.leading, 25)
                 .padding()
+            
+            
+            Divider()
+            
+            HStack {
+                TextField("Location", text: $location)
+                    .padding(.leading, 50)
+                
+                CurrentLocationButton()
+                    .padding(.trailing, 25)
+                    .padding(.all)
+                
+        
+               
+                
+            }
             
             Divider()
             
@@ -113,7 +122,8 @@ extension PostScreen {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding()
             }
-            Spacer()
+       Spacer()
+                
             
         }
     }
