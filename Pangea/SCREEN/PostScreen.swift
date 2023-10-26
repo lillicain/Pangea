@@ -11,6 +11,8 @@ import AVKit
 
 struct PostScreen: View {
     
+    @EnvironmentObject var locationManager: LocationManager
+    
     @StateObject var postViewModel = PostViewModel()
     
     @State var caption = ""
@@ -22,55 +24,16 @@ struct PostScreen: View {
     @State var location: CLLocationCoordinate2D?
     
     var body: some View {
-        
         ZStack {
+            
+            AuthenticationViewModel().backgroundColor
+                .ignoresSafeArea(.all)
+            
             VStack {
-                if let image = postViewModel.postImage {
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 350, height: 350)
-                        .clipped()
-                        .padding()
-                } else if image != nil {
-                    Image(uiImage: image!)
-                        .scaledToFill()
-                        .frame(width: 350, height: 350)
-                        .clipped()
-                        .padding()
-                }
-                if let date = date {
-                    Text("Created \(date)")
-                }
-                if let location = location {
-                    Text("Location: lat \(location.latitude) long \(location.longitude)")
-                }
-                
-                
-                TextField("Enter Text...", text: $caption)
-                    .frame(width: UIScreen.main.bounds.width, height: 100)
-                    .padding(.leading, 25)
-                    .padding()
-                
-                Divider()
-                
-                
-                Button {
-                    showCamera.toggle()
-                    image = postViewModel.uiImage
-                    
-                    
-                } label: {
-                    Text("Use Camera")
-                        .padding()
-                        .background(Color(.systemGray5))
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding()
-                }
-                
-                Spacer()
+                postInformation
                 
             }
+            
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
@@ -82,7 +45,7 @@ struct PostScreen: View {
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
         }
-        .navigationBarTitleDisplayMode(.inline)
+
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -94,8 +57,6 @@ struct PostScreen: View {
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     
-                    
-                    
                 } label: {
                     Text("Post")
                 }
@@ -106,4 +67,54 @@ struct PostScreen: View {
 
 #Preview {
     PostScreen()
+}
+
+extension PostScreen {
+    var postInformation: some View {
+        VStack {
+            if let image = postViewModel.postImage {
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 350, height: 350)
+                    .clipped()
+                    .padding()
+            } else if image != nil {
+                Image(uiImage: image!)
+                    .scaledToFill()
+                    .frame(width: 350, height: 350)
+                    .clipped()
+                    .padding()
+            }
+            if let date = date {
+                Text("Created \(date)")
+            }
+            if let location = location {
+                Text("Location: lat \(location.latitude) long \(location.longitude)")
+            }
+            
+            TextField("Enter Text...", text: $caption)
+                .frame(width: UIScreen.main.bounds.width, height: 100)
+                .padding(.leading, 25)
+                .padding()
+            
+            Divider()
+            
+            
+            Button {
+                showCamera.toggle()
+                image = postViewModel.uiImage
+                
+                
+            } label: {
+                Text("Use Camera")
+                    .padding()
+                    .background(Color(.systemGray5))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding()
+            }
+            Spacer()
+            
+        }
+    }
 }

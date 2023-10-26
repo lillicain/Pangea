@@ -14,23 +14,17 @@ struct MapScreen: View {
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            
             MapViewRepresentable()
-                .ignoresSafeArea(.all)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                LocationButton {
-                    locationManager.requestLocation()
-                }
-                .cornerRadius(15)
-                .labelStyle(.titleAndIcon)
-                .symbolVariant(.slash)
-                .foregroundColor(.white)
-                .padding()
-        
+                .edgesIgnoringSafeArea(.top)
             
-        }
+            LocationButton {
+                locationManager.requestLocation()
+            }
+            .cornerRadius(15)
+            .labelStyle(.titleAndIcon)
+            .foregroundColor(.white)
+            .padding()
+            
         }
     }
 }

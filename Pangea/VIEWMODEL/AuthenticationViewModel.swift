@@ -15,12 +15,13 @@ import FirebaseFirestoreSwift
 class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    @Published var backgroundColor: Color?
+    @Published var backgroundColor: Color? 
     
     static let shared = AuthenticationViewModel()
     
     init() {
         self.userSession = Auth.auth().currentUser
+        
         Task {
             loadUserData
         }
@@ -63,10 +64,14 @@ class AuthenticationViewModel: ObservableObject {
         try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
     }
     
-    func signOut() {
-            try? Auth.auth().signOut()
+    func signOut() throws {
+        do {
+            try Auth.auth().signOut()
             self.userSession = nil
             self.currentUser = nil
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func deleteAccount() async throws {

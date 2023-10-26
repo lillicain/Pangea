@@ -30,6 +30,7 @@
 		6A5A13DF2AE1E8B20041E188 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A13DE2AE1E8B20041E188 /* FontManager.swift */; };
 		6A7064932AE9B00C00B3A2E6 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7064922AE9B00C00B3A2E6 /* MapScreen.swift */; };
 		6A7064952AE9B18F00B3A2E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7064942AE9B18F00B3A2E6 /* LocationManager.swift */; };
+		6A98A1462AEAF81A0016736E /* NavigationRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 6A98A1452AEAF81A0016736E /* NavigationRouter */; };
 		6AB302172AE611410036DB06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302162AE611410036DB06 /* User.swift */; };
 		6AB3021A2AE611730036DB06 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB302192AE611730036DB06 /* FirebaseAuth */; };
 		6AB3021C2AE611C00036DB06 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3021B2AE611C00036DB06 /* SignInView.swift */; };
@@ -133,6 +134,7 @@
 			files = (
 				6A5509B32AE61080005B48F6 /* FirebaseAnalyticsSwift in Frameworks */,
 				6AB3021A2AE611730036DB06 /* FirebaseAuth in Frameworks */,
+				6A98A1462AEAF81A0016736E /* NavigationRouter in Frameworks */,
 				6AB302262AE614F00036DB06 /* FirebaseStorage in Frameworks */,
 				6A5509AF2AE61080005B48F6 /* FirebaseAnalytics in Frameworks */,
 				6AB302332AE617A50036DB06 /* Kingfisher in Frameworks */,
@@ -337,6 +339,7 @@
 				6AB302232AE614E60036DB06 /* FirebaseFirestoreSwift */,
 				6AB302252AE614F00036DB06 /* FirebaseStorage */,
 				6AB302322AE617A50036DB06 /* Kingfisher */,
+				6A98A1452AEAF81A0016736E /* NavigationRouter */,
 			);
 			productName = Pangea;
 			productReference = 6A5A13BD2AE1E6EE0041E188 /* Pangea.app */;
@@ -369,6 +372,7 @@
 			packageReferences = (
 				6A5509AD2AE61080005B48F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6AB302312AE617A50036DB06 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6A98A1442AEAF81A0016736E /* XCRemoteSwiftPackageReference "SwiftUI-Navigation-Router" */,
 			);
 			productRefGroup = 6A5A13BE2AE1E6EE0041E188 /* Products */;
 			projectDirPath = "";
@@ -582,7 +586,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pangea/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -614,7 +620,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pangea/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -666,6 +674,14 @@
 				minimumVersion = 10.16.0;
 			};
 		};
+		6A98A1442AEAF81A0016736E /* XCRemoteSwiftPackageReference "SwiftUI-Navigation-Router" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Lukas-Simonson/SwiftUI-Navigation-Router";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		6AB302312AE617A50036DB06 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -701,6 +717,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A5509AD2AE61080005B48F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAppCheck;
+		};
+		6A98A1452AEAF81A0016736E /* NavigationRouter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A98A1442AEAF81A0016736E /* XCRemoteSwiftPackageReference "SwiftUI-Navigation-Router" */;
+			productName = NavigationRouter;
 		};
 		6AB302192AE611730036DB06 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

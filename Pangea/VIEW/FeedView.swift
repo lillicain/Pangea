@@ -12,27 +12,26 @@ struct FeedView: View {
     @State var searchText = ""
     
     var body: some View {
-
-            ScrollView {
-                LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts) { post in
-                        FeedScreen(post: post)
-                    }
+        ScrollView {
+            LazyVStack(spacing: 75) {
+                ForEach(feedViewModel.posts, id: \.self) { post in
+                    FeedScreen(post: post)
                 }
-                .padding(.top)
-                
             }
+            .padding(.top)
+            
+        }
         
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink {
-                        SearchScreen()
-                    } label: {
-                        Text("Search")
-                    }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                NavigationLink {
+                    SearchScreen()
+                } label: {
+                    Text("Search")
                 }
             }
+        }
         
     }
 }

@@ -36,10 +36,10 @@ struct FeedScreen: View {
                 KFImage(URL(string: post.imageUrl))
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 375, height: 375)
+                    .frame(width: 375, height: 475)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                     .overlay {
-                        if let user = post.user {
+//                        if let user = post.user {
                             NavigationLink {
                                 MapScreen()
                                 
@@ -53,7 +53,7 @@ struct FeedScreen: View {
                                     .padding(.top, 275)
                             }
                         }
-                    }
+//                    }
             
                 HStack(spacing: 15) {
                     Button {
