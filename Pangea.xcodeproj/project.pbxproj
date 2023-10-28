@@ -17,6 +17,7 @@
 		6A5509B72AE61080005B48F6 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5509B62AE61080005B48F6 /* FirebaseAppCheck */; };
 		6A5520CF2AE86A3200D11498 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5520CE2AE86A3200D11498 /* FeedScreen.swift */; };
 		6A5520D12AE86DF400D11498 /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5520D02AE86DF400D11498 /* UserInformation.swift */; };
+		6A57DD922AEC889800D85762 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A57DD912AEC889800D85762 /* LocationView.swift */; };
 		6A5A13C12AE1E6EE0041E188 /* PangeaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A13C02AE1E6EE0041E188 /* PangeaApp.swift */; };
 		6A5A13C52AE1E6EE0041E188 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A13C42AE1E6EE0041E188 /* Assets.xcassets */; };
 		6A5A13C82AE1E6EE0041E188 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A13C72AE1E6EE0041E188 /* Preview Assets.xcassets */; };
@@ -77,6 +78,7 @@
 		6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A5520CE2AE86A3200D11498 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
 		6A5520D02AE86DF400D11498 /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		6A57DD912AEC889800D85762 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		6A5A13BD2AE1E6EE0041E188 /* Pangea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pangea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5A13C02AE1E6EE0041E188 /* PangeaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PangeaApp.swift; sourceTree = "<group>"; };
 		6A5A13C42AE1E6EE0041E188 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				6AB302682AE69D650036DB06 /* SearchScreen.swift */,
 				6A5520CE2AE86A3200D11498 /* FeedScreen.swift */,
 				6A7064922AE9B00C00B3A2E6 /* MapScreen.swift */,
+				6A57DD912AEC889800D85762 /* LocationView.swift */,
 			);
 			path = SCREEN;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				6A5A13CF2AE1E7050041E188 /* UserView.swift in Sources */,
 				6AB302412AE61DED0036DB06 /* EditUserViewModel.swift in Sources */,
 				6A5A13D32AE1E71B0041E188 /* MapView.swift in Sources */,
+				6A57DD922AEC889800D85762 /* LocationView.swift in Sources */,
 				6AB3024B2AE62A050036DB06 /* MapManager.swift in Sources */,
 				6AB3021C2AE611C00036DB06 /* SignInView.swift in Sources */,
 				6A5520D12AE86DF400D11498 /* UserInformation.swift in Sources */,

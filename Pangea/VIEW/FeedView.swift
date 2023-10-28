@@ -19,7 +19,6 @@ struct FeedView: View {
                 }
             }
             .padding(.top)
-            
         }
         
         .navigationBarTitleDisplayMode(.inline)

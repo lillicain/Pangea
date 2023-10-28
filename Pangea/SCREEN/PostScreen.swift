@@ -20,7 +20,6 @@ struct PostScreen: View {
     @State var showImagePicker = false
     @State var location = ""
 
-    
     var body: some View {
         ZStack {
             
@@ -30,9 +29,7 @@ struct PostScreen: View {
             VStack {
                 postInformation
             }
-        
             .padding(.all)
-
             
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
@@ -101,7 +98,6 @@ extension PostScreen {
                 CurrentLocationButton()
                     .padding(.trailing, 25)
                     .padding(.all)
-//                let location = CurrentLocationButton().locationManager.currentLocation
                 
             }
             

@@ -16,9 +16,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     let manager = CLLocationManager()
     
-    private static let locationDistance: CLLocationDistance = 10000
+    static let shared = LocationManager()
+    static let locationDistance: CLLocationDistance = 10000
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: LocationManager.locationDistance, longitudinalMeters: LocationManager.locationDistance)
+    
     @Published var currentLocation: String?
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
@@ -33,6 +35,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.requestLocation()
     }
     
+    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
@@ -40,11 +43,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             self.currentLocation = placemark
         }
         
-        DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: Self.locationDistance, longitudinalMeters: Self.locationDistance)
-            
-        }
-        print(location.description)
+        self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: Self.locationDistance, longitudinalMeters: Self.locationDistance)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

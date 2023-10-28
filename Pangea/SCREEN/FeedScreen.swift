@@ -39,17 +39,19 @@ struct FeedScreen: View {
                 .frame(width: 375, height: 375)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
-                    NavigationLink {
-                        MapScreen()
-                        
-                    } label: {
-                        Image(systemName: "mappin.and.ellipse.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(.white)
-                            .frame(width: 75, height: 75)
-                            .padding(.leading, 275)
-                            .padding(.top, 275)
+                    if let user = post.user {
+                        NavigationLink {
+                            MapScreen()
+                            
+                        } label: {
+                            Image(systemName: "mappin.and.ellipse.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.white)
+                                .frame(width: 75, height: 75)
+                                .padding(.leading, 275)
+                                .padding(.top, 275)
+                        }
                     }
                 }
             
@@ -79,7 +81,7 @@ struct FeedScreen: View {
             Text("\(post.caption)")
                 .padding(.all, 5)
             
-            Text(post.location ?? "")
+            Text(post.location)
                 .padding(.all, 5)
             
         }
