@@ -112,7 +112,7 @@ struct Screen: View {
             
             MapScreen()
                 .tabItem { Image(systemName: "globe") }
-            MapView()
+          LocationView()
                 .tabItem { Image(systemName: "globe") }
             
             FeedView()
