@@ -23,16 +23,15 @@ struct Screen: View {
                     
                     VStack {
                         MapScreen()
-                        
                             .frame(width: UIScreen.main.bounds.width, height: 250)
-//                            .cornerRadius(50)
+                            .cornerRadius(50)
                             .padding(.bottom, 50)
+                        
                     }
                     ZStack {
                         Circle()
                             .frame(width: 152.5, height: 152.5)
                             .foregroundColor(.white)
-                        
                         
                         ZStack {
                             ProfileImageManager(user: user, size: .extraLarge)
@@ -42,7 +41,7 @@ struct Screen: View {
                     .clipShape(.circle)
                     .padding(.top, 75)
                 }
-//                .modifier(DarkModeViewModifier())
+                
                 
                 ZStack {
                     VStack(spacing: 7.5) {
@@ -81,7 +80,7 @@ struct Screen: View {
                             
                             NavigationLink {
                                 EditScreen(user: user)
-                                
+                                    
                             } label: {
                                 Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
                                     .padding(7.5)
@@ -105,13 +104,14 @@ struct Screen: View {
                     PostItemView(user: user)
                 }
             }
-            
             .tabItem { Image(systemName: "person.circle") }
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
+            
             MapScreen()
                 .tabItem { Image(systemName: "globe") }
+            
           LocationView()
                 .tabItem { Image(systemName: "globe") }
             
