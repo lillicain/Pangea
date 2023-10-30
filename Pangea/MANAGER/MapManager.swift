@@ -20,6 +20,12 @@ struct MapViewRepresentable: UIViewRepresentable {
     var geopoints = [String : Any]()
     
     var username = ""
+    var results = [MKMapItem]()
+    var searchText = ""
+    var cameraPosition: MapCameraPosition = .region(.userRegion)
+    var selectedResult: MKMapItem?
+    var position: MapCameraPosition = .automatic
+    var visibleRegion: MKCoordinateRegion?
     
     func makeCoordinator() -> MapViewRepresentable.Coordinator {
         return MapViewRepresentable.Coordinator(parent1: self)
@@ -80,7 +86,7 @@ struct MapViewRepresentable: UIViewRepresentable {
 
 class Observer: ObservableObject {
     @Published var data = [String : Any]()
-
+    
     init() {
         let db = Firestore.firestore()
         db.collection("locations").document("coordinate").addSnapshotListener { (snap, err) in

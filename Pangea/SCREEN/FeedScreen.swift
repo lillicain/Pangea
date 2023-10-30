@@ -10,24 +10,24 @@ import Kingfisher
 
 struct FeedScreen: View {
     let post: Post
-  
+    
     var body: some View {
         VStack {
             HStack {
-                    if let user = post.user {
-                        NavigationLink(value: user) {
-                            ProfileImageManager(user: user, size: .small)
-                            
-                            Text(user.username)
-                                .fontWeight(.bold)
-                        }
-                   
-                
-                        .navigationDestination(for: User.self, destination: { user in
-                            Screen(user: user)
-                        })
-                        .frame(alignment: .leading)
+                if let user = post.user {
+                    NavigationLink(value: user) {
+                        ProfileImageManager(user: user, size: .small)
+                        
+                        Text(user.username)
+                            .fontWeight(.bold)
                     }
+                    
+                    
+                    .navigationDestination(for: User.self, destination: { user in
+                        Screen(user: user)
+                    })
+                    .frame(alignment: .leading)
+                }
                 Spacer()
             }
             .padding(.leading, 25)
@@ -39,19 +39,17 @@ struct FeedScreen: View {
                 .frame(width: 375, height: 375)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
-                    if let user = post.user {
-                        NavigationLink {
-                            MapScreen()
-                            
-                        } label: {
-                            Image(systemName: "mappin.and.ellipse.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(.white)
-                                .frame(width: 75, height: 75)
-                                .padding(.leading, 275)
-                                .padding(.top, 275)
-                        }
+                    NavigationLink {
+                        MapScreen()
+                        
+                    } label: {
+                        Image(systemName: "mappin.and.ellipse.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.white)
+                            .frame(width: 75, height: 75)
+                            .padding(.leading, 275)
+                            .padding(.top, 275)
                     }
                 }
             
@@ -80,7 +78,9 @@ struct FeedScreen: View {
             
             Text("\(post.caption)")
                 .padding(.all, 5)
-          
+            
+            Text(post.location ?? "")
+                .padding(.all, 5)
             
         }
     }

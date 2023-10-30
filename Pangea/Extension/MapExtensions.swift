@@ -11,29 +11,28 @@ import CoreLocation
 import CoreLocationUI
 
 extension CLLocationCoordinate2D {
-    static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.59915)
+//    static let items = CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.5915)
     
     static var userLocation: CLLocationCoordinate2D {
-        return .init(latitude: 37.0975, longitude: -113.59915)
+        return .init(latitude: 37.0974, longitude: -113.5915)
     }
 }
 
-extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
-    public var id: Int {
-        return hashValue
-    }
-    public func hash(into hasher: inout Hasher)  {
-        hasher.combine(latitude)
-        hasher.combine(longitude)
-    }
-    public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        return lhs.longitude == rhs.longitude && lhs.latitude == rhs.latitude
-    }
-    public static func <(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        return lhs.longitude < rhs.longitude
-    }
-}
-
+//extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
+//    public var id: Int {
+//        return hashValue
+//    }
+//    public func hash(into hasher: inout Hasher)  {
+//        hasher.combine(latitude)
+//        hasher.combine(longitude)
+//    }
+//    public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+//        return lhs.longitude == rhs.longitude && lhs.latitude == rhs.latitude
+//    }
+//    public static func <(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+//        return lhs.longitude < rhs.longitude
+//    }
+//}
 
 extension MKCoordinateRegion {
     static var userRegion: MKCoordinateRegion {

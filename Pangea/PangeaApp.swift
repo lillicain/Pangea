@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import NavigationRouter
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -24,14 +25,18 @@ struct PangeaApp: App {
     
     @StateObject var authenticationViewModel = AuthenticationViewModel()
     
+    @NavRouter var navRouter
+    
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
+            NavigationRouter {
                 Group {
-                    if authenticationViewModel.userSession == nil {
-                        SignUpView()
-                    } else {
+                    if authenticationViewModel.userSession != nil {
+             
                         Screen(user: User.MOCK_USER[0])
+                            
+                    } else {
+                        SignUpView()
                     }
                 }
             }

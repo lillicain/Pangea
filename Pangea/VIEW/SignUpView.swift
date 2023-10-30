@@ -37,11 +37,10 @@ struct SignUpView: View {
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
-                        .textInputAutocapitalization(.never)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-                        .textInputAutocapitalization(.never)
+                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Password", text: $password)
@@ -88,7 +87,6 @@ struct SignUpView: View {
                             .modifier(MaterialViewModifier())
                             .padding(.bottom, 5)
                     }
-                    
                 }
                 .padding(5)
                 .disabled(!isValid)
@@ -104,7 +102,6 @@ struct SignUpView: View {
                         .font(.system(size: 15))
                         .padding(.bottom, 5)
                 }
-                
             }
             .padding()
             .background(.ultraThinMaterial)
@@ -112,7 +109,6 @@ struct SignUpView: View {
             .foregroundStyle(.ultraThinMaterial)
             .cornerRadius(15)
             .padding(25)
-            
         }
     }
 }

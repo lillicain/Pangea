@@ -17,6 +17,6 @@ struct Post: Identifiable, Hashable, Codable {
     let imageUrl: String
     let timestamp: Timestamp
     
-    var location: GeoPoint?
+    var location: String?
     var user: User?
 }

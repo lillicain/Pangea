@@ -12,29 +12,44 @@ import MapKit
 struct MapScreen: View {
     @StateObject var locationManager = LocationManager()
     
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            
             MapViewRepresentable()
-                .ignoresSafeArea(.all)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                LocationButton {
-                    locationManager.requestLocation()
-                }
-                .cornerRadius(15)
-                .labelStyle(.titleAndIcon)
-                .symbolVariant(.slash)
-                .foregroundColor(.white)
-                .padding()
+                .edgesIgnoringSafeArea(.top)
         
+            LocationButton {
+                locationManager.requestLocation()
+            }
+            .cornerRadius(15)
+            .labelStyle(.titleAndIcon)
+            .foregroundColor(.white)
+            .padding()
             
-        }
+          
         }
     }
 }
 
 #Preview {
     MapScreen()
+}
+
+struct CurrentLocationButton : View {
+    
+    @StateObject var locationManager = LocationManager()
+    
+    var body: some View {
+        HStack {
+            if let currentLocation = locationManager.currentLocation {
+                Text("\(currentLocation)")
+            }
+            LocationButton(.currentLocation) {
+                locationManager.requestLocation()
+            }
+            .labelStyle(.iconOnly)
+            .cornerRadius(7.5)
+            .foregroundColor(.white)
+        }
+    }
 }

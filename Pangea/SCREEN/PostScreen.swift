@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import AVKit
+import CoreLocationUI
 
 struct PostScreen: View {
     
@@ -17,59 +18,22 @@ struct PostScreen: View {
     @State var image: UIImage?
     @State var showCamera = false
     @State var showImagePicker = false
-    
-    @State var date: Date?
-    @State var location: CLLocationCoordinate2D?
+    @State var location = ""
+
     
     var body: some View {
         ZStack {
+            
+            AuthenticationViewModel().backgroundColor
+                .ignoresSafeArea(.all)
+            
             VStack {
-                if let image = postViewModel.postImage {
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 350, height: 350)
-                        .clipped()
-                        .padding()
-                } else if image != nil {
-                    Image(uiImage: image!)
-                        .scaledToFill()
-                        .frame(width: 350, height: 350)
-                        .clipped()
-                        .padding()
-                }
-                if let date = date {
-                    Text("Created \(date)")
-                }
-                if let location = location {
-                    Text("Location: lat \(location.latitude) long \(location.longitude)")
-                }
-                
-                
-                TextField("Enter Text...", text: $caption)
-                    .frame(width: UIScreen.main.bounds.width, height: 100)
-                    .padding(.leading, 25)
-                    .padding()
-                
-                Divider()
-                
-                
-                Button {
-                    showCamera.toggle()
-                    image = postViewModel.uiImage
-                    
-                    
-                } label: {
-                    Text("Use Camera")
-                        .padding()
-                        .background(Color(.systemGray5))
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding()
-                }
-                
-                Spacer()
-                
+                postInformation
             }
+        
+            .padding(.all)
+
+            
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
@@ -80,30 +44,84 @@ struct PostScreen: View {
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
-            
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        Task {
-                            try await postViewModel.uploadPost(caption: caption)
-                            postViewModel.uiImage = image
-                        }
-                        caption = ""
-                        postViewModel.selectedImage = nil
-                        postViewModel.postImage = nil
-                        
-                        
-                        
-                    } label: {
-                        Text("Post")
+        }
+
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    Task {
+                        try await postViewModel.uploadPost(caption: caption)
+                        postViewModel.uiImage = image
+                        postViewModel.location = location
                     }
+                    caption = ""
+                    postViewModel.selectedImage = nil
+                    postViewModel.postImage = nil
+                    location = ""
+                    
+                    
+                } label: {
+                    Text("Post")
                 }
             }
         }
     }
 }
 
-#Preview {
-    PostScreen()
+extension PostScreen {
+    var postInformation: some View {
+        VStack {
+            if let image = postViewModel.postImage {
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 350, height: 350)
+                    .clipped()
+                    .padding()
+            } else if image != nil {
+                Image(uiImage: image!)
+                    .scaledToFill()
+                    .frame(width: 350, height: 350)
+                    .clipped()
+                    .padding()
+            }
+     
+            TextField("Enter Text...", text: $caption)
+                .frame(width: UIScreen.main.bounds.width, height: 100)
+                .padding(.leading, 25)
+                .padding()
+            
+            
+            Divider()
+            
+            HStack {
+                TextField("Location", text: $location)
+                    .padding(.leading, 50)
+                
+                CurrentLocationButton()
+                    .padding(.trailing, 25)
+                    .padding(.all)
+               
+                
+            }
+            
+            Divider()
+            
+            
+            Button {
+                showCamera.toggle()
+                image = postViewModel.uiImage
+                
+            } label: {
+                Text("Use Camera")
+                    .padding()
+                    .background(Color(.systemGray5))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding()
+            }
+       Spacer()
+                
+            
+        }
+    }
 }

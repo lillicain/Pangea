@@ -10,6 +10,7 @@ import CoreLocation
 import CoreLocationUI
 import MapKit
 import SwiftUI
+import UIKit
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
@@ -18,6 +19,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private static let locationDistance: CLLocationDistance = 10000
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: LocationManager.locationDistance, longitudinalMeters: LocationManager.locationDistance)
+    @Published var currentLocation: String?
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
@@ -33,7 +35,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-    
+        
+        lookUpCurrentLocation { placemark in
+            self.currentLocation = placemark
+        }
+        
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: Self.locationDistance, longitudinalMeters: Self.locationDistance)
             
@@ -43,5 +49,25 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    func lookUpCurrentLocation(completionHandler: @escaping (String?) -> Void) {
+        if let lastLocation = manager.location {
+            let geocoder = CLGeocoder()
+            
+            geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
+                
+                if error == nil {
+                    
+                    let firstLocation = placemarks?[0].name
+                    completionHandler(firstLocation)
+                    
+                } else {
+                    completionHandler(nil)
+                }
+            })
+        } else {
+            completionHandler(nil)
+        }
     }
 }
