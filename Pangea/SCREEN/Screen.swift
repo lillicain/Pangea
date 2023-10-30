@@ -25,7 +25,7 @@ struct Screen: View {
                         MapScreen()
                         
                             .frame(width: UIScreen.main.bounds.width, height: 250)
-                            .cornerRadius(50)
+//                            .cornerRadius(50)
                             .padding(.bottom, 50)
                     }
                     ZStack {
@@ -42,7 +42,7 @@ struct Screen: View {
                     .clipShape(.circle)
                     .padding(.top, 75)
                 }
-                .modifier(DarkModeViewModifier())
+//                .modifier(DarkModeViewModifier())
                 
                 ZStack {
                     VStack(spacing: 7.5) {

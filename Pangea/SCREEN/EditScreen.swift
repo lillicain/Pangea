@@ -99,6 +99,16 @@ extension EditScreen {
     
     var userInformation: some View {
         VStack {
+        
+                Toggle(appearance ? "Dark Mode" : "Light Mode", isOn: $appearance)
+                    .tint(Color(.systemGreen))
+                    .padding(3.5)
+                    .font(.system(size: size))
+                    .modifier(DarkModeViewModifier())
+                    .onTapGesture {
+                        appearance.toggle()
+                    }
+            
             Button {
                 Task {
                     do {
@@ -139,40 +149,28 @@ extension EditScreen {
     }
     
     var userInformationTwo: some View {
-        VStack {
-            
-            Toggle(appearance ? "Dark Mode" : "Light Mode", isOn: $appearance)
-                .tint(Color(.systemGreen))
-                .padding(3.5)
-                .font(.system(size: size))
-                .modifier(DarkModeViewModifier())
-                .onTapGesture {
-                    appearance.toggle()
-                }
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 5) {
-                    
-                    ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
-                        Button(action: {
-                            backgroundColor = color
-                            authenticationViewModel.backgroundColor = color
-                            backgroundColors = color.hexString!
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 5) {
+                
+                ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
+                    Button(action: {
+                        backgroundColor = color
+                        authenticationViewModel.backgroundColor = color
+                        backgroundColors = color.hexString!
+                        
+                        backgroundColors = color.ColorToString()
+                        
+                    }, label: {
+                        
+                        withAnimation(.spring()) {
+                            Circle()
+                                .fill(color)
+                                .frame(width: 50, height: 50)
+                                .padding(3.5)
                             
-                            backgroundColors = color.ColorToString()
-                            
-                        }, label: {
-                            
-                            withAnimation(.spring()) {
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 50, height: 50)
-                                    .padding(3.5)
-                                
-                            }
-                        })
-                        .padding(.leading, 5)
-                    }
+                        }
+                    })
+                    .padding(.leading, 5)
                 }
             }
         }
