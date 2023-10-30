@@ -32,8 +32,8 @@ struct PangeaApp: App {
             NavigationRouter {
                 Group {
                     if authenticationViewModel.userSession != nil {
-             
                         Screen(user: User.MOCK_USER[0])
+                            .modifier(DarkModeViewModifier())
                             
                     } else {
                         SignUpView()

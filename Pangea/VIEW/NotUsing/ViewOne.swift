@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-//struct UserStatusView: View {
-//    let value: Int
-//    let title: String
-//
-//    var body: some View {
-//        VStack {
-//            Text("\(value)")
-//            Text(title)
-//        }
-//        .frame(width: 75)
-//    }
-//}
-
 struct ViewOne: View {
     var body: some View {
         VStack(spacing: 25) {
@@ -149,10 +136,6 @@ struct ViewOne: View {
 //        }
 //    }
 //}
-
-
-
-
 
 //struct CustomPhotoPickerView: UIViewControllerRepresentable {
 //
