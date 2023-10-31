@@ -25,7 +25,7 @@ class PostViewModel: ObservableObject {
     }
     
     var uiImage: UIImage?
-    
+    var locationText: String?
     var location: CLLocation?
     var locationForPost = CLLocationCoordinate2D()
     

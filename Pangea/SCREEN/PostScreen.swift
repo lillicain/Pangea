@@ -53,6 +53,10 @@ struct PostScreen: View {
                         try await postViewModel.uploadPost(caption: caption)
                         postViewModel.uiImage = image
                         
+                        if let postLocation = locationManager.placemark?.locality {
+                            postViewModel.locationText = postLocation
+
+                        }
                     }
                     currentLocation = ""
                     caption = ""
@@ -117,6 +121,7 @@ extension PostScreen {
             if let location = location {
                 Text("Location: \(location.latitude), \(location.longitude)")
             }
+            
             Text(locationManager.placemark?.locality ?? "")
             
             Text(locationManager.placemark?.name ?? "")
