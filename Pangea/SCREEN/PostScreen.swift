@@ -52,12 +52,12 @@ struct PostScreen: View {
                     Task {
                         try await postViewModel.uploadPost(caption: caption)
                         postViewModel.uiImage = image
-                        postViewModel.location = location
+//                        postViewModel.location = location
                     }
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-                    location = ""
+//                    location = ""
                     
                     
                 } label: {
