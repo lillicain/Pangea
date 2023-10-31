@@ -9,6 +9,8 @@ import SwiftUI
 import Kingfisher
 
 struct FeedScreen: View {
+    @EnvironmentObject var locationManager: LocationManager
+    
     let post: Post
     
     var body: some View {
@@ -79,9 +81,10 @@ struct FeedScreen: View {
             Text("\(post.caption)")
                 .padding(.all, 5)
             
-            Text(post.location ?? "")
+            Text(post.location ?? "Location")
                 .padding(.all, 5)
             
+  
         }
     }
 }

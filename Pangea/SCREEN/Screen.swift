@@ -10,11 +10,13 @@ import MapKit
 
 struct Screen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var editUserViewModel: EditUserViewModel
     
     @State var showScreen = false
     
     let user: User
-    
+
+  
     var body: some View {
         TabView {
             ScrollView {
@@ -48,7 +50,7 @@ struct Screen: View {
                         
 //                            .foregroundColor(Color(.systemGray3))
                         
-                            .foregroundStyle(authenticationViewModel.blue[0])
+                            .foregroundColor(authenticationViewModel.blue[0])
                         
                             .kerning(5)
                             .offset(x: -3.5, y: 3.5)

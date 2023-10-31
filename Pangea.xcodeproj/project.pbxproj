@@ -33,6 +33,7 @@
 		6A78D71C2AF03FD1009AFC4E /* MapItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A78D71B2AF03FD1009AFC4E /* MapItemView.swift */; };
 		6A98A1462AEAF81A0016736E /* NavigationRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 6A98A1452AEAF81A0016736E /* NavigationRouter */; };
 		6A9D92212AF087C900C72922 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9D92202AF087C900C72922 /* ColorExtensions.swift */; };
+		6A9D92232AF0E1C400C72922 /* PangeaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9D92222AF0E1C400C72922 /* PangeaView.swift */; };
 		6AB302172AE611410036DB06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302162AE611410036DB06 /* User.swift */; };
 		6AB3021A2AE611730036DB06 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB302192AE611730036DB06 /* FirebaseAuth */; };
 		6AB3021C2AE611C00036DB06 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3021B2AE611C00036DB06 /* SignInView.swift */; };
@@ -94,6 +95,7 @@
 		6A78D7192AF03F5B009AFC4E /* LocationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInformation.swift; sourceTree = "<group>"; };
 		6A78D71B2AF03FD1009AFC4E /* MapItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemView.swift; sourceTree = "<group>"; };
 		6A9D92202AF087C900C72922 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		6A9D92222AF0E1C400C72922 /* PangeaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PangeaView.swift; sourceTree = "<group>"; };
 		6AB302162AE611410036DB06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6AB3021B2AE611C00036DB06 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6AB3021D2AE612060036DB06 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		6AB302272AE616090036DB06 /* VIEW */ = {
 			isa = PBXGroup;
 			children = (
+				6A9D92222AF0E1C400C72922 /* PangeaView.swift */,
 				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
 				6AB302482AE628660036DB06 /* PostItemView.swift */,
 				6A78D7172AF03A5A009AFC4E /* LocationView.swift */,
@@ -422,6 +425,7 @@
 				6A5A13DF2AE1E8B20041E188 /* FontManager.swift in Sources */,
 				6AB302202AE614AA0036DB06 /* UserManager.swift in Sources */,
 				6A5A13DB2AE1E87E0041E188 /* ViewExtensions.swift in Sources */,
+				6A9D92232AF0E1C400C72922 /* PangeaView.swift in Sources */,
 				6AB302352AE617B90036DB06 /* ProfileImageManager.swift in Sources */,
 				6AB302692AE69D650036DB06 /* SearchScreen.swift in Sources */,
 				6A5A13D72AE1E80D0041E188 /* PostViewModel.swift in Sources */,

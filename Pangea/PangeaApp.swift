@@ -36,7 +36,7 @@ struct PangeaApp: App {
                             .modifier(DarkModeViewModifier())
                             
                     } else {
-                        SignUpView()
+                      PangeaView()
                     }
                 }
             }

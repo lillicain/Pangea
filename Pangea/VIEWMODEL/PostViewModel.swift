@@ -14,6 +14,7 @@ import MapKit
 
 @MainActor
 class PostViewModel: ObservableObject {
+    
     @Published var postImage: Image?
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
@@ -22,8 +23,11 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
     var uiImage: UIImage?
-    var location: String?
+    var locationText: String?
+    var location: CLLocation?
+    var locationForPost = CLLocationCoordinate2D()
     
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item = item else { return }
@@ -39,7 +43,7 @@ class PostViewModel: ObservableObject {
         guard let location = location else { return }
         let posts = Firestore.firestore().collection("posts").document()
         guard let imageUrl = try await ImageManager.uploadImage(image: uiImage) else { return }
-        let post = Post(id: posts.documentID, userUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
+        let post = Post(id: posts.documentID, userUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: String(describing: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)))
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
         try await posts.setData(encodedPost)
     }

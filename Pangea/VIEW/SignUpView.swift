@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import NavigationRouter
 
 struct SignUpView: View {
+    @NavRouter var navRouter
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @State var username = ""
@@ -17,12 +20,6 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            
-            //            LinearGradient(colors: [.gray, .white, .gray], startPoint: .top, endPoint: .bottomTrailing)
-            //                .ignoresSafeArea(.all)
-            
-            
-            
             VStack(alignment: .leading) {
                 Text("Sign Up".uppercased())
                     .fontWeight(.bold)
@@ -72,8 +69,12 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
+                    if authenticationViewModel.currentUser != nil {
+                        navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
+                    }
                     Task {
                         try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                        
                     }
                     
                 } label: {

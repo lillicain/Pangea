@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import NavigationRouter
 
 struct SignInView: View {
+    @NavRouter var navRouter
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @State var username = ""
@@ -16,8 +19,6 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-//            LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottomTrailing)
-//                .ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
                 Text("Sign In".uppercased())
@@ -57,6 +58,10 @@ struct SignInView: View {
                    
                 
                 Button {
+                    if authenticationViewModel.currentUser != nil {
+                     
+                        navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
+                    }
                     Task {
                         try await authenticationViewModel.signIn(withEmail: email, password: password)
                     }

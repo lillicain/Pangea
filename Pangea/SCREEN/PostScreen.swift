@@ -11,31 +11,31 @@ import AVKit
 import CoreLocationUI
 
 struct PostScreen: View {
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @StateObject var postViewModel = PostViewModel()
+    @StateObject var locationManager = LocationManager()
     
     @State var caption = ""
     @State var image: UIImage?
     @State var showCamera = false
     @State var showImagePicker = false
-    @State var location = ""
-
+    @State var date: Date?
+    @State var currentLocation = ""
+    @State var location: CLLocationCoordinate2D?
+   
     
     var body: some View {
         ZStack {
             
-            AuthenticationViewModel().backgroundColor
-                .ignoresSafeArea(.all)
-            
             VStack {
                 postInformation
-            }
-        
-            .padding(.all)
+                
 
-            
+            }
+    
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
-                CameraViewController(selectedImage: $image)
+                CameraViewController(selectedImage: $image, date: $date, location: $location)
                     .ignoresSafeArea(.all)
             }
             
@@ -45,20 +45,23 @@ struct PostScreen: View {
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
         }
-
+        
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     Task {
                         try await postViewModel.uploadPost(caption: caption)
                         postViewModel.uiImage = image
-                        postViewModel.location = location
+                        
+                        if let postLocation = locationManager.placemark?.locality {
+                            postViewModel.locationText = postLocation
+
+                        }
                     }
+                    currentLocation = ""
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-                    location = ""
-                    
                     
                 } label: {
                     Text("Post")
@@ -69,6 +72,7 @@ struct PostScreen: View {
 }
 
 extension PostScreen {
+    
     var postInformation: some View {
         VStack {
             if let image = postViewModel.postImage {
@@ -85,7 +89,7 @@ extension PostScreen {
                     .clipped()
                     .padding()
             }
-     
+            
             TextField("Enter Text...", text: $caption)
                 .frame(width: UIScreen.main.bounds.width, height: 100)
                 .padding(.leading, 25)
@@ -95,32 +99,50 @@ extension PostScreen {
             Divider()
             
             HStack {
-                TextField("Location", text: $location)
-                    .padding(.leading, 50)
+                let currentLocation = locationManager.currentLocation
                 
-                CurrentLocationButton()
-                    .padding(.trailing, 25)
-                    .padding(.all)
-               
+                Text(currentLocation ?? "")
                 
+                LocationButton(.currentLocation) {
+                    locationManager.requestLocation()
+                }
+                .labelStyle(.titleAndIcon)
+                .cornerRadius(7.5)
+                .foregroundColor(.white)
+                .padding()
             }
             
             Divider()
             
+            if let date = date {
+                Text("Created \(date)")
+            }
+            
+            if let location = location {
+                Text("Location: \(location.latitude), \(location.longitude)")
+            }
+            
+            Text(locationManager.placemark?.locality ?? "")
+            
+            Text(locationManager.placemark?.name ?? "")
+            
+            Divider()
             
             Button {
                 showCamera.toggle()
                 image = postViewModel.uiImage
+                location = postViewModel.locationForPost
                 
             } label: {
                 Text("Use Camera")
+                    .fontWeight(.semibold)
                     .padding()
                     .background(Color(.systemGray5))
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding()
             }
-       Spacer()
-                
+            Spacer()
+            
             
         }
     }
