@@ -19,6 +19,8 @@ struct LocationView: View {
     @State var route: MKRoute?
     @State var routeDestination: MKMapItem?
     
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -60,36 +62,34 @@ struct LocationView: View {
                         
                     }
                 }
-                .frame(width: UIScreen.main.bounds.width, height: 575)
+                .frame(width: UIScreen.main.bounds.width, height: 625)
                 .cornerRadius(50)
+                .padding()
+                
                 
                 VStack {
-                    TextField("Search", text: $searchText)
-                        .fontWeight(.semibold)
-                        .padding()
-                        .background(Color(.systemGray5))
-                        .cornerRadius(15)
-                        .padding()
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .background(.white)
-                        .onSubmit(of: .text) {
-                            Task {
-                                await searchPlaces()
-                            }
+                    RoundedRectangle(cornerRadius: 25, style: .circular)
+                        .foregroundColor(authenticationViewModel.green[0])
+                        .frame(width: 350, height: 75)
+                        .overlay {
+                            TextField("Search...", text: $searchText)
+                                .fontWeight(.semibold)
+                                .kerning(2.5)
+                                .padding()
+                                .cornerRadius(25)
+                                .padding()
+                                .background(.white)
+                                .frame(width: 325, height: 65)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                           
+                                .onSubmit(of: .text) {
+                                    Task {
+                                        await searchPlaces()
+                                    }
+                                }
                         }
                 }
                 
-                //        .overlay(alignment: .top) {
-                //            TextField("Search", text: $searchText)
-                //                .padding()
-                //                .background(.white)
-                //                .padding()
-                //        }
-                //                    .onSubmit(of: .text) {
-                //                        Task {
-                //                            await searchPlaces()
-                //                        }
-                //                    }
                 
                 .onChange(of: getDirections, { oldValue, newValue in
                     if newValue {
