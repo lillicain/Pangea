@@ -46,9 +46,6 @@ struct Screen: View {
                     VStack(spacing: 7.5) {
                         Text(user.username)
                             .font(FontTwo.title)
-                        
-                        //                            .foregroundColor(Color(.systemGray3))
-                        
                             .foregroundColor(authenticationViewModel.blue[0])
                         
                             .kerning(5)
