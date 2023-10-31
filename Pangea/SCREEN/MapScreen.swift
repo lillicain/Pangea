@@ -17,7 +17,7 @@ struct MapScreen: View {
         ZStack(alignment: .topTrailing) {
             MapViewRepresentable()
                 .edgesIgnoringSafeArea(.top)
-        
+            
             LocationButton {
                 locationManager.requestLocation()
             }
@@ -26,7 +26,7 @@ struct MapScreen: View {
             .foregroundColor(.white)
             .padding()
             
-          
+            
         }
     }
 }
@@ -41,12 +41,15 @@ struct CurrentLocationButton : View {
     
     var body: some View {
         HStack {
-            if let currentLocation = locationManager.currentLocation {
-                Text("\(currentLocation)")
-            }
+            let currentLocation = locationManager.currentLocation
+            
+            Text(currentLocation ?? "")
+            
+            
             LocationButton(.currentLocation) {
-                locationManager.requestLocation()
+                    locationManager.requestLocation()
             }
+            
             .labelStyle(.iconOnly)
             .cornerRadius(7.5)
             .foregroundColor(.white)

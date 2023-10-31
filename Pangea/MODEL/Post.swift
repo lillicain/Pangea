@@ -18,5 +18,6 @@ struct Post: Identifiable, Hashable, Codable {
     let timestamp: Timestamp
     
     var location: String?
+    
     var user: User?
 }

@@ -22,93 +22,99 @@ struct LocationView: View {
     var body: some View {
         ScrollView {
             VStack {
-            Map(position: $cameraPosition, selection: $selectedResult) {
-                
-                //        Marker("ME", coordinate: .userLocation)
-                
-                //        UserAnnotation()
-                
-                Annotation("Me!", coordinate: .userLocation) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(Color(.systemBlue).opacity(0.25))
-                        
-                        Circle()
-                            .frame(width: 22.5, height: 22.5)
-                            .foregroundColor(.white)
-                        
-                        Circle()
-                            .frame(width: 15, height: 15)
-                            .foregroundColor(Color(.systemBlue))
+                Map(position: $cameraPosition, selection: $selectedResult) {
+                    
+                    //        Marker("ME", coordinate: .userLocation)
+                    
+                    //        UserAnnotation()
+                    
+                    Annotation("Me!", coordinate: .userLocation) {
+                        ZStack {
+                            Circle()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color(.systemBlue).opacity(0.25))
+                            
+                            Circle()
+                                .frame(width: 22.5, height: 22.5)
+                                .foregroundColor(.white)
+                            
+                            Circle()
+                                .frame(width: 15, height: 15)
+                                .foregroundColor(Color(.systemBlue))
+                        }
                     }
-                }
-                ForEach(results, id: \.self) { item in
-                    if routeDisplaying {
-                        if item == routeDestination {
+                    ForEach(results, id: \.self) { item in
+                        if routeDisplaying {
+                            if item == routeDestination {
+                                let placemark = item.placemark
+                                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                            }
+                        } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                         }
-                    } else {
-                        let placemark = item.placemark
-                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                    }
+                    if let route {
+                        MapPolyline(route.polyline)
+                            .stroke(Color(.systemBlue), lineWidth: 5)
+                        
                     }
                 }
-                if let route {
-                    MapPolyline(route.polyline)
-                        .stroke(Color(.systemBlue), lineWidth: 5)
-                    
-                }
-            }
-            .frame(width: UIScreen.main.bounds.width, height: 575)
-            
+                .frame(width: UIScreen.main.bounds.width, height: 575)
+                .cornerRadius(50)
+                
                 VStack {
                     TextField("Search", text: $searchText)
+                        .fontWeight(.semibold)
                         .padding()
+                        .background(Color(.systemGray5))
+                        .cornerRadius(15)
+                        .padding()
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
                         .background(.white)
-                        .padding()
                         .onSubmit(of: .text) {
                             Task {
                                 await searchPlaces()
                             }
                         }
                 }
-            
-            //        .overlay(alignment: .top) {
-            //            TextField("Search", text: $searchText)
-            //                .padding()
-            //                .background(.white)
-            //                .padding()
-            //        }
-//                    .onSubmit(of: .text) {
-//                        Task {
-//                            await searchPlaces()
-//                        }
-//                    }
-            .onChange(of: getDirections, { oldValue, newValue in
-                if newValue {
-                    fetchRoute()
-                }
-            })
-            
-            .onChange(of: selectedResult, { oldValue, newValue in
-                showDetails = newValue != nil
                 
-            })
-            .sheet(isPresented: $showDetails, content: {
-                LocationInformation(selectedResult: $selectedResult, isShowing: $showDetails, getDirections: $getDirections)
-                    .presentationDetents([.height(250)])
-                    .presentationBackgroundInteraction(.enabled(upThrough: .height(250)))
-                    .presentationCornerRadius(25)
-            })
-            .mapControls {
-                MapCompass()
-                MapPitchToggle()
-                MapUserLocationButton()
+                //        .overlay(alignment: .top) {
+                //            TextField("Search", text: $searchText)
+                //                .padding()
+                //                .background(.white)
+                //                .padding()
+                //        }
+                //                    .onSubmit(of: .text) {
+                //                        Task {
+                //                            await searchPlaces()
+                //                        }
+                //                    }
+                
+                .onChange(of: getDirections, { oldValue, newValue in
+                    if newValue {
+                        fetchRoute()
+                    }
+                })
+                
+                .onChange(of: selectedResult, { oldValue, newValue in
+                    showDetails = newValue != nil
+                    
+                })
+                .sheet(isPresented: $showDetails, content: {
+                    LocationInformation(selectedResult: $selectedResult, isShowing: $showDetails, getDirections: $getDirections)
+                        .presentationDetents([.height(250)])
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(250)))
+                        .presentationCornerRadius(25)
+                })
+                .mapControls {
+                    MapCompass()
+                    MapPitchToggle()
+                    MapUserLocationButton()
+                }
             }
         }
     }
-}
 }
 
 #Preview {

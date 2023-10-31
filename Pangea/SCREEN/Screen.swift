@@ -126,9 +126,6 @@ struct Screen: View {
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
-//            MapScreen()
-//                .tabItem { Image(systemName: "globe") }
-            
             LocationView()
                 .tabItem { Image(systemName: "globe") }
             

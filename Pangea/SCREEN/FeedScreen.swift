@@ -40,7 +40,7 @@ struct FeedScreen: View {
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
                     NavigationLink {
-                        MapScreen()
+                        LocationView()
                         
                     } label: {
                         Image(systemName: "mappin.and.ellipse.circle")
@@ -82,6 +82,8 @@ struct FeedScreen: View {
             Text(post.location ?? "")
                 .padding(.all, 5)
             
+            Text(CurrentLocationButton().locationManager.currentLocation ?? "LOCATION")
+            Text(PostViewModel().location)
         }
     }
 }

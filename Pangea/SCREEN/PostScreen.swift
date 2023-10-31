@@ -23,10 +23,6 @@ struct PostScreen: View {
     
     var body: some View {
         ZStack {
-            
-            AuthenticationViewModel().backgroundColor
-                .ignoresSafeArea(.all)
-            
             VStack {
                 postInformation
             }
@@ -50,14 +46,14 @@ struct PostScreen: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     Task {
-                        try await postViewModel.uploadPost(caption: caption)
+                        try await postViewModel.uploadPost(caption: location)
                         postViewModel.uiImage = image
-//                        postViewModel.location = location
+                        postViewModel.location = location
                     }
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-//                    location = ""
+                    location = ""
                     
                     
                 } label: {
@@ -95,9 +91,11 @@ extension PostScreen {
             Divider()
             
             HStack {
-                TextField("Location", text: $location)
+//                TextField("Location", text: $location)
+                Text(location)
                     .padding(.leading, 50)
                 
+               
                 CurrentLocationButton()
                     .padding(.trailing, 25)
                     .padding(.all)
