@@ -31,7 +31,7 @@ struct EditScreen: View {
     
     //["ed4519", "8c00ff","ff0000","0000ff", "ff8300","ffff00", "2d00f7", "89fc00","f20089","ff006e", "a4f603", "C1FF00", "000000", "FFA617", "DD1F9F", "990DCE","243838", "B2FA63", "FF7833", "B2A1FF", "F3EDE1", "F85D32", "FC72AB", "D6D8F1", "19736B", "F4A44E", "455054", "308695", "D45769", "E69D45", "D4CFC9", "F2BB13", "442F73", "F2C2DC", "F26C1F", "FB2850", "FF006E", "80B918", "DDDF00", "F38375", "A5BE00", "1E96FC", "D264B6", "FF499E", "89FC00", "00E9D8", "F20089", "7014F2", "FF0000"] "ADFF02"  "FF8300", "FF00FF", "FF0000" "F20089" , "390099" "7014F2" "0C0F0A" FF6200", "FF7900"  "480CA8" "5603AD", "550CA8"
     
-    
+
     var body: some View {
         ZStack {
             
@@ -188,7 +188,9 @@ extension EditScreen {
                         try authenticationViewModel.signOut()
                         authenticationViewModel.currentUser = nil
                         
-                        navRouter.push(SignInView())
+//                        navRouter.push(SignInView())
+                        navRouter.push(PangeaView())
+                        
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -209,7 +211,8 @@ extension EditScreen {
                 Task {
                     try await authenticationViewModel.deleteAccount()
                     
-                    navRouter.push(SignUpView())
+//                    navRouter.push(SignUpView())
+                    navRouter.push(PangeaView())
                 }
             } label: {
                 withAnimation(.snappy) {

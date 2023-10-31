@@ -10,11 +10,13 @@ import MapKit
 
 struct Screen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var editUserViewModel: EditUserViewModel
     
     @State var showScreen = false
     
     let user: User
-    
+
+  
     var body: some View {
         TabView {
             ScrollView {
