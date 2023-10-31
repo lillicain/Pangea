@@ -12,7 +12,7 @@ struct PangeaView: View {
     
     var body: some View {
         NavigationStack {
-//            ZStack {
+            ZStack {
                 authenticationViewModel.green[0]
                     .ignoresSafeArea(.all)
                 
@@ -20,12 +20,15 @@ struct PangeaView: View {
                     Text("PANGEA")
                         .font(FontSeven.medium)
                         .foregroundColor(authenticationViewModel.blue[0])
-                        .kerning(7.5)
+                        .kerning(5)
                         .offset(x: -3.5, y: 3.5)
                         .overlay {
                             Text("PANGEA")
+                                .font(FontSeven.medium)
+                                .foregroundColor(authenticationViewModel.pink[0])
+                                .kerning(5)
                         }
-//                }
+                }
             }
         }
     }
@@ -33,4 +36,27 @@ struct PangeaView: View {
 
 #Preview {
     PangeaView()
+}
+
+extension PangeaView {
+    var signUp: some View {
+        ZStack {
+            NavigationLink {
+                
+                
+            } label: {
+                Text("Sign Up")
+            }
+        }
+    }
+    
+    var signIn: some View {
+        ZStack {
+            NavigationLink {
+                
+            } label: {
+                Text("Sign In")
+            }
+        }
+    }
 }
