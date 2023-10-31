@@ -23,8 +23,9 @@ struct ProfileImageManager: View {
             Image(systemName: "person.crop.circle")
                 .resizable()
                 .frame(width: size.dimension, height: size.dimension)
-                .clipShape(.circle)
                 .foregroundStyle(.ultraThickMaterial)
+                .clipShape(.circle)
+            
         }
     }
 }

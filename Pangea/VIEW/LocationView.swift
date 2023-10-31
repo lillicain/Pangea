@@ -26,8 +26,7 @@ struct LocationView: View {
         
 //        UserAnnotation()
         
-            Annotation("MY ANNOTATION", coordinate:  .userLocation) {
-                
+            Annotation("Me!", coordinate: .userLocation) {
                 ZStack {
                     Circle()
                         .frame(width: 30, height: 30)
@@ -49,7 +48,6 @@ struct LocationView: View {
                         Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                     }
                 } else {
-                    
                     let placemark = item.placemark
                     Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                 }
@@ -60,17 +58,17 @@ struct LocationView: View {
                 
             }
         }
-        .overlay(alignment: .top) {
-            TextField("Search", text: $searchText)
-                .padding()
-                .background(.white)
-                .padding()
-        }
-        .onSubmit(of: .text) {
-            Task {
-                await searchPlaces()
-            }
-        }
+//        .overlay(alignment: .top) {
+//            TextField("Search", text: $searchText)
+//                .padding()
+//                .background(.white)
+//                .padding()
+//        }
+//        .onSubmit(of: .text) {
+//            Task {
+//                await searchPlaces()
+//            }
+//        }
         .onChange(of: getDirections, { oldValue, newValue in
             if newValue {
                 fetchRoute()
@@ -90,7 +88,6 @@ struct LocationView: View {
         .mapControls {
             MapCompass()
             MapPitchToggle()
-            
             MapUserLocationButton()
         }
     }
