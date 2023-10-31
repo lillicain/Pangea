@@ -17,12 +17,6 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            
-            //            LinearGradient(colors: [.gray, .white, .gray], startPoint: .top, endPoint: .bottomTrailing)
-            //                .ignoresSafeArea(.all)
-            
-            
-            
             VStack(alignment: .leading) {
                 Text("Sign Up".uppercased())
                     .fontWeight(.bold)

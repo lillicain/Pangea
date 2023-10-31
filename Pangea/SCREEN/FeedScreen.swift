@@ -85,12 +85,6 @@ struct FeedScreen: View {
                 .padding(.all, 5)
             
   
-            
-//            Text(locationManager.placemark?.locality ?? "")
-//            
-//            Text(locationManager.placemark?.name ?? "")
-            
-            
         }
     }
 }
