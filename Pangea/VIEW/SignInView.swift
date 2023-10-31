@@ -19,6 +19,11 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
+            
+            Image("1")
+                .resizable()
+                .ignoresSafeArea(.all)
+            
             VStack(alignment: .leading) {
                 Text("Sign In".uppercased())
                     .fontWeight(.bold)
