@@ -20,6 +20,9 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
+            Image("3")
+                .resizable()
+                .ignoresSafeArea()
             
             VStack(alignment: .leading) {
                 Text("Sign Up".uppercased())
@@ -106,11 +109,12 @@ struct SignUpView: View {
                 }
             }
             .padding()
-            .background(.ultraThinMaterial)
-            .foregroundColor(Color(.systemGray3))
-            .foregroundStyle(.ultraThinMaterial)
-            .cornerRadius(15)
+            .background(.ultraThinMaterial.opacity(0.75))
+            .foregroundColor(.white)
+            .foregroundStyle(.ultraThickMaterial)
+            .cornerRadius(25)
             .padding(25)
+    
         }
     }
 }

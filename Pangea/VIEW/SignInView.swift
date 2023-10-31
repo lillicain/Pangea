@@ -10,7 +10,7 @@ import NavigationRouter
 
 struct SignInView: View {
     @NavRouter var navRouter
-
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @State var username = ""
@@ -22,7 +22,7 @@ struct SignInView: View {
             
             Image("1")
                 .resizable()
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea()
             
             VStack(alignment: .leading) {
                 Text("Sign In".uppercased())
@@ -37,7 +37,7 @@ struct SignInView: View {
                     .padding(2.5)
                 
                 Divider()
-               
+                
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
                         .modifier(MaterialViewModifier())
@@ -59,13 +59,13 @@ struct SignInView: View {
                 Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
                     .padding(.leading, 15)
                     .font(.system(size: 12.5))
-                   
+                
                 
                 Button {
                     if authenticationViewModel.currentUser != nil {
-                                       
-                                          navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
-                                      }
+                        
+                        navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
+                    }
                     Task {
                         try await authenticationViewModel.signIn(withEmail: email, password: password)
                     }
@@ -98,10 +98,10 @@ struct SignInView: View {
                 }
             }
             .padding()
-            .background(.ultraThinMaterial)
-            .foregroundColor(Color(.systemGray3))
-            .foregroundStyle(.ultraThinMaterial)
-            .cornerRadius(15)
+            .background(.ultraThinMaterial.opacity(0.75))
+            .foregroundColor(.white)
+            .foregroundStyle(.ultraThickMaterial)
+            .cornerRadius(25)
             .padding(25)
         }
     }
