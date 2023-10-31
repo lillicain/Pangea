@@ -45,22 +45,23 @@ struct Screen: View {
                     VStack(spacing: 7.5) {
                         Text(user.username)
                             .font(FontTwo.title)
-                            .foregroundColor(Color(.systemGray3))
+                        
+//                            .foregroundColor(Color(.systemGray3))
+                        
+                            .foregroundStyle(authenticationViewModel.blue[0])
+                        
                             .kerning(5)
                             .offset(x: -3.5, y: 3.5)
                             .overlay {
                         Text(user.username)
                             .font(FontTwo.title)
-                            .foregroundColor(authenticationViewModel.backgroundColor)
-                            .kerning(5)
                                 
-//                            .overlay {
-//                                Text(user.username)
-//                                    .scaledToFill()
-//                                    .font(FontTwo.title)
-//                                    .kerning(5)
-//                                    .foregroundColor(authenticationViewModel.backgroundColor)
-//                            }
+//                            .foregroundColor(authenticationViewModel.backgroundColor)
+                                
+                            .foregroundColor(authenticationViewModel.green[0])
+                                
+                            .kerning(5)
+    
                     }
                         if let name = user.name {
                             Text(name)
@@ -72,32 +73,39 @@ struct Screen: View {
                                         .font(FontSeven.large)
                                         .foregroundColor(authenticationViewModel.backgroundColor)
                                 }
+                                .padding(.bottom)
                         }
                         if let profileInformation = user.profileInformation {
                             Text(profileInformation)
-                            
                                 .font(FontFour.small)
+                                .padding()
                         }
+                        
                         
                         HStack {
                             UserInformation(value: 1, title: "Post")
                             UserInformation(value: 1, title: "Post")
                             
                             Spacer()
+                                
                             
                             NavigationLink {
                                 EditScreen(user: user)
                                     
                             } label: {
                                 Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
-                                    .padding(7.5)
-                                    .background(user.isCurrentUser ? Color(.systemGray3) : Color(.systemGreen))
+                                    .padding(12.5)
+                                    .background(user.isCurrentUser ? Color(.systemGray3) : authenticationViewModel.green[0])
                                     .font(FontOne.small)
+                                    .foregroundColor(authenticationViewModel.blue[0])
                                     .foregroundStyle(.ultraThickMaterial)
                                     .clipShape(RoundedRectangle(cornerRadius: 15))
+                                    .lineLimit(1)
                                     .padding(.bottom, 250)
+                                
                             }
                             .padding(.trailing)
+                            
                         }
                         Divider()
                         

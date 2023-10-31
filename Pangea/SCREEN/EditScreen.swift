@@ -27,9 +27,9 @@ struct EditScreen: View {
     @State var size: CGFloat = 17.5
     @State var backgroundColor = AuthenticationViewModel().backgroundColor
     
-    @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF4E00", "0C0F0A"]
+    @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF5714"]
     
-    //["ed4519", "8c00ff","ff0000","0000ff", "ff8300","ffff00", "2d00f7", "89fc00","f20089","ff006e", "a4f603", "C1FF00", "000000", "FFA617", "DD1F9F", "990DCE","243838", "B2FA63", "FF7833", "B2A1FF", "F3EDE1", "F85D32", "FC72AB", "D6D8F1", "19736B", "F4A44E", "455054", "308695", "D45769", "E69D45", "D4CFC9", "F2BB13", "442F73", "F2C2DC", "F26C1F", "FB2850", "FF006E", "80B918", "DDDF00", "F38375", "A5BE00", "1E96FC", "D264B6", "FF499E", "89FC00", "00E9D8", "F20089", "7014F2", "FF0000"] "ADFF02"  "FF8300", "FF00FF", "FF0000" "F20089" , "390099" "7014F2"
+    //["ed4519", "8c00ff","ff0000","0000ff", "ff8300","ffff00", "2d00f7", "89fc00","f20089","ff006e", "a4f603", "C1FF00", "000000", "FFA617", "DD1F9F", "990DCE","243838", "B2FA63", "FF7833", "B2A1FF", "F3EDE1", "F85D32", "FC72AB", "D6D8F1", "19736B", "F4A44E", "455054", "308695", "D45769", "E69D45", "D4CFC9", "F2BB13", "442F73", "F2C2DC", "F26C1F", "FB2850", "FF006E", "80B918", "DDDF00", "F38375", "A5BE00", "1E96FC", "D264B6", "FF499E", "89FC00", "00E9D8", "F20089", "7014F2", "FF0000"] "ADFF02"  "FF8300", "FF00FF", "FF0000" "F20089" , "390099" "7014F2" "0C0F0A" FF6200", "FF7900"  "480CA8" "5603AD", "550CA8"
     
     
     var body: some View {
@@ -49,6 +49,9 @@ struct EditScreen: View {
                                 Circle()
                                     .frame(width: 135)
                                     .foregroundColor(backgroundColor)
+                                    .onAppear {
+                                        backgroundColor = authenticationViewModel.green[0]
+                                    }
                                 
                                 ZStack {
                                     ProfileImageManager(user: editUserViewModel.user, size: .large)
@@ -83,7 +86,7 @@ struct EditScreen: View {
                         userInformationFour
                             .padding(5)
                     }
-                
+                    
                     
                     Section {
                         userInformationFive
@@ -114,10 +117,19 @@ extension EditScreen {
         ZStack {
             VStack(alignment: .leading, spacing: 15) {
                 Text(editUserViewModel.user.username)
-                    .font(FontTwo.small)
+                    .font(FontOne.medium)
+                    .foregroundColor(Color(.systemGray3))
+                    .offset(x: -3.5, y: 3.5)
+                    .kerning(2.5)
+                    .overlay {
+                        Text(editUserViewModel.user.username)
+                            .font(FontOne.medium)
+                            .foregroundColor(authenticationViewModel.backgroundColor)
+                            .kerning(2.5)
+                    }
                 
                 Text(editUserViewModel.user.name ?? "")
-
+                
                 Text(editUserViewModel.user.email)
                     .lineLimit(1)
             }
@@ -190,7 +202,7 @@ extension EditScreen {
             .padding(.all, 5)
         }
     }
-        
+    
     var userInformationFive: some View {
         VStack {
             Button(role: .destructive) {
