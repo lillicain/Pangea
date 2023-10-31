@@ -27,9 +27,9 @@ struct EditScreen: View {
     @State var size: CGFloat = 17.5
     @State var backgroundColor = AuthenticationViewModel().backgroundColor
     
-    @State var backgroundColorSelected = ["2D00F7", "C1FF00", "390099", "0C0F0A", "FF206E", "FF6D00"]
+    @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF4E00", "0C0F0A"]
     
-    //["ed4519", "8c00ff","ff0000","0000ff", "ff8300","ffff00", "2d00f7", "89fc00","f20089","ff006e", "a4f603", "C1FF00", "000000", "FFA617", "DD1F9F", "990DCE","243838", "B2FA63", "FF7833", "B2A1FF", "F3EDE1", "F85D32", "FC72AB", "D6D8F1", "19736B", "F4A44E", "455054", "308695", "D45769", "E69D45", "D4CFC9", "F2BB13", "442F73", "F2C2DC", "F26C1F", "FB2850", "FF006E", "80B918", "DDDF00", "F38375", "A5BE00", "1E96FC", "D264B6", "FF499E", "89FC00", "00E9D8", "F20089", "7014F2", "FF0000"] "ADFF02"  "FF8300", "FF00FF", "FF0000" "F20089"
+    //["ed4519", "8c00ff","ff0000","0000ff", "ff8300","ffff00", "2d00f7", "89fc00","f20089","ff006e", "a4f603", "C1FF00", "000000", "FFA617", "DD1F9F", "990DCE","243838", "B2FA63", "FF7833", "B2A1FF", "F3EDE1", "F85D32", "FC72AB", "D6D8F1", "19736B", "F4A44E", "455054", "308695", "D45769", "E69D45", "D4CFC9", "F2BB13", "442F73", "F2C2DC", "F26C1F", "FB2850", "FF006E", "80B918", "DDDF00", "F38375", "A5BE00", "1E96FC", "D264B6", "FF499E", "89FC00", "00E9D8", "F20089", "7014F2", "FF0000"] "ADFF02"  "FF8300", "FF00FF", "FF0000" "F20089" , "390099" "7014F2"
     
     
     var body: some View {
@@ -114,18 +114,17 @@ extension EditScreen {
         ZStack {
             VStack(alignment: .leading, spacing: 15) {
                 Text(editUserViewModel.user.username)
-                    .fontWeight(.bold)
+                    .font(FontTwo.small)
                 
                 Text(editUserViewModel.user.name ?? "")
+
                 Text(editUserViewModel.user.email)
-                
+                    .lineLimit(1)
             }
             .font(.system(size: size))
             .fontWeight(.semibold)
             .foregroundColor(backgroundColor)
             .kerning(0.5)
-            
-            .padding(.trailing, 175)
         }
     }
     
@@ -152,7 +151,6 @@ extension EditScreen {
                         backgroundColor = color
                         authenticationViewModel.backgroundColor = color
                         backgroundColors = color.hexString!
-                        
                         backgroundColors = color.ColorToString()
                         
                     }, label: {
@@ -184,8 +182,10 @@ extension EditScreen {
                     }
                 }
             } label: {
-                Text("Sign Out")
-                    .fontWeight(.semibold)
+                withAnimation(.snappy) {
+                    Text("Sign Out")
+                        .fontWeight(.semibold)
+                }
             }
             .padding(.all, 5)
         }
@@ -200,8 +200,10 @@ extension EditScreen {
                     navRouter.push(SignUpView())
                 }
             } label: {
-                Text("Delete Account")
-                    .fontWeight(.semibold)
+                withAnimation(.snappy) {
+                    Text("Delete Account")
+                        .fontWeight(.semibold)
+                }
             }
             .padding(.all, 5)
         }
