@@ -132,7 +132,7 @@ struct Screen: View {
             FeedView()
                 .tabItem { Image(systemName: "globe") }
             
-            PostScreen()
+            PostScreen(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe.americas") }
             
         }

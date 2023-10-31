@@ -13,6 +13,8 @@ import CoreLocationUI
 struct PostScreen: View {
     
     @StateObject var postViewModel = PostViewModel()
+    @StateObject var locationManager = LocationManager()
+
     
     @State var caption = ""
     @State var image: UIImage?
@@ -20,6 +22,7 @@ struct PostScreen: View {
     @State var showImagePicker = false
     @State var location = ""
 
+    let post: Post
     
     var body: some View {
         ZStack {
@@ -46,14 +49,17 @@ struct PostScreen: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     Task {
-                        try await postViewModel.uploadPost(caption: location)
+                        try await postViewModel.uploadPost(caption: caption)
                         postViewModel.uiImage = image
-                        postViewModel.location = location
+                        postViewModel.location = post.location
+                        
                     }
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-                    location = ""
+//                    location = ""
+                    postViewModel.location = ""
+                    locationManager.currentLocation = ""
                     
                     
                 } label: {
@@ -91,12 +97,22 @@ extension PostScreen {
             Divider()
             
             HStack {
-//                TextField("Location", text: $location)
+
                 Text(location)
                     .padding(.leading, 50)
                 
-               
-                CurrentLocationButton()
+                Text(locationManager.currentLocation ?? "")
+                
+                LocationButton(.currentLocation) { 
+                    locationManager.requestLocation()
+                    locationManager.currentLocation = post.location
+                    
+                }
+                
+//                CurrentLocationButton() {
+//
+//                }
+                //                TextField("Location", text: $location)
                     .padding(.trailing, 25)
                     .padding(.all)
                

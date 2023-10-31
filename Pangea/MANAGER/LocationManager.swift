@@ -104,18 +104,18 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
            }
     }
 
-    //extension LocationManager {
-    //  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    //    self.authorizationState = manager.authorizationStatus
-    //
-    //    if manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse {
-    //      manager.startUpdatingLocation()
-    //
-    //    } else if manager.authorizationStatus == .denied {
-    //
-    //    }
-    //  }
-    //}
+    extension LocationManager {
+      func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        self.authorizationState = manager.authorizationStatus
+    
+        if manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse {
+          manager.startUpdatingLocation()
+    
+        } else if manager.authorizationStatus == .denied {
+    
+        }
+      }
+    }
 
 
 

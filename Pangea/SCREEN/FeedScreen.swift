@@ -53,25 +53,25 @@ struct FeedScreen: View {
                     }
                 }
             
-            HStack(spacing: 15) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "heart")
-                        .imageScale(.large)
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "network")
-                        .imageScale(.large)
-                }
-                
-                Spacer()
-            }
-            .padding(.leading)
-            .padding()
+//            HStack(spacing: 15) {
+//                Button {
+//                    
+//                } label: {
+//                    Image(systemName: "heart")
+//                        .imageScale(.large)
+//                }
+//                
+//                Button {
+//                    
+//                } label: {
+//                    Image(systemName: "network")
+//                        .imageScale(.large)
+//                }
+//                
+//                Spacer()
+//            }
+//            .padding(.leading)
+//            .padding()
             
             Text("\(post.timestamp.dateValue().formatted(date: .complete, time: .standard))")
                 .padding(.all, 5)
@@ -79,11 +79,11 @@ struct FeedScreen: View {
             Text("\(post.caption)")
                 .padding(.all, 5)
             
-            Text(post.location ?? "")
+            Text(post.location)
                 .padding(.all, 5)
             
-            Text(CurrentLocationButton().locationManager.currentLocation ?? "LOCATION")
-            Text(PostViewModel().location)
+          
+       
         }
     }
 }

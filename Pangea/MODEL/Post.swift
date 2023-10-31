@@ -17,7 +17,15 @@ struct Post: Identifiable, Hashable, Codable {
     let imageUrl: String
     let timestamp: Timestamp
     
-    var location: String?
+    let location: String
     
     var user: User?
+}
+
+extension Post {
+    static var MOCK_POST: [Post] = [
+        Post(id: NSUUID().uuidString, userUid: User.MOCK_USER[0].id, caption: "First", likes: 0, imageUrl: "", timestamp: Timestamp(date: .now), location: "Dixie Tech"),
+        Post(id: NSUUID().uuidString, userUid:  User.MOCK_USER[1].id, caption: "Second", likes: 0, imageUrl: "", timestamp: Timestamp(date: .now), location: "Dixie Tech"),
+        Post(id: NSUUID().uuidString, userUid: User.MOCK_USER[2].id, caption: "Third", likes: 0, imageUrl: "", timestamp: Timestamp(date: .now), location: "Dixie Tech")
+    ]
 }
