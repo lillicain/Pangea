@@ -9,6 +9,9 @@ import SwiftUI
 import MapKit
 
 struct LocationView: View {
+    
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @State var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State var searchText = ""
     @State var results = [MKMapItem]()
@@ -18,8 +21,10 @@ struct LocationView: View {
     @State var routeDisplaying = false
     @State var route: MKRoute?
     @State var routeDestination: MKMapItem?
+    @State var username = ""
+    @State var visibleRegion: MKCoordinateRegion?
     
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @State var lookAroundScene: MKLookAroundScene?
     
     var body: some View {
         ScrollView {
@@ -46,6 +51,7 @@ struct LocationView: View {
                         }
                     }
                     
+                    
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
                             if item == routeDestination {
@@ -59,17 +65,21 @@ struct LocationView: View {
                     }
                     if let route {
                         MapPolyline(route.polyline)
-                            .stroke(authenticationViewModel.blue[0], lineWidth: 5)
+                            .stroke(authenticationViewModel.pink[0], lineWidth: 5)
                         
                     }
                 }
-            
-   
+                .mapStyle(.standard(elevation: .realistic))
+                .safeAreaInset(edge: .bottom) {
+                    MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
+                        .padding(.leading, 300)
+                        .padding()
+                }
                 .frame(width: UIScreen.main.bounds.width, height: 625)
                 .cornerRadius(50)
                 .padding()
                 
-          
+                
                 .onChange(of: getDirections, { oldValue, newValue in
                     if newValue {
                         fetchRoute()
@@ -78,19 +88,18 @@ struct LocationView: View {
                 
                 .onChange(of: selectedResult, { oldValue, newValue in
                     showDetails = newValue != nil
-                    
                 })
                 .sheet(isPresented: $showDetails, content: {
-                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections)
+                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
                         .presentationDetents([.height(350)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                         .presentationCornerRadius(50)
+                    
                 })
                 .mapControls {
-                    MapCompass()
-                    MapPitchToggle()
-                    MapUserLocationButton()
+                    MapInformation()
                 }
+                
                 VStack {
                     RoundedRectangle(cornerRadius: 25, style: .circular)
                         .foregroundColor(authenticationViewModel.green[0])
@@ -105,7 +114,6 @@ struct LocationView: View {
                                 .background(.white)
                                 .frame(width: 325, height: 65)
                                 .clipShape(RoundedRectangle(cornerRadius: 25))
-                           
                                 .onSubmit(of: .text) {
                                     Task {
                                         await searchPlaces()
@@ -113,11 +121,6 @@ struct LocationView: View {
                                 }
                         }
                 }
-              
-         
-                
-                
-        
             }
         }
     }

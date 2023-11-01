@@ -37,11 +37,11 @@ extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
 
 extension MKCoordinateRegion {
     static var userRegion: MKCoordinateRegion {
-        return .init(center: .userLocation, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        return .init(center: .userLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
     }
-    static let firstMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0976, longitude: -113.5991), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    static let firstMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0976, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     static let secondMapItem = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.097654, longitude: -113.59915), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     static let thirdMapitem = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.097, longitude: -113.59911), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        center: CLLocationCoordinate2D(latitude: 37.09745, longitude: -113.5914), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
 }

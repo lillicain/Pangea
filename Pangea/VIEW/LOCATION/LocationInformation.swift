@@ -14,7 +14,7 @@ struct LocationInformation: View {
     @Binding var showDetails: Bool
     @Binding var getDirections: Bool
     
-    @State var lookAroundScene: MKLookAroundScene?
+    @Binding var lookAroundScene: MKLookAroundScene?
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
@@ -23,11 +23,15 @@ struct LocationInformation: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(selectedResult?.placemark.name ?? "")
+                        .font(FontOne.small)
+                        .padding(.bottom, 2.5)
+                        .padding(.trailing)
                     
                     Text(selectedResult?.placemark.title ?? "")
                         .lineLimit(2)
                         .padding(.trailing)
                 }
+                .padding(5)
                 
                 Spacer()
                 
@@ -37,9 +41,10 @@ struct LocationInformation: View {
                 } label: {
                     Image(systemName: "xmark")
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 17.5, height: 17.5)
                         .foregroundStyle(.gray, Color(.systemGray5))
                 }
+                .padding(5)
             }
             .padding(.horizontal)
             .padding(.top)
@@ -49,12 +54,14 @@ struct LocationInformation: View {
                     .frame(height: 150)
                     .cornerRadius(25)
                     .padding()
+                
             } else {
                 LookAroundPreview(initialScene: lookAroundScene)
                     .frame(height: 150)
                     .cornerRadius(25)
                     .padding()
-//                ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
+                
+//                ContentUnavailableView("No Preview Available", systemImage: "eye")
             }
             
             HStack(spacing: 25) {
@@ -64,10 +71,10 @@ struct LocationInformation: View {
                     }
                 } label: {
                     Text("Open Maps")
+                        .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .frame(width: 150, height: 50)
-                        .background(authenticationViewModel.green[0])
-//                        .foregroundColor(authenticationViewModel.blue[0])
+                        .background(authenticationViewModel.blue[0])
                         .cornerRadius(15)
                 }
                 
@@ -77,9 +84,10 @@ struct LocationInformation: View {
                     
                 } label: {
                     Text("Get Directions")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
                         .frame(width: 150, height: 50)
                         .background(authenticationViewModel.blue[0])
-                  
                         .cornerRadius(15)
                 }
             }
