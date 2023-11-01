@@ -13,31 +13,47 @@ struct PangeaView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                authenticationViewModel.green[0]
+                authenticationViewModel.blue[0]
                     .ignoresSafeArea(.all)
-             
-                VStack(spacing: 25) {
+                
+                Image(systemName: "globe")
+                    .resizable()
+                    .frame(width: 350, height: 350)
+                    .padding(.bottom, 375)
+                    .offset(x: 12.5, y: 12.5)
+                    .foregroundColor(authenticationViewModel.violet[0])
+                    .overlay {
+                        Image(systemName: "globe")
+                            .resizable()
+                            .frame(width: 350, height: 350)
+                            .padding(.bottom, 375)
+                            .foregroundColor(authenticationViewModel.green[0])
+                    }
+        
+                VStack(spacing: 100) {
                     Text("PANGEA")
                         .font(FontTwo.title)
-                        .foregroundColor(authenticationViewModel.blue[0])
-
-                        .kerning(5)
-                        .offset(x: -3.5, y: 3.5)
+                        .scaledToFill()
+                        .foregroundColor(authenticationViewModel.violet[0])
+                        .kerning(2.5)
+                        .offset(x: 1.5, y: -1.5)
                         .overlay {
                             Text("PANGEA")
-                                .font(FontTwo.title)
+                                .font(FontNine.title)
+                                .scaledToFill()
+//                                .foregroundColor(authenticationViewModel.green[0])
                                 .foregroundColor(authenticationViewModel.pink[0])
-                                .kerning(5)
+                                .kerning(2.5)
+//                                .shadow(color: .white, radius: 0.5)
                         }
-                        .padding(25)
-                                       
-                    VStack {
-                        signUp
-                    }
+                        .padding(.top, 325)
                     
-                    VStack {
+                    VStack(spacing: 25) {
+                        signUp
+                        
                         signIn
                     }
+                    .padding()
                 }
             }
         }
@@ -56,19 +72,24 @@ extension PangeaView {
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
-                Text("Sign Up")
-                    .font(FontSeven.large)
-                    .frame(width: 300, height: 75)
-                    .background(authenticationViewModel.blue[0])
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .kerning(2.5)
-                    .offset(x: -2.5, y: 2.5)
-                    .overlay {
-                        Text("Sign Up")
-                            .font(FontSeven.large)
-                            .foregroundColor(authenticationViewModel.pink[0])
-                       
-                    }
+                withAnimation(.smooth) {
+                    Text("Sign Up")
+                        .font(FontOne.body)
+                        .foregroundColor(.white)
+                        .frame(width: 250, height: 65)
+//                        .background(authenticationViewModel.blue[0])
+                        .background(authenticationViewModel.violet[0])
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .shadow(color: .white, radius: 0.5)
+                        .kerning(1.5)
+                        .offset(x: 0.5, y: -0.5)
+                        .overlay {
+                            Text("Sign Up")
+                                .font(FontOne.body)
+                                .kerning(1.5)
+                                .foregroundColor(authenticationViewModel.green[0])
+                        }
+                }
             }
         }
     }
@@ -80,19 +101,23 @@ extension PangeaView {
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
-                Text("Sign In")
-                    .font(FontSeven.large)
-                    .frame(width: 300, height: 75)
-                    .background(authenticationViewModel.blue[0])
-                
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .kerning(2.5)
-                    .offset(x: -2.5, y: 2.5)
-                    .overlay {
-                        Text("Sign In")
-                            .font(FontSeven.large)
-                            .foregroundColor(authenticationViewModel.pink[0])
-                    }
+                withAnimation(.smooth) {
+                    Text("Sign In")
+                        .font(FontOne.body)
+                        .foregroundColor(.white)
+                        .frame(width: 250, height: 65)
+                        .background(authenticationViewModel.violet[0])
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+//                        .shadow(color: .white, radius: 0.5)
+                        .kerning(1.5)
+                        .offset(x: 0.5, y: -0.5)
+                        .overlay {
+                            Text("Sign In")
+                                .font(FontOne.body)
+                                .kerning(1.5)
+                                .foregroundColor(authenticationViewModel.green[0])
+                        }
+                }
             }
         }
     }

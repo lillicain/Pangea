@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct FontOne {
-    static let body = Font.fontOne(size: 25)
+    static let body = Font.fontOne(size: 27.5)
     static let title = Font.fontOne(size: 45)
     static let small = Font.fontOne(size: 20)
     static let medium = Font.fontOne(size: 30)
@@ -18,7 +18,7 @@ struct FontOne {
 
 struct FontTwo {
     static let body = Font.fontTwo(size: 25)
-    static let title = Font.fontTwo(size: 45)
+    static let title = Font.fontTwo(size: 50)
     static let small = Font.fontTwo(size: 20)
     static let medium = Font.fontTwo(size: 30)
     static let large = Font.fontTwo(size: 35)
@@ -71,7 +71,13 @@ struct FontEight {
     static let medium = Font.fontEight(size: 30)
     static let large = Font.fontEight(size: 35)
 }
-
+struct FontNine {
+    static let body = Font.fontNine(size: 25)
+    static let title = Font.fontNine(size: 50)
+    static let small = Font.fontNine(size: 20)
+    static let medium = Font.fontNine(size: 30)
+    static let large = Font.fontNine(size: 35)
+}
 
 extension Font {
     
@@ -106,5 +112,9 @@ extension Font {
     
     static func fontEight(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
         custom("almonte", size: size)
+    }
+    
+    static func fontNine(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
+        custom("5curvo", size: size)
     }
 }
