@@ -30,23 +30,31 @@ struct PangeaView: View {
                             .foregroundColor(authenticationViewModel.green[0])
                     }
         
-                VStack(spacing: 100) {
-                    Text("PANGEA")
-                        .font(FontTwo.title)
-                        .scaledToFill()
-                        .foregroundColor(authenticationViewModel.violet[0])
-                        .kerning(2.5)
-                        .offset(x: 1.5, y: -1.5)
-                        .overlay {
-                            Text("PANGEA")
-                                .font(FontNine.title)
-                                .scaledToFill()
-//                                .foregroundColor(authenticationViewModel.green[0])
-                                .foregroundColor(authenticationViewModel.pink[0])
-                                .kerning(2.5)
-//                                .shadow(color: .white, radius: 0.5)
-                        }
-                        .padding(.top, 325)
+                VStack(spacing: 75) {
+                        Text("PANGEA")
+                            .font(FontTwo.title)
+                            .scaledToFill()
+                            .foregroundColor(authenticationViewModel.violet[0])
+                            .kerning(3.5)
+                            .offset(x: 2.5, y: -2.5)
+                            .overlay {
+                                Text("PANGEA")
+                                    .font(FontNine.title)
+                                    .scaledToFill()
+                                    .foregroundColor(.white)
+                                    .kerning(3.5)
+                                    .offset(x: 1.5, y: 1.5)
+
+                                ZStack {
+                                    Text("PANGEA")
+                                        .font(FontNine.title)
+                                        .scaledToFill()
+                                        .foregroundColor(authenticationViewModel.pink[0])
+                                        .kerning(3.5)
+                                }
+                            }
+
+                        .padding(.top, 375)
                     
                     VStack(spacing: 25) {
                         signUp
@@ -77,12 +85,10 @@ extension PangeaView {
                         .font(FontOne.body)
                         .foregroundColor(.white)
                         .frame(width: 250, height: 65)
-//                        .background(authenticationViewModel.blue[0])
                         .background(authenticationViewModel.violet[0])
                         .clipShape(RoundedRectangle(cornerRadius: 25))
-                        .shadow(color: .white, radius: 0.5)
                         .kerning(1.5)
-                        .offset(x: 0.5, y: -0.5)
+                        .offset(x: 0.5, y: 0.5)
                         .overlay {
                             Text("Sign Up")
                                 .font(FontOne.body)
@@ -108,9 +114,8 @@ extension PangeaView {
                         .frame(width: 250, height: 65)
                         .background(authenticationViewModel.violet[0])
                         .clipShape(RoundedRectangle(cornerRadius: 25))
-//                        .shadow(color: .white, radius: 0.5)
                         .kerning(1.5)
-                        .offset(x: 0.5, y: -0.5)
+                        .offset(x: 0.5, y: 0.5)
                         .overlay {
                             Text("Sign In")
                                 .font(FontOne.body)
