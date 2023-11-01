@@ -28,7 +28,7 @@ struct LocationView: View {
                     
                     //        Marker("ME", coordinate: .userLocation)
                     
-                    //        UserAnnotation()
+                    UserAnnotation()
                     
                     Annotation("Me!", coordinate: .userLocation) {
                         ZStack {
@@ -45,6 +45,7 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
+                    
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
                             if item == routeDestination {
@@ -58,15 +59,38 @@ struct LocationView: View {
                     }
                     if let route {
                         MapPolyline(route.polyline)
-                            .stroke(Color(.systemBlue), lineWidth: 5)
+                            .stroke(authenticationViewModel.blue[0], lineWidth: 5)
                         
                     }
                 }
+            
+   
                 .frame(width: UIScreen.main.bounds.width, height: 625)
                 .cornerRadius(50)
                 .padding()
                 
+          
+                .onChange(of: getDirections, { oldValue, newValue in
+                    if newValue {
+                        fetchRoute()
+                    }
+                })
                 
+                .onChange(of: selectedResult, { oldValue, newValue in
+                    showDetails = newValue != nil
+                    
+                })
+                .sheet(isPresented: $showDetails, content: {
+                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections)
+                        .presentationDetents([.height(350)])
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
+                        .presentationCornerRadius(50)
+                })
+                .mapControls {
+                    MapCompass()
+                    MapPitchToggle()
+                    MapUserLocationButton()
+                }
                 VStack {
                     RoundedRectangle(cornerRadius: 25, style: .circular)
                         .foregroundColor(authenticationViewModel.green[0])
@@ -89,29 +113,11 @@ struct LocationView: View {
                                 }
                         }
                 }
+              
+         
                 
                 
-                .onChange(of: getDirections, { oldValue, newValue in
-                    if newValue {
-                        fetchRoute()
-                    }
-                })
-                
-                .onChange(of: selectedResult, { oldValue, newValue in
-                    showDetails = newValue != nil
-                    
-                })
-                .sheet(isPresented: $showDetails, content: {
-                    LocationInformation(selectedResult: $selectedResult, isShowing: $showDetails, getDirections: $getDirections)
-                        .presentationDetents([.height(250)])
-                        .presentationBackgroundInteraction(.enabled(upThrough: .height(250)))
-                        .presentationCornerRadius(25)
-                })
-                .mapControls {
-                    MapCompass()
-                    MapPitchToggle()
-                    MapUserLocationButton()
-                }
+        
             }
         }
     }

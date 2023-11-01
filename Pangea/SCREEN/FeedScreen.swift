@@ -41,6 +41,7 @@ struct FeedScreen: View {
                 .frame(width: 375, height: 375)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
+                    
                     NavigationLink {
                         LocationView()
                         
@@ -50,7 +51,7 @@ struct FeedScreen: View {
                             .scaledToFit()
                             .foregroundColor(.white)
                             .frame(width: 100, height: 100)
-                            .offset(x: -1.5, y: 1.5)
+                            .offset(x: 1.5, y: -1.5)
                             .overlay {
                                 Image(systemName: "mappin.and.ellipse.circle")
                                     .resizable()
@@ -92,6 +93,7 @@ struct FeedScreen: View {
             .padding()
             
 //            Text("\(post.timestamp.dateValue().formatted(date: .complete, time: .standard))")
+            
             Text("\(post.timestamp.dateValue())")
                 .padding(.all, 5)
             
