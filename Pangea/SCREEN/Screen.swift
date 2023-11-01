@@ -111,7 +111,7 @@ struct Screen: View {
                 }
                 
                 VStack {
-                    PostItemView(user: user)
+                    PostItemView(user: user.self)
                 }
             }
             .padding()

@@ -73,10 +73,10 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-                    
-                    if authenticationViewModel.currentUser != nil {
-                                          navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
-                                      }
+                    if let user = authenticationViewModel.currentUser {
+                        navRouter.push(Screen(user: user))
+                        
+                    }
                     Task {
                         try await authenticationViewModel.createUser(email: email, username: username, password: password)
                     }
@@ -114,7 +114,7 @@ struct SignUpView: View {
             .foregroundStyle(.ultraThickMaterial)
             .cornerRadius(25)
             .padding(25)
-    
+            
         }
     }
 }

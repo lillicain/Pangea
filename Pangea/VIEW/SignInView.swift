@@ -62,9 +62,8 @@ struct SignInView: View {
                 
                 
                 Button {
-                    if authenticationViewModel.currentUser != nil {
-                        
-                        navRouter.push(Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0]))
+                    if let user = authenticationViewModel.currentUser {
+                        navRouter.push(Screen(user: user))
                     }
                     Task {
                         try await authenticationViewModel.signIn(withEmail: email, password: password)

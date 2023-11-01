@@ -23,25 +23,34 @@ struct PangeaApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject var authenticationViewModel = AuthenticationViewModel()
-    
     @NavRouter var navRouter
+    
+    @StateObject var authenticationViewModel = AuthenticationViewModel()
+
+    
+//    init(user: User) {
+//        self._editUserViewModel = StateObject(wrappedValue: EditUserViewModel(user: user))
+//    }
+//    @ObservedObject var editUserViewModel = EditUserViewModel(user: a)
     
     var body: some Scene {
         WindowGroup {
             NavigationRouter {
                 Group {
                     if authenticationViewModel.userSession != nil {
-                        Screen(user: User.MOCK_USER[0])
-                            .modifier(DarkModeViewModifier())
+//                        let user = authenticationViewModel.currentUser
+                            
+                        Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
+                                .modifier(DarkModeViewModifier())
                         
                     } else {
                         PangeaView()
-                        
+            
                     }
                 }
             }
             .environmentObject(authenticationViewModel)
+
         }
     }
 }
