@@ -14,31 +14,44 @@ struct SearchScreen: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 25) {
-                ForEach(searchViewModel.users) { user in
-                    NavigationLink(destination: Screen(user: user)) {
-                        HStack {
-                            ProfileImageManager(user: user, size: .small)
-                            VStack(alignment: .leading) {
-                                Text(user.username)
+            ScrollViewReader { proxy in
+                
+                LazyVStack(spacing: 35) {
+                    ForEach(searchViewModel.users, id: \.username) { user in
+                        
+                        NavigationLink(destination: Screen(user: user)) {
+                            HStack {
+                                ProfileImageManager(user: user, size: .small)
+                                VStack(alignment: .leading) {
+                                    Text(user.username)
+                                        .searchCompletion(user.username)
                                 
-                                if let name = user.name {
-                                    Text(name)
+                                    
+                                    if let name = user.name {
+                                        Text(name)
+                                    }
                                 }
+                                Spacer()
                             }
-                            Spacer()
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                     }
+                    
+                    .onChange(of: searchText, perform: { value in
+                        withAnimation(.easeIn) {
+                            proxy.scrollTo(value)
+    
+                        }
+                        
+                    })
+                    
                 }
+                .padding(5)
+                .padding(.top)
+                .searchable(text: $searchText, prompt: "Search...")
+                
             }
-            .padding(.top)
-            .searchable(text: $searchText, prompt: "Search...")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
-}
-
-#Preview {
-    SearchScreen()
 }
