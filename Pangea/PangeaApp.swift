@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseCore
 import NavigationRouter
+import FirebaseFirestore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -42,7 +43,7 @@ struct PangeaApp: App {
                             
                         Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
                                 .modifier(DarkModeViewModifier())
-                        
+                     
                     } else {
                         PangeaView()
             

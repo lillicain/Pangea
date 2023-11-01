@@ -72,14 +72,10 @@ class AuthenticationViewModel: ObservableObject {
         try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
     }
     
-    func signOut() throws {
-        do {
-            try Auth.auth().signOut()
-            self.userSession = nil
-            self.currentUser = nil
-        } catch {
-            print(error.localizedDescription)
-        }
+    func signOut() {
+        try? Auth.auth().signOut()
+        self.userSession = nil
+        self.currentUser = nil
     }
     
     func deleteAccount() async throws {

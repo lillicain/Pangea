@@ -45,6 +45,7 @@ class EditUserViewModel: ObservableObject {
         self.uiImage = uiImage
         self.profileImage = Image(uiImage: uiImage)
     }
+    
     func updateUserData() async throws {
         var data = [String: Any]()
         if let uiImage = uiImage {
