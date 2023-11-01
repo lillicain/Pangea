@@ -8,7 +8,6 @@
 import SwiftUI
 import FirebaseCore
 import NavigationRouter
-import FirebaseFirestore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -28,24 +27,18 @@ struct PangeaApp: App {
     
     @StateObject var authenticationViewModel = AuthenticationViewModel()
 
-    
-//    init(user: User) {
-//        self._editUserViewModel = StateObject(wrappedValue: EditUserViewModel(user: user))
-//    }
-//    @ObservedObject var editUserViewModel = EditUserViewModel(user: a)
-    
     var body: some Scene {
         WindowGroup {
             NavigationRouter {
                 Group {
-                    if authenticationViewModel.userSession != nil {
-//                        let user = authenticationViewModel.currentUser
-                            
-                        Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
-                                .modifier(DarkModeViewModifier())
+                    if authenticationViewModel.userSession == nil {
+                        PangeaView()
+                     
                      
                     } else {
-                        PangeaView()
+//                        PangeaView()
+                        Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
+                                .modifier(DarkModeViewModifier())
             
                     }
                 }
