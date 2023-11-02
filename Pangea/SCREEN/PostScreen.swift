@@ -27,6 +27,7 @@ struct PostScreen: View {
     var body: some View {
         ZStack {
             VStack {
+                Spacer()
                 postInformation
             }
             
@@ -46,30 +47,32 @@ struct PostScreen: View {
         }
         .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
         
-        .toolbarBackground(.visible, for: .tabBar)
-        .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-        
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    Task {
-                        try await postViewModel.uploadPost(caption: caption)
-                        postViewModel.uiImage = image
-                        //                        postViewModel.location = post.location
-                        locationManager.currentLocation = post.location
-                    }
-                    caption = ""
-                    postViewModel.selectedImage = nil
-                    postViewModel.postImage = nil
-                    postViewModel.location = ""
-                    locationManager.currentLocation = ""
-                    
-                    
-                } label: {
-                    Text("Post")
-                }
-            }
-        }
+//        .toolbarBackground(.visible, for: .tabBar)
+//        .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
+//        
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    Task {
+//                        do {
+//                            try await postViewModel.uploadPost(caption: caption)
+//                            postViewModel.uiImage = image
+//                            locationManager.currentLocation = post.location
+//                        } catch {
+//                            
+//                        }
+//                        caption = ""
+//                        postViewModel.selectedImage = nil
+//                        postViewModel.postImage = nil
+//                        postViewModel.location = ""
+//                        locationManager.currentLocation = ""
+//                        
+//                    }
+//                } label: {
+//                    Text("Post")
+//                }
+//            }
+//        }
     }
 }
 
@@ -94,9 +97,25 @@ extension PostScreen {
             TextField("Enter Text...", text: $caption)
                 .frame(width: UIScreen.main.bounds.width, height: 100)
                 .padding(.leading, 25)
-                .padding()
+               
             
-            
+            Button {
+                Task {
+                    
+                        try await postViewModel.uploadPost(caption: caption)
+                        postViewModel.uiImage = image
+                        locationManager.currentLocation = post.location
+                    }
+                    caption = ""
+                    postViewModel.selectedImage = nil
+                    postViewModel.postImage = nil
+                    postViewModel.location = ""
+                    locationManager.currentLocation = ""
+                    
+                
+            } label: {
+                Text("Post")
+            }
             Divider()
             
             HStack {
@@ -123,20 +142,31 @@ extension PostScreen {
             
             Divider()
             
-            
-            Button {
-                showCamera.toggle()
-                image = postViewModel.uiImage
+            HStack {
+                Button {
+                    showCamera.toggle()
+                    image = postViewModel.uiImage
+                    
+                } label: {
+                    Text("Use Camera")
+                        .padding()
+                        .background(Color(.systemGray5))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding()
+                }
                 
-            } label: {
-                Text("Use Camera")
-                    .padding()
-                    .background(Color(.systemGray5))
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .padding()
+                
+                Button {
+                    showImagePicker.toggle()
+                } label: {
+                    Text("Select Photo")
+                        .padding()
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding()
+                }
             }
-            Spacer()
-            
+
             
         }
     }

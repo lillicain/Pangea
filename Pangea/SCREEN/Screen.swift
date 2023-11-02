@@ -20,47 +20,51 @@ struct Screen: View {
         TabView {
             ScrollView {
                 VStack {
-                    ZStack {
+                    ZStack(alignment: .top) {
                         RoundedRectangle(cornerRadius: 50, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: 405, height: 250)
-                            .padding(.bottom, 57.5)
+                            .frame(width: 412.5, height: 260)
+                        //                            .padding(.bottom, 50)
+                        
                         
                         ZStack {
                             LocationView()
-                                .frame(width: 400, height: 250)
-                                .cornerRadius(50)
-                                .padding(.bottom, 75)
+                                .frame(width: 400, height: 250, alignment: .top)
+                            
                                 .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
+                        }
+                        
+                        
+                        ZStack {
+                            Circle()
+                                .frame(width: 155, height: 155)
+                                .foregroundColor(.white)
+                                .padding(.top, 100)
                             
                             ZStack {
-                                Circle()
-                                    .frame(width: 152.5, height: 152.5)
-                                    .foregroundColor(.white)
-                                
-                                ZStack {
-                                    ProfileImageManager(user: user, size: .extraLarge)
-                                }
+                                ProfileImageManager(user: user, size: .extraLarge)
                             }
-                            .background(.white)
-                            .clipShape(.circle)
-                            .padding(.top, 75)
                         }
+                        .background(.white)
+                        .clipShape(.circle)
+                        .padding(.top, 75)
+                        
                     }
                     
                     ZStack {
                         VStack(spacing: 7.5) {
                             Text(user.username)
-                                .font(FontTwo.large)
+                                .font(FontOne.title)
                                 .foregroundColor(authenticationViewModel.blue[0])
-                            
-                                .kerning(2.5)
-                                .offset(x: -3.5, y: 3.5)
+                             
+                                .offset(x: -1.5, y: 1.5)
+                                .kerning(1.5)
                                 .overlay {
                                     Text(user.username)
-                                        .font(FontTwo.large)                                //                            .foregroundColor(authenticationViewModel.backgroundColor)
+                                        .font(FontOne.title)
+                                        .kerning(1.25)
                                         .foregroundColor(authenticationViewModel.green[0])
-                                        .kerning(2.5)
+                                    
                                 }
                             if let name = user.name {
                                 Text(name)
@@ -81,8 +85,8 @@ struct Screen: View {
                             }
                             
                             HStack {
-//                                UserInformation(value: 1, title: "Post")
-//                                UserInformation(value: 1, title: "Post")
+                                //                                UserInformation(value: 1, title: "Post")
+                                //                                UserInformation(value: 1, title: "Post")
                                 
                                 Spacer()
                                 
@@ -122,16 +126,12 @@ struct Screen: View {
                     }
                 }
             }
-       
+            
             .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-            
-            .toolbarBackground(.visible, for: .tabBar)
-            
-//            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.violet[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
-            
+          
             .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-            
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .navigationBar)
+
             
             .tabItem { Image(systemName: "person.circle") }
             
@@ -140,12 +140,12 @@ struct Screen: View {
             
             FeedView()
                 .tabItem { Image(systemName: "globe") }
-             
+            
             PostScreen(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe.americas") }
-               
+            
             
         }
-        .accentColor(authenticationViewModel.violet[0])
+        .accentColor(authenticationViewModel.blue[0])
     }
 }

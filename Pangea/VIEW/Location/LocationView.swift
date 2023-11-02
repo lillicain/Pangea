@@ -65,7 +65,7 @@ struct LocationView: View {
                     }
                     if let route {
                         MapPolyline(route.polyline)
-                            .stroke(authenticationViewModel.pink[0], lineWidth: 5)
+                            .stroke(authenticationViewModel.blue[0], lineWidth: 5)
                         
                     }
                 }
@@ -81,11 +81,11 @@ struct LocationView: View {
                 .cornerRadius(50)
                 .padding()
                 
-//                .background(
-//                    RoundedRectangle(cornerRadius: 50, style: .circular)
-//                    .foregroundColor(authenticationViewModel.blue[0])
-//                    .frame(width: 412.5, height: 645)
-//                )
+                .background(
+                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                    .foregroundColor(authenticationViewModel.blue[0])
+                    .frame(width: 412.5, height: 645)
+                )
                 
                 
                 .onChange(of: getDirections, { oldValue, newValue in
@@ -131,8 +131,7 @@ struct LocationView: View {
                         }
                 }
                 .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-                
-//                .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), .clear, authenticationViewModel.blue[0].opacity(0.25), .clear], startPoint: .bottom, endPoint: .trailing), for: .tabBar)
+       
             }
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))

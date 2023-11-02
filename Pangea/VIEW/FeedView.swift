@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import PhotosUI
+import AVKit
+import CoreLocationUI
 
 struct FeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
@@ -13,6 +16,7 @@ struct FeedView: View {
     @StateObject var feedViewModel = FeedViewModel()
     
     @State var searchText = ""
+    @State var newPost = false
     
     var body: some View {
         ScrollView {
@@ -23,13 +27,16 @@ struct FeedView: View {
             }
             .padding(.top)
         }
+        .sheet(isPresented: $newPost, content: {
+            PostScreen(post: Post.MOCK_POST[0])
+                .presentationDetents([.height(700)])
+                .presentationCornerRadius(50)
+        })
+        
         .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
         
         .toolbarBackground(.visible, for: .tabBar)
-        
-//        .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .center), for: .tabBar)
-        
-        .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
+        .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
     
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -37,6 +44,15 @@ struct FeedView: View {
                     SearchScreen()
                 } label: {
                     Text("Search")
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+               Button {
+                   newPost.toggle()
+                   
+                } label: {
+                    Text("Post")
                 }
             }
         }
