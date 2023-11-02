@@ -138,7 +138,7 @@ struct Screen: View {
             LocationView()
                 .tabItem { Image(systemName: "mappin.and.ellipse.circle.fill") }
        
-            AllFeedView()
+            AllFeedView(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe.americas") }
             
         }

@@ -102,7 +102,7 @@ struct FeedScreen: View {
             
             Text(post.location)
                 .padding(.all, 5)
-        
+            
         }
     }
 }

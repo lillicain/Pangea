@@ -26,49 +26,51 @@ struct AllFeedView: View {
     @State var showImagePicker = false
     @State var location = ""
     
-//    let post: Post
+    let post: Post
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(feedViewModel.posts, id: \.self) { post in
-                    FeedScreen(post: post)
-//                    locationManager.currentLocation = post.location
+        NavigationStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(feedViewModel.posts) { post in
+                        FeedScreen(post: post)
+                        
+                    }
                 }
+                .padding(.top)
             }
-            .padding(.top)
-        }
-        .sheet(isPresented: $newPost, content: {
-            postView
-                .presentationDetents([.height(650)])
-                .presentationCornerRadius(50)
-        })
-        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-        
-        .toolbarBackground(.visible, for: .tabBar)
-        .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
-    
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                NavigationLink {
-                    SearchScreen()
-                } label: {
-                    Text("Search")
-                }
-            }
+            .sheet(isPresented: $newPost, content: {
+                postView
+                    .presentationDetents([.height(650)])
+                    .presentationCornerRadius(50)
+            })
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
             
-            ToolbarItem(placement: .navigationBarTrailing) {
-               Button {
-                   newPost.toggle()
-                   
-                } label: {
-                    Text("Post")
+            .toolbarBackground(.visible, for: .tabBar)
+            .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SearchScreen()
+                    } label: {
+                        Text("Search")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        newPost.toggle()
+                        
+                    } label: {
+                        Text("Post")
+                    }
                 }
             }
         }
     }
 }
-   
+
 //                Button {
 //                    Task {
 //                        do {
@@ -88,7 +90,7 @@ struct AllFeedView: View {
 //                } label: {
 //                    Text("Post")
 //                }
-      
+
 
 extension AllFeedView {
     
@@ -113,7 +115,7 @@ extension AllFeedView {
             
         }
         
-//        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
+        //        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
     }
     
     var postInformation: some View {
@@ -135,23 +137,27 @@ extension AllFeedView {
             
             TextField("Enter Text...", text: $caption)
                 .modifier(OneViewModifier())
+                .scrollDismissesKeyboard(.automatic)
             
-               
             VStack {
                 Button {
                     Task {
-                        
-                        try await postViewModel.uploadPost(caption: caption)
-                        postViewModel.uiImage = image
-//                        locationManager.currentLocation// = post.location
+                        do {
+                            try await postViewModel.uploadPost(caption: caption)
+                            postViewModel.uiImage = image
+                            locationManager.currentLocation = post.location
+                            
+                           
+                        } catch {
+                            
+                        }
                     }
+                    
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     postViewModel.location = ""
                     locationManager.currentLocation = ""
-                    
-                    
                 } label: {
                     Text("Post")
                         .modifier(PostViewModifier())
@@ -163,7 +169,7 @@ extension AllFeedView {
             
             HStack {
                 
-//                Text(location)
+                Text(location)
                 
                 Text(locationManager.currentLocation ?? "")
                 
@@ -174,7 +180,7 @@ extension AllFeedView {
                 .labelStyle(.titleAndIcon)
                 .cornerRadius(15)
                 .foregroundColor(.white)
-            
+                
             }
             
             .padding()
@@ -196,7 +202,7 @@ extension AllFeedView {
                         .modifier(PostViewModifier())
                 }
             }
-
+            
             
         }
     }
