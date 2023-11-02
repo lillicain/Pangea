@@ -54,18 +54,18 @@ struct Screen: View {
                     ZStack {
                         VStack(spacing: 7.5) {
                             Text(user.username)
-                                .font(FontOne.title)
+                                .font(FontEight.title)
                                 .foregroundColor(authenticationViewModel.blue[0])
                              
                                 .offset(x: -1.5, y: 1.5)
                                 .kerning(1.5)
-                                .overlay {
-                                    Text(user.username)
-                                        .font(FontOne.title)
-                                        .kerning(1.25)
-                                        .foregroundColor(authenticationViewModel.green[0])
-                                    
-                                }
+//                                .overlay {
+//                                    Text(user.username)
+//                                        .font(FontOne.title)
+//                                        .kerning(1.25)
+//                                        .foregroundColor(authenticationViewModel.green[0])
+//                                    
+//                                }
                             if let name = user.name {
                                 Text(name)
                                     .font(FontSeven.large)

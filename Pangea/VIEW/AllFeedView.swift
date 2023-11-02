@@ -114,8 +114,7 @@ extension AllFeedView {
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
         }
-        
-        //        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
     }
     
     var postInformation: some View {
@@ -147,7 +146,7 @@ extension AllFeedView {
                             postViewModel.uiImage = image
                             locationManager.currentLocation = post.location
                             
-                           
+                            
                         } catch {
                             
                         }

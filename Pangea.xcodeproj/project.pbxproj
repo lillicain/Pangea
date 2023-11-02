@@ -161,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				6A0A9AE92AE8147300E5318E /* Screen.swift */,
-				6ABEE0FB2AF446E0005C00BC /* AllFeedView.swift */,
 				6AB302462AE626C00036DB06 /* EditScreen.swift */,
 				6A5A13D02AE1E7130041E188 /* PostScreen.swift */,
 				6AB302682AE69D650036DB06 /* SearchScreen.swift */,
@@ -284,6 +283,7 @@
 		6AB302272AE616090036DB06 /* VIEW */ = {
 			isa = PBXGroup;
 			children = (
+				6ABEE0FB2AF446E0005C00BC /* AllFeedView.swift */,
 				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
 				6AB302482AE628660036DB06 /* PostItemView.swift */,
 				6A4FC49C2AF329CA005CA309 /* AppView.swift */,

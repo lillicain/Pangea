@@ -115,6 +115,7 @@ struct LocationView: View {
                         .frame(width: 350, height: 65)
                         .overlay {
                             TextField("Search...", text: $searchText)
+                                .scrollDismissesKeyboard(.automatic)
                                 .fontWeight(.semibold)
                                 .kerning(2.5)
                                 .padding()
@@ -128,6 +129,7 @@ struct LocationView: View {
                                         await searchPlaces()
                                     }
                                 }
+                                
                         }
                 }
                 .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
@@ -136,10 +138,6 @@ struct LocationView: View {
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
     }
-}
-
-#Preview {
-    LocationView()
 }
 
 extension LocationView {

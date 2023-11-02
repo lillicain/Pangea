@@ -17,10 +17,10 @@ struct MapInformation: View {
             MapUserLocationButton(scope: mapScope)
             MapPitchToggle(scope: mapScope)
             MapCompass(scope: mapScope)
+                .mapControlVisibility(.visible)
         }
         .padding(.all, 100)
         .mapScope(mapScope)
-        .mapControlVisibility(.visible)
         .buttonBorderShape(.circle)
     }
 }
