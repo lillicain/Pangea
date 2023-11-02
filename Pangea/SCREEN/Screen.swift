@@ -54,7 +54,7 @@ struct Screen: View {
                                 
                                 //                            .foregroundColor(authenticationViewModel.backgroundColor)
                                 
-                                    .foregroundColor(authenticationViewModel.green[0])
+                                    .foregroundColor(authenticationViewModel.blue[0])
                                     .kerning(2.5)
                                 
                                 
@@ -90,9 +90,8 @@ struct Screen: View {
                                     
                                 } label: {
                                     Text("Edit Profile")
-//                                    Text(user.isCurrentUser ? "Add Friend" : "Edit Profile")
                                         .padding(12.5)
-                                        .background(user.isCurrentUser ? Color(.systemGray3) : authenticationViewModel.green[0])
+                                        .background(authenticationViewModel.green[0])
                                         .font(FontOne.small)
                                         .foregroundColor(authenticationViewModel.blue[0])
                                         .foregroundStyle(.ultraThickMaterial)

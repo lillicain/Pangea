@@ -89,7 +89,7 @@ struct SignInView: View {
                     SignUpView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
-                    Text("Don't have an Account? **Sign Up** ")
+                    Text("Don't have an account? **Sign Up** ")
                         .padding(.leading, 15)
                         .font(.system(size: 15))
                         .padding(.bottom)
