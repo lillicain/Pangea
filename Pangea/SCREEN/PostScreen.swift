@@ -11,7 +11,7 @@ import AVKit
 import CoreLocationUI
 
 struct PostScreen: View {
-    
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     @StateObject var locationManager = LocationManager()
     
@@ -44,6 +44,10 @@ struct PostScreen: View {
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
             
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
+        
+        .toolbarBackground(.visible, for: .tabBar)
+        .toolbarBackground(.ultraThinMaterial.opacity(0.25), for: .tabBar)
         
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -110,7 +114,7 @@ extension PostScreen {
                 .labelStyle(.titleAndIcon)
                 .cornerRadius(7.5)
                 .foregroundColor(.white)
-          
+                
                 .padding(.trailing, 25)
                 .padding(.all)
                 

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @StateObject var feedViewModel = FeedViewModel()
+    
     @State var searchText = ""
     
     var body: some View {
@@ -19,10 +22,13 @@ struct FeedView: View {
                 }
             }
             .padding(.top)
-            
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
         
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .tabBar)
+        
+        .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .center), for: .tabBar)
+    
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 NavigationLink {
@@ -32,7 +38,6 @@ struct FeedView: View {
                 }
             }
         }
-        
     }
 }
 

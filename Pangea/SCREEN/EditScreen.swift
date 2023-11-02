@@ -51,7 +51,7 @@ struct EditScreen: View {
                                     .frame(width: 135)
                                     .foregroundColor(backgroundColor)
                                     .onAppear {
-                                        backgroundColor = authenticationViewModel.green[0]
+                                        backgroundColor = authenticationViewModel.blue[0]
                                     }
                                 
                                 ZStack {
