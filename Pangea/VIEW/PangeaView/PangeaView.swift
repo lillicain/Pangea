@@ -19,20 +19,20 @@ struct PangeaView: View {
                 
                 Image(systemName: "globe")
                     .resizable()
-                    .frame(width: 355, height: 355)
-                    .padding(.bottom, 425)
+                    .frame(width: 345, height: 345)
+                    .padding(.bottom, 395)
                     .offset(x: -5, y: 5)
                     .foregroundColor(authenticationViewModel.green[0])
                     .overlay {
                         Image(systemName: "globe")
                             .resizable()
-                            .frame(width: 350, height: 350)
-                            .padding(.bottom, 425)
+                            .frame(width: 342.5, height: 342.5)
+                            .padding(.bottom, 395)
                             .foregroundColor(authenticationViewModel.violet[0])
                             .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                     }
         
-                VStack(spacing: 150) {
+                VStack(spacing: 100) {
                                 Text("PANGEA")
                                     .font(FontNine.title)
                                     .scaledToFill()
