@@ -75,10 +75,15 @@ struct LocationView: View {
                         .padding(.leading, 300)
                         .padding()
                 }
-//                .frame(width: UIScreen.main.bounds.width, height: 625)
-                .frame(width: 375, height: 625)
+                .frame(width: 400, height: 625)
                 .cornerRadius(50)
                 .padding()
+                
+                .background(
+                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                    .foregroundColor(authenticationViewModel.blue[0])
+                    .frame(width: 412.5, height: 635)
+                )
                 
                 
                 .onChange(of: getDirections, { oldValue, newValue in
@@ -122,8 +127,10 @@ struct LocationView: View {
                                 }
                         }
                 }
+                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             }
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .top, endPoint: .bottom))
     }
 }
 

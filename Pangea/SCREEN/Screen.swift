@@ -23,12 +23,12 @@ struct Screen: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 50, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: UIScreen.main.bounds.width, height: 250)
+                            .frame(width: 405, height: 250)
                             .padding(.bottom, 57.5)
                         
                         ZStack {
                             LocationView()
-                                .frame(width: 375, height: 250)
+                                .frame(width: 400, height: 250)
                                 .cornerRadius(50)
                                 .padding(.bottom, 75)
                                 .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
@@ -81,8 +81,8 @@ struct Screen: View {
                             }
                             
                             HStack {
-                                UserInformation(value: 1, title: "Post")
-                                UserInformation(value: 1, title: "Post")
+//                                UserInformation(value: 1, title: "Post")
+//                                UserInformation(value: 1, title: "Post")
                                 
                                 Spacer()
                                 
@@ -91,16 +91,19 @@ struct Screen: View {
                                         EditScreen(user: user)
                                         
                                     } label: {
-                                        Text("Edit Profile")
-                                            .padding(12.5)
-                                            .background(authenticationViewModel.green[0])
-                                            .font(FontOne.small)
-                                            .foregroundColor(authenticationViewModel.blue[0])
-                                            .foregroundStyle(.ultraThickMaterial)
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .lineLimit(1)
+                                        RoundedRectangle(cornerRadius: 25, style: .circular)
+                                            .foregroundColor(authenticationViewModel.green[0])
+                                            .frame(width: 175, height: 57.5)
                                             .padding(.bottom, 250)
-                                        
+                                            .overlay {
+                                                Text("Edit Profile")
+                                                    .padding(12.5)
+                                                    .background(.white)
+                                                    .font(FontOne.small)
+                                                    .foregroundColor(authenticationViewModel.blue[0])
+                                                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+                                                    .padding(.bottom, 250)
+                                            }
                                     }
                                     .padding(.trailing)
                                 }
@@ -118,24 +121,31 @@ struct Screen: View {
                         PostItemView(user: user.self)
                     }
                 }
-                .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.30)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
             }
-            .padding()
+       
+            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .top, endPoint: .bottom))
+            
+            .toolbarBackground(.visible, for: .tabBar)
+            
+            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
+            
+//            .toolbarBackground(.ultraThinMaterial.opacity(0.25), for: .tabBar)
+            
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
             .tabItem { Image(systemName: "person.circle") }
-            
-            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
             LocationView()
                 .tabItem { Image(systemName: "globe") }
             
             FeedView()
                 .tabItem { Image(systemName: "globe") }
-            
+             
             PostScreen(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe.americas") }
+               
             
         }
+        .accentColor(authenticationViewModel.violet[0])
     }
 }

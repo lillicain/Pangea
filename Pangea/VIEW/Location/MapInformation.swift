@@ -19,9 +19,9 @@ struct MapInformation: View {
             MapCompass(scope: mapScope)
         }
         .padding()
-        .buttonBorderShape(.circle)
         .mapScope(mapScope)
         .mapControlVisibility(.visible)
+        .buttonBorderShape(.circle)
     }
 }
 

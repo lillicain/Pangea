@@ -52,11 +52,10 @@ struct MapItemView: View {
                 }
             }
             .padding()
-            .labelStyle(.iconOnly)
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
-        }
         
+        }
     }
 }
 
