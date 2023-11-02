@@ -34,18 +34,18 @@ struct ButtonViewModifier: ViewModifier {
 struct OneViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
+            .padding(35)
             .background(.white)
-            .font(FontOne.medium)
+        
+            .font(.system(size: 17.5).bold())
             .foregroundColor(AuthenticationViewModel().blue[0])
             .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
             .padding()
             .background(
         RoundedRectangle(cornerRadius: 25, style: .circular)
             .foregroundColor(AuthenticationViewModel().green[0])
-            .frame(width: 225, height: 65)
+            .frame(width: 350, height: 100)
            
-        
         )
     }
 }
@@ -65,13 +65,6 @@ struct PostViewModifier: ViewModifier {
            
         
         )
-//            .overlay {
-//                Text(content)
-//                    .padding(12.5)
-//                    .background(.white)
-//                    .font(FontOne.small)
-//                    .foregroundColor(AuthenticationViewModel().blue[0])
-//                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
     }
 }
 

@@ -134,8 +134,8 @@ extension AllFeedView {
             }
             
             TextField("Enter Text...", text: $caption)
-                .frame(width: UIScreen.main.bounds.width, height: 100)
-                .padding(.leading, 25)
+                .modifier(OneViewModifier())
+            
                
             VStack {
                 Button {
