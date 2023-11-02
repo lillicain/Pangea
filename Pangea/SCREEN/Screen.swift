@@ -95,19 +95,20 @@ struct Screen: View {
                                         EditScreen(user: user)
                                         
                                     } label: {
-                                        RoundedRectangle(cornerRadius: 25, style: .circular)
-                                            .foregroundColor(authenticationViewModel.green[0])
-                                            .frame(width: 175, height: 57.5)
-                                            .padding(.bottom, 250)
-                                            .overlay {
+//                                        RoundedRectangle(cornerRadius: 25, style: .circular)
+//                                            .foregroundColor(authenticationViewModel.green[0])
+//                                            .frame(width: 175, height: 57.5)
+//                                            .padding(.bottom, 250)
+//                                            .overlay {
                                                 Text("Edit Profile")
-                                                    .padding(12.5)
-                                                    .background(.white)
-                                                    .font(FontOne.small)
-                                                    .foregroundColor(authenticationViewModel.blue[0])
-                                                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
-                                                    .padding(.bottom, 250)
-                                            }
+                                            .modifier(PostViewModifier())
+//                                                    .padding(12.5)
+//                                                    .background(.white)
+//                                                    .font(FontOne.small)
+//                                                    .foregroundColor(authenticationViewModel.blue[0])
+//                                                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+//                                                    .padding(.bottom, 250)
+//                                            }
                                     }
                                     .padding(.trailing)
                                 }
@@ -131,19 +132,14 @@ struct Screen: View {
           
             .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
             .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .navigationBar)
-
             
             .tabItem { Image(systemName: "person.circle") }
             
             LocationView()
                 .tabItem { Image(systemName: "mappin.and.ellipse.circle.fill") }
-            
-            FeedView()
-                .tabItem { Image(systemName: "globe") }
-            
-            PostScreen(post: Post.MOCK_POST[0])
+       
+            AllFeedView()
                 .tabItem { Image(systemName: "globe.americas") }
-            
             
         }
         .accentColor(authenticationViewModel.blue[0])

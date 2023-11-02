@@ -72,6 +72,7 @@
 		6AB302652AE69CCC0036DB06 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302642AE69CCC0036DB06 /* FeedView.swift */; };
 		6AB302672AE69D4F0036DB06 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302662AE69D4F0036DB06 /* SearchViewModel.swift */; };
 		6AB302692AE69D650036DB06 /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302682AE69D650036DB06 /* SearchScreen.swift */; };
+		6ABEE0FC2AF446E0005C00BC /* AllFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEE0FB2AF446E0005C00BC /* AllFeedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		6AB302642AE69CCC0036DB06 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		6AB302662AE69D4F0036DB06 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		6AB302682AE69D650036DB06 /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
+		6ABEE0FB2AF446E0005C00BC /* AllFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				6A0A9AE92AE8147300E5318E /* Screen.swift */,
+				6ABEE0FB2AF446E0005C00BC /* AllFeedView.swift */,
 				6AB302462AE626C00036DB06 /* EditScreen.swift */,
 				6A5A13D02AE1E7130041E188 /* PostScreen.swift */,
 				6AB302682AE69D650036DB06 /* SearchScreen.swift */,
@@ -458,6 +461,7 @@
 				6AB302672AE69D4F0036DB06 /* SearchViewModel.swift in Sources */,
 				6A5A13D12AE1E7130041E188 /* PostScreen.swift in Sources */,
 				6AB3023F2AE61DC10036DB06 /* FeedViewModel.swift in Sources */,
+				6ABEE0FC2AF446E0005C00BC /* AllFeedView.swift in Sources */,
 				6A7064932AE9B00C00B3A2E6 /* MapScreen.swift in Sources */,
 				6A5520CF2AE86A3200D11498 /* FeedScreen.swift in Sources */,
 				6AB302492AE628660036DB06 /* PostItemView.swift in Sources */,
