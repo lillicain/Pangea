@@ -10,6 +10,9 @@ import MapKit
 import CoreLocationUI
 
 struct MapItemView: View {
+    
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @Binding var cameraPosition: MapCameraPosition
     @Binding var results: [MKMapItem]
     @Binding var visibleRegion: MKCoordinateRegion?
@@ -19,7 +22,7 @@ struct MapItemView: View {
     
     var body: some View {
         ZStack {
-            VStack(alignment: .trailing) {
+            VStack {
                 
                 Button {
                     searchPlaces(for: "Parks")
@@ -54,7 +57,7 @@ struct MapItemView: View {
             .padding()
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
-        
+            .accentColor(authenticationViewModel.blue[0])
         }
     }
 }

@@ -18,13 +18,9 @@ struct MapInformation: View {
             MapPitchToggle(scope: mapScope)
             MapCompass(scope: mapScope)
         }
-        .padding()
+        .padding(.all, 100)
         .mapScope(mapScope)
         .mapControlVisibility(.visible)
         .buttonBorderShape(.circle)
     }
-}
-
-#Preview {
-    MapInformation()
 }

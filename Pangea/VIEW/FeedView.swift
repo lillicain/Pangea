@@ -27,7 +27,9 @@ struct FeedView: View {
         
         .toolbarBackground(.visible, for: .tabBar)
         
-        .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .center), for: .tabBar)
+//        .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .center), for: .tabBar)
+        
+        .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
     
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

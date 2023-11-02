@@ -71,19 +71,21 @@ struct LocationView: View {
                 }
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
-                    MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                        .padding(.leading, 300)
-                        .padding()
+            
+                        MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
+                        .padding(.leading, 325)
+                            
+                
                 }
                 .frame(width: 400, height: 635)
                 .cornerRadius(50)
                 .padding()
                 
-                .background(
-                    RoundedRectangle(cornerRadius: 50, style: .circular)
-                    .foregroundColor(authenticationViewModel.blue[0])
-                    .frame(width: 412.5, height: 645)
-                )
+//                .background(
+//                    RoundedRectangle(cornerRadius: 50, style: .circular)
+//                    .foregroundColor(authenticationViewModel.blue[0])
+//                    .frame(width: 412.5, height: 645)
+//                )
                 
                 
                 .onChange(of: getDirections, { oldValue, newValue in
@@ -102,6 +104,7 @@ struct LocationView: View {
                         .presentationCornerRadius(50)
                     
                 })
+                
                 .mapControls {
                     MapInformation()
                 }
@@ -109,7 +112,7 @@ struct LocationView: View {
                 VStack {
                     RoundedRectangle(cornerRadius: 25, style: .circular)
                         .foregroundColor(authenticationViewModel.green[0])
-                        .frame(width: 350, height: 75)
+                        .frame(width: 350, height: 65)
                         .overlay {
                             TextField("Search...", text: $searchText)
                                 .fontWeight(.semibold)
@@ -118,8 +121,8 @@ struct LocationView: View {
                                 .cornerRadius(25)
                                 .padding()
                                 .background(.white)
-                                .frame(width: 325, height: 65)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .frame(width: 325, height: 50)
+                                .clipShape(RoundedRectangle(cornerRadius: 17.5))
                                 .onSubmit(of: .text) {
                                     Task {
                                         await searchPlaces()
@@ -127,12 +130,12 @@ struct LocationView: View {
                                 }
                         }
                 }
-//                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+                .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
                 
-                .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), .clear, authenticationViewModel.blue[0].opacity(0.25), .clear], startPoint: .bottom, endPoint: .trailing), for: .tabBar)
+//                .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), .clear, authenticationViewModel.blue[0].opacity(0.25), .clear], startPoint: .bottom, endPoint: .trailing), for: .tabBar)
             }
         }
-        .background(LinearGradient(colors: [authenticationViewModel.violet[0].opacity(0.15), .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
     }
 }
 

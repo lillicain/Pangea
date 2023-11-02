@@ -127,16 +127,16 @@ struct Screen: View {
             
             .toolbarBackground(.visible, for: .tabBar)
             
-            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.violet[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
+//            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.violet[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
             
-//            .toolbarBackground(.ultraThinMaterial.opacity(0.25), for: .tabBar)
+            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
             
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             
             .tabItem { Image(systemName: "person.circle") }
             
             LocationView()
-                .tabItem { Image(systemName: "globe") }
+                .tabItem { Image(systemName: "mappin.and.ellipse.circle.fill") }
             
             FeedView()
                 .tabItem { Image(systemName: "globe") }
