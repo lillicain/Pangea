@@ -75,7 +75,8 @@ struct LocationView: View {
                         .padding(.leading, 300)
                         .padding()
                 }
-                .frame(width: UIScreen.main.bounds.width, height: 625)
+//                .frame(width: UIScreen.main.bounds.width, height: 625)
+                .frame(width: 375, height: 625)
                 .cornerRadius(50)
                 .padding()
                 
