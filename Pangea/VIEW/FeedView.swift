@@ -22,17 +22,13 @@ struct FeedView: View {
                 }
             }
             .padding(.top)
-            
         }
         .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
         
         .toolbarBackground(.visible, for: .tabBar)
-        .toolbarBackground(.automatic, for: .navigationBar)
+        
         .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .center), for: .tabBar)
-        
-        .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.75)], startPoint: .top, endPoint: .center), for: .navigationBar)
-       
-        
+    
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 NavigationLink {

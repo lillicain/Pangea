@@ -123,11 +123,11 @@ struct Screen: View {
                 }
             }
        
-            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
             
             .toolbarBackground(.visible, for: .tabBar)
             
-            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.pink[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
+            .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), authenticationViewModel.violet[0].opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing), for: .tabBar)
             
 //            .toolbarBackground(.ultraThinMaterial.opacity(0.25), for: .tabBar)
             
