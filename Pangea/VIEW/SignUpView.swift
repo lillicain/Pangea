@@ -77,12 +77,12 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-//                    if let user = authenticationViewModel.currentUser {
+                    if let user = authenticationViewModel.currentUser {
 //                        navRouter.push(Screen())
 //                        
 //                    }
-                    if authenticationViewModel.currentUser != nil {
-                        navRouter.push(Screen())
+//                    if authenticationViewModel.currentUser != nil {
+                        navRouter.push(Screen(user: user))
                     }
 //                    navRouter.push(Screen())
                         

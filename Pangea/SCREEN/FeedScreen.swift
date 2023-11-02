@@ -24,10 +24,8 @@ struct FeedScreen: View {
                         Text(user.username)
                             .fontWeight(.bold)
                     }
-                
                     .navigationDestination(for: User.self, destination: { user in
-//                        Screen(user: user)
-                        Screen()
+                        Screen(user: user)
                     })
                     .frame(alignment: .leading)
                 }

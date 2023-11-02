@@ -19,7 +19,6 @@ struct MapItemView: View {
     
     var body: some View {
         ZStack {
-        
             VStack(alignment: .trailing) {
                 
                 Button {

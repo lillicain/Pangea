@@ -35,7 +35,7 @@ struct PangeaApp: App {
                         PangeaView()
                         
                     } else {
-                        Screen()
+                        Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
                             .modifier(DarkModeViewModifier())
                     }
                 }

@@ -1,28 +1,28 @@
+////
+////  AppView.swift
+////  Pangea
+////
+////  Created by Lillian Cain on 11/1/23.
+////
 //
-//  AppView.swift
-//  Pangea
+//import SwiftUI
 //
-//  Created by Lillian Cain on 11/1/23.
+//struct AppView: View {
+//    @StateObject var serviceManager = ServiceManager()
+//    @StateObject var authenticationViewModel = AuthenticationViewModel()
+//    
+//    var body: some View {
+//        Group {
+//            if serviceManager.userSession == nil {
+//                PangeaView()
+//                
+//            } else {
+//                Screen()
+//            }
+//        }
+//    }
+//}
 //
-
-import SwiftUI
-
-struct AppView: View {
-    @StateObject var serviceManager = ServiceManager()
-    @StateObject var authenticationViewModel = AuthenticationViewModel()
-    
-    var body: some View {
-        Group {
-            if serviceManager.userSession == nil {
-                PangeaView()
-                    .environmentObject(AuthenticationViewModel())
-            } else {
-                Screen()
-            }
-        }
-    }
-}
-
-#Preview {
-    AppView()
-}
+//#Preview {
+//    AppView()
+//}

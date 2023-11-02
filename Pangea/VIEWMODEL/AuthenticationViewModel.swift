@@ -12,6 +12,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+protocol AuthenticationProtocol {
+    var isValid: Bool { get }
+}
+
 class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -35,7 +39,7 @@ class AuthenticationViewModel: ObservableObject {
                 try await loadUserData()
             }
             catch {
-                
+                print(error.localizedDescription)
             }
         }
     }
@@ -86,8 +90,4 @@ class AuthenticationViewModel: ObservableObject {
     func deleteAccount() async throws {
         try await Auth.auth().currentUser?.delete()
     }
-}
-
-protocol AuthenticationProtocol {
-    var isValid: Bool { get }
 }

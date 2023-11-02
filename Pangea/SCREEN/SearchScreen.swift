@@ -17,8 +17,7 @@ struct SearchScreen: View {
             ScrollViewReader { proxy in
                 LazyVStack(spacing: 35) {
                     ForEach(searchViewModel.users, id: \.username) { user in
-//                        NavigationLink(destination: Screen(user: user)) {
-                        NavigationLink(destination: Screen()) {
+                        NavigationLink(destination: Screen(user: user)) {
                             HStack {
                                 ProfileImageManager(user: user, size: .small)
                                 VStack(alignment: .leading) {
@@ -33,9 +32,9 @@ struct SearchScreen: View {
                             .padding(.horizontal)
                         }
                     }
-                    .onChange(of: searchText, perform: { value in
+                    .onChange(of: searchText, { oldValue, newValue in
                         withAnimation(.spring()) {
-                            proxy.scrollTo(value, anchor: .top)
+                            proxy.scrollTo(newValue, anchor: .top)
                         }
                     })
                 }
@@ -43,7 +42,6 @@ struct SearchScreen: View {
                 .padding(.top)
                 .searchable(text: $searchText, prompt: "Search...")
             }
-            .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

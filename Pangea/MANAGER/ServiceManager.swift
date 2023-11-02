@@ -10,10 +10,10 @@ import Firebase
 import Combine
 
 class ServiceManager: ObservableObject {
-    let service = AuthenticationViewModel.shared
-    var cancellables = Set<AnyCancellable>()
-
     @Published var userSession: FirebaseAuth.User?
+    
+    var service = AuthenticationViewModel.shared
+    var cancellables = Set<AnyCancellable>()
 
     init() {
         setupSubscribers()
