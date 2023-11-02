@@ -203,7 +203,11 @@ extension EditScreen {
                 navRouter.push(PangeaView())
              
                 Task {
-                    try await authenticationViewModel.deleteAccount()
+                    do {
+                        try await authenticationViewModel.deleteAccount()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
             } label: {
                 Text("Delete Account")
