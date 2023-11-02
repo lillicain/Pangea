@@ -20,26 +20,25 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             
-            Image("1")
-                .resizable()
-                .ignoresSafeArea()
+            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0], authenticationViewModel.blue[0], authenticationViewModel.green[0]], startPoint: .top, endPoint: .bottomTrailing)
+                .ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
-                Text("Sign In".uppercased())
-                    .fontWeight(.bold)
-                    .font(.largeTitle)
-                    .padding(2.5)
+                Text("Sign In")
+                    .font(FontOne.large)
+                    .padding(5)
+                    .padding(.top)
                 
                 Text("Sign in to your account".uppercased())
                     .fontWeight(.semibold)
-                    .lineLimit(1)
                     .font(.system(size: 15))
-                    .padding(2.5)
+                    .padding(5)
                 
                 Divider()
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
+                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
@@ -49,13 +48,8 @@ struct SignInView: View {
                     SecureField("Enter Passsword", text: $password)
                         .modifier(MaterialViewModifier())
                 }
-                .fontWeight(.bold)
-                .font(.system(size: 17.5))
-                .padding(.bottom)
                 
                 Divider()
-                    .padding(5)
-                
                 Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
                     .padding(.leading, 15)
                     .font(.system(size: 12.5))
@@ -65,19 +59,21 @@ struct SignInView: View {
                     if let user = authenticationViewModel.currentUser {
                         navRouter.push(Screen(user: user))
                     }
-//                    if authenticationViewModel.currentUser != nil {
-//                        navRouter.push(Screen())
-//                    }
+                    
                     Task {
-                        try await authenticationViewModel.signIn(withEmail: email, password: password)
+                        do {
+                            try await authenticationViewModel.signIn(withEmail: email, password: password)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
+                    
                 } label: {
                     HStack {
-                        Text("Sign Up".uppercased())
+                        Text("Sign In")
                             .frame(maxWidth: .infinity)
                             .frame(height: 35)
-                            .fontWeight(.semibold)
-                            .font(.system(size: 25))
+                            .font(FontOne.small)
                             .padding(5)
                             .modifier(MaterialViewModifier())
                             .padding(.bottom, 5)
@@ -86,7 +82,7 @@ struct SignInView: View {
                 .padding(5)
                 .disabled(!isValid)
                 .opacity(isValid ? 1.0 : 0.5)
-                .cornerRadius(5)
+                .cornerRadius(15)
                 
                 
                 NavigationLink {
@@ -96,14 +92,14 @@ struct SignInView: View {
                     Text("Don't have an Account? **Sign Up** ")
                         .padding(.leading, 15)
                         .font(.system(size: 15))
-                        .padding(.bottom, 5)
+                        .padding(.bottom)
                 }
             }
             .padding()
             .background(.ultraThinMaterial.opacity(0.75))
             .foregroundColor(.white)
-            .foregroundStyle(.ultraThickMaterial)
-            .cornerRadius(25)
+            .foregroundStyle(.ultraThinMaterial)
+            .cornerRadius(50)
             .padding(25)
         }
     }

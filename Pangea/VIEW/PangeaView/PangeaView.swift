@@ -13,46 +13,51 @@ struct PangeaView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                authenticationViewModel.blue[0]
+                
+                LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
                     .ignoresSafeArea(.all)
                 
                 Image(systemName: "globe")
                     .resizable()
                     .frame(width: 350, height: 350)
                     .padding(.bottom, 375)
-                    .offset(x: 12.5, y: 12.5)
-                    .foregroundColor(authenticationViewModel.violet[0])
+                    .offset(x: -5, y: 5)
+//                    .foregroundColor(.white)
+                    .foregroundColor(authenticationViewModel.green[0])
                     .overlay {
                         Image(systemName: "globe")
                             .resizable()
                             .frame(width: 350, height: 350)
                             .padding(.bottom, 375)
-                            .foregroundColor(authenticationViewModel.green[0])
+                            .foregroundColor(authenticationViewModel.violet[0])
+                            .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                     }
         
                 VStack(spacing: 75) {
-                        Text("PANGEA")
-                            .font(FontTwo.title)
-                            .scaledToFill()
-                            .foregroundColor(authenticationViewModel.violet[0])
-                            .kerning(3.5)
-                            .offset(x: 2.5, y: -2.5)
-                            .overlay {
+//                        Text("PANGEA")
+//                            .font(FontTwo.title)
+//                            .scaledToFill()
+//                            .foregroundColor(authenticationViewModel.violet[0])
+//                            .kerning(3.5)
+//                            .offset(x: 2.5, y: -2.5)
+//                            .overlay {
                                 Text("PANGEA")
                                     .font(FontNine.title)
                                     .scaledToFill()
                                     .foregroundColor(.white)
-                                    .kerning(3.5)
-                                    .offset(x: 1.5, y: 1.5)
+                                    .kerning(5)
+                                    .offset(x: -0.5, y: 0.5)
 
-                                ZStack {
+                                    .overlay {
                                     Text("PANGEA")
                                         .font(FontNine.title)
                                         .scaledToFill()
-                                        .foregroundColor(authenticationViewModel.pink[0])
-                                        .kerning(3.5)
+                                        .foregroundColor(authenticationViewModel.green[0])
+                                        .kerning(5)
+                                        .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                                       
                                 }
-                            }
+//                            }
 
                         .padding(.top, 375)
                     
@@ -84,8 +89,7 @@ extension PangeaView {
                     Text("Sign Up")
                         .font(FontOne.body)
                         .foregroundColor(.white)
-                        .frame(width: 250, height: 65)
-                        .background(authenticationViewModel.violet[0])
+                        .modifier(ButtonViewModifier())
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                         .kerning(1.5)
                         .offset(x: 0.5, y: 0.5)
@@ -94,7 +98,9 @@ extension PangeaView {
                                 .font(FontOne.body)
                                 .kerning(1.5)
                                 .foregroundColor(authenticationViewModel.green[0])
+                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                         }
+                    
                 }
             }
         }
@@ -111,8 +117,7 @@ extension PangeaView {
                     Text("Sign In")
                         .font(FontOne.body)
                         .foregroundColor(.white)
-                        .frame(width: 250, height: 65)
-                        .background(authenticationViewModel.violet[0])
+                        .modifier(ButtonViewModifier())
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                         .kerning(1.5)
                         .offset(x: 0.5, y: 0.5)
@@ -121,6 +126,7 @@ extension PangeaView {
                                 .font(FontOne.body)
                                 .kerning(1.5)
                                 .foregroundColor(authenticationViewModel.green[0])
+                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                         }
                 }
             }

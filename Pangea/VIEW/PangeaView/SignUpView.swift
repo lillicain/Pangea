@@ -14,8 +14,6 @@ struct SignUpView: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-//    @StateObject var serviceManager = ServiceManager()
-    
     @State var username = ""
     @State var email = ""
     @State var password = ""
@@ -23,24 +21,25 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            Image("3")
-                .resizable()
-                .ignoresSafeArea()
+            
+            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0], authenticationViewModel.blue[0], authenticationViewModel.pink[0]], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea(.all)
             
             VStack(alignment: .leading) {
-                Text("Sign Up".uppercased())
-                    .fontWeight(.bold)
-                    .font(.title)
-                    .padding(2.5)
+                Text("Sign Up")
+                    .font(FontOne.large)
+                    .padding(5)
+                    .padding(.top)
                 
                 Text("Create An Account".capitalized)
                     .fontWeight(.semibold)
-                    .padding(2.5)
+                    .padding(5)
                 
                 Divider()
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
+                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
@@ -50,11 +49,10 @@ struct SignUpView: View {
                     SecureField("Enter Password", text: $password)
                         .modifier(MaterialViewModifier())
                     
-                  
+                    ZStack(alignment: .trailing) {
                         SecureField("Confirm Password", text: $confirmPassword)
                             .modifier(MaterialViewModifier())
-                    
-                    ZStack(alignment: .trailing) {
+                        
                         if password.isEmpty && !confirmPassword.isEmpty {
                             if password == confirmPassword {
                                 Image(systemName: "checkmark.circle")
@@ -70,7 +68,6 @@ struct SignUpView: View {
                 }
                 
                 Divider()
-                    .padding(5)
                 
                 Text("By signing up you accept the **Terms of Service** and **Privacy Policy**")
                     .padding(.leading, 15)
@@ -78,26 +75,22 @@ struct SignUpView: View {
                 
                 Button {
                     if let user = authenticationViewModel.currentUser {
-//                        navRouter.push(Screen())
-//                        
-//                    }
-//                    if authenticationViewModel.currentUser != nil {
                         navRouter.push(Screen(user: user))
                     }
-//                    navRouter.push(Screen())
-                        
-                    
                     Task {
-                        try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                        do {
+                            try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
                     
                 } label: {
                     HStack {
-                        Text("Sign Up".uppercased())
+                        Text("Sign Up")
                             .frame(maxWidth: .infinity)
                             .frame(height: 35)
-                            .fontWeight(.semibold)
-                            .font(.system(size: 25))
+                            .font(FontOne.small)
                             .padding(5)
                             .modifier(MaterialViewModifier())
                             .padding(.bottom, 5)
@@ -106,7 +99,7 @@ struct SignUpView: View {
                 .padding(5)
                 .disabled(!isValid)
                 .opacity(isValid ? 1.0 : 0.5)
-                .cornerRadius(5)
+                .cornerRadius(15)
                 
                 NavigationLink {
                     SignInView()
@@ -115,16 +108,15 @@ struct SignUpView: View {
                     Text("Already have an Account? **Sign In** ")
                         .padding(.leading, 15)
                         .font(.system(size: 15))
-                        .padding(.bottom, 5)
+                        .padding(.bottom)
                 }
             }
             .padding()
             .background(.ultraThinMaterial.opacity(0.75))
             .foregroundColor(.white)
-            .foregroundStyle(.ultraThickMaterial)
-            .cornerRadius(25)
+            .foregroundStyle(.ultraThinMaterial)
+            .cornerRadius(50)
             .padding(25)
-            
         }
     }
 }

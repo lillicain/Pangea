@@ -13,10 +13,22 @@ struct MaterialViewModifier: ViewModifier {
         content
             .padding()
             .frame(height: 50)
-            .background(.ultraThinMaterial)
-            .cornerRadius(7.5)
-            .shadow(color: .black.opacity(0.25), radius: 0.5)
+            .background(.ultraThinMaterial.opacity(0.5))
+            .cornerRadius(15)
+//            .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
             .padding()
+    }
+}
+
+struct ButtonViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .frame(width: 275, height: 65)
+            .background(.ultraThinMaterial.opacity(0.25))
+            .cornerRadius(25)
+            .shadow(color: .white.opacity(0.25), radius: 0.5, x: 0.5, y: -0.5)
+            .padding(5)
     }
 }
 
