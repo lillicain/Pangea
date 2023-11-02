@@ -105,7 +105,7 @@ struct SignUpView: View {
                     SignInView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
-                    Text("Already have an Account? **Sign In** ")
+                    Text("Already have an account? **Sign In** ")
                         .padding(.leading, 15)
                         .font(.system(size: 15))
                         .padding(.bottom)
