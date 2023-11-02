@@ -250,7 +250,17 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		6A7FF6592AF1958700D10D9B /* LOCATION */ = {
+		6A7760532AF3653C00DB5DB8 /* PangeaView */ = {
+			isa = PBXGroup;
+			children = (
+				6A7FF6552AF192ED00D10D9B /* PangeaView.swift */,
+				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
+				6AB3021B2AE611C00036DB06 /* SignInView.swift */,
+			);
+			path = PangeaView;
+			sourceTree = "<group>";
+		};
+		6A7FF6592AF1958700D10D9B /* Location */ = {
 			isa = PBXGroup;
 			children = (
 				6A7FF6532AF191C500D10D9B /* LocationView.swift */,
@@ -258,7 +268,7 @@
 				6A7FF6572AF193BA00D10D9B /* MapItemView.swift */,
 				6A37823D2AF2D3DE006F4772 /* MapInformation.swift */,
 			);
-			path = LOCATION;
+			path = Location;
 			sourceTree = "<group>";
 		};
 		6AB302182AE611730036DB06 /* Frameworks */ = {
@@ -273,12 +283,10 @@
 			children = (
 				6AB302642AE69CCC0036DB06 /* FeedView.swift */,
 				6AB302482AE628660036DB06 /* PostItemView.swift */,
-				6A7FF6552AF192ED00D10D9B /* PangeaView.swift */,
 				6A4FC49C2AF329CA005CA309 /* AppView.swift */,
-				6A5A13D82AE1E8220041E188 /* SignUpView.swift */,
-				6AB3021B2AE611C00036DB06 /* SignInView.swift */,
 				6A5520D02AE86DF400D11498 /* UserInformation.swift */,
-				6A7FF6592AF1958700D10D9B /* LOCATION */,
+				6A7760532AF3653C00DB5DB8 /* PangeaView */,
+				6A7FF6592AF1958700D10D9B /* Location */,
 			);
 			path = VIEW;
 			sourceTree = "<group>";

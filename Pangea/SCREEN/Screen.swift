@@ -12,7 +12,6 @@ struct Screen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @EnvironmentObject var editUserViewModel: EditUserViewModel
     
-    
     @State var showScreen = false
     
     let user: User
@@ -103,9 +102,9 @@ struct Screen: View {
                                 }
                                 .padding(.trailing)
                             }
-                            
-                            
                         }
+                        .padding()
+                        
                         Divider()
                         
                         Spacer()
@@ -117,10 +116,8 @@ struct Screen: View {
                 }
             }
             .padding()
-            .tabItem { Image(systemName: "person.circle") }
             
-            //                    .foregroundColor(authenticationViewModel.backgroundColor)
-            //                    .background(authenticationViewModel.backgroundColor)
+            .tabItem { Image(systemName: "person.circle") }
             
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)

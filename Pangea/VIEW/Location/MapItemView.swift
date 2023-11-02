@@ -56,6 +56,7 @@ struct MapItemView: View {
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
         }
+        
     }
 }
 

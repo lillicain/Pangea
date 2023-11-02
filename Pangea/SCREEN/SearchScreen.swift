@@ -54,9 +54,7 @@ struct SearchScreen: View {
                                         
                                         Spacer()
                                     }
-                    
                             }
-                           
                         }
                     }
                     .onChange(of: searchText, { oldValue, newValue in
