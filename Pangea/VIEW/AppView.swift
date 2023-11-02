@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
-import NavigationRouter
 
 struct AppView: View {
-    
-    @NavRouter var navRouter
-    
+    @StateObject var serviceManager = ServiceManager()
     @StateObject var authenticationViewModel = AuthenticationViewModel()
     
     var body: some View {
         Group {
-//            NavigationRouter {
-//                
-//            }
+            if serviceManager.userSession == nil {
+                PangeaView()
+                    .environmentObject(AuthenticationViewModel())
+            } else {
+                Screen()
+            }
         }
     }
 }

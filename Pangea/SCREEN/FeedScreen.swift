@@ -26,7 +26,8 @@ struct FeedScreen: View {
                     }
                 
                     .navigationDestination(for: User.self, destination: { user in
-                        Screen(user: user)
+//                        Screen(user: user)
+                        Screen()
                     })
                     .frame(alignment: .leading)
                 }
