@@ -61,166 +61,155 @@ struct EditScreen: View {
                             }
                         }
                         Text("Edit Profile Picture")
-                                   .fontWeight(.semibold)
-                                   .padding(5)
-                               
-                           }
-                           .padding(.vertical)
-                       }
-                       
-                       Form {
-                           Section {
-                               userInformation
-                           }
-                           
-                           Section {
-                               userInformationTwo
-                               
-                           }
-                           Section {
-                               userInformationThree
-                           }
-                           
-                           
-                           Section {
-                               userInformationFour
-                                   .padding(5)
-                           }
-                           
-                           
-                           Section {
-                               userInformationFive
-                                   .padding(5)
-                           }
-                       }
-                       .scrollContentBackground(.hidden)
-                   }
-                   
-                   .toolbar {
-                       ToolbarItem(placement: .navigationBarTrailing) {
-                           Button {
-                               Task {
-                                   try await editUserViewModel.updateUserData()
-                               }
-                           } label: {
-                               Text("Save")
-                                   .fontWeight(.semibold)
-                           }
-                       }
-                   }
-               }
-           }
-       }
+                            .fontWeight(.semibold)
+                            .padding(5)
+                        
+                    }
+                    .padding(.vertical)
+                }
+                
+                Form {
+                    Section {
+                        userInformation
+                    }
+                    
+                    Section {
+                        userInformationTwo
+                        
+                    }
+                    Section {
+                        userInformationThree
+                    }
+                    
+                    
+                    Section {
+                        userInformationFour
+                            .padding(5)
+                    }
+                    
+                    
+                    Section {
+                        userInformationFive
+                            .padding(5)
+                    }
+                }
+                .scrollContentBackground(.hidden)
+            }
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        Task {
+                            try await editUserViewModel.updateUserData()
+                        }
+                    } label: {
+                        Text("Save")
+                            .fontWeight(.semibold)
+                    }
+                }
+            }
+        }
+    }
+}
 
-       extension EditScreen {
-           var userInformation: some View {
-               ZStack {
-                   VStack(alignment: .leading, spacing: 15) {
-                       Text(editUserViewModel.user.username)
-                           .font(FontOne.medium)
-                           .foregroundColor(Color(.systemGray3))
-                           .offset(x: -3.5, y: 3.5)
-                           .kerning(2.5)
-                           .overlay {
-                               Text(editUserViewModel.user.username)
-                                   .font(FontOne.medium)
-                                   .foregroundColor(authenticationViewModel.backgroundColor)
-                                   .kerning(2.5)
-                           }
-                       
-                       Text(editUserViewModel.user.name ?? "")
-                       
-                       Text(editUserViewModel.user.email)
-                           .lineLimit(1)
-                   }
-                   .font(.system(size: size))
-                   .fontWeight(.semibold)
-                   .foregroundColor(backgroundColor)
-                   .kerning(0.5)
-               }
-           }
-           
-           
-           var userInformationTwo: some View {
-               VStack {
-                   Toggle(appearance ? "Dark Mode" : "Light Mode", isOn: $appearance)
-                       .tint(Color(.systemGreen))
-                       .padding(5)
-                       .font(.system(size: size))
-                       .fontWeight(.semibold)
-                       .modifier(DarkModeViewModifier())
-                       .onTapGesture {
-                           appearance.toggle()
-                       }
-               }
-           }
-           
-           var userInformationThree: some View {
-               ScrollView(.horizontal, showsIndicators: false) {
-                   HStack(spacing: 5) {
-                       ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
-                           Button(action: {
-                               backgroundColor = color
-                               authenticationViewModel.backgroundColor = color
-                               backgroundColors = color.hexString!
-                               backgroundColors = color.ColorToString()
-                               
-                           }, label: {
-                               withAnimation(.spring()) {
-                                   Circle()
-                                       .fill(color)
-                                       .frame(width: 50, height: 50)
-                                       .padding(3.5)
-                                   
-                               }
-                           })
-                       }
-                   }
-               }
-           }
-           
-           var userInformationFour: some View {
-               VStack {
-                   Button {
-                       Task {
-                           do {
-                               try AuthenticationViewModel.shared.signOut()
-                               try authenticationViewModel.signOut()
-                               authenticationViewModel.currentUser = nil
-                               
-       //                        navRouter.push(SignInView())
-                               navRouter.push(PangeaView())
-                               
-                           } catch {
-                               print(error.localizedDescription)
-                           }
-                       }
-                   } label: {
-                       withAnimation(.snappy) {
-                           Text("Sign Out")
-                               .fontWeight(.semibold)
-                       }
-                   }
-                   .padding(.all, 5)
-               }
-           }
-           
-           var userInformationFive: some View {
-               VStack {
-                   Button(role: .destructive) {
-                       Task {
-                           try await authenticationViewModel.deleteAccount()
-                           
-       //                    navRouter.push(SignUpView())
-                           navRouter.push(PangeaView())
-                       }
-                   } label: {
-                       withAnimation(.snappy) {
-                           Text("Delete Account")
-                               .fontWeight(.semibold)
-                       }
-                   }
-                   .padding(.all, 5)
-               }
-           }
-       }
+extension EditScreen {
+    var userInformation: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 15) {
+                Text(editUserViewModel.user.username)
+                    .font(FontOne.medium)
+                    .foregroundColor(Color(.systemGray3))
+                    .offset(x: -3.5, y: 3.5)
+                    .kerning(2.5)
+                    .overlay {
+                        Text(editUserViewModel.user.username)
+                            .font(FontOne.medium)
+                            .foregroundColor(authenticationViewModel.backgroundColor)
+                            .kerning(2.5)
+                    }
+                
+                Text(editUserViewModel.user.name ?? "")
+                
+                Text(editUserViewModel.user.email)
+                    .lineLimit(1)
+            }
+            .font(.system(size: size))
+            .fontWeight(.semibold)
+            .foregroundColor(backgroundColor)
+            .kerning(0.5)
+        }
+    }
+    
+    
+    var userInformationTwo: some View {
+        VStack {
+            Toggle(appearance ? "Dark Mode" : "Light Mode", isOn: $appearance)
+                .tint(Color(.systemGreen))
+                .padding(5)
+                .font(.system(size: size))
+                .fontWeight(.semibold)
+                .modifier(DarkModeViewModifier())
+                .onTapGesture {
+                    appearance.toggle()
+                }
+        }
+    }
+    
+    var userInformationThree: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 5) {
+                ForEach(backgroundColorSelected.hexToColorArray(), id: \.self) { color in
+                    Button(action: {
+                        backgroundColor = color
+                        authenticationViewModel.backgroundColor = color
+                        backgroundColors = color.hexString!
+                        backgroundColors = color.ColorToString()
+                        
+                    }, label: {
+                        withAnimation(.spring()) {
+                            Circle()
+                                .fill(color)
+                                .frame(width: 50, height: 50)
+                                .padding(3.5)
+                            
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    var userInformationFour: some View {
+        VStack {
+            Button {
+                AuthenticationViewModel.shared.signOut()
+                navRouter.push(PangeaView())
+                
+                Task {
+                    authenticationViewModel.signOut()
+                    authenticationViewModel.currentUser = nil
+                }
+            } label: {
+                Text("Sign Out")
+                    .fontWeight(.semibold)
+            }
+            .padding(.all, 5)
+        }
+    }
+    
+    var userInformationFive: some View {
+        VStack {
+            Button(role: .destructive) {
+                navRouter.push(PangeaView())
+             
+                Task {
+                    try await authenticationViewModel.deleteAccount()
+                }
+            } label: {
+                Text("Delete Account")
+                    .fontWeight(.semibold)
+            }
+            .padding(.all, 5)
+        }
+    }
+}

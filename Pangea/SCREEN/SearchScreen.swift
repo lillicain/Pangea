@@ -17,7 +17,8 @@ struct SearchScreen: View {
             ScrollViewReader { proxy in
                 LazyVStack(spacing: 35) {
                     ForEach(searchViewModel.users, id: \.username) { user in
-                        NavigationLink(destination: Screen(user: user)) {
+//                        NavigationLink(destination: Screen(user: user)) {
+                        NavigationLink(destination: Screen()) {
                             HStack {
                                 ProfileImageManager(user: user, size: .small)
                                 VStack(alignment: .leading) {
@@ -42,6 +43,7 @@ struct SearchScreen: View {
                 .padding(.top)
                 .searchable(text: $searchText, prompt: "Search...")
             }
+            .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

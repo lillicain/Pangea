@@ -11,7 +11,10 @@ import NavigationRouter
 struct SignUpView: View {
     
     @NavRouter var navRouter
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
+//    @StateObject var serviceManager = ServiceManager()
     
     @State var username = ""
     @State var email = ""
@@ -47,10 +50,11 @@ struct SignUpView: View {
                     SecureField("Enter Password", text: $password)
                         .modifier(MaterialViewModifier())
                     
-                    ZStack(alignment: .trailing) {
+                  
                         SecureField("Confirm Password", text: $confirmPassword)
                             .modifier(MaterialViewModifier())
-                        
+                    
+                    ZStack(alignment: .trailing) {
                         if password.isEmpty && !confirmPassword.isEmpty {
                             if password == confirmPassword {
                                 Image(systemName: "checkmark.circle")
@@ -73,10 +77,16 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-                    if let user = authenticationViewModel.currentUser {
-                        navRouter.push(Screen(user: user))
-                        
+//                    if let user = authenticationViewModel.currentUser {
+//                        navRouter.push(Screen())
+//                        
+//                    }
+                    if authenticationViewModel.currentUser != nil {
+                        navRouter.push(Screen())
                     }
+//                    navRouter.push(Screen())
+                        
+                    
                     Task {
                         try await authenticationViewModel.createUser(email: email, username: username, password: password)
                     }

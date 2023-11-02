@@ -31,7 +31,12 @@ class AuthenticationViewModel: ObservableObject {
         self.userSession = Auth.auth().currentUser
         
         Task {
-            loadUserData
+            do {
+                try await loadUserData()
+            }
+            catch {
+                
+            }
         }
     }
     
