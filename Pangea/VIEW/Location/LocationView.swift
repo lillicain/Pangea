@@ -24,6 +24,8 @@ struct LocationView: View {
     @State var username = ""
     @State var visibleRegion: MKCoordinateRegion?
     
+    @State var isSelected = false
+    
     @State var lookAroundScene: MKLookAroundScene?
     
     var body: some View {
@@ -97,6 +99,7 @@ struct LocationView: View {
                 .onChange(of: selectedResult, { oldValue, newValue in
                     showDetails = newValue != nil
                 })
+                
                 .sheet(isPresented: $showDetails, content: {
                     LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
                         .presentationDetents([.height(350)])
@@ -104,11 +107,13 @@ struct LocationView: View {
                         .presentationCornerRadius(50)
                     
                 })
-                
-                .mapControls {
-                    
-                    MapInformation()
-                }
+       
+//                .mapControls {
+//                    if isSelected {
+//                        MapInformation()
+//                    }
+//                 
+//                }
                 
                 VStack {
                     RoundedRectangle(cornerRadius: 25, style: .circular)

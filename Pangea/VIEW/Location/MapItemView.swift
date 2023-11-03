@@ -18,8 +18,6 @@ struct MapItemView: View {
     @Binding var visibleRegion: MKCoordinateRegion?
     @Binding var username: String
     
-    @Namespace var mapScope
-    
     var body: some View {
         ZStack {
             VStack {
@@ -42,6 +40,7 @@ struct MapItemView: View {
                 
                 Button {
                     cameraPosition = .userLocation(fallback: .automatic)
+                    
                     
                 } label: {
                     Image(systemName: "person.fill")

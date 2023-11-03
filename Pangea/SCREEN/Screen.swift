@@ -57,8 +57,8 @@ struct Screen: View {
                                     Text("Edit Profile")
                                         .modifier(PostViewModifier())
                                 }
-                                .padding(.leading, 205)
-                                .padding(.bottom, 225)
+                                .padding(.leading, 207.5)
+                                .padding(.bottom, 235)
                             }
                         }
                     }

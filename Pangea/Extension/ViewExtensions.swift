@@ -58,14 +58,6 @@ struct PostViewModifier: ViewModifier {
             .font(FontOne.small)
             .foregroundColor(AuthenticationViewModel().blue[0])
             .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
-            .offset(x: 1.5, y: 1.5)
-            .kerning(0.5)
-            .overlay {
-                content
-                    .font(FontOne.small)
-                    .foregroundColor(AuthenticationViewModel().green[0])
-                    .kerning(0.5)
-            }
             .background(
         RoundedRectangle(cornerRadius: 25, style: .circular)
             .foregroundColor(AuthenticationViewModel().green[0])
