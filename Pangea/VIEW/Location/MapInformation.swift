@@ -28,34 +28,34 @@ struct MapInformation: View {
     }
 }
 
-struct Information: View {
-    @Binding var selectedResult: MKMapItem
-    @Binding var lookAroundScene: MKLookAroundScene?
-    
-    var body: some View {
-        LookAroundPreview(initialScene: lookAroundScene)
-            .overlay(alignment: .bottomTrailing) {
-                HStack {
-                    Text(selectedResult.name ?? selectedResult.description)
-                    
-                }
-            }
-            .onAppear {
-                fetchLookAroundPreview()
-            }
-            .onChange(of: selectedResult) { oldValue, newValue in
-                fetchLookAroundPreview()
-            }
-    }
-}
-
-extension Information {
-    
-    func fetchLookAroundPreview() {
-            lookAroundScene = nil
-            Task {
-                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
-                lookAroundScene = try? await request.scene
-        }
-    }
-}
+//struct Information: View {
+//    @Binding var selectedResult: MKMapItem
+//    @Binding var lookAroundScene: MKLookAroundScene?
+//    
+//    var body: some View {
+//        LookAroundPreview(initialScene: lookAroundScene)
+//            .overlay(alignment: .bottomTrailing) {
+//                HStack {
+//                    Text(selectedResult.name ?? selectedResult.description)
+//                    
+//                }
+//            }
+//            .onAppear {
+//                fetchLookAroundPreview()
+//            }
+//            .onChange(of: selectedResult) { oldValue, newValue in
+//                fetchLookAroundPreview()
+//            }
+//    }
+//}
+//
+//extension Information {
+//    
+//    func fetchLookAroundPreview() {
+//            lookAroundScene = nil
+//            Task {
+//                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
+//                lookAroundScene = try? await request.scene
+//        }
+//    }
+//}

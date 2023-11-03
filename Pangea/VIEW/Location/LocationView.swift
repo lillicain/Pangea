@@ -76,6 +76,7 @@ struct LocationView: View {
 //                        VStack(spacing: 0) {
 //                            LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, authenticationViewModel: $authenticationViewModel)
 //                        }
+                   Information(selectedResult: $selectedResult, lookAroundScene: $lookAroundScene)
                         
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 325)
@@ -102,13 +103,13 @@ struct LocationView: View {
                 .onChange(of: selectedResult, { oldValue, newValue in
                     showDetails = newValue != nil
                 })
-//                .sheet(isPresented: $showDetails, content: {
-//                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
-//                        .presentationDetents([.height(350)])
-//                        .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
-//                        .presentationCornerRadius(50)
-//                    
-//                })
+                .sheet(isPresented: $showDetails, content: {
+                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
+                        .presentationDetents([.height(350)])
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
+                        .presentationCornerRadius(50)
+                    
+                })
                 
                 .mapControls {
                     
@@ -173,6 +174,72 @@ extension LocationView {
                         cameraPosition = .rect(rect)
                     }
                 }
+            }
+        }
+    }
+    
+//    func fetchLookAroundPreview() {
+//        if let selectedResult {
+//            lookAroundScene = nil
+//            Task {
+//                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
+//                lookAroundScene = try? await request.scene
+//            }
+//        }
+//    }
+//    
+//    var look: some View {
+//        LookAroundPreview(initialScene: lookAroundScene)
+//            .overlay(alignment: .bottomTrailing) {
+//                HStack {
+//                    Text(selectedResult?.description ?? "")
+//                    
+//                }
+//            }
+//            .frame(height: 100)
+//            .onAppear {
+//                fetchLookAroundPreview()
+//            }
+//            .onChange(of: selectedResult) { oldValue, newValue in
+//                fetchLookAroundPreview()
+//            }
+//    }
+//
+}
+
+
+struct Information: View {
+    @Binding var selectedResult: MKMapItem?
+    @Binding var lookAroundScene: MKLookAroundScene?
+    
+    var body: some View {
+        LookAroundPreview(initialScene: lookAroundScene)
+            .overlay(alignment: .bottomTrailing) {
+                HStack {
+//                    Text(selectedResult.name ?? selectedResult.description)
+                    Text(selectedResult?.description ?? "")
+                    
+                }
+            }
+            .frame(height: 150)
+            .onAppear {
+                fetchLookAroundPreview()
+            }
+            .onChange(of: selectedResult) { oldValue, newValue in
+                fetchLookAroundPreview()
+            }
+    }
+}
+
+extension Information {
+    
+    func fetchLookAroundPreview() {
+        if let selectedResult {
+            lookAroundScene = nil
+
+            Task {
+                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
+                lookAroundScene = try? await request.scene
             }
         }
     }
