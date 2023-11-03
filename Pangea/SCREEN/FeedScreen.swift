@@ -16,29 +16,56 @@ struct FeedScreen: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(alignment: .trailing, spacing: 15) {
+                postImage
+                postUser
+                
+     postControl
+                
                 HStack {
-                    if let user = post.user {
-                        NavigationLink(value: user) {
-                            ProfileImageManager(user: user, size: .small)
-                            
-                            Text(user.username)
-                                .fontWeight(.bold)
-                        }
-                        .navigationDestination(for: User.self, destination: { user in
-                            Screen(user: user)
-                        })
-                        .frame(alignment: .leading)
+                    VStack {
+                        Text("\(post.timestamp.dateValue())")
+                        
+                        
+                        Text("\(post.caption)")
+                        
+                        
+                        Text(post.location)
+                        
                     }
                     Spacer()
                 }
-                .padding(.leading, 25)
-                
-                
+            }.padding()
+        }
+    }
+}
+
+extension FeedScreen {
+    var postUser: some View {
+        ZStack {
+            HStack {
+                if let user = post.user {
+                    NavigationLink(value: user) {
+                        ProfileImageManager(user: user, size: .extraSmall)
+                        
+                        Text(user.username)
+                            .fontWeight(.bold)
+                    }
+                    .navigationDestination(for: User.self, destination: { user in
+                        Screen(user: user)
+                    })
+                }
+                Spacer()
+            }
+        }
+    }
+    
+    var postImage: some View {
+        ZStack {
                 KFImage(URL(string: post.imageUrl))
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 375, height: 375)
+                    .frame(width: 375, height: 500)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                     .overlay {
                         
@@ -46,28 +73,32 @@ struct FeedScreen: View {
                             LocationView()
                             
                         } label: {
-                            Image(systemName: "mappin.and.ellipse.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(.white)
-                                .frame(width: 100, height: 100)
-                                .offset(x: 1.5, y: -1.5)
-                                .overlay {
-                                    Image(systemName: "mappin.and.ellipse.circle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(authenticationViewModel.green[0])
-                                        .frame(width: 100, height: 100)
-                                    
-                                }
-                                .padding(.leading, 250)
-                                .padding(.top, 250)
+                                Image(systemName: "mappin.and.ellipse.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(authenticationViewModel.blue[0])
+                                    .frame(width: 100, height: 100)
+                                    .offset(x: 1.5, y: -1.5)
+                                    .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
+                                    .overlay {
+                                        Image(systemName: "mappin.and.ellipse.circle")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(authenticationViewModel.green[0])
+                                            .frame(width: 100, height: 100)
+                                         
+                                    }
+                                 
+                                    .padding(.leading, 225)
+                                    .padding(.top, 350)
                             
-                        }
-                        .padding()
-                    }
+                            }
             }
-            
+        }
+    }
+    
+    var postControl: some View {
+        ZStack {
             HStack(spacing: 15) {
                 Button {
                     
@@ -91,18 +122,6 @@ struct FeedScreen: View {
                 Spacer()
                 
             }
-            .padding(.leading)
-            .padding()
-            
-            Text("\(post.timestamp.dateValue())")
-                .padding(.all, 5)
-            
-            Text("\(post.caption)")
-                .padding(.all, 5)
-            
-            Text(post.location)
-                .padding(.all, 5)
-            
         }
     }
 }

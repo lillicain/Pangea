@@ -32,17 +32,20 @@ struct AllFeedView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    if let user = authenticationViewModel.currentUser?.username {
-                        Text("Hello \(user)")
-                            .font(FontOne.medium)
-                            .scaledToFill()
-                            .lineLimit(1)
-                            .padding(.trailing, 50)
-                      
+                    HStack {
+                        if let user = authenticationViewModel.currentUser?.username {
+                            Text("Hello, \(user)")
+                            
+                                .font(FontOne.small)
+                                .scaledToFill()
+                                .lineLimit(1)
+                                .padding(.leading)
+                            Spacer()
+                        }
                     }
                 }
                 .padding(.top)
-                .padding()
+                .padding(.bottom, 250)
 
                 LazyVStack {
                     ForEach(feedViewModel.posts) { post in
