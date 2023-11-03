@@ -23,18 +23,19 @@ struct Screen: View {
                     ZStack(alignment: .top) {
                         RoundedRectangle(cornerRadius: 50, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: 405, height: 255)
-                            .padding(.top, 5)
-                    
+                            .frame(width: 412.5, height: 262.5)
+                        
                         ZStack {
                             LocationView()
                                 .frame(width: 400, height: 250, alignment: .top)
                                 .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
+                                .padding(.bottom)
                         }
+                        
                         
                         ZStack {
                             Circle()
-                                .frame(width: 155, height: 155)
+                                .frame(width: 182.5, height: 185.5)
                                 .foregroundColor(.white)
                                 .padding(.top, 100)
                             
@@ -61,21 +62,21 @@ struct Screen: View {
                             }
                         }
                     }
-             
+                    
                     ZStack {
                         VStack(spacing: 7.5) {
                             Text(user.username)
                                 .font(FontEight.title)
                                 .foregroundColor(authenticationViewModel.blue[0])
-                                .offset(x: -1.5, y: 1.5)
+                                .offset(x: -2.5, y: 2.5)
                                 .kerning(1.5)
-                            //                                .overlay {
-                            //                                    Text(user.username)
-                            //                                        .font(FontOne.title)
-                            //                                        .kerning(1.25)
-                            //                                        .foregroundColor(authenticationViewModel.green[0])
-                            //
-                            //                                }
+                                .overlay {
+                                    Text(user.username)
+                                        .font(FontEight.title)
+                                        .kerning(1.5)
+                                        .foregroundColor(authenticationViewModel.green[0])
+                                }
+                            
                             if let name = user.name {
                                 Text(name)
                                     .font(FontSeven.large)
@@ -98,14 +99,14 @@ struct Screen: View {
                                 UserInformation(value: 1, title: "Post")
                                     .padding()
                                     .padding(.vertical, 50)
-                                    
+                                
                                 Spacer()
                                 
-                        
-                             
+                                
+                                
                             }
                             
-                           Rectangle()
+                            Rectangle()
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 5)
                             
@@ -116,7 +117,7 @@ struct Screen: View {
                         }
                     }
                     
-               
+                    
                     
                     
                     VStack {
