@@ -79,7 +79,8 @@ struct SignUpView: View {
                     }
                     Task {
                         do {
-                            try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
+//                            try await authenticationViewModel.createUser(email: email, username: username, password: password)
                         } catch {
                             print(error.localizedDescription)
                         }

@@ -182,12 +182,13 @@ extension EditScreen {
     var userInformationFour: some View {
         VStack {
             Button {
+                AuthenticationViewModel.shared.signOut()
+                
                 navRouter.push(PangeaView())
                 
                 Task {
-                    AuthenticationViewModel.shared.signOut()
-//                    authenticationViewModel.signOut()
-//                    authenticationViewModel.currentUser = nil
+                    authenticationViewModel.signOut()
+                    authenticationViewModel.currentUser = nil
                 }
             } label: {
                 Text("Sign Out")
