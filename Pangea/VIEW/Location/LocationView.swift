@@ -69,19 +69,13 @@ struct LocationView: View {
                         
                     }
                 }
-                .mapStyle(.standard)//(elevation: .realistic))
+                .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
-//                    HStack {
-//                        Spacer()
-//                        VStack(spacing: 0) {
-//                            LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, authenticationViewModel: $authenticationViewModel)
-//                        }
-                   Information(selectedResult: $selectedResult, lookAroundScene: $lookAroundScene)
-                        
+                    VStack {
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 325)
                         
-//                    }
+                    }
                 }
                 .frame(width: 400, height: 635)
                 .cornerRadius(50)
@@ -174,72 +168,6 @@ extension LocationView {
                         cameraPosition = .rect(rect)
                     }
                 }
-            }
-        }
-    }
-    
-//    func fetchLookAroundPreview() {
-//        if let selectedResult {
-//            lookAroundScene = nil
-//            Task {
-//                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
-//                lookAroundScene = try? await request.scene
-//            }
-//        }
-//    }
-//    
-//    var look: some View {
-//        LookAroundPreview(initialScene: lookAroundScene)
-//            .overlay(alignment: .bottomTrailing) {
-//                HStack {
-//                    Text(selectedResult?.description ?? "")
-//                    
-//                }
-//            }
-//            .frame(height: 100)
-//            .onAppear {
-//                fetchLookAroundPreview()
-//            }
-//            .onChange(of: selectedResult) { oldValue, newValue in
-//                fetchLookAroundPreview()
-//            }
-//    }
-//
-}
-
-
-struct Information: View {
-    @Binding var selectedResult: MKMapItem?
-    @Binding var lookAroundScene: MKLookAroundScene?
-    
-    var body: some View {
-        LookAroundPreview(initialScene: lookAroundScene)
-            .overlay(alignment: .bottomTrailing) {
-                HStack {
-//                    Text(selectedResult.name ?? selectedResult.description)
-                    Text(selectedResult?.description ?? "")
-                    
-                }
-            }
-            .frame(height: 150)
-            .onAppear {
-                fetchLookAroundPreview()
-            }
-            .onChange(of: selectedResult) { oldValue, newValue in
-                fetchLookAroundPreview()
-            }
-    }
-}
-
-extension Information {
-    
-    func fetchLookAroundPreview() {
-        if let selectedResult {
-            lookAroundScene = nil
-
-            Task {
-                let request = MKLookAroundSceneRequest(mapItem: selectedResult)
-                lookAroundScene = try? await request.scene
             }
         }
     }
