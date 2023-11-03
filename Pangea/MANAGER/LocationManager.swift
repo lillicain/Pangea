@@ -25,6 +25,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentLocation: String?
     @Published var userLocation: CLLocation?
     
+    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel.shared
 
     

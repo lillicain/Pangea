@@ -13,14 +13,17 @@ struct MapInformation: View {
     @Namespace var mapScope
     
     var body: some View {
-        ZStack {
-            MapUserLocationButton(scope: mapScope)
-            MapPitchToggle(scope: mapScope)
-            MapCompass(scope: mapScope)
-                .mapControlVisibility(.visible)
-        }
-        .padding(.all, 100)
+        Map(scope: mapScope)
+            .overlay(alignment: .bottomTrailing) {
+                VStack {
+                    MapUserLocationButton(scope: mapScope)
+                    MapPitchToggle(scope: mapScope)
+                    MapCompass(scope: mapScope)
+                        .mapControlVisibility(.visible)
+                }
+                .padding(.trailing, 50)
+                .buttonBorderShape(.circle)
+            }
         .mapScope(mapScope)
-        .buttonBorderShape(.circle)
     }
 }

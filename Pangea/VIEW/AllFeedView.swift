@@ -31,6 +31,19 @@ struct AllFeedView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                VStack(alignment: .leading) {
+                    if let user = authenticationViewModel.currentUser?.username {
+                        Text("Hello \(user)")
+                            .font(FontOne.medium)
+                            .scaledToFill()
+                            .lineLimit(1)
+                            .padding(.trailing, 50)
+                      
+                    }
+                }
+                .padding(.top)
+                .padding()
+
                 LazyVStack {
                     ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
@@ -43,6 +56,7 @@ struct AllFeedView: View {
                 postView
                     .presentationDetents([.height(650)])
                     .presentationCornerRadius(50)
+                    .toolbar(.hidden, for: .navigationBar)
             })
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
             
@@ -65,31 +79,34 @@ struct AllFeedView: View {
                     } label: {
                         Text("Post")
                     }
+            
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        Task {
+                            
+                            try await postViewModel.uploadPost(caption: caption)
+                            postViewModel.uiImage = image
+                            locationManager.currentLocation = post.location
+                            location = post.location
+                        }
+                            caption = ""
+                            postViewModel.selectedImage = nil
+                            postViewModel.postImage = nil
+                            postViewModel.location = ""
+                            locationManager.currentLocation = ""
+
+                    } label: {
+                        Text("Post")
+                    }
                 }
             }
         }
     }
 }
 
-//                Button {
-//                    Task {
-//                        do {
-//                            try await postViewModel.uploadPost(caption: caption)
-//                            postViewModel.uiImage = image
-//                            locationManager.currentLocation = post.location
-//                        } catch {
-//
-//                        }
-//                        caption = ""
-//                        postViewModel.selectedImage = nil
-//                        postViewModel.postImage = nil
-//                        postViewModel.location = ""
-//                        locationManager.currentLocation = ""
-//
-//                    }
-//                } label: {
-//                    Text("Post")
-//                }
+     
 
 
 extension AllFeedView {
@@ -148,7 +165,7 @@ extension AllFeedView {
                             
                             
                         } catch {
-                            
+                            print(error.localizedDescription)
                         }
                     }
                     
@@ -157,6 +174,7 @@ extension AllFeedView {
                     postViewModel.postImage = nil
                     postViewModel.location = ""
                     locationManager.currentLocation = ""
+                    
                 } label: {
                     Text("Post")
                         .modifier(PostViewModifier())
@@ -174,14 +192,13 @@ extension AllFeedView {
                 
                 LocationButton(.currentLocation) {
                     locationManager.requestLocation()
-                    
+                    locationManager.currentLocation = post.location
                 }
                 .labelStyle(.titleAndIcon)
-                .cornerRadius(15)
+                .cornerRadius(25)
                 .foregroundColor(.white)
-                
+                .padding()
             }
-            
             .padding()
             
             HStack(spacing: 25) {

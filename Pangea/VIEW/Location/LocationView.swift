@@ -35,7 +35,7 @@ struct LocationView: View {
                     
                     UserAnnotation()
                     
-                    Annotation("Me!", coordinate: .userLocation) {
+                    Annotation("Me!", coordinate: .schoolLocation) {
                         ZStack {
                             Circle()
                                 .frame(width: 30, height: 30)
@@ -69,13 +69,18 @@ struct LocationView: View {
                         
                     }
                 }
-                .mapStyle(.standard(elevation: .realistic))
+                .mapStyle(.standard)//(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
-            
+//                    HStack {
+//                        Spacer()
+//                        VStack(spacing: 0) {
+//                            LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, authenticationViewModel: $authenticationViewModel)
+//                        }
+                        
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                        .padding(.leading, 325)
-                            
-                
+                            .padding(.leading, 325)
+                        
+//                    }
                 }
                 .frame(width: 400, height: 635)
                 .cornerRadius(50)
@@ -97,15 +102,16 @@ struct LocationView: View {
                 .onChange(of: selectedResult, { oldValue, newValue in
                     showDetails = newValue != nil
                 })
-                .sheet(isPresented: $showDetails, content: {
-                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
-                        .presentationDetents([.height(350)])
-                        .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
-                        .presentationCornerRadius(50)
-                    
-                })
+//                .sheet(isPresented: $showDetails, content: {
+//                    LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
+//                        .presentationDetents([.height(350)])
+//                        .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
+//                        .presentationCornerRadius(50)
+//                    
+//                })
                 
                 .mapControls {
+                    
                     MapInformation()
                 }
                 
@@ -122,8 +128,10 @@ struct LocationView: View {
                                 .cornerRadius(25)
                                 .padding()
                                 .background(.white)
+                                .foregroundColor(Color(.systemGray))
                                 .frame(width: 325, height: 50)
                                 .clipShape(RoundedRectangle(cornerRadius: 17.5))
+                               
                                 .onSubmit(of: .text) {
                                     Task {
                                         await searchPlaces()
@@ -152,7 +160,7 @@ extension LocationView {
     func fetchRoute() {
         if let selectedResult {
             let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
+            request.source = MKMapItem(placemark: .init(coordinate: .schoolLocation))
             request.destination = selectedResult
             Task {
                 let result = try? await MKDirections(request: request).calculate()

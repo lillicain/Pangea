@@ -41,14 +41,14 @@ struct MapItemView: View {
                 }
                 
                 Button {
-                    cameraPosition = .automatic
+                    cameraPosition = .userLocation(fallback: .automatic)
                     
                 } label: {
                     Image(systemName: "person.fill")
                 }
                 
                 Button {
-                    cameraPosition = .camera(MapCamera(centerCoordinate: .userLocation, distance: 750, heading: 150, pitch: 50))
+                    cameraPosition = .camera(MapCamera(centerCoordinate: .schoolLocation, distance: 980, heading: 242, pitch: 60))
                     
                 } label: {
                     Image(systemName: "rotate.3d")
