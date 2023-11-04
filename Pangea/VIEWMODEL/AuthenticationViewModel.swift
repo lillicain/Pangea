@@ -25,9 +25,13 @@ class AuthenticationViewModel: ObservableObject {
     @Published var green = ["C1FF00"].hexToColorArray()
     @Published var pink = ["FF206E"].hexToColorArray()
     @Published var violet = ["480CA8"].hexToColorArray()
+    @Published var yellow = ["FFFF00"].hexToColorArray()
     @Published var orange = ["FF5714"].hexToColorArray()
+    @Published var red = ["FF0000"].hexToColorArray()
     @Published var black = ["0C0F0A"].hexToColorArray()
     @Published var white = ["FDFFFC"].hexToColorArray()
+    
+    
                 
     static let shared = AuthenticationViewModel()
     

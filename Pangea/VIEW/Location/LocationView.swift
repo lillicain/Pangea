@@ -9,8 +9,11 @@ import SwiftUI
 import MapKit
 
 struct LocationView: View {
-    
+    @Namespace var mapScope
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+
+    @StateObject private var locationManager = LocationManager()
+//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     
     @State var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State var searchText = ""
@@ -31,6 +34,8 @@ struct LocationView: View {
     var body: some View {
         ScrollView {
             VStack {
+//                searchBar
+                
                 Map(position: $cameraPosition, selection: $selectedResult) {
                     
                     //        Marker("ME", coordinate: .userLocation)
@@ -53,7 +58,6 @@ struct LocationView: View {
                         }
                     }
                     
-                    
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
                             if item == routeDestination {
@@ -61,17 +65,16 @@ struct LocationView: View {
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                                     .tint(authenticationViewModel.pink[0])
                             }
-                            
+                        
                         } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                                 .tint(authenticationViewModel.orange[0])
                         }
-                    }
-                    if let route {
-                        MapPolyline(route.polyline)
-                            .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
-                        
+                        if let route {
+                            MapPolyline(route.polyline)
+                                .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
+                        }
                     }
                 }
                 .mapStyle(.standard(elevation: .realistic))
@@ -82,11 +85,11 @@ struct LocationView: View {
                         
                     }
                 }
+                
                 .mapControls {
-                    MapUserLocationButton()
                     MapInformation()
                 }
-                .frame(width: 375, height: 635)
+                .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
                 
@@ -95,7 +98,9 @@ struct LocationView: View {
                         .foregroundColor(authenticationViewModel.blue[0])
                         .frame(width: 412.5, height: 645)
                 )
-                
+//                .onAppear {
+//                    locationManager.currentLocation
+//                }
                 
                 .onChange(of: getDirections, { oldValue, newValue in
                     if newValue {
@@ -114,41 +119,40 @@ struct LocationView: View {
                         .presentationCornerRadius(50)
                
                 })
-                
-                
-                VStack {
-                    RoundedRectangle(cornerRadius: 25, style: .circular)
-                        .foregroundColor(authenticationViewModel.green[0])
-                        .frame(width: 350, height: 65)
-                        .overlay {
-                            TextField("Search...", text: $searchText)
-                                .foregroundColor(Color(.systemGray))
-                                .fontWeight(.semibold)
-                                .kerning(2.5)
-                                .padding()
-                                .cornerRadius(25)
-                                .padding()
-                                .background(.white)
-                                .frame(width: 325, height: 45)
-                                .clipShape(RoundedRectangle(cornerRadius: 17.5))
-                            
-                                .onSubmit(of: .text) {
-                                    Task {
-                                        await searchPlaces()
-                                    }
-                                }
-                                .foregroundColor(.black)
-                            
-                        }
-                        
-                }
             }
+                
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
     }
 }
 
 extension LocationView {
+    var searchBar: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 25, style: .circular)
+                .foregroundColor(authenticationViewModel.green[0])
+                .frame(width: 350, height: 65)
+                .overlay {
+                    TextField("Search...", text: $searchText)
+                        .foregroundColor(Color(.systemGray))
+                        .fontWeight(.semibold)
+                        .kerning(2.5)
+                        .padding()
+                        .cornerRadius(25)
+                        .padding()
+                        .background(.white)
+                        .frame(width: 325, height: 45)
+                        .clipShape(RoundedRectangle(cornerRadius: 17.5))
+                        .onSubmit(of: .text) {
+                            Task {
+                                await searchPlaces()
+                            }
+                        }
+                        .foregroundColor(.black)
+                }
+        }
+    }
+    
     func searchPlaces() async {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText

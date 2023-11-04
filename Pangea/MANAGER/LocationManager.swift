@@ -123,3 +123,37 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 }
 
+//final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+//    var locationManager: CLLocationManager?
+//    
+//    func checkIfLocationServicesIsEnabled() {
+//        if CLLocationManager.locationServicesEnabled() {
+//            locationManager = CLLocationManager()
+//            checkLocationAuthorization()
+//            
+//            locationManager = CLLocationManager()
+//            locationManager!.delegate = self
+//        } else {
+//            print("Alert")
+//        }
+//    }
+//    
+//   private func checkLocationAuthorization() {
+//        guard let locationManager = locationManager else { return }
+//        
+//        switch locationManager.authorizationStatus {
+//            
+//        case .notDetermined: locationManager.requestAlwaysAuthorization()
+//        case .restricted: print("Go to settings")
+//        case .denied: print("Go to settings")
+//        case .authorizedAlways, .authorizedWhenInUse: break
+//            
+//        @unknown default:
+//            break
+//        }
+//    }
+//    
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        checkLocationAuthorization()
+//    }
+//}

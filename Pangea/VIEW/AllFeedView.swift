@@ -25,6 +25,7 @@ struct AllFeedView: View {
     @State var showCamera = false
     @State var showImagePicker = false
     @State var location = ""
+    @State var date = ""
     
     let post: Post
     
@@ -50,7 +51,6 @@ struct AllFeedView: View {
                 LazyVStack {
                     ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
-                        
                     }
                 }
                 .padding(.top)
@@ -62,9 +62,6 @@ struct AllFeedView: View {
                     .toolbar(.hidden, for: .navigationBar)
             })
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-            
-//            .toolbarBackground(.visible, for: .tabBar)
-//            .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -124,7 +121,7 @@ extension AllFeedView {
             
             
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
-                CameraViewController(selectedImage: $image)
+                CameraViewController(selectedImage: $image, location: $location, date: $date)
                     .ignoresSafeArea(.all)
             }
             
@@ -132,9 +129,7 @@ extension AllFeedView {
                 showImagePicker.toggle()
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
-            
         }
-//        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
     }
     
     var postInformation: some View {

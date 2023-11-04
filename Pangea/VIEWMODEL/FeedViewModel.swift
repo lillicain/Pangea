@@ -29,7 +29,7 @@ class FeedViewModel: ObservableObject {
             let userUid = post.userUid
             let postUser = try await UserManager.fetchUser(withUid: userUid)
             posts[index].user = postUser
-            posts.append(post)
+        
         }
     }
 }

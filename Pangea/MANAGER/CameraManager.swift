@@ -12,6 +12,8 @@ import PhotosUI
 struct CameraViewController: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
+    @Binding var location: String
+    @Binding var date: String
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { }
     
@@ -33,6 +35,7 @@ struct CameraViewController: UIViewControllerRepresentable {
         var videoPreviewLayer: AVCaptureVideoPreviewLayer?
         let photoQualityPrioritizationMode = AVCapturePhotoOutput.QualityPrioritization.quality
         
+        
         init(_ imagePickerController: CameraViewController) {
             self.parent = imagePickerController
         }
@@ -42,19 +45,67 @@ struct CameraViewController: UIViewControllerRepresentable {
             parent.selectedImage = image
             parent.presentationMode.wrappedValue.dismiss()
             
-            if let asset: PHAsset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
-                        print("Asset: \(asset)")
-                        print("Creation Data \(String(describing: asset.creationDate))")
-                        print("Location: \(String(describing: asset.location))")
-                    } else {
-                        print("Asset: nil")
+            //            if let asset: PHAsset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+            //                        print("Asset: \(asset)")
+            //                        print("Creation Data \(String(describing: asset.creationDate))")
+            //                        print("Location: \(String(describing: asset.location))")
+            //                    } else {
+            //                        print("Asset: nil")
+            //                    }
+            var pickerImage: UIImage?
+            
+            
+            
+            if let URL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+                print("Image URL: \(URL)")
+                let opts = PHFetchOptions()
+                opts.fetchLimit = 1
+                let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
+                
+                print(assets)
+                
+                
+                for assetIndex in 0..<assets.count {
+                    let asset = assets[assetIndex]
+                    let location = String(describing: asset.location)
+                    
+                    
+                    
+                    let longitude = String(describing: asset.location?.coordinate.longitude)
+                    
+                    let latitude = String(describing: asset.location?.coordinate.latitude)
+                    
+                    let creationDate = (asset.creationDate?.description)!
+                    
+                    
+                    print(longitude)
+                    print(latitude)
+                    
+                    print(location)
+                    
+                    DispatchQueue.main.async {
+                        self.parent.selectedImage = pickerImage
+                        self.parent.date = creationDate
+                        self.parent.location = self.parent.location
+                       
                     }
+                    
+                    
+                }
+            }
+            
+            if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                pickerImage = editedImage
+            } else if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                pickerImage = selectedImage
+            }
+            
         }
     }
 }
 
 struct CustomPhotoPickerView: UIViewControllerRepresentable {
-        
+    
     @Binding var selectedImage: UIImage?
     @Binding var date: Date?
     @Binding var location: CLLocationCoordinate2D?
@@ -113,3 +164,4 @@ struct CustomPhotoPickerView: UIViewControllerRepresentable {
         }
     }
 }
+

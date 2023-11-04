@@ -15,12 +15,12 @@ struct FeedScreen: View {
     let post: Post
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             VStack(alignment: .trailing, spacing: 15) {
                 postImage
                 postUser
                 
-     postControl
+                postControl
                 
                 HStack {
                     VStack {
@@ -38,7 +38,7 @@ struct FeedScreen: View {
             }.padding()
         }
     }
-}
+//}
 
 extension FeedScreen {
     var postUser: some View {
@@ -62,38 +62,38 @@ extension FeedScreen {
     
     var postImage: some View {
         ZStack {
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 375, height: 500)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .overlay {
+            KFImage(URL(string: post.imageUrl))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 375, height: 500)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+                .overlay {
+                    
+                    NavigationLink {
+                        LocationView()
                         
-                        NavigationLink {
-                            LocationView()
-                            
-                        } label: {
+                    } label: {
+                        Image(systemName: "mappin.and.ellipse.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(authenticationViewModel.blue[0])
+                            .frame(width: 100, height: 100)
+                            .offset(x: 1.5, y: -1.5)
+                            .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
+                            .overlay {
                                 Image(systemName: "mappin.and.ellipse.circle")
                                     .resizable()
                                     .scaledToFit()
-                                    .foregroundColor(authenticationViewModel.blue[0])
+                                    .foregroundColor(authenticationViewModel.green[0])
                                     .frame(width: 100, height: 100)
-                                    .offset(x: 1.5, y: -1.5)
-                                    .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
-                                    .overlay {
-                                        Image(systemName: "mappin.and.ellipse.circle")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .foregroundColor(authenticationViewModel.green[0])
-                                            .frame(width: 100, height: 100)
-                                         
-                                    }
-                                 
-                                    .padding(.leading, 225)
-                                    .padding(.top, 350)
-                            
+                                
                             }
-            }
+                        
+                            .padding(.leading, 225)
+                            .padding(.top, 350)
+                        
+                    }
+                }
         }
     }
     

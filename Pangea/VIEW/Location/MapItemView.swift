@@ -12,6 +12,7 @@ import CoreLocationUI
 struct MapItemView: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var locationManager: LocationManager
     
     @Binding var cameraPosition: MapCameraPosition
     @Binding var results: [MKMapItem]
@@ -39,6 +40,7 @@ struct MapItemView: View {
                 }
                 
                 Button {
+                    
                     cameraPosition = .userLocation(fallback: .automatic)
                     
                     

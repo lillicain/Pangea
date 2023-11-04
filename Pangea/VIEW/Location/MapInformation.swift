@@ -18,12 +18,13 @@ struct MapInformation: View {
                 VStack {
                     MapUserLocationButton(scope: mapScope)
                     MapPitchToggle(scope: mapScope)
+                    
                     MapCompass(scope: mapScope)
                         .mapControlVisibility(.visible)
                 }
                 .padding(.trailing, 50)
                 .buttonBorderShape(.circle)
             }
-        .mapScope(mapScope)
+            .mapScope(mapScope)
     }
 }
