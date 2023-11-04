@@ -61,8 +61,19 @@ struct PangeaView: View {
                         .font(FontFour.small)
                         .padding(.top, 165)
                         .kerning(7.5)
-                        .foregroundColor(authenticationViewModel.pink[0].opacity(0.75))
+                        .foregroundColor(.white.opacity(0.75))
+                        .offset(x: -1.5, y: 1.5)
                         .padding(.leading, 175)
+                        .overlay {
+                            Text("Reconnect")
+                                .font(FontFour.small)
+                                .padding(.top, 165)
+                                .kerning(7.5)
+                                .foregroundColor(authenticationViewModel.pink[0])
+                              
+                                .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
+                                .padding(.leading, 175)
+                        }
                 }
                 
             }

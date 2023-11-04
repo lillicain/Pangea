@@ -20,7 +20,7 @@ struct MapItemView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 15) {
                 
                 Button {
                     searchPlaces(for: "Parks")
@@ -56,7 +56,7 @@ struct MapItemView: View {
             .padding()
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
-            .accentColor(authenticationViewModel.blue[0])
+            .accentColor(authenticationViewModel.violet[0])
         }
     }
 }

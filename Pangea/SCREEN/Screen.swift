@@ -75,6 +75,10 @@ struct Screen: View {
                                     .foregroundColor(authenticationViewModel.green[0])
                             }
                         
+                        Text(user.username)
+                            .font(FontNine.small)
+                            .foregroundColor(authenticationViewModel.blue[0])
+                        
                         if let name = user.name {
                             Text(name)
                                 .font(FontSeven.large)

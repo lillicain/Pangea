@@ -37,7 +37,7 @@ struct LocationView: View {
                     
                     UserAnnotation()
                     
-                    Annotation("Me!", coordinate: .schoolLocation) {
+                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
                         ZStack {
                             Circle()
                                 .frame(width: 30, height: 30)
@@ -59,15 +59,18 @@ struct LocationView: View {
                             if item == routeDestination {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                                    .tint(authenticationViewModel.pink[0])
                             }
+                            
                         } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                                .tint(authenticationViewModel.orange[0])
                         }
                     }
                     if let route {
                         MapPolyline(route.polyline)
-                            .stroke(authenticationViewModel.blue[0], lineWidth: 5)
+                            .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
                         
                     }
                 }
@@ -75,16 +78,15 @@ struct LocationView: View {
                 .safeAreaInset(edge: .bottom) {
                     VStack {
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                            .padding(.leading, 325)
+                            .padding(.leading, 315)
                         
                     }
                 }
-                
                 .mapControls {
                     MapUserLocationButton()
                     MapInformation()
                 }
-                .frame(width: 400, height: 635)
+                .frame(width: 375, height: 635)
                 .cornerRadius(50)
                 .padding()
                 
@@ -110,7 +112,7 @@ struct LocationView: View {
                         .presentationDetents([.height(350)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                         .presentationCornerRadius(50)
-                    
+               
                 })
                 
                 
@@ -120,15 +122,14 @@ struct LocationView: View {
                         .frame(width: 350, height: 65)
                         .overlay {
                             TextField("Search...", text: $searchText)
-                                .scrollDismissesKeyboard(.automatic)
+                                .foregroundColor(Color(.systemGray))
                                 .fontWeight(.semibold)
                                 .kerning(2.5)
                                 .padding()
                                 .cornerRadius(25)
                                 .padding()
                                 .background(.white)
-                                .foregroundColor(Color(.systemGray))
-                                .frame(width: 325, height: 50)
+                                .frame(width: 325, height: 45)
                                 .clipShape(RoundedRectangle(cornerRadius: 17.5))
                             
                                 .onSubmit(of: .text) {
@@ -136,12 +137,14 @@ struct LocationView: View {
                                         await searchPlaces()
                                     }
                                 }
+                                .foregroundColor(.black)
                             
                         }
+                        
                 }
             }
         }
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
     }
 }
 
