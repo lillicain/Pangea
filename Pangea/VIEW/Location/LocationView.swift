@@ -140,11 +140,11 @@ struct LocationView: View {
                                 
                         }
                 }
-                .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
+//                .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
        
             }
         }
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
+//        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
     }
 }
 

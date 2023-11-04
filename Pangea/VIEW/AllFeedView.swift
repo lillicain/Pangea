@@ -63,8 +63,8 @@ struct AllFeedView: View {
             })
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
             
-            .toolbarBackground(.visible, for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
+//            .toolbarBackground(.visible, for: .tabBar)
+//            .toolbarBackground(.ultraThinMaterial.opacity(0.5), for: .tabBar)
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

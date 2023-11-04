@@ -29,21 +29,22 @@ struct PangeaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
+            TabView {
                 Group {
                     if authenticationViewModel.userSession == nil {
                         PangeaView()
                         
                     } else {
                         //                        Screen(user: authenticationViewModel.currentUser ?? User.MOCK_USER[0])
-                        if let user = authenticationViewModel.currentUser {
-                            
-                            
-                            Screen(user: user)
-                                .modifier(DarkModeViewModifier())
-                        } else {
-                            PangeaView()
-                        }
+                        TabScreen()
+//                        if let user = authenticationViewModel.currentUser {
+//                            
+//                            
+//                            Screen(user: user)
+//                                .modifier(DarkModeViewModifier())
+//                        } else {
+//                            PangeaView()
+//                        }
                         
                     }
                 }

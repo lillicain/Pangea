@@ -38,11 +38,11 @@ struct SignInView: View {
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
-                        .autocapitalization(.none)
+//                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-                        .autocapitalization(.none)
+//                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Passsword", text: $password)

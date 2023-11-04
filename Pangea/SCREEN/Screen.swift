@@ -17,7 +17,7 @@ struct Screen: View {
     let user: User
     
     var body: some View {
-        TabView {
+//        TabView {
             ScrollView {
                 VStack {
                     ZStack(alignment: .top) {
@@ -124,22 +124,22 @@ struct Screen: View {
                         PostItemView(user: user.self)
                     }
                 }
-            }
+//            }
             .padding()
             .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
             
-            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .navigationBar)
-            
-            .tabItem { Image(systemName: "person.circle") }
-            
-            LocationView()
-                .tabItem { Image(systemName: "mappin.and.ellipse.circle.fill") }
-            
-            AllFeedView(post: Post.MOCK_POST[0])
-                .tabItem { Image(systemName: "globe.americas") }
+//            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
+//            .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .navigationBar)
+//            
+//            .tabItem { Image(systemName: "person.circle") }
+//            
+//            LocationView()
+//                .tabItem { Image(systemName: "mappin.and.ellipse.circle.fill") }
+//            
+//            AllFeedView(post: Post.MOCK_POST[0])
+//                .tabItem { Image(systemName: "globe.americas") }
             
         }
-        .accentColor(authenticationViewModel.blue[0])
+//        .accentColor(authenticationViewModel.blue[0])
     }
 }
