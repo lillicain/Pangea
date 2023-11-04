@@ -49,12 +49,22 @@ struct PangeaView: View {
                                     .shadow(color: .white.opacity(0.25), radius: 1.5, x: -1.5, y: 1.5)
                             }
                             .padding(.top, 375)
+              
                     
                     VStack {
                         signUp
                         signIn
                     }
                 }
+                ZStack {
+                    Text("Reconnect")
+                        .font(FontFour.small)
+                        .padding(.top, 165)
+                        .kerning(7.5)
+                        .foregroundColor(authenticationViewModel.pink[0].opacity(0.75))
+                        .padding(.leading, 175)
+                }
+                
             }
         }
     }

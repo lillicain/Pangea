@@ -196,6 +196,13 @@ extension EditScreen {
             }
             .padding(.all, 5)
         }
+        .overlay {
+            NavigationLink {
+                PangeaView()
+            } label: {
+                
+            }
+        }
     }
     
     var userInformationFive: some View {

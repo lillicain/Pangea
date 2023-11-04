@@ -37,12 +37,9 @@ struct SignInView: View {
                 Divider()
                 
                 VStack(spacing: 0) {
-                    TextField("Enter Username", text: $username)
-//                        .autocapitalization(.none)
-                        .modifier(MaterialViewModifier())
+                    TextField("Enter Username", text: $username)                        .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-//                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Passsword", text: $password)

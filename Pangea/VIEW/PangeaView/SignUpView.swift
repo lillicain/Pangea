@@ -39,11 +39,9 @@ struct SignUpView: View {
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
-//                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-//                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Password", text: $password)
@@ -58,10 +56,12 @@ struct SignUpView: View {
                                 Image(systemName: "checkmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemGreen))
+                                    .padding(.trailing, 50)
                             } else {
                                 Image(systemName: "xmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemRed))
+                                    .padding(.trailing, 50)
                             }
                         }
                     }

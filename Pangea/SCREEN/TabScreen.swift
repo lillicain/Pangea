@@ -10,15 +10,14 @@ import SwiftUI
 struct TabScreen: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    //    let post: Post?
     
     var body: some View {
         TabView {
             if let user = authenticationViewModel.currentUser {
-                Screen(user: user)
+            Screen(user: user)
                     .tag([0])
                     .tabItem { Image("globe") }
-                
+
             }
             
             
@@ -31,7 +30,9 @@ struct TabScreen: View {
                 .tag([2])
                 .tabItem { Image(systemName: "globe") }
         }
+     
         .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-        .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .navigationBar)
+        
+        .accentColor(authenticationViewModel.pink[0])
     }
 }
