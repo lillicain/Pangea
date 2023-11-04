@@ -27,7 +27,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel.shared
-
+    private let geocoder = CLGeocoder()
     
     override init() {
         super.init()
@@ -38,10 +38,20 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func requestLocation() {
         manager.requestLocation()
     }
-    
+    private func geocode() {
+       guard let location = self.location else { return }
+       geocoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
+         if error == nil {
+           self.placemark = places?[0]
+         } else {
+           self.placemark = nil
+         }
+       })
+     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         self.location = location
+        self.geocode()
         
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location) { placemarks, error in
@@ -90,6 +100,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             if error == nil {
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
+                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                           print("Lat: \(coordinates.latitude) -- Long: \(coordinates.longitude)")
                     
                     completionHandler(location.coordinate, nil)
                     return
@@ -110,5 +122,4 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 }
-
 

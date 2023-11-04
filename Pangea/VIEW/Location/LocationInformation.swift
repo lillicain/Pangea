@@ -60,8 +60,6 @@ struct LocationInformation: View {
                     .frame(height: 150)
                     .cornerRadius(25)
                     .padding()
-                
-//                ContentUnavailableView("No Preview Available", systemImage: "eye")
             }
             
             HStack(spacing: 25) {

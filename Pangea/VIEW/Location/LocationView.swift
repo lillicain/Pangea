@@ -79,14 +79,19 @@ struct LocationView: View {
                         
                     }
                 }
+                
+                .mapControls {
+                    MapUserLocationButton()
+                    MapInformation()
+                }
                 .frame(width: 400, height: 635)
                 .cornerRadius(50)
                 .padding()
                 
                 .background(
                     RoundedRectangle(cornerRadius: 50, style: .circular)
-                    .foregroundColor(authenticationViewModel.blue[0])
-                    .frame(width: 412.5, height: 645)
+                        .foregroundColor(authenticationViewModel.blue[0])
+                        .frame(width: 412.5, height: 645)
                 )
                 
                 
@@ -107,13 +112,7 @@ struct LocationView: View {
                         .presentationCornerRadius(50)
                     
                 })
-       
-//                .mapControls {
-//                    if isSelected {
-//                        MapInformation()
-//                    }
-//                 
-//                }
+                
                 
                 VStack {
                     RoundedRectangle(cornerRadius: 25, style: .circular)
@@ -131,20 +130,18 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemGray))
                                 .frame(width: 325, height: 50)
                                 .clipShape(RoundedRectangle(cornerRadius: 17.5))
-                               
+                            
                                 .onSubmit(of: .text) {
                                     Task {
                                         await searchPlaces()
                                     }
                                 }
-                                
+                            
                         }
                 }
-//                .toolbarBackground(.ultraThinMaterial.opacity(0.05), for: .tabBar)
-       
             }
         }
-//        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
     }
 }
 
