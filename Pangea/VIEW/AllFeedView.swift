@@ -32,7 +32,7 @@ struct AllFeedView: View {
     let post: Post
     
     var body: some View {
-//        NavigationStack {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
@@ -51,22 +51,14 @@ struct AllFeedView: View {
                 .padding(.bottom, 250)
 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts) { post in
+                    ForEach(feedViewModel.posts.reversed()) { post in
                         FeedScreen(post: post)
                         
-//                        if let product {
-//                            FeedScreen(post: product)
-//                        }
-                         
-//                            .task {
-//                            try? await PostManager.fetchFeedPosts()
-//                            }
                     }
-//                    .task {
-//                        self.post = try await PostManager.shared.
-//                    }
                 }
-                
+                .task {
+                    try? await postViewModel.uploadPost(caption: caption)
+                }
             
                 .padding(.top)
             }
@@ -120,7 +112,7 @@ struct AllFeedView: View {
             
         }
     }
-//}
+}
 
      
 
@@ -171,6 +163,7 @@ extension AllFeedView {
             
             VStack {
                 Button {
+                    
                     Task {
                         do {
                             try await postViewModel.uploadPost(caption: caption)
