@@ -11,7 +11,6 @@ struct PangeaView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 
                 LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
@@ -75,11 +74,9 @@ struct PangeaView: View {
                                 .padding(.leading, 175)
                         }
                 }
-                
             }
         }
     }
-}
 
 #Preview {
     PangeaView()
@@ -89,7 +86,7 @@ extension PangeaView {
     var signUp: some View {
         ZStack {
             NavigationLink {
-                SignUpView(nextView: .constant(false))
+                SignUpView()
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
@@ -117,7 +114,7 @@ extension PangeaView {
     var signIn: some View {
         ZStack {
             NavigationLink {
-                SignInView(nextView: .constant(false))
+                SignInView()
                     .navigationBarBackButtonHidden(true)
                 
             } label: {

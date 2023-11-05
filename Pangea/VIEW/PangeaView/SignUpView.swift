@@ -14,14 +14,10 @@ struct SignUpView: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-//    @StateObject var authenticationViewModel = AuthenticationViewModel()
-    
     @State var username = ""
     @State var email = ""
     @State var password = ""
     @State var confirmPassword = ""
-    
-    @Binding var nextView: Bool
     
     var body: some View {
         ZStack {
@@ -78,17 +74,16 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-//                    if let user = authenticationViewModel.currentUser {
-//                        navRouter.push(Screen(user: user))
-//                    }
+                    
                     Task {
                         do {
-                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
+                            //                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
+                            if let user = authenticationViewModel.currentUser {
+                                navRouter.push(Screen(user: user))
+                            }
+
                             try await authenticationViewModel.createUser(email: email, username: username, password: password)
-                            nextView = false
-//                            try await authenticationViewModel.signIn(withEmail: email, password: password)
-//                            nextView = false
-//                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
+                            
                         } catch {
                             print(error.localizedDescription)
                         }
@@ -111,7 +106,7 @@ struct SignUpView: View {
                 .cornerRadius(15)
                 
                 NavigationLink {
-                    SignInView(nextView: $nextView)
+                    SignInView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     Text("Already have an account? **Sign In** ")
@@ -127,12 +122,6 @@ struct SignUpView: View {
             .cornerRadius(50)
             .padding(25)
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        SignUpView(nextView: .constant(false))
     }
 }
 

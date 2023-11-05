@@ -33,7 +33,7 @@ struct EditScreen: View {
     
     
     var body: some View {
-        NavigationRouter {
+//        NavigationRouter {
             ZStack {
                 
                 VStack {
@@ -112,7 +112,8 @@ struct EditScreen: View {
             }
         }
     }
-}
+//}
+
 extension EditScreen {
     var userInformation: some View {
         ZStack {
@@ -183,20 +184,23 @@ extension EditScreen {
     var userInformationFour: some View {
         VStack {
             Button {
-                //                AuthenticationViewModel.shared.signOut()
+
+                AuthenticationViewModel.shared.signOut()
+                
                 Task {
                     do {
                         try editUserViewModel.signOut()
+                        navRouter.push(PangeaView())
                     } catch {
                         print(error.localizedDescription)
                     }
                 }
-                
-                
+        
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
-                    //                    navRouter.push(PangeaView())
+                    navRouter.push(PangeaView())
+
                 }
             } label: {
                 Text("Sign Out")
@@ -215,7 +219,7 @@ extension EditScreen {
                     do {
                         try await editUserViewModel.deleteAccount()
                         try await authenticationViewModel.deleteAccount()
-                        //                        navRouter.push(PangeaView())
+                        navRouter.push(PangeaView())
                     } catch {
                         
                         print(error.localizedDescription)
@@ -235,7 +239,7 @@ extension EditScreen {
 //                PangeaView()
 //                    .navigationBarBackButtonHidden(true)
 //            } label: {
-//                
+//
 //            }
 //        }
 //    }

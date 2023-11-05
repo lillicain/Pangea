@@ -29,7 +29,7 @@ struct PangeaApp: App {
     
     var body: some Scene {
         WindowGroup {
-                NavigationStack {
+                NavigationRouter {
                     Group {
                         if authenticationViewModel.userSession == nil {
                             PangeaView()
