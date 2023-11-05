@@ -22,6 +22,9 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
+    static let shared = PostViewModel()
+    
     var uiImage: UIImage?
     var location: String?
     
@@ -41,6 +44,6 @@ class PostViewModel: ObservableObject {
         guard let imageUrl = try await ImageManager.uploadImage(image: uiImage) else { return }
         let post = Post(id: posts.documentID, userUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
-        try await posts.setData(encodedPost)
+        try await posts.setData(encodedPost, merge: false)
     }
 }

@@ -8,8 +8,16 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
+@MainActor
 struct PostManager {
+    static let shared = PostManager()
+    
+    private init() {
+        
+    }
+    
     static let postsCollection = Firestore.firestore().collection("posts")
     
     static func fetchFeedPosts() async throws -> [Post] {

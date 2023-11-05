@@ -69,6 +69,6 @@ struct SearchScreen: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
-//        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.05)], startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.05)], startPoint: .top, endPoint: .bottom))
     }
 }

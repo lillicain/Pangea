@@ -13,6 +13,7 @@ import CoreLocationUI
 
 struct AllFeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @StateObject var postViewModel = PostViewModel()
     @StateObject var locationManager = LocationManager()
     
@@ -26,11 +27,12 @@ struct AllFeedView: View {
     @State var showImagePicker = false
     @State var location = ""
     @State var date = ""
+    @State var product: Post? = nil
     
     let post: Post
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
@@ -51,10 +53,20 @@ struct AllFeedView: View {
                 LazyVStack(spacing: 75) {
                     ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
-                
                         
+//                        if let product {
+//                            FeedScreen(post: product)
+//                        }
+                         
+//                            .task {
+//                            try? await PostManager.fetchFeedPosts()
+//                            }
                     }
+//                    .task {
+//                        self.post = try await PostManager.shared.
+//                    }
                 }
+                
             
                 .padding(.top)
             }
@@ -65,7 +77,7 @@ struct AllFeedView: View {
                     .toolbar(.hidden, for: .navigationBar)
             })
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-            
+           
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
@@ -105,9 +117,10 @@ struct AllFeedView: View {
 //                    }
 //                }
             }
+            
         }
     }
-}
+//}
 
      
 

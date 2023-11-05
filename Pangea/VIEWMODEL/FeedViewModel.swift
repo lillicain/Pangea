@@ -18,6 +18,7 @@ class FeedViewModel: ObservableObject {
             try await fetchPosts()
         }
     }
+    static let shared = FeedViewModel()
     
     @MainActor
     func fetchPosts() async throws {
