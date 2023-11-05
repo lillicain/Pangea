@@ -30,7 +30,9 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
        }
        
        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-           location = locations.first?.coordinate
+//           location = locations.first?.coordinate
+           guard let location = locations.first else { return }
+           
            update()
        }
        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
