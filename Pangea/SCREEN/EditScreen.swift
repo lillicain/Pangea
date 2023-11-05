@@ -33,85 +33,86 @@ struct EditScreen: View {
     
     
     var body: some View {
-        ZStack {
-            
-            VStack {
-                PhotosPicker(selection: $editUserViewModel.selectedImage) {
-                    VStack {
-                        if let image = editUserViewModel.profileImage {
-                            image
-                                .resizable()
-                                .background(Color(.systemGray))
-                                .clipShape(Circle())
-                                .padding()
-                            
-                        } else {
-                            ZStack {
-                                Circle()
-                                    .frame(width: 135)
-                                    .foregroundColor(backgroundColor)
-                                    .onAppear {
-                                        backgroundColor = authenticationViewModel.blue[0]
-                                    }
+        NavigationRouter {
+            ZStack {
+                
+                VStack {
+                    PhotosPicker(selection: $editUserViewModel.selectedImage) {
+                        VStack {
+                            if let image = editUserViewModel.profileImage {
+                                image
+                                    .resizable()
+                                    .background(Color(.systemGray))
+                                    .clipShape(Circle())
+                                    .padding()
                                 
+                            } else {
                                 ZStack {
-                                    ProfileImageManager(user: editUserViewModel.user, size: .large)
+                                    Circle()
+                                        .frame(width: 135)
+                                        .foregroundColor(backgroundColor)
+                                        .onAppear {
+                                            backgroundColor = authenticationViewModel.blue[0]
+                                        }
                                     
+                                    ZStack {
+                                        ProfileImageManager(user: editUserViewModel.user, size: .large)
+                                        
+                                    }
                                 }
                             }
+                            Text("Edit Profile Picture")
+                                .fontWeight(.semibold)
+                                .padding(5)
+                            
                         }
-                        Text("Edit Profile Picture")
-                            .fontWeight(.semibold)
-                            .padding(5)
-                        
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    
+                    Form {
+                        Section {
+                            userInformation
+                        }
+                        
+                        Section {
+                            userInformationTwo
+                            
+                        }
+                        Section {
+                            userInformationThree
+                        }
+                        
+                        
+                        Section {
+                            userInformationFour
+                                .padding(5)
+                        }
+                        
+                        
+                        Section {
+                            userInformationFive
+                                .padding(5)
+                        }
+                    }
+                    .scrollContentBackground(.hidden)
                 }
                 
-                Form {
-                    Section {
-                        userInformation
-                    }
-                    
-                    Section {
-                        userInformationTwo
-                        
-                    }
-                    Section {
-                        userInformationThree
-                    }
-                    
-                    
-                    Section {
-                        userInformationFour
-                            .padding(5)
-                    }
-                    
-                    
-                    Section {
-                        userInformationFive
-                            .padding(5)
-                    }
-                }
-                .scrollContentBackground(.hidden)
-            }
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        Task {
-                            try await editUserViewModel.updateUserData()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            Task {
+                                try await editUserViewModel.updateUserData()
+                            }
+                        } label: {
+                            Text("Save")
+                                .fontWeight(.semibold)
                         }
-                    } label: {
-                        Text("Save")
-                            .fontWeight(.semibold)
                     }
                 }
             }
         }
     }
 }
-
 extension EditScreen {
     var userInformation: some View {
         ZStack {
@@ -184,24 +185,18 @@ extension EditScreen {
             Button {
                 AuthenticationViewModel.shared.signOut()
                 
-                navRouter.push(PangeaView())
+               
                 
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
+                    navRouter.push(PangeaView())
                 }
             } label: {
                 Text("Sign Out")
                     .fontWeight(.semibold)
             }
             .padding(.all, 5)
-        }
-        .overlay {
-            NavigationLink {
-                PangeaView()
-            } label: {
-                
-            }
         }
     }
     
@@ -222,6 +217,17 @@ extension EditScreen {
                     .fontWeight(.semibold)
             }
             .padding(.all, 5)
+        }
+    }
+    
+    var navigation: some View {
+        ZStack {
+            NavigationLink {
+                PangeaView()
+                    .navigationBarBackButtonHidden(true)
+            } label: {
+                
+            }
         }
     }
 }

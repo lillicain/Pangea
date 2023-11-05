@@ -48,11 +48,14 @@ struct AllFeedView: View {
                 .padding(.top)
                 .padding(.bottom, 250)
 
-                LazyVStack {
+                LazyVStack(spacing: 75) {
                     ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
+                
+                        
                     }
                 }
+            
                 .padding(.top)
             }
             .sheet(isPresented: $newPost, content: {
@@ -82,25 +85,25 @@ struct AllFeedView: View {
             
                 }
                 
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        Task {
-                            
-                            try await postViewModel.uploadPost(caption: caption)
-                            postViewModel.uiImage = image
-                            locationManager.currentLocation = post.location
-                            location = post.location
-                        }
-                            caption = ""
-                            postViewModel.selectedImage = nil
-                            postViewModel.postImage = nil
-                            postViewModel.location = ""
-                            locationManager.currentLocation = ""
-
-                    } label: {
-                        Text("Post")
-                    }
-                }
+//                ToolbarItem(placement: .confirmationAction) {
+//                    Button {
+//                        Task {
+//                            
+//                            try await postViewModel.uploadPost(caption: caption)
+//                            postViewModel.uiImage = image
+//                            locationManager.currentLocation = post.location
+//                            location = post.location
+//                        }
+//                            caption = ""
+//                            postViewModel.selectedImage = nil
+//                            postViewModel.postImage = nil
+//                            postViewModel.location = ""
+//                            locationManager.currentLocation = ""
+//
+//                    } label: {
+//                        Text("Post")
+//                    }
+//                }
             }
         }
     }
@@ -160,13 +163,15 @@ extension AllFeedView {
                             try await postViewModel.uploadPost(caption: caption)
                             postViewModel.uiImage = image
                             locationManager.currentLocation = post.location
-                            
+                        
+                            location = post.location
                             
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
-                    
+             
+                        
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
@@ -196,6 +201,7 @@ extension AllFeedView {
                 .cornerRadius(25)
                 .foregroundColor(.white)
                 .padding()
+                .tint(authenticationViewModel.blue[0])
             }
             .padding()
             

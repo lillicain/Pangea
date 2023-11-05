@@ -15,17 +15,16 @@ struct FeedScreen: View {
     let post: Post
     
     var body: some View {
-//        NavigationStack {
+        NavigationStack {
             VStack(alignment: .trailing, spacing: 15) {
                 postImage
                 postUser
-                
                 postControl
                 
                 HStack {
                     VStack {
                         Text("\(post.timestamp.dateValue())")
-                        
+                    
                         
                         Text("\(post.caption)")
                         
@@ -38,7 +37,7 @@ struct FeedScreen: View {
             }.padding()
         }
     }
-//}
+}
 
 extension FeedScreen {
     var postUser: some View {

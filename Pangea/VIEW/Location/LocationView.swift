@@ -63,13 +63,13 @@ struct LocationView: View {
                             if item == routeDestination {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.pink[0])
+                                    .tint(authenticationViewModel.red[0])
                             }
                         
                         } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                .tint(authenticationViewModel.orange[0])
+                                .tint(authenticationViewModel.red[0])
                         }
                         if let route {
                             MapPolyline(route.polyline)
@@ -98,9 +98,9 @@ struct LocationView: View {
                         .foregroundColor(authenticationViewModel.blue[0])
                         .frame(width: 412.5, height: 645)
                 )
-//                .onAppear {
-//                    locationManager.currentLocation
-//                }
+                .onAppear {
+                    LocationViewModel().requestLocation()
+                }
                 
                 .onChange(of: getDirections, { oldValue, newValue in
                     if newValue {
