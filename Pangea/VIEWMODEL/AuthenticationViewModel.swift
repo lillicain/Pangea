@@ -16,6 +16,7 @@ protocol AuthenticationProtocol {
     var isValid: Bool { get }
 }
 
+@MainActor
 class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -32,7 +33,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var white = ["FDFFFC"].hexToColorArray()
     
     
-                
+    
     static let shared = AuthenticationViewModel()
     
     init() {

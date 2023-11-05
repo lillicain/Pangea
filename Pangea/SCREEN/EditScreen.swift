@@ -183,14 +183,20 @@ extension EditScreen {
     var userInformationFour: some View {
         VStack {
             Button {
-                AuthenticationViewModel.shared.signOut()
+                //                AuthenticationViewModel.shared.signOut()
+                Task {
+                    do {
+                        try editUserViewModel.signOut()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
                 
-               
                 
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
-                    navRouter.push(PangeaView())
+                    //                    navRouter.push(PangeaView())
                 }
             } label: {
                 Text("Sign Out")
@@ -203,12 +209,15 @@ extension EditScreen {
     var userInformationFive: some View {
         VStack {
             Button(role: .destructive) {
-                navRouter.push(PangeaView())
-             
+                
+                
                 Task {
                     do {
+                        try await editUserViewModel.deleteAccount()
                         try await authenticationViewModel.deleteAccount()
+                        //                        navRouter.push(PangeaView())
                     } catch {
+                        
                         print(error.localizedDescription)
                     }
                 }
@@ -219,15 +228,15 @@ extension EditScreen {
             .padding(.all, 5)
         }
     }
-    
-    var navigation: some View {
-        ZStack {
-            NavigationLink {
-                PangeaView()
-                    .navigationBarBackButtonHidden(true)
-            } label: {
-                
-            }
-        }
-    }
 }
+//    var navigation: some View {
+//        ZStack {
+//            NavigationLink {
+//                PangeaView()
+//                    .navigationBarBackButtonHidden(true)
+//            } label: {
+//                
+//            }
+//        }
+//    }
+//}

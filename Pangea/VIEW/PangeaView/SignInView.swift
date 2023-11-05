@@ -12,10 +12,13 @@ struct SignInView: View {
     @NavRouter var navRouter
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+//    @StateObject var authenticationViewModel = AuthenticationViewModel()
     
     @State var username = ""
     @State var email = ""
     @State var password = ""
+    
+    @Binding var nextView: Bool
     
     var body: some View {
         ZStack {
@@ -53,13 +56,14 @@ struct SignInView: View {
                 
                 
                 Button {
-                    if let user = authenticationViewModel.currentUser {
-                        navRouter.push(Screen(user: user))
-                    }
+//                    if let user = authenticationViewModel.currentUser {
+//                        navRouter.push(Screen(user: user))
+//                    }
                     
                     Task {
                         do {
                             try await authenticationViewModel.signIn(withEmail: email, password: password)
+                            nextView = false
                         } catch {
                             print(error.localizedDescription)
                         }
@@ -83,7 +87,7 @@ struct SignInView: View {
                 
                 
                 NavigationLink {
-                    SignUpView()
+                    SignUpView(nextView: $nextView)
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     Text("Don't have an account? **Sign Up** ")
@@ -103,7 +107,9 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+    NavigationStack {
+        SignInView(nextView: .constant(false))
+    }
 }
 
 extension SignInView: AuthenticationProtocol {

@@ -33,23 +33,23 @@ struct PangeaView: View {
                     }
                 
                 VStack(spacing: 100) {
-                        Text("PANGEA")
-                            .font(FontNine.title)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .foregroundColor(.white)
-                            .kerning(2.5)
-                            .offset(x: -1.5, y: 1.5)
-                            .overlay {
-                                Text("PANGEA")
-                                    .font(FontNine.title)
-                                    .scaledToFit()
-                                    .foregroundColor(authenticationViewModel.green[0])
-                                    .kerning(2.5)
-                                    .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
-                                    .shadow(color: .white.opacity(0.25), radius: 1.5, x: -1.5, y: 1.5)
-                            }
-                            .padding(.top, 375)
-              
+                    Text("PANGEA")
+                        .font(FontNine.title)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .foregroundColor(.white)
+                        .kerning(2.5)
+                        .offset(x: -1.5, y: 1.5)
+                        .overlay {
+                            Text("PANGEA")
+                                .font(FontNine.title)
+                                .scaledToFit()
+                                .foregroundColor(authenticationViewModel.green[0])
+                                .kerning(2.5)
+                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                                .shadow(color: .white.opacity(0.25), radius: 1.5, x: -1.5, y: 1.5)
+                        }
+                        .padding(.top, 375)
+                    
                     
                     VStack {
                         signUp
@@ -70,7 +70,7 @@ struct PangeaView: View {
                                 .padding(.top, 165)
                                 .kerning(7.5)
                                 .foregroundColor(authenticationViewModel.pink[0])
-                              
+                            
                                 .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
                                 .padding(.leading, 175)
                         }
@@ -89,7 +89,7 @@ extension PangeaView {
     var signUp: some View {
         ZStack {
             NavigationLink {
-                SignUpView()
+                SignUpView(nextView: .constant(false))
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
@@ -117,7 +117,7 @@ extension PangeaView {
     var signIn: some View {
         ZStack {
             NavigationLink {
-                SignInView()
+                SignInView(nextView: .constant(false))
                     .navigationBarBackButtonHidden(true)
                 
             } label: {
