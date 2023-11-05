@@ -27,7 +27,7 @@ struct AllFeedView: View {
     @State var showImagePicker = false
     @State var location = ""
     @State var date = ""
-    @State var product: Post? = nil
+//    @State var post: Post? = nil
     
     let post: Post
     
@@ -49,7 +49,7 @@ struct AllFeedView: View {
                 }
                 .padding(.top)
                 .padding(.bottom, 250)
-
+                
                 LazyVStack(spacing: 75) {
                     ForEach(feedViewModel.posts.reversed()) { post in
                         FeedScreen(post: post)
@@ -59,7 +59,7 @@ struct AllFeedView: View {
                 .task {
                     try? await postViewModel.uploadPost(caption: caption)
                 }
-            
+                
                 .padding(.top)
             }
             .sheet(isPresented: $newPost, content: {
@@ -68,8 +68,9 @@ struct AllFeedView: View {
                     .presentationCornerRadius(50)
                     .toolbar(.hidden, for: .navigationBar)
             })
+            
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-           
+        }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
@@ -108,9 +109,8 @@ struct AllFeedView: View {
 //                        Text("Post")
 //                    }
 //                }
-            }
             
-        }
+            }
     }
 }
 
