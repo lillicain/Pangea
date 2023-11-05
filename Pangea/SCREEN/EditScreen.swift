@@ -190,18 +190,18 @@ extension EditScreen {
                 Task {
                     do {
                         try editUserViewModel.signOut()
-                        navRouter.push(PangeaView())
                     } catch {
                         print(error.localizedDescription)
                     }
                 }
-        
+               
+                
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
                     navRouter.push(PangeaView())
-
                 }
+                
             } label: {
                 Text("Sign Out")
                     .fontWeight(.semibold)

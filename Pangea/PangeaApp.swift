@@ -29,17 +29,17 @@ struct PangeaApp: App {
     
     var body: some Scene {
         WindowGroup {
-                NavigationRouter {
-                    Group {
-                        if authenticationViewModel.userSession == nil {
-                            PangeaView()
-                            
-                        } else {
-                            TabScreen()
-                                .modifier(DarkModeViewModifier())
-                        }
+            NavigationRouter {
+                Group {
+                    if authenticationViewModel.userSession == nil {
+                        PangeaView()
+                        
+                    } else {
+                        TabScreen()
+                            .modifier(DarkModeViewModifier())
                     }
                 }
+            }
             .environmentObject(authenticationViewModel)
         }
     }
