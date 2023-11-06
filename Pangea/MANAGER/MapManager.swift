@@ -38,8 +38,8 @@ struct MapViewRepresentable: UIViewRepresentable {
         manager.delegate = context.coordinator
         manager.startUpdatingLocation()
         map.showsUserLocation = true
+    
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 10000, longitudeDelta: 10000))
-//        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
         map.region = region
         return map
     }

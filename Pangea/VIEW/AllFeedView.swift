@@ -13,10 +13,10 @@ import CoreLocationUI
 
 struct AllFeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+//    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var locationManager = LocationManager()
-    
     @StateObject var feedViewModel = FeedViewModel()
     
     @State var searchText = ""
@@ -27,7 +27,6 @@ struct AllFeedView: View {
     @State var showImagePicker = false
     @State var location = ""
     @State var date = ""
-//    @State var post: Post? = nil
     
     let post: Post
     
@@ -124,9 +123,7 @@ extension AllFeedView {
             VStack {
                 postInformation
             }
-            
             .padding(.all)
-            
             
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
                 CameraViewController(selectedImage: $image, location: $location, date: $date)
@@ -137,10 +134,7 @@ extension AllFeedView {
                 showImagePicker.toggle()
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
-//            .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage, photoLibrary: .shared())
-           
         }
-        
     }
     
     var postInformation: some View {
@@ -166,12 +160,12 @@ extension AllFeedView {
             
             VStack {
                 Button {
-                    
+                   
                     Task {
                         do {
                             try await postViewModel.uploadPost(caption: caption)
                             postViewModel.uiImage = image
-                            locationManager.currentLocation = post.location
+                            locationManager.requestLocation()
                         
                             location = post.location
                             
@@ -179,7 +173,10 @@ extension AllFeedView {
                             print(error.localizedDescription)
                         }
                     }
-             
+                   
+                        
+                        
+                    
                         
                     caption = ""
                     postViewModel.selectedImage = nil
@@ -198,13 +195,14 @@ extension AllFeedView {
             
             HStack {
                 
-                Text(location)
+                Text(locationManager.currentLocation)
                 
                 Text(locationManager.currentLocation ?? "")
                 
                 LocationButton(.currentLocation) {
                     locationManager.requestLocation()
-                    locationManager.currentLocation = post.location
+//                    locationManager.currentLocation = post.location
+                   
                 }
                 .labelStyle(.titleAndIcon)
                 .cornerRadius(25)
