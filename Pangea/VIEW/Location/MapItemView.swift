@@ -22,7 +22,6 @@ struct MapItemView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 15) {
-                
                 Button {
                     searchPlaces(for: "Parks")
                     cameraPosition = .automatic

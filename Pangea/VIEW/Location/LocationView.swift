@@ -10,11 +10,13 @@ import MapKit
 import CoreLocationUI
 
 struct LocationView: View {
-    @Namespace var mapScope
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-
+    
+//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @StateObject private var locationManager = LocationManager()
-//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    
+    
     
     @State var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State var searchText = ""
@@ -35,10 +37,14 @@ struct LocationView: View {
     var body: some View {
         ScrollView {
             VStack {
-//                searchBar
-                MapViewRepresentable()
+                //                searchBar
+                
+                    
+                    MapViewRepresentable()
+                
+                
                 Map(position: $cameraPosition, selection: $selectedResult) {
-                  
+                    
                     
                     //        Marker("ME", coordinate: .userLocation)
                     
@@ -67,7 +73,7 @@ struct LocationView: View {
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                                     .tint(authenticationViewModel.red[0])
                             }
-                        
+                            
                         } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
@@ -82,18 +88,24 @@ struct LocationView: View {
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
                     VStack {
-                        LocationButton {
+                        LocationButton(.currentLocation) {
                             locationManager.requestLocation()
                         }
+//                       
+                        .labelStyle(.iconOnly)
+                        .cornerRadius(25)
+                        .foregroundColor(.white)
+                        .padding(.leading, 315)
+                        
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 315)
                         
                     }
                 }
                 
-                .mapControls {
-                    MapInformation()
-                }
+//                .mapControls {
+//                    MapInformation()
+//                }
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
@@ -122,10 +134,10 @@ struct LocationView: View {
                         .presentationDetents([.height(350)])
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                         .presentationCornerRadius(50)
-               
+                    
                 })
             }
-                
+            
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
     }
