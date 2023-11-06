@@ -12,8 +12,8 @@ import PhotosUI
 struct CameraViewController: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
-    @Binding var location: String
-    @Binding var date: String
+//    @Binding var location: String
+//    @Binding var date: String
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { }
     
@@ -85,8 +85,8 @@ struct CameraViewController: UIViewControllerRepresentable {
                     
                     DispatchQueue.main.async {
                         self.parent.selectedImage = pickerImage
-                        self.parent.date = creationDate
-                        self.parent.location = self.parent.location
+//                        self.parent.date = creationDate
+//                        self.parent.location = self.parent.location
                        
                     }
                     

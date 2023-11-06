@@ -10,9 +10,8 @@ import MapKit
 import CoreLocationUI
 
 struct MapItemView: View {
-    
+
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    @EnvironmentObject var locationManager: LocationManager
     
     @Binding var cameraPosition: MapCameraPosition
     @Binding var results: [MKMapItem]
@@ -39,9 +38,7 @@ struct MapItemView: View {
                 }
                 
                 Button {
-                    
                     cameraPosition = .userLocation(fallback: .automatic)
-                    
                     
                 } label: {
                     Image(systemName: "person.fill")
@@ -55,8 +52,8 @@ struct MapItemView: View {
                 }
             }
             .padding()
-            .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
+            .buttonStyle(.borderedProminent)
             .accentColor(authenticationViewModel.violet[0])
         }
     }

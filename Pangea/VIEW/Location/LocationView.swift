@@ -88,36 +88,24 @@ struct LocationView: View {
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
                     VStack {
-//                        LocationButton(.currentLocation) {
-//                            locationManager.requestLocation()
-//                        }
-//                       
-//                        .labelStyle(.iconOnly)
-//                        .cornerRadius(25)
-//                        .foregroundColor(.white)
-//                        .padding(.leading, 315)
-                        
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                            .padding(.leading, 315)
-                        
-                        
+                            .padding(.leading, 325)
                     }
                 }
-                
-                .mapControls {
-                    MapInformation()
-                }
-                
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
-                
+    
                 .background(
                     RoundedRectangle(cornerRadius: 50, style: .circular)
                         .foregroundColor(authenticationViewModel.blue[0])
                         .frame(width: 412.5, height: 645)
                 )
-                .onAppear {
+                
+                .mapControls {
+                    MapInformation()
+                }
+                .task {
                     locationManager.requestLocation()
                 }
                 

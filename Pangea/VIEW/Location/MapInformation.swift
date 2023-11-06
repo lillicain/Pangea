@@ -10,11 +10,12 @@ import MapKit
 import CoreLocationUI
 
 struct MapInformation: View {
+    
     @Namespace var mapScope
     
     var body: some View {
         Map(scope: mapScope)
-            .overlay(alignment: .bottomTrailing) {
+            .overlay {
                 VStack {
                     MapUserLocationButton(scope: mapScope)
                     MapPitchToggle(scope: mapScope)

@@ -13,10 +13,9 @@ import CoreLocationUI
 
 struct AllFeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-//    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    
+    //    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    @ObservedObject var locationManager = LocationManager()
     @StateObject var postViewModel = PostViewModel()
-    @StateObject var locationManager = LocationManager()
     @StateObject var feedViewModel = FeedViewModel()
     
     @State var searchText = ""
@@ -26,7 +25,7 @@ struct AllFeedView: View {
     @State var showCamera = false
     @State var showImagePicker = false
     @State var location = ""
-    @State var date = ""
+//    @State var date = ""
     
     let post: Post
     
@@ -56,7 +55,8 @@ struct AllFeedView: View {
                     }
                 }
                 .task {
-                    try? await postViewModel.uploadPost(caption: caption)
+                    try? await postViewModel.uploadPost(caption: caption, location: location)
+                    locationManager.requestLocation()
                 }
                 
                 .padding(.top)
@@ -70,50 +70,29 @@ struct AllFeedView: View {
             
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
         }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink {
-                        SearchScreen()
-                    } label: {
-                        Text("Search")
-                    }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                NavigationLink {
+                    SearchScreen()
+                } label: {
+                    Text("Search")
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        newPost.toggle()
-                        
-                    } label: {
-                        Text("Post")
-                    }
-            
-                }
-                
-//                ToolbarItem(placement: .confirmationAction) {
-//                    Button {
-//                        Task {
-//                            
-//                            try await postViewModel.uploadPost(caption: caption)
-//                            postViewModel.uiImage = image
-//                            locationManager.currentLocation = post.location
-//                            location = post.location
-//                        }
-//                            caption = ""
-//                            postViewModel.selectedImage = nil
-//                            postViewModel.postImage = nil
-//                            postViewModel.location = ""
-//                            locationManager.currentLocation = ""
-//
-//                    } label: {
-//                        Text("Post")
-//                    }
-//                }
-            
             }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    newPost.toggle()
+                    
+                } label: {
+                    Text("Post")
+                }
+                
+            }
+        }
     }
 }
 
-     
+
 
 
 extension AllFeedView {
@@ -126,7 +105,7 @@ extension AllFeedView {
             .padding(.all)
             
             .fullScreenCover(isPresented: $showCamera, onDismiss: { self.showCamera = false }) {
-                CameraViewController(selectedImage: $image, location: $location, date: $date)
+                CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
             }
             
@@ -160,29 +139,28 @@ extension AllFeedView {
             
             VStack {
                 Button {
-                   
+                    
                     Task {
                         do {
-                            try await postViewModel.uploadPost(caption: caption)
+                            try await postViewModel.uploadPost(caption: caption, location: String(describing: locationManager.currentLocation))
                             postViewModel.uiImage = image
-                            locationManager.requestLocation()
-                        
-                            location = post.location
+                       
+//                            locationManager.currentLocation = postViewModel.location ?? location
                             
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
-                   
-                        
-                        
                     
-                        
+                    
+                    
+                    
+                    
                     caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-                    postViewModel.location = ""
-                    locationManager.currentLocation = ""
+//                    postViewModel.location = ""
+//                    locationManager.currentLocation = ""
                     
                 } label: {
                     Text("Post")
@@ -193,24 +171,19 @@ extension AllFeedView {
             
             Divider()
             
-            HStack {
-                
+            VStack {
                 Text(locationManager.currentLocation)
+                    .font(FontOne.body)
+                    .padding(.all, 25)
                 
-                Text(locationManager.currentLocation ?? "")
+                let location = String(describing: locationManager.currentLocation)
+                    Text(location)
+             
                 
-                LocationButton(.currentLocation) {
-                    locationManager.requestLocation()
-//                    locationManager.currentLocation = post.location
-                   
-                }
-                .labelStyle(.titleAndIcon)
-                .cornerRadius(25)
-                .foregroundColor(.white)
-                .padding()
-                .tint(authenticationViewModel.blue[0])
+//                locationManager.currentLocation = location
+//                location = postViewModel.location
+                
             }
-            .padding()
             
             HStack(spacing: 25) {
                 Button {
