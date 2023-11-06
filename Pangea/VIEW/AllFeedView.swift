@@ -56,7 +56,6 @@ struct AllFeedView: View {
                 
                 .task {
                     try? await feedViewModel.fetchPosts()
-                    
                     try? await postViewModel.uploadPost(description: description, location: location)
                     
                     locationManager.requestLocation()

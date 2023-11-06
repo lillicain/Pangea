@@ -63,17 +63,17 @@ struct MapViewRepresentable: UIViewRepresentable {
             parent = parent1
         }
         
-//        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//            if status == .denied {
-//                print(status)
-//            }
-//            if status == .authorizedWhenInUse {
-//                print(status)
-//            }
-//            if status == .authorizedAlways {
-//                print(status)
-//            }
-//        }
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            if status == .denied {
+                print(status)
+            }
+            if status == .authorizedWhenInUse {
+                print(status)
+            }
+            if status == .authorizedAlways {
+                print(status)
+            }
+        }
         
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             guard let uid = self.authenticationViewModel.userSession?.uid else { return }

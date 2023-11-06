@@ -31,8 +31,9 @@ struct LocationView: View {
     @State var visibleRegion: MKCoordinateRegion?
     
     @State var isSelected = false
-    
     @State var lookAroundScene: MKLookAroundScene?
+    
+//    let post: Post
     
     var body: some View {
         ScrollView {
@@ -65,6 +66,8 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
+                    
+                  
                     
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
