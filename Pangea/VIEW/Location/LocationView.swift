@@ -18,7 +18,7 @@ struct LocationView: View {
     
     
     
-    @State var cameraPosition: MapCameraPosition = .region(.userRegion)
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
     @State var searchText = ""
     @State var results = [MKMapItem]()
     @State var selectedResult: MKMapItem?
@@ -88,24 +88,26 @@ struct LocationView: View {
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
                     VStack {
-                        LocationButton(.currentLocation) {
-                            locationManager.requestLocation()
-                        }
+//                        LocationButton(.currentLocation) {
+//                            locationManager.requestLocation()
+//                        }
 //                       
-                        .labelStyle(.iconOnly)
-                        .cornerRadius(25)
-                        .foregroundColor(.white)
-                        .padding(.leading, 315)
+//                        .labelStyle(.iconOnly)
+//                        .cornerRadius(25)
+//                        .foregroundColor(.white)
+//                        .padding(.leading, 315)
                         
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 315)
                         
+                        
                     }
                 }
                 
-//                .mapControls {
-//                    MapInformation()
-//                }
+                .mapControls {
+                    MapInformation()
+                }
+                
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
@@ -116,7 +118,7 @@ struct LocationView: View {
                         .frame(width: 412.5, height: 645)
                 )
                 .onAppear {
-                    LocationViewModel().requestLocation()
+                    locationManager.requestLocation()
                 }
                 
                 .onChange(of: getDirections, { oldValue, newValue in

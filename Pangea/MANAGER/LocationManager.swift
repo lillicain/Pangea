@@ -10,6 +10,8 @@ import CoreLocation
 import CoreLocationUI
 import MapKit
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
@@ -49,7 +51,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
 //    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        
+
         self.location = location
         self.geocode()
         
@@ -60,6 +62,15 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
+        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
+        let last = locations.last
+        Firestore.firestore().collection("locations").document("coordinates").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]], merge: true) { (err) in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
+        }
+    
         
 // DispatchQueue.main.async { }
         
