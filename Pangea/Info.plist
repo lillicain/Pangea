@@ -14,5 +14,9 @@
 		<string>almonte.otf</string>
 		<string>5curvo.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>
