@@ -36,22 +36,22 @@
 //}
 //
 ////struct CurrentLocationButton : View {
-////    
+////
 ////    @StateObject var locationManager = LocationManager()
 ////    let onClick: () -> Void
-////    
+////
 ////    var body: some View {
 ////        HStack {
 ////            let currentLocation = locationManager.currentLocation
-////            
+////
 ////            Text(currentLocation ?? "")
-////            
-////            
+////
+////
 ////            LocationButton(.currentLocation) {
 ////                locationManager.requestLocation()
 ////                onClick()
 ////            }
-////            
+////
 ////            .labelStyle(.iconOnly)
 ////            .cornerRadius(7.5)
 ////            .foregroundColor(.white)

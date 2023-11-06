@@ -17,7 +17,9 @@ struct LocationInformation: View {
     @Binding var lookAroundScene: MKLookAroundScene?
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
+  
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         VStack {
             HStack {
@@ -36,13 +38,15 @@ struct LocationInformation: View {
                 Spacer()
                 
                 Button {
+                    dismiss()
                     showDetails.toggle()
                     selectedResult = nil
+                    
                 } label: {
-                    Image(systemName: "xmark")
+                    Image(systemName: "xmark.circle")
                         .resizable()
-                        .frame(width: 17.5, height: 17.5)
-                        .foregroundStyle(.gray, Color(.systemGray5))
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(.gray, Color(.systemGray3))
                 }
                 .padding(5)
             }
@@ -60,8 +64,6 @@ struct LocationInformation: View {
                     .frame(height: 150)
                     .cornerRadius(25)
                     .padding()
-                
-//                ContentUnavailableView("No Preview Available", systemImage: "eye")
             }
             
             HStack(spacing: 25) {

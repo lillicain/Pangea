@@ -65,15 +65,15 @@ struct FontSeven {
 }
 
 struct FontEight {
-    static let body = Font.fontEight(size: 25)
-    static let title = Font.fontEight(size: 45)
+    static let body = Font.fontEight(size: 30)
+    static let title = Font.fontEight(size: 55)
     static let small = Font.fontEight(size: 20)
-    static let medium = Font.fontEight(size: 30)
-    static let large = Font.fontEight(size: 35)
+    static let medium = Font.fontEight(size: 35)
+    static let large = Font.fontEight(size: 45)
 }
 struct FontNine {
     static let body = Font.fontNine(size: 25)
-    static let title = Font.fontNine(size: 57.5)
+    static let title = Font.fontNine(size: 50)
     static let small = Font.fontNine(size: 20)
     static let medium = Font.fontNine(size: 30)
     static let large = Font.fontNine(size: 35)
@@ -108,7 +108,6 @@ extension Font {
     static func fontSeven(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
         custom("Orbitronio", size: size)
     }
-    
     
     static func fontEight(size: CGFloat, relativeTo style: TextStyle = .body) -> Font {
         custom("almonte", size: size)

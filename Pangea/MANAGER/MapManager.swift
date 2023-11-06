@@ -7,12 +7,12 @@
 
 import Foundation
 import SwiftUI
-import PhotosUI
-import Firebase
-import FirebaseFirestore
 import MapKit
 import CoreLocation
 import CoreLocationUI
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct MapViewRepresentable: UIViewRepresentable {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
@@ -38,7 +38,8 @@ struct MapViewRepresentable: UIViewRepresentable {
         manager.delegate = context.coordinator
         manager.startUpdatingLocation()
         map.showsUserLocation = true
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 10000, longitudeDelta: 10000))
         map.region = region
         return map
     }
@@ -51,10 +52,9 @@ struct MapViewRepresentable: UIViewRepresentable {
             uiView.removeAnnotations(uiView.annotations)
             uiView.addAnnotation(point)
         }
-        
     }
     
-    class Coordinator: NSObject, CLLocationManagerDelegate {
+    final class Coordinator: NSObject, CLLocationManagerDelegate {
         @ObservedObject var authenticationViewModel = AuthenticationViewModel()
         
         var parent: MapViewRepresentable
@@ -63,14 +63,18 @@ struct MapViewRepresentable: UIViewRepresentable {
             parent = parent1
         }
         
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            if status == .denied {
-                print(status)
-            }
-            if status == .authorizedWhenInUse {
-                print(status)
-            }
-        }
+//        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//            if status == .denied {
+//                print(status)
+//            }
+//            if status == .authorizedWhenInUse {
+//                print(status)
+//            }
+//            if status == .authorizedAlways {
+//                print(status)
+//            }
+//        }
+        
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             guard let uid = self.authenticationViewModel.userSession?.uid else { return }
             let last = locations.last

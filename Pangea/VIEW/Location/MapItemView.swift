@@ -10,17 +10,17 @@ import MapKit
 import CoreLocationUI
 
 struct MapItemView: View {
+
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
     @Binding var cameraPosition: MapCameraPosition
     @Binding var results: [MKMapItem]
     @Binding var visibleRegion: MKCoordinateRegion?
     @Binding var username: String
     
-    @Namespace var mapScope
-    
     var body: some View {
         ZStack {
-            VStack(alignment: .trailing) {
-                
+            VStack(spacing: 15) {
                 Button {
                     searchPlaces(for: "Parks")
                     cameraPosition = .automatic
@@ -38,23 +38,23 @@ struct MapItemView: View {
                 }
                 
                 Button {
-                    cameraPosition = .automatic
+                    cameraPosition = .userLocation(fallback: .automatic)
                     
                 } label: {
                     Image(systemName: "person.fill")
                 }
                 
                 Button {
-                    cameraPosition = .camera(MapCamera(centerCoordinate: .userLocation, distance: 750, heading: 150, pitch: 50))
+                    cameraPosition = .camera(MapCamera(centerCoordinate: .schoolLocation, distance: 980, heading: 242, pitch: 60))
                     
                 } label: {
                     Image(systemName: "rotate.3d")
                 }
             }
             .padding()
-            .buttonStyle(.borderedProminent)
             .buttonBorderShape(.circle)
-        
+            .buttonStyle(.borderedProminent)
+            .accentColor(authenticationViewModel.violet[0])
         }
     }
 }

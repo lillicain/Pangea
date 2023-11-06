@@ -7,12 +7,18 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationView: View {
     
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-    @State var cameraPosition: MapCameraPosition = .region(.userRegion)
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    @StateObject private var locationManager = LocationManager()
+    
+    
+    
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
     @State var searchText = ""
     @State var results = [MKMapItem]()
     @State var selectedResult: MKMapItem?
@@ -24,18 +30,27 @@ struct LocationView: View {
     @State var username = ""
     @State var visibleRegion: MKCoordinateRegion?
     
+    @State var isSelected = false
+    
     @State var lookAroundScene: MKLookAroundScene?
     
     var body: some View {
         ScrollView {
             VStack {
+                //                searchBar
+                
+                    
+                    MapViewRepresentable()
+                
+                
                 Map(position: $cameraPosition, selection: $selectedResult) {
+                    
                     
                     //        Marker("ME", coordinate: .userLocation)
                     
                     UserAnnotation()
                     
-                    Annotation("Me!", coordinate: .userLocation) {
+                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
                         ZStack {
                             Circle()
                                 .frame(width: 30, height: 30)
@@ -51,40 +66,48 @@ struct LocationView: View {
                         }
                     }
                     
-                    
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
                             if item == routeDestination {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                                    .tint(authenticationViewModel.red[0])
                             }
+                            
                         } else {
                             let placemark = item.placemark
                             Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                                .tint(authenticationViewModel.red[0])
                         }
-                    }
-                    if let route {
-                        MapPolyline(route.polyline)
-                            .stroke(authenticationViewModel.pink[0], lineWidth: 5)
-                        
+                        if let route {
+                            MapPolyline(route.polyline)
+                                .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
+                        }
                     }
                 }
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
-                    MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                        .padding(.leading, 300)
-                        .padding()
+                    VStack {
+                        MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
+                            .padding(.leading, 325)
+                    }
                 }
-                .frame(width: 400, height: 635)
+                .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
-                
+    
                 .background(
                     RoundedRectangle(cornerRadius: 50, style: .circular)
-                    .foregroundColor(authenticationViewModel.blue[0])
-                    .frame(width: 412.5, height: 645)
+                        .foregroundColor(authenticationViewModel.blue[0])
+                        .frame(width: 412.5, height: 645)
                 )
                 
+                .mapControls {
+                    MapInformation()
+                }
+                .task {
+                    locationManager.requestLocation()
+                }
                 
                 .onChange(of: getDirections, { oldValue, newValue in
                     if newValue {
@@ -95,6 +118,7 @@ struct LocationView: View {
                 .onChange(of: selectedResult, { oldValue, newValue in
                     showDetails = newValue != nil
                 })
+                
                 .sheet(isPresented: $showDetails, content: {
                     LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
                         .presentationDetents([.height(350)])
@@ -102,45 +126,40 @@ struct LocationView: View {
                         .presentationCornerRadius(50)
                     
                 })
-                .mapControls {
-                    MapInformation()
-                }
-                
-                VStack {
-                    RoundedRectangle(cornerRadius: 25, style: .circular)
-                        .foregroundColor(authenticationViewModel.green[0])
-                        .frame(width: 350, height: 75)
-                        .overlay {
-                            TextField("Search...", text: $searchText)
-                                .fontWeight(.semibold)
-                                .kerning(2.5)
-                                .padding()
-                                .cornerRadius(25)
-                                .padding()
-                                .background(.white)
-                                .frame(width: 325, height: 65)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .onSubmit(of: .text) {
-                                    Task {
-                                        await searchPlaces()
-                                    }
-                                }
-                        }
-                }
-//                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
-                
-                .toolbarBackground(.linearGradient(colors: [authenticationViewModel.pink[0].opacity(0.15), .clear, authenticationViewModel.blue[0].opacity(0.25), .clear], startPoint: .bottom, endPoint: .trailing), for: .tabBar)
             }
+            
         }
-        .background(LinearGradient(colors: [authenticationViewModel.violet[0].opacity(0.15), .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .topLeading, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
     }
 }
 
-#Preview {
-    LocationView()
-}
-
 extension LocationView {
+    var searchBar: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 25, style: .circular)
+                .foregroundColor(authenticationViewModel.green[0])
+                .frame(width: 350, height: 65)
+                .overlay {
+                    TextField("Search...", text: $searchText)
+                        .foregroundColor(Color(.systemGray))
+                        .fontWeight(.semibold)
+                        .kerning(2.5)
+                        .padding()
+                        .cornerRadius(25)
+                        .padding()
+                        .background(.white)
+                        .frame(width: 325, height: 45)
+                        .clipShape(RoundedRectangle(cornerRadius: 17.5))
+                        .onSubmit(of: .text) {
+                            Task {
+                                await searchPlaces()
+                            }
+                        }
+                        .foregroundColor(.black)
+                }
+        }
+    }
+    
     func searchPlaces() async {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
@@ -152,7 +171,7 @@ extension LocationView {
     func fetchRoute() {
         if let selectedResult {
             let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
+            request.source = MKMapItem(placemark: .init(coordinate: .schoolLocation))
             request.destination = selectedResult
             Task {
                 let result = try? await MKDirections(request: request).calculate()

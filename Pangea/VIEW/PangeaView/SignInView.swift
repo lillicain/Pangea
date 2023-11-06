@@ -37,12 +37,9 @@ struct SignInView: View {
                 Divider()
                 
                 VStack(spacing: 0) {
-                    TextField("Enter Username", text: $username)
-                        .autocapitalization(.none)
-                        .modifier(MaterialViewModifier())
+                    TextField("Enter Username", text: $username)                        .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Passsword", text: $password)
@@ -56,13 +53,15 @@ struct SignInView: View {
                 
                 
                 Button {
-                    if let user = authenticationViewModel.currentUser {
-                        navRouter.push(Screen(user: user))
-                    }
+                    
                     
                     Task {
                         do {
                             try await authenticationViewModel.signIn(withEmail: email, password: password)
+                            
+                            if let user = authenticationViewModel.currentUser {
+                                navRouter.push(Screen(user: user))
+                            }
                         } catch {
                             print(error.localizedDescription)
                         }
@@ -103,10 +102,6 @@ struct SignInView: View {
             .padding(25)
         }
     }
-}
-
-#Preview {
-    SignInView()
 }
 
 extension SignInView: AuthenticationProtocol {

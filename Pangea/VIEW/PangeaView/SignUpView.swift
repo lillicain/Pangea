@@ -39,11 +39,9 @@ struct SignUpView: View {
                 
                 VStack(spacing: 0) {
                     TextField("Enter Username", text: $username)
-                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
-                        .autocapitalization(.none)
                         .modifier(MaterialViewModifier())
                     
                     SecureField("Enter Password", text: $password)
@@ -58,10 +56,12 @@ struct SignUpView: View {
                                 Image(systemName: "checkmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemGreen))
+                                    .padding(.trailing, 50)
                             } else {
                                 Image(systemName: "xmark.circle")
                                     .imageScale(.large)
                                     .foregroundColor(Color(.systemRed))
+                                    .padding(.trailing, 50)
                             }
                         }
                     }
@@ -74,12 +74,16 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-                    if let user = authenticationViewModel.currentUser {
-                        navRouter.push(Screen(user: user))
-                    }
+                    
                     Task {
                         do {
+                            //                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
+                            if let user = authenticationViewModel.currentUser {
+                                navRouter.push(Screen(user: user))
+                            }
+
                             try await authenticationViewModel.createUser(email: email, username: username, password: password)
+                            
                         } catch {
                             print(error.localizedDescription)
                         }
@@ -119,10 +123,6 @@ struct SignUpView: View {
             .padding(25)
         }
     }
-}
-
-#Preview {
-    SignUpView()
 }
 
 extension SignUpView: AuthenticationProtocol {

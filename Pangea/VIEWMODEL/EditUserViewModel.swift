@@ -62,4 +62,12 @@ class EditUserViewModel: ObservableObject {
             try await Firestore.firestore().collection("users").document(user.id).updateData(data)
         }
     }
+    
+    func signOut() throws {
+        AuthenticationViewModel.shared.signOut()
+    }
+    
+    func deleteAccount() async throws {
+        try await AuthenticationViewModel.shared.deleteAccount()
+    }
 }

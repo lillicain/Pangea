@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import PhotosUI
-import MapKit
 
 @MainActor
 class PostViewModel: ObservableObject {
@@ -22,8 +22,11 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
+    static let shared = PostViewModel()
+    
     var uiImage: UIImage?
-    var location: String?
+//    var location = ""
     
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item = item else { return }
@@ -33,14 +36,14 @@ class PostViewModel: ObservableObject {
         self.postImage = Image(uiImage: uiImage)
     }
     
-    func uploadPost(caption: String) async throws {
+    func uploadPost(caption: String, location: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let uiImage = uiImage else { return }
-        guard let location = location else { return }
+//        guard let location = location else { return }
         let posts = Firestore.firestore().collection("posts").document()
         guard let imageUrl = try await ImageManager.uploadImage(image: uiImage) else { return }
         let post = Post(id: posts.documentID, userUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
-        try await posts.setData(encodedPost)
+        try await posts.setData(encodedPost, merge: false)
     }
 }

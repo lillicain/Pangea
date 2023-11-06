@@ -10,11 +10,13 @@ import CoreLocation
 import CoreLocationUI
 import MapKit
 import SwiftUI
-import UIKit
+import Firebase
+import FirebaseFirestore
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
-    let manager = CLLocationManager()
+    var locationManager = CLLocationManager()
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     
@@ -22,49 +24,67 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var placemark: CLPlacemark?
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
-    @Published var currentLocation: String?
-    @Published var userLocation: CLLocation?
-    
-    @ObservedObject var authenticationViewModel = AuthenticationViewModel.shared
-
+    @Published var currentLocation: String = ""
+    @Published var geocoder = CLGeocoder()
     
     override init() {
         super.init()
-        manager.activityType = .automotiveNavigation
-        manager.delegate = self
+        locationManager.delegate = self
+        locationManager.activityType = .automotiveNavigation
     }
     
     func requestLocation() {
-        manager.requestLocation()
+        locationManager.requestLocation()
     }
     
+    func geocode() {
+        guard let location = self.location else { return }
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
+            if error == nil {
+                self.placemark = places?[0]
+            } else {
+                self.placemark = nil
+            }
+        })
+    }
+    
+//    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
+        guard let location = locations.first else { return }
+
         self.location = location
+        self.geocode()
         
-        let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
             self.placemark = placemarks?.last
         }
         
-        
-        lookUpCurrentLocation { placemark in
-            self.currentLocation = placemark
+        fetchCurrentLocation { placemark in
+            self.currentLocation = placemark ?? ""
         }
-        
-        DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-            
+        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
+        let last = locations.last
+        Firestore.firestore().collection("locations").document("coordinates").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]], merge: true) { (err) in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
         }
+    
+        
+// DispatchQueue.main.async { }
+        
+        self.region = region
         print(location.description)
+        print(location.coordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
-    func lookUpCurrentLocation(completionHandler: @escaping (String?) -> Void) {
-        if let lastLocation = manager.location {
+    func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
+        if let lastLocation = locationManager.location {
             let geocoder = CLGeocoder()
             
             geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
@@ -83,12 +103,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
-        let geocoder = CLGeocoder()
+    func fetchLocation(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
+                    let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
+                    print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
+                    
+                    completionHandler(location.coordinate, nil)
+                    return
+                }
+            } else {
+                if let placemark = placemarks?[0] {
+                    let location = placemark.location!
+                    let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
+                    print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
                     
                     completionHandler(location.coordinate, nil)
                     return
@@ -99,15 +129,31 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        self.authorizationState = manager.authorizationStatus
-        
-        if manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse {
-            manager.startUpdatingLocation()
+        checkLocationAuthorization()
+    }
+    
+    private func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined: locationManager.requestAlwaysAuthorization()
+        case .restricted: print("Change Settings")
+        case .denied: print("Change Settings")
+        case .authorizedAlways, .authorizedWhenInUse: break
             
-        } else if manager.authorizationStatus == .denied {
-            manager.startUpdatingLocation()
+        @unknown default: break
+            
+        }
+    }
+    
+    func checkIfLocationServicesIsEnabled() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager = CLLocationManager()
+            checkLocationAuthorization()
+            
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+        } else {
+            print("Alert")
         }
     }
 }
-
 

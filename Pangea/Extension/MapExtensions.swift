@@ -13,7 +13,7 @@ import CoreLocationUI
 extension CLLocationCoordinate2D {
     static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.5915)
     
-    static var userLocation: CLLocationCoordinate2D {
+    static var schoolLocation: CLLocationCoordinate2D {
         return .init(latitude: 37.0974, longitude: -113.5915)
     }
 }
@@ -37,7 +37,7 @@ extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
 
 extension MKCoordinateRegion {
     static var userRegion: MKCoordinateRegion {
-        return .init(center: .userLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
+        return .init(center: .schoolLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
     }
     static let firstMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0976, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     static let secondMapItem = MKCoordinateRegion(

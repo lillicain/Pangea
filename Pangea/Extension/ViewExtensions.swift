@@ -31,6 +31,43 @@ struct ButtonViewModifier: ViewModifier {
     }
 }
 
+struct OneViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(35)
+            .background(.white)
+        
+            .font(.system(size: 17.5).bold())
+            .foregroundColor(AuthenticationViewModel().blue[0])
+            .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+            .padding()
+            .background(
+        RoundedRectangle(cornerRadius: 25, style: .circular)
+            .foregroundColor(AuthenticationViewModel().green[0])
+            .frame(width: 350, height: 100)
+           
+        )
+    }
+}
+
+struct PostViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(12.5)
+            .background(.white)
+            .font(FontOne.small)
+            .foregroundColor(AuthenticationViewModel().blue[0])
+            .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+            .background(
+        RoundedRectangle(cornerRadius: 25, style: .circular)
+            .foregroundColor(AuthenticationViewModel().green[0])
+            .frame(width: 175, height: 57.5)
+           
+        
+        )
+    }
+}
+
 struct DarkModeViewModifier: ViewModifier {
     @AppStorage("appearance") var appearance: Bool = false
     
@@ -54,7 +91,7 @@ enum ProfileImageSize {
         case .small: return 75
         case .medium: return 95
         case .large: return 125
-        case .extraLarge: return 150
+        case .extraLarge: return 175
         }
     }
 }
