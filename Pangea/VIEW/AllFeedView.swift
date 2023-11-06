@@ -137,7 +137,10 @@ extension AllFeedView {
                 showImagePicker.toggle()
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
+//            .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage, photoLibrary: .shared())
+           
         }
+        
     }
     
     var postInformation: some View {
