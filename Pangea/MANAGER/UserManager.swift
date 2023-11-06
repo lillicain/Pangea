@@ -10,6 +10,8 @@ import Firebase
 import FirebaseFirestore
 
 struct UserManager {
+    static let shared = UserManager()
+    
     static func fetchUser(withUid uid: String) async throws -> User {
         let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
         return try snapshot.data(as: User.self)
