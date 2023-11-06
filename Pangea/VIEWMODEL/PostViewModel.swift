@@ -22,11 +22,9 @@ class PostViewModel: ObservableObject {
             }
         }
     }
-    
-    static let shared = PostViewModel()
-    
     var uiImage: UIImage?
-//    var location = ""
+
+    static let shared = PostViewModel()
     
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item = item else { return }
@@ -36,13 +34,12 @@ class PostViewModel: ObservableObject {
         self.postImage = Image(uiImage: uiImage)
     }
     
-    func uploadPost(caption: String, location: String) async throws {
+    func uploadPost(description: String, location: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let uiImage = uiImage else { return }
-//        guard let location = location else { return }
         let posts = Firestore.firestore().collection("posts").document()
         guard let imageUrl = try await ImageManager.uploadImage(image: uiImage) else { return }
-        let post = Post(id: posts.documentID, userUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
+        let post = Post(id: posts.documentID, userUid: uid, description: description, count: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
         try await posts.setData(encodedPost, merge: false)
     }

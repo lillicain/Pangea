@@ -13,19 +13,18 @@ import CoreLocationUI
 
 struct AllFeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    //    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    
     @ObservedObject var locationManager = LocationManager()
     @StateObject var postViewModel = PostViewModel()
     @StateObject var feedViewModel = FeedViewModel()
     
     @State var searchText = ""
     @State var newPost = false
-    @State var caption = ""
+    @State var description = ""
+    @State var location = ""
     @State var image: UIImage?
     @State var showCamera = false
     @State var showImagePicker = false
-    @State var location = ""
-//    @State var date = ""
     
     let post: Post
     
@@ -49,16 +48,19 @@ struct AllFeedView: View {
                 .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts.reversed()) { post in
+                    ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
                         
                     }
                 }
+                
                 .task {
-                    try? await postViewModel.uploadPost(caption: caption, location: location)
+                    try? await feedViewModel.fetchPosts()
+                    
+                    try? await postViewModel.uploadPost(description: description, location: location)
+                    
                     locationManager.requestLocation()
                 }
-                
                 .padding(.top)
             }
             .sheet(isPresented: $newPost, content: {
@@ -133,7 +135,7 @@ extension AllFeedView {
                     .padding()
             }
             
-            TextField("Enter Text...", text: $caption)
+            TextField("Enter Text...", text: $description)
                 .modifier(OneViewModifier())
                 .scrollDismissesKeyboard(.automatic)
             
@@ -142,25 +144,16 @@ extension AllFeedView {
                     
                     Task {
                         do {
-                            try await postViewModel.uploadPost(caption: caption, location: String(describing: locationManager.currentLocation))
+                            try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation.description)
                             postViewModel.uiImage = image
-                       
-//                            locationManager.currentLocation = postViewModel.location ?? location
                             
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
                     
-                    
-                    
-                    
-                    
-                    caption = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-//                    postViewModel.location = ""
-//                    locationManager.currentLocation = ""
                     
                 } label: {
                     Text("Post")
@@ -175,14 +168,6 @@ extension AllFeedView {
                 Text(locationManager.currentLocation)
                     .font(FontOne.body)
                     .padding(.all, 25)
-                
-                let location = String(describing: locationManager.currentLocation)
-                    Text(location)
-             
-                
-//                locationManager.currentLocation = location
-//                location = postViewModel.location
-                
             }
             
             HStack(spacing: 25) {
@@ -202,8 +187,6 @@ extension AllFeedView {
                         .modifier(PostViewModifier())
                 }
             }
-            
-            
         }
     }
 }

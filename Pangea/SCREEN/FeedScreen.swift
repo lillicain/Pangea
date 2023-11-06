@@ -11,7 +11,7 @@ import Kingfisher
 struct FeedScreen: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
+ 
     let post: Post
     
     var body: some View {
@@ -26,7 +26,7 @@ struct FeedScreen: View {
                         Text("\(post.timestamp.dateValue())")
                     
                         
-                        Text("\(post.caption)")
+                        Text("\(post.description)")
                         
                         
                         Text(post.location)
@@ -34,7 +34,8 @@ struct FeedScreen: View {
                     }
                     Spacer()
                 }
-            }.padding()
+            }
+            .padding()
         }
     }
 }

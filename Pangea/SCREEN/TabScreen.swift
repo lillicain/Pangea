@@ -22,7 +22,6 @@ struct TabScreen: View {
                 .tabItem { Image(systemName: "globe") }
             
         
-            
             AllFeedView(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe") }
         }
