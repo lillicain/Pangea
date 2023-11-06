@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationView: View {
     @Namespace var mapScope
@@ -35,8 +36,9 @@ struct LocationView: View {
         ScrollView {
             VStack {
 //                searchBar
-                
+                MapViewRepresentable()
                 Map(position: $cameraPosition, selection: $selectedResult) {
+                  
                     
                     //        Marker("ME", coordinate: .userLocation)
                     
@@ -80,6 +82,9 @@ struct LocationView: View {
                 .mapStyle(.standard(elevation: .realistic))
                 .safeAreaInset(edge: .bottom) {
                     VStack {
+                        LocationButton {
+                            locationManager.requestLocation()
+                        }
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 315)
                         

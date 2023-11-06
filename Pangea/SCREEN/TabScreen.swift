@@ -17,9 +17,10 @@ struct TabScreen: View {
                 Screen(user: user)
                     .tabItem { Image("globe") }
             }
-            
+//            MapScreen()
+//                .tabItem { Image(systemName: "globe")}
             LocationView()
-                .tabItem { Image(systemName: "globe")}
+                .tabItem { Image(systemName: "globe") }
             
             
             AllFeedView(post: Post.MOCK_POST[0])

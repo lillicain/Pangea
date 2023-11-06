@@ -7,12 +7,12 @@
 
 import Foundation
 import SwiftUI
-import PhotosUI
-import Firebase
-import FirebaseFirestore
 import MapKit
 import CoreLocation
 import CoreLocationUI
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct MapViewRepresentable: UIViewRepresentable {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
@@ -51,7 +51,6 @@ struct MapViewRepresentable: UIViewRepresentable {
             uiView.removeAnnotations(uiView.annotations)
             uiView.addAnnotation(point)
         }
-        
     }
     
     class Coordinator: NSObject, CLLocationManagerDelegate {
