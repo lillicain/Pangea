@@ -9,7 +9,6 @@ import Foundation
 import CoreLocation
 import CoreLocationUI
 import MapKit
-import UIKit
 import SwiftUI
 import Firebase
 import FirebaseFirestore
@@ -234,6 +233,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
+            
             locationManager = CLLocationManager()
             locationManager.delegate = self
             

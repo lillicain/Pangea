@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import CoreLocationUI
+import CoreLocation
 
 struct LocationView: View {
     
@@ -62,13 +63,13 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
-                    
-//                    if let postLocation = locationManager.location {
-//                        Marker("", coordinate: postLocation.coordinate)
+//                    Annotation("", coordinate: <#T##CLLocationCoordinate2D#>, content: <#T##() -> Content#>)
+////                    if let postLocation = locationManager.location {
+////                        Marker("", coordinate: postLocation.coordinate)
+////                    }
+//                    if let post = locationManager.postLocation {
+//                        Marker("", coordinate: post.coordinate)
 //                    }
-                    if let post = locationManager.postLocation {
-                        Marker("", coordinate: post.coordinate)
-                    }
 //                    if let postPl = locationManager.placemark {
 //                        Marker("", coordinate: postPl)
 //                    }
@@ -76,6 +77,7 @@ struct LocationView: View {
 //                        Marker("POST", coordinate: post)
 //                    }
                   
+//                    Placemark(coordinate: locationManager.placemark)
                     
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
