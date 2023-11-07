@@ -25,7 +25,7 @@ struct AllFeedView: View {
     @State var location = ""
     @State var image: UIImage?
     @State var showCamera = false
-    @State var showImagePicker = true
+    @State var showImagePicker = false
     
     let post: Post
     

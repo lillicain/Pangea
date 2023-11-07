@@ -8,12 +8,15 @@
 import SwiftUI
 import MapKit
 import CoreLocationUI
+import CoreLocation
+import Kingfisher
 
 struct LocationView: View {
     
-//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    @ObservedObject var feedViewModel = FeedViewModel()
+    //    @EnvironmentObject var postItemViewModel: PostItemViewModel
+    
     @StateObject private var locationManager = LocationManager()
     
     
@@ -33,15 +36,14 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
-//    let post: Post
     
     var body: some View {
         ScrollView {
             VStack {
                 //                searchBar
                 
-                    
-                    MapViewRepresentable()
+                
+                MapViewRepresentable()
                 
                 
                 Map(position: $cameraPosition, selection: $selectedResult) {
@@ -67,7 +69,40 @@ struct LocationView: View {
                         }
                     }
                     
-                  
+                    //                    ForEach(feedViewModel.posts) { post in
+                    //                        KFImage(URL(string: post.imageUrl))
+                    //                            .resizable()
+                    //                            .scaledToFill()
+                    //                            .frame(width: 50, height: 50)
+                    //                            .clipShape(.circle)
+                    //
+                    //                    }
+                    
+                    if let post = locationManager.location {
+                        Annotation("Post", coordinate: post.coordinate) {
+                            ZStack {
+                                
+                                
+                                ForEach(feedViewModel.posts) { post in
+                                    KFImage(URL(string: post.imageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 50, height: 50)
+                                        .clipShape(.circle)
+                                        .background(
+                                            Circle()
+                                                .frame(width: 55, height: 55)
+                                                .foregroundColor(.white))
+                                    
+                                }
+                                //                                Circle()
+                                //                                    .frame(width: 30, height: 30)
+                                //                                    .foregroundColor(authenticationViewModel.green[0])
+                                
+                            }
+                            //                        Marker("Post", coordinate: post.coordinate)
+                        }
+                    }
                     
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
@@ -98,7 +133,7 @@ struct LocationView: View {
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
-    
+                
                 .background(
                     RoundedRectangle(cornerRadius: 50, style: .circular)
                         .foregroundColor(authenticationViewModel.blue[0])

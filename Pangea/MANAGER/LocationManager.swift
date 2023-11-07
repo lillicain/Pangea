@@ -77,15 +77,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         print(location.description)
         print(location.coordinate)
         
-        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
-        let last = locations.last
-        
-        Firestore.firestore().collection("locations").document("coordinates").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]], merge: true) { (err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
-            }
-        }
+      
     
       
     }
@@ -122,7 +114,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
                     let location = placemark.location!
                     let postLocation: CLLocationCoordinate2D = placemark.location!.coordinate
                     print("Latitude: \(postLocation.latitude), Longitude: \(postLocation.longitude)")
-//                    self.region = [postLocation]//.latitude, postLocation.longitude]
                     completionHandler(location.coordinate, nil)
                     return
                 }
