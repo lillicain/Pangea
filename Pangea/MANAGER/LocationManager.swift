@@ -15,12 +15,14 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+@MainActor
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+@ObservedObject var postViewModel = PostViewModel()
     
     var locationManager = CLLocationManager()
-    var post: Post!
+    var geocoder = CLGeocoder()
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
@@ -28,16 +30,16 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
     @Published var currentLocation: String = ""
-    @Published var title = ""
-    @Published var geocoder = CLGeocoder()
-//    @Published var postLocation: CLLocationCoordinate2D?
-//    @Published private(set) var annotationItems: [AnnotationItem] = []
-  
+    
+    @Published var posts: String = ""
+    @Published var postLocation: CLLocation?
+    
+
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
-        
+        locationManager.startUpdatingLocation()
     }
   
     
@@ -58,9 +60,10 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-
+    
         self.location = location
         self.region = region
+        
         self.geocode()
         
         
@@ -73,21 +76,12 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
         
         
-        
         print(location.description)
         print(location.coordinate)
         
-        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
-        let last = locations.last
+        self.postLocation = location
         
-        Firestore.firestore().collection("locations").document("coordinates").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]], merge: true) { (err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
-            }
-        }
-    
-      
+   
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -95,10 +89,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
     
     func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
-        if let lastLocation = locationManager.location {
-            let geocoder = CLGeocoder()
+        if let location = locationManager.location {
             
-            geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
+            geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
                 
                 if error == nil {
                     
@@ -113,9 +106,25 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             completionHandler(nil)
         }
     }
-    
+//    public func getPlace(for location: CLLocation, completion: @escaping (CLPlacemark?) -> Void) {
+//            let geocoder = CLGeocoder()
+//            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+//                guard error == nil else {
+//                    print("=====> Error \(error!.localizedDescription)")
+//                    completion(nil)
+//                    return
+//                }
+//                guard let placemark = placemarks?.first else {
+//                    print("=====> Error placemark is nil")
+//                    completion(nil)
+//                    return
+//                }
+//                completion(placemark)
+//            }
+//        }
+//        
+//    }
     func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-     
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {

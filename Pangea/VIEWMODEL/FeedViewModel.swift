@@ -29,6 +29,7 @@ class FeedViewModel: ObservableObject {
             let post = posts[index]
             let userUid = post.userUid
             let postUser = try await UserManager.fetchUser(withUid: userUid)
+            let postLocation = post.location
             posts[index].user = postUser
         }
     }

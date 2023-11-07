@@ -147,6 +147,7 @@ extension AllFeedView {
                             try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation)
                             postViewModel.uiImage = image
                             
+                            
                         } catch {
                             print(error.localizedDescription)
                         }

@@ -11,29 +11,25 @@ import CoreLocationUI
 
 struct LocationView: View {
     
-//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    
     @StateObject private var locationManager = LocationManager()
     
-    
-    
-    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var searchText = ""
+    @State var username = ""
     @State var results = [MKMapItem]()
     @State var selectedResult: MKMapItem?
+    @State var isSelected = false
     @State var showDetails = false
     @State var getDirections = false
     @State var routeDisplaying = false
     @State var route: MKRoute?
     @State var routeDestination: MKMapItem?
-    @State var username = ""
     @State var visibleRegion: MKCoordinateRegion?
-    
-    @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
-//    let post: Post
+    
     
     var body: some View {
         ScrollView {
@@ -67,6 +63,18 @@ struct LocationView: View {
                         }
                     }
                     
+//                    if let postLocation = locationManager.location {
+//                        Marker("", coordinate: postLocation.coordinate)
+//                    }
+                    if let post = locationManager.postLocation {
+                        Marker("", coordinate: post.coordinate)
+                    }
+//                    if let postPl = locationManager.placemark {
+//                        Marker("", coordinate: postPl)
+//                    }
+//                    ForEach(locationManager.postLocation, id: \.self) { post in
+//                        Marker("POST", coordinate: post)
+//                    }
                   
                     
                     ForEach(results, id: \.self) { item in
@@ -74,7 +82,7 @@ struct LocationView: View {
                             if item == routeDestination {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.red[0])
+                                    .tint(authenticationViewModel.purple[0])
                             }
                             
                         } else {
@@ -190,4 +198,9 @@ extension LocationView {
             }
         }
     }
+    
+//    func fetchPost() {
+//        let location = CLLocation(latitude: 37.09, longitude: -113.59)
+//        locationManager.geocode()
+//    }
 }
