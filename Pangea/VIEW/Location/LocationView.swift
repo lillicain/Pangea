@@ -11,8 +11,6 @@ import CoreLocationUI
 
 struct LocationView: View {
     
-//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @StateObject private var locationManager = LocationManager()
     
@@ -33,15 +31,15 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
-//    let post: Post
+//    @State var post = [Post]()
     
     var body: some View {
         ScrollView {
             VStack {
                 //                searchBar
                 
-                    
-                    MapViewRepresentable()
+                
+                MapViewRepresentable()
                 
                 
                 Map(position: $cameraPosition, selection: $selectedResult) {
@@ -66,8 +64,23 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
+                    if let post = locationManager.location {
+                        Marker("Post", coordinate: post.coordinate)
+                    }
+//                    ForEach(locationManager.currentLocation, id: \.self) { location in
+//                        
+//                        Marker("Location", coordinate: location.coordinate)
+//                    }
+//                    ForEach(locationManager.postLocation, id:\.self) { post in
+//                        Marker("Post", coordinate: post.coordinate)
+//                    }
+//                    ForEach(post) { post in
+//                        
+//                        locationManager.fetchLocation(address: post.location) { (postLocation, error) in
+//                            Annotation("", coordinate: postLocation)
+//                        }
+//                    }
                     
-                  
                     
                     ForEach(results, id: \.self) { item in
                         if routeDisplaying {
@@ -98,7 +111,7 @@ struct LocationView: View {
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
-    
+                
                 .background(
                     RoundedRectangle(cornerRadius: 50, style: .circular)
                         .foregroundColor(authenticationViewModel.blue[0])

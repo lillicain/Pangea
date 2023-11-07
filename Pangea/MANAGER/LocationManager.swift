@@ -20,17 +20,20 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     var locationManager = CLLocationManager()
-    var post: Post!
     
+    @Published var posts: Post?
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
     @Published var currentLocation: String = ""
-    @Published var title = ""
+    
+    @Published var address = ""
     @Published var geocoder = CLGeocoder()
-//    @Published var postLocation: CLLocationCoordinate2D?
+    
+    @Published var postLocation: CLLocationCoordinate2D?
+    
 //    @Published private(set) var annotationItems: [AnnotationItem] = []
   
     override init() {
@@ -72,7 +75,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             self.currentLocation = placemark ?? ""
         }
         
-        
+        fetchLocation(address: posts?.location ?? "") { (postLocation, error) in
+            self.postLocation = postLocation
+        }
         
         print(location.description)
         print(location.coordinate)
