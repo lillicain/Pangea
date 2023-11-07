@@ -97,20 +97,19 @@ struct Screen: View {
                                 .padding()
                         }
                         
-                        HStack {
-                            UserInformation(value: 1, title: "Post")
-                                .padding()
-                                .padding(.vertical, 50)
-                            
-                            Spacer()
-                            
-                            
-                            
-                        }
+//                        HStack {
+//                            UserInformation(value: 1, title: "Post")
+//                                .padding()
+//                                .padding(.vertical, 50)
+//                            
+//                            Spacer()
+//
                         
                         Rectangle()
                             .frame(maxWidth: .infinity)
                             .frame(height: 5)
+                            .padding(.top, 25)
+                            .padding(.vertical, 50)
                         
                             .foregroundColor(authenticationViewModel.blue[0])
                         

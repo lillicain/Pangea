@@ -13,8 +13,9 @@ import CoreLocationUI
 
 struct AllFeedView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
+
     @ObservedObject var locationManager = LocationManager()
+    
     @StateObject var postViewModel = PostViewModel()
     @StateObject var feedViewModel = FeedViewModel()
     
@@ -24,7 +25,7 @@ struct AllFeedView: View {
     @State var location = ""
     @State var image: UIImage?
     @State var showCamera = false
-    @State var showImagePicker = false
+    @State var showImagePicker = true
     
     let post: Post
     
@@ -143,7 +144,7 @@ extension AllFeedView {
                     
                     Task {
                         do {
-                            try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation.description)
+                            try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation)
                             postViewModel.uiImage = image
                             
                         } catch {

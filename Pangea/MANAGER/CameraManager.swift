@@ -60,18 +60,18 @@ struct CameraViewController: UIViewControllerRepresentable {
                 
                 for assetIndex in 0..<assets.count {
                     let asset = assets[assetIndex]
-                    let location = String(describing: asset.location)
+                    let location = asset.location
                     
                     
+                    let latitude = asset.location?.coordinate.latitude
+                    let longitude = asset.location?.coordinate.longitude
                     
-                    let longitude = String(describing: asset.location?.coordinate.longitude)
-                    
-                    let latitude = String(describing: asset.location?.coordinate.latitude)
+          
                     
                     
-                    
-                    print(longitude)
                     print(latitude)
+                    print(longitude)
+         
                     
                     print(location)
                     
