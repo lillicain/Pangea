@@ -23,20 +23,12 @@ struct MapItemView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 15) {
+            VStack(spacing: 5) {
                 Button {
                     cameraPosition = .automatic
                 } label: {
-                    Image(systemName: "magnifyingglass")
-                }
-                
-                Button {
-                    if let location = locationManager.location?.coordinate {
-                        visibleRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locationManager.location?.coordinate.longitude ?? 0.0, longitude: locationManager.location?.coordinate.longitude ?? 0.0), span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
-                    }
-//                    searchPlaces(for: post?.location ?? "2674 S 3970th Cir W")
-                } label: {
-                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "person.fill")
+                        .padding(1.5)
                 }
                 
                 Button {

@@ -18,22 +18,31 @@ struct FeedScreen: View {
         NavigationStack {
             VStack(alignment: .trailing, spacing: 15) {
                 postImage
-                postUser
-                postControl
+                   
+             
+//                postControl
                 
                 HStack {
-                    VStack {
+                    VStack(alignment: .leading) {
+                        
+                        Text(post.location)
+                            .font(FontOne.extraSmall)
+                        
                         Text("\(post.timestamp.dateValue())")
                     
                         
                         Text("\(post.description)")
                         
                         
-                        Text(post.location)
+                
                         
                     }
                     Spacer()
+                        
+                    
                 }
+                postUser
+                    .modifier(ButtonViewModifier())
             }
             .padding()
         }
@@ -49,7 +58,8 @@ extension FeedScreen {
                         ProfileImageManager(user: user, size: .extraSmall)
                         
                         Text(user.username)
-                            .fontWeight(.bold)
+                            .font(FontNine.extraSmall)
+                        
                     }
                     .navigationDestination(for: User.self, destination: { user in
                         Screen(user: user)

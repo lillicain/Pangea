@@ -14,7 +14,7 @@ import MapKit
 
 struct AllFeedView: View {
     
-@ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
     
     @StateObject var postViewModel = PostViewModel()
@@ -36,21 +36,12 @@ struct AllFeedView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        if let user = authenticationViewModel.currentUser?.username {
-                            Text("Hello, \(user)")
-                            
-                                .font(FontOne.small)
-                                .scaledToFill()
-                                .lineLimit(1)
-                                .padding(.leading)
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(.top)
-                .padding(.bottom, 250)
+                
+                userInformation
+                
+                
+                //                .padding(.top)
+                    .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
                     ForEach(feedViewModel.posts) { post in
@@ -100,7 +91,7 @@ struct AllFeedView: View {
             }
         }
         .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
-    
+        
     }
 }
 
@@ -198,4 +189,62 @@ extension AllFeedView {
             }
         }
     }
+    
+    var userInformation: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    if let user = authenticationViewModel.currentUser?.username {
+                        
+                        Text("Hello, \(user)")
+                            .font(FontEight.title)
+                            .foregroundColor(authenticationViewModel.blue[0])
+                            .offset(x: -2.5, y: 2.5)
+                            .kerning(1.5)
+                            .overlay {
+                                Text("Hello, \(user)")
+                                    .font(FontEight.title)
+                                    .kerning(1.5)
+                                    .foregroundColor(authenticationViewModel.green[0])
+                                
+                            }
+                            .padding(.all)
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                    
+                }
+                HStack {
+                    Text("\(post.timestamp.dateValue())")
+                        .font(FontFour.small)
+                        .padding(.all)
+                        .padding(.leading)
+                        .foregroundColor(authenticationViewModel.blue[0])
+                        .offset(x: -0.5, y: 0.5)
+                        .background(
+                            Text("\(post.timestamp.dateValue())")
+                                .font(FontFour.small)
+                                .padding(.all)
+                                .padding(.leading)
+                                .foregroundColor(.white)
+                        
+                        )
+//                        .foregroundColor(.white.opacity(0.75))
+//                        .offset(x: -1.0, y: 1.0)
+//                        .padding(.leading)
+//                        .overlay {
+//                            Text("\(post.timestamp.dateValue())")
+//                                .padding(.top)
+//                                .kerning(5)
+//                                .foregroundColor(authenticationViewModel.pink[0])
+//                            
+//                                .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
+//                                .padding(.leading)
+//                        }
+                }
+            }
+        }
+    }
 }
+

@@ -11,6 +11,7 @@ import SwiftUI
 struct FontOne {
     static let body = Font.fontOne(size: 27.5)
     static let title = Font.fontOne(size: 45)
+    static let extraSmall = Font.fontOne(size: 17.5)
     static let small = Font.fontOne(size: 20)
     static let medium = Font.fontOne(size: 30)
     static let large = Font.fontOne(size: 35)
@@ -74,6 +75,7 @@ struct FontEight {
 struct FontNine {
     static let body = Font.fontNine(size: 25)
     static let title = Font.fontNine(size: 50)
+    static let extraSmall = Font.fontNine(size: 17.5)
     static let small = Font.fontNine(size: 20)
     static let medium = Font.fontNine(size: 30)
     static let large = Font.fontNine(size: 35)

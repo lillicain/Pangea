@@ -31,7 +31,6 @@ struct LocationView: View {
     @State var routeDestination: MKMapItem?
     @State var username = ""
     @State var visibleRegion: MKCoordinateRegion?
-    
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
@@ -49,28 +48,28 @@ struct LocationView: View {
                         ZStack {
                             Circle()
                                 .frame(width: 35, height: 35)
-//                                .foregroundColor(authenticationViewModel.green[0[]
-               
+                            //                                .foregroundColor(authenticationViewModel.green[0[]
+                            
                         }
                     }
                     
-              
                     
-//                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
-//                        ZStack {
-//                            Circle()
-//                                .frame(width: 30, height: 30)
-//                                .foregroundColor(Color(.systemBlue).opacity(0.25))
-//                            
-//                            Circle()
-//                                .frame(width: 22.5, height: 22.5)
-//                                .foregroundColor(.white)
-//                            
-//                            Circle()
-//                                .frame(width: 15, height: 15)
-//                                .foregroundColor(Color(.systemBlue))
-//                        }
-//                    }
+                    
+                    //                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
+                    //                        ZStack {
+                    //                            Circle()
+                    //                                .frame(width: 30, height: 30)
+                    //                                .foregroundColor(Color(.systemBlue).opacity(0.25))
+                    //
+                    //                            Circle()
+                    //                                .frame(width: 22.5, height: 22.5)
+                    //                                .foregroundColor(.white)
+                    //
+                    //                            Circle()
+                    //                                .frame(width: 15, height: 15)
+                    //                                .foregroundColor(Color(.systemBlue))
+                    //                        }
+                    //                    }
                     
                     Annotation("", coordinate: locationManager.postLocation) {
                         ForEach(feedViewModel.posts) { post in
@@ -82,7 +81,7 @@ struct LocationView: View {
                             
                         }
                     }
-//                    Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
+                    //                    Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
                     
                     if let item = locationManager.item {
                         Annotation("", coordinate: item) {
@@ -128,15 +127,16 @@ struct LocationView: View {
                             .padding(.leading, 325)
                     }
                 }
-                .frame(width: 405, height: 635)
+                .frame(width: 405, height: 700)
                 .cornerRadius(50)
                 .padding()
                 
                 .background(
-                    RoundedRectangle(cornerRadius: 50, style: .circular)
+                    RoundedRectangle(cornerRadius: 65, style: .circular)
                         .foregroundColor(authenticationViewModel.blue[0])
-                        .frame(width: 412.5, height: 645)
+                        .frame(width: 425, height: 750)
                 )
+                
                 
                 .mapControls {
                     MapInformation()
@@ -163,13 +163,12 @@ struct LocationView: View {
                     
                 })
             }
-            VStack {
-                searchBar
-            }
+            //            VStack {
+            //                searchBar
+            //            }
             
         }
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
-        .edgesIgnoringSafeArea(.bottom)
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing).ignoresSafeArea(.all))
     }
 }
 
