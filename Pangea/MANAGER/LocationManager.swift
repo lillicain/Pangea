@@ -15,7 +15,8 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+@MainActor
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
@@ -30,7 +31,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     @Published var location: CLLocation?
     
     @Published var currentLocation: String = ""
-    @Published var otherPlacemark: MKPlacemark?
+    @Published var postLocation = CLLocationCoordinate2D()
 
     
     @Published var item: CLLocationCoordinate2D?
@@ -41,11 +42,8 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         super.init()
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
-        
     }
-//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//        <#code#>
-//    }
+    
     func requestLocation() {
         locationManager.requestLocation()
     }
@@ -71,7 +69,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         
         
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
-            self.placemark = placemark?.last
+            self.placemark = placemark?.first
             
         }
         
@@ -79,8 +77,13 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             self.currentLocation = placemark ?? ""
         }
         
+        fetchLocation(address: post.location) { (placemark, error) in
+            self.item = placemark
+            
+        }
+        
         getLocation(from: post.location) { post in
-            self.item = post
+            self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 0.0, longitude: post?.longitude ?? 0.0) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         }
         
         print(location.description)
@@ -91,7 +94,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
       
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
@@ -150,63 +153,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             completion(location)
         }
     }
-    
-    
-//    func getPlace(from address: String) {
-//            let request = MKLocalSearch.Request()
-//            let title = "" //address.title
-//            let subTitle = "" // addubtitleress.s
-//
-//            request.naturalLanguageQuery = subTitle.contains(title)
-//            ? subTitle : title + ", " + subTitle
-//
-//            Task {
-//                let response = try await MKLocalSearch(request: request).start()
-//                await MainActor.run {
-//                    self.annotationItems = response.mapItems.map {
-//                        AnnotationItem(
-//                            latitude: $0.placemark.coordinate.latitude,
-//                            longitude: $0.placemark.coordinate.longitude
-//                        )
-//                    }
-//
-//                    self.region = response.boundingRegion
-////                }
-////            }
-////        }
-////    }
-//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//            guard let newLocation = userLocation.location else { return }
-//            
-//            let currentTime = Date()
-//            let lastLocation = self.currentLocation
-//            self.currentLocation = currentLocation
-//            
-//            // Only get new placemark information if you don't have a previous location,
-//            // if the user has moved a meaningful distance from the previous location, such as 1000 meters,
-//            // and if it's been 60 seconds since the last geocode request.
-//        if let lastLocation = currentLocation {
-//                newLocation.distance(from: lastLocation) <= 1000,
-//                let lastTime = lastGeocodeTime,
-//                currentTime.timeIntervalSince(lastTime) < 60 {
-//                return
-//            }
-//            
-//            // Convert the user's location to a user-friendly place name by reverse geocoding the location.
-//            lastGeocodeTime = currentTime
-//            geocoder.reverseGeocodeLocation(newLocation) { (placemarks, error) in
-//                guard error == nil else {
-//                    self.handleError(error)
-//                    return
-//                }
-//                
-//                // Most geocoding requests contain only one result.
-//                if let firstPlacemark = placemarks?.first {
-//                    self.mostRecentPlacemark = firstPlacemark
-//                    self.currentCity = firstPlacemark.locality
-//                }
-//            }
-//        }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()

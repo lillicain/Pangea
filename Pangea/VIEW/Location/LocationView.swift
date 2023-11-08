@@ -70,15 +70,24 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
-                 
-                    //                    ForEach(feedViewModel.posts) { post in
-                    //                        KFImage(URL(string: post.imageUrl))
-                    //                            .resizable()
-                    //                            .scaledToFill()
-                    //                            .frame(width: 50, height: 50)
-                    //                            .clipShape(.circle)
-                    //
-                    //                    }
+               
+//                        ForEach(locationManager.postLocation) { postLocation in
+                        
+                        
+                    Annotation("", coordinate: locationManager.postLocation) {
+                        ForEach(feedViewModel.posts) { post in
+                            KFImage(URL(string: post.imageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipShape(.circle)
+    
+                        }
+                    }
+                    
+                        
+                
+                                     
 //                    ForEach(locationManager.item) { item in
                 
                     if let item = locationManager.item {

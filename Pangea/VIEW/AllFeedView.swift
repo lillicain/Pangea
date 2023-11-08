@@ -10,9 +10,10 @@ import SwiftUI
 import PhotosUI
 import AVKit
 import CoreLocationUI
+import MapKit
 
 struct AllFeedView: View {
-//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    
 @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
     
@@ -58,8 +59,12 @@ struct AllFeedView: View {
                 .task {
                     try? await feedViewModel.fetchPosts()
                     try? await postViewModel.uploadPost(description: description, location: location)
-                    
+                
                     locationManager.requestLocation()
+                    
+                    if let post = locationManager.location?.coordinate {
+                        locationManager.postLocation = post
+                    }
                 }
                 .padding(.top)
             }
