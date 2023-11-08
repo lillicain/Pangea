@@ -30,6 +30,9 @@ struct AllFeedView: View {
     
     let post: Post
     
+    @State var coordinate: CLLocationCoordinate2D?
+    @State var date: Date?
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -115,7 +118,6 @@ extension AllFeedView {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
             }
-            
             .onAppear {
                 showImagePicker.toggle()
             }

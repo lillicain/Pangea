@@ -11,16 +11,28 @@ import CoreLocationUI
 
 struct MapItemView: View {
 
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    
+    @ObservedObject var locationManager = LocationManager()
     
     @Binding var cameraPosition: MapCameraPosition
     @Binding var results: [MKMapItem]
     @Binding var visibleRegion: MKCoordinateRegion?
     @Binding var username: String
     
+    
     var body: some View {
         ZStack {
             VStack(spacing: 15) {
+                Button {
+                    if let location = locationManager.location?.coordinate {
+                        visibleRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locationManager.location?.coordinate.longitude ?? 0.0, longitude: locationManager.location?.coordinate.longitude ?? 0.0), span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                    }
+//                    searchPlaces(for: post?.location ?? "2674 S 3970th Cir W")
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                
                 Button {
                     searchPlaces(for: "Parks")
                     cameraPosition = .automatic

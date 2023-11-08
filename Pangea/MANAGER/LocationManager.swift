@@ -67,10 +67,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         self.region = region
         self.geocode()
         
-        
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?.first
-            
         }
         
         fetchCurrentLocation { placemark in
@@ -79,7 +77,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         
         fetchLocation(address: post.location) { (placemark, error) in
             self.item = placemark
-            
         }
         
         getLocation(from: post.location) { post in

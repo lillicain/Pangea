@@ -9,7 +9,6 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-@MainActor
 struct PostManager {
     static let shared = PostManager()
     

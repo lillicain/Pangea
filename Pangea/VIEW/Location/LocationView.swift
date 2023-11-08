@@ -42,16 +42,12 @@ struct LocationView: View {
     var body: some View {
         ScrollView {
             VStack {
-                //                searchBar
-                
-                
-//                MapViewRepresentable()
-                
+                                searchBar
                 
                 Map(position: $cameraPosition, selection: $selectedResult) {
                     
                     
-                    //        Marker("ME", coordinate: .userLocation)
+                    Marker("ME", coordinate: .schoolLocation)
                     
                     UserAnnotation()
                     
@@ -70,10 +66,7 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
-               
-//                        ForEach(locationManager.postLocation) { postLocation in
-                        
-                        
+                    
                     Annotation("", coordinate: locationManager.postLocation) {
                         ForEach(feedViewModel.posts) { post in
                             KFImage(URL(string: post.imageUrl))
@@ -81,19 +74,19 @@ struct LocationView: View {
                                 .scaledToFill()
                                 .frame(width: 50, height: 50)
                                 .clipShape(.circle)
-    
+                            
                         }
                     }
                     
-                        
-                
-                                     
-//                    ForEach(locationManager.item) { item in
-                
+                    
+                    
+                    
+                    //                    ForEach(locationManager.item) { item in
+                    
                     if let item = locationManager.item {
-//                        ForEach(feedViewModel.posts) { image in
-//                            Marker("", image: KFImage(URL(string: image.imageUrl)), coordinate: post.coordinate)
-                            Annotation("", coordinate: item) {
+                        //                        ForEach(feedViewModel.posts) { image in
+                        //                            Marker("", image: KFImage(URL(string: image.imageUrl)), coordinate: post.coordinate)
+                        Annotation("", coordinate: item) {
                             ZStack {
                                 
                                 
@@ -108,13 +101,13 @@ struct LocationView: View {
                                                 .frame(width: 75, height: 75)
                                                 .foregroundColor(.white))
                                     
-//                                }
-                                //                                Circle()
-                                //                                    .frame(width: 30, height: 30)
-                                //                                    .foregroundColor(authenticationViewModel.green[0])
-                                
+                                    //                                }
+                                    //                                Circle()
+                                    //                                    .frame(width: 30, height: 30)
+                                    //                                    .foregroundColor(authenticationViewModel.green[0])
+                                    
+                                }
                             }
-                        }
                             //                        Marker("Post", coordinate: post.coordinate)
                         }
                     }
@@ -144,7 +137,7 @@ struct LocationView: View {
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 325)
                     }
-                }
+            }
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
@@ -240,16 +233,4 @@ extension LocationView {
             }
         }
     }
-    
-//    func fetchPost(from address: String) {
-//        let request = MKLocalSearch.Request()
-//        let title = address
-//        
-//        Task {
-//            let response = try? await MKLocalSearch(request: request).start()
-//            self.posts = response?.mapItems.map {
-//            P
-//            }
-//        }
-//    }
 }
