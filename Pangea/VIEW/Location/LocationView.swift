@@ -15,11 +15,12 @@ struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var feedViewModel = FeedViewModel()
-    //    @EnvironmentObject var postItemViewModel: PostItemViewModel
     
     @StateObject private var locationManager = LocationManager()
     
+    let post: Post
     
+    @State var selectedPost: MKMapItem?
     
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
     @State var searchText = ""
@@ -36,6 +37,7 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
+    @State var posts: [Post] = []
     
     var body: some View {
         ScrollView {
@@ -43,7 +45,7 @@ struct LocationView: View {
                 //                searchBar
                 
                 
-                MapViewRepresentable()
+//                MapViewRepresentable()
                 
                 
                 Map(position: $cameraPosition, selection: $selectedResult) {
@@ -68,7 +70,7 @@ struct LocationView: View {
                                 .foregroundColor(Color(.systemBlue))
                         }
                     }
-                    
+                 
                     //                    ForEach(feedViewModel.posts) { post in
                     //                        KFImage(URL(string: post.imageUrl))
                     //                            .resizable()
@@ -77,9 +79,12 @@ struct LocationView: View {
                     //                            .clipShape(.circle)
                     //
                     //                    }
-                    
-                    if let post = locationManager.location {
-                        Annotation("Post", coordinate: post.coordinate) {
+//                    ForEach(locationManager.item) { item in
+                
+                    if let item = locationManager.item {
+//                        ForEach(feedViewModel.posts) { image in
+//                            Marker("", image: KFImage(URL(string: image.imageUrl)), coordinate: post.coordinate)
+                            Annotation(post.user?.username ?? "", coordinate: item) {
                             ZStack {
                                 
                                 
@@ -87,19 +92,20 @@ struct LocationView: View {
                                     KFImage(URL(string: post.imageUrl))
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 50, height: 50)
+                                        .frame(width: 70, height: 70)
                                         .clipShape(.circle)
                                         .background(
                                             Circle()
-                                                .frame(width: 55, height: 55)
+                                                .frame(width: 75, height: 75)
                                                 .foregroundColor(.white))
                                     
-                                }
+//                                }
                                 //                                Circle()
                                 //                                    .frame(width: 30, height: 30)
                                 //                                    .foregroundColor(authenticationViewModel.green[0])
                                 
                             }
+                        }
                             //                        Marker("Post", coordinate: post.coordinate)
                         }
                     }
@@ -225,4 +231,16 @@ extension LocationView {
             }
         }
     }
+    
+//    func fetchPost(from address: String) {
+//        let request = MKLocalSearch.Request()
+//        let title = address
+//        
+//        Task {
+//            let response = try? await MKLocalSearch(request: request).start()
+//            self.posts = response?.mapItems.map {
+//            P
+//            }
+//        }
+//    }
 }

@@ -70,7 +70,7 @@ extension FeedScreen {
                 .overlay {
                     
                     NavigationLink {
-                        LocationView()
+                        LocationView(post: Post.MOCK_POST[0])
                         
                     } label: {
                         Image(systemName: "mappin.and.ellipse.circle")

@@ -25,7 +25,7 @@ struct Screen: View {
                         .frame(width: 412.5, height: 262.5)
                     
                     ZStack {
-                        LocationView()
+                        LocationView(post: Post.MOCK_POST[0])
                             .frame(width: 400, height: 250, alignment: .top)
                             .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
                             .padding(.bottom)

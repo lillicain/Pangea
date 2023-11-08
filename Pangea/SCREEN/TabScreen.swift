@@ -18,7 +18,7 @@ struct TabScreen: View {
                     .tabItem { Image("globe") }
             }
             
-            LocationView()
+            LocationView(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe") }
             
         

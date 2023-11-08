@@ -20,17 +20,21 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     var locationManager = CLLocationManager()
-    var post: Post!
+    var post: Post = Post.MOCK_POST[0]
     
+    @Published var geocoder = CLGeocoder()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
+    
     @Published var currentLocation: String = ""
-    @Published var title = ""
-    @Published var geocoder = CLGeocoder()
-//    @Published var postLocation: CLLocationCoordinate2D?
+    @Published var otherPlacemark: MKPlacemark?
+
+    
+    @Published var item: CLLocationCoordinate2D?
+    
 //    @Published private(set) var annotationItems: [AnnotationItem] = []
   
     override init() {
@@ -39,8 +43,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         locationManager.activityType = .automotiveNavigation
         
     }
-  
-    
+//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+//        <#code#>
+//    }
     func requestLocation() {
         locationManager.requestLocation()
     }
@@ -60,19 +65,23 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         guard let location = locations.first else { return }
 
         self.location = location
+        self.item = location.coordinate
         self.region = region
         self.geocode()
         
         
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?.last
+            
         }
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
         
-        
+        getLocation(from: post.location) { post in
+            self.item = post
+        }
         
         print(location.description)
         print(location.coordinate)
@@ -130,15 +139,27 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
+    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks,
+            let location = placemarks.first?.location?.coordinate else {
+                completion(nil)
+                return
+            }
+            completion(location)
+        }
+    }
+    
     
 //    func getPlace(from address: String) {
 //            let request = MKLocalSearch.Request()
 //            let title = "" //address.title
 //            let subTitle = "" // addubtitleress.s
-//            
+//
 //            request.naturalLanguageQuery = subTitle.contains(title)
 //            ? subTitle : title + ", " + subTitle
-//            
+//
 //            Task {
 //                let response = try await MKLocalSearch(request: request).start()
 //                await MainActor.run {
@@ -148,23 +169,12 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
 //                            longitude: $0.placemark.coordinate.longitude
 //                        )
 //                    }
-//                    
+//
 //                    self.region = response.boundingRegion
-//                }
-//            }
-//        }
-//    }
-//    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(address) { (placemarks, error) in
-//            guard let placemarks = placemarks,
-//            let location = placemarks.first?.location?.coordinate else {
-//                completion(nil)
-//                return
-//            }
-//            completion(location)
-//        }
-//    }
+////                }
+////            }
+////        }
+////    }
 //    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
 //            guard let newLocation = userLocation.location else { return }
 //            
