@@ -22,10 +22,11 @@ struct TabScreen: View {
                 .tabItem { Image(systemName: "globe") }
             
         
-            
             AllFeedView(post: Post.MOCK_POST[0])
                 .tabItem { Image(systemName: "globe") }
         }
         .accentColor(authenticationViewModel.pink[0])
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }

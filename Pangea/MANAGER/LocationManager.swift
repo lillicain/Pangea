@@ -9,29 +9,40 @@ import Foundation
 import CoreLocation
 import CoreLocationUI
 import MapKit
+import UIKit
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+@MainActor
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     var locationManager = CLLocationManager()
+    var post: Post = Post.MOCK_POST[0]
+    var geocoder = CLGeocoder()
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
-    
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
+    
     @Published var currentLocation: String = ""
-    @Published var geocoder = CLGeocoder()
+    @Published var postLocation = CLLocationCoordinate2D()
+    
+    @Published var any = [String : Any]()
+    @Published var item: CLLocationCoordinate2D?
+    @Published var postItem: CLLocationCoordinate2D?
     
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
     }
+    
     
     func requestLocation() {
         locationManager.requestLocation()
@@ -48,38 +59,62 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         })
     }
     
-//    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-
+        
         self.location = location
+        self.item = location.coordinate
+        self.postItem = location.coordinate
+        self.region = region
         self.geocode()
         
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            self.placemark = placemarks?.last
+        print(location.description)
+        print(location.coordinate)
+        
+        geocoder.reverseGeocodeLocation(location) { (placemark, error) in
+            self.placemark = placemark?.first
         }
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
-        guard let uid = self.authenticationViewModel.userSession?.uid else { return }
-        let last = locations.last
-        Firestore.firestore().collection("locations").document("coordinates").setData(["updates" : [uid : GeoPoint(latitude: (last?.coordinate.latitude)!, longitude: (last?.coordinate.longitude)!)]], merge: true) { (err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
-            }
+        
+        getLocation(from: post.location) { item in
+            self.postItem = item
+            self.item = item
+            
         }
-    
         
-// DispatchQueue.main.async { }
+        //        for index in post.location {
+        //
+        //            fetchLocation(address: index) { (placemark, error) in
+        //                self.postItem = placemark
+        //            }
+        //        }
         
-        self.region = region
-        print(location.description)
-        print(location.coordinate)
+        fetchLocation(address: post.location) { (placemark, error) in
+            self.item = placemark
+            
+        }
+        
+        
+        
     }
+    //        if let post = post?.location {
+    //            func getLocation(from: post?.) { (placemark, error) in
+    //                self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 0.0, longitude: post?.longitude ?? 0.0) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    //
+    //        }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    
+    
+    
+    //        fetchLocation(address: any.first.debugDescription) { (post error)  in
+    //            self.post = CLLocation(latitude: post.location., longitude: <#T##CLLocationDegrees#>) as Any as! [Any]
+    
+
+    
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
@@ -103,14 +138,14 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
-    func fetchLocation(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
-        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+    func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
+     
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
-                    let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
-                    print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
-                    
+                    let postLocation: CLLocationCoordinate2D = placemark.location!.coordinate
+                    print("Latitude: \(postLocation.latitude), Longitude: \(postLocation.longitude)")
                     completionHandler(location.coordinate, nil)
                     return
                 }
@@ -128,11 +163,23 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
+    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks,
+            let location = placemarks.first?.location?.coordinate else {
+                completion(nil)
+                return
+            }
+            completion(location)
+        }
+    }
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
     
-    private func checkLocationAuthorization() {
+    func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined: locationManager.requestAlwaysAuthorization()
         case .restricted: print("Change Settings")
@@ -147,10 +194,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
-            checkLocationAuthorization()
-            
-            locationManager = CLLocationManager()
             locationManager.delegate = self
+            
+            checkLocationAuthorization()
         } else {
             print("Alert")
         }

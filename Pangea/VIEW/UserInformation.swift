@@ -19,7 +19,3 @@ struct UserInformation: View {
         .frame(width: 75)
     }
 }
-
-#Preview {
-    UserInformation(value: 0, title: "Title")
-}
