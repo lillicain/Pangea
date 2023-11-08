@@ -7,11 +7,10 @@
 
 import SwiftUI
 import PhotosUI
-import NavigationRouter
 
 struct EditScreen: View {
     
-    @NavRouter var navRouter
+//    @NavRouter var navRouter
     
     @AppStorage("appearance") var appearance: Bool = false
     @AppStorage("backgroundColors") var backgroundColors: String = ""
@@ -196,9 +195,9 @@ extension EditScreen {
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
-                    navRouter.push(PangeaView())
+//                    navRouter.push(PangeaView())
                 }
-                
+                authenticationViewModel.changeSignUpState(to: .pangea)
             } label: {
                 Text("Sign Out")
                     .fontWeight(.semibold)
@@ -216,7 +215,7 @@ extension EditScreen {
                     do {
                         try await editUserViewModel.deleteAccount()
                         try await authenticationViewModel.deleteAccount()
-                        navRouter.push(PangeaView())
+//                        navRouter.push(PangeaView())
                     } catch {
                         
                         print(error.localizedDescription)

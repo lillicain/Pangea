@@ -42,26 +42,38 @@ struct LocationView: View {
                 Map(position: $cameraPosition, selection: $selectedResult) {
                     UserAnnotation()
                     
-                    Marker("Dixie Tech", coordinate: .schoolLocation)
-                    
-                    Annotation("School", coordinate: .schoolLocation) {
+//                    Marker("Dixie Tech", coordinate: .schoolLocation)
+                    Annotation("Dixie Tech", coordinate: .schoolLocation) {
                         ZStack {
                             Circle()
                                 .frame(width: 35, height: 35)
-                                    .foregroundColor(authenticationViewModel.green[0])
-                            
+                                .foregroundColor(.white)
+                            Circle()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(authenticationViewModel.pink[0])
+                                    Image(systemName: "graduationcap")
+                                .imageScale(.large)
+                                .foregroundColor(.white)
                         }
                     }
-                    
-//                    ForEach(fee ViewModel.posts, id: \.self) { post in
-//
-//                        locationManager.getLocation(from: post.location) { placemark in
+//                    Annotation("School", coordinate: .schoolLocation) {
+//                        ZStack {
+//                            Circle()
+//                                .frame(width: 35, height: 35)
+//                                .foregroundColor(authenticationViewModel.green[0])
 //                            
-//                            Annotation("", coordinate: placemark) {
-//                                
-//                            }
 //                        }
 //                    }
+                    
+                    //                    ForEach(fee ViewModel.posts, id: \.self) { post in
+                    //
+                    //                        locationManager.getLocation(from: post.location) { placemark in
+                    //
+                    //                            Annotation("", coordinate: placemark) {
+                    //
+                    //                            }
+                    //                        }
+                    //                    }
                     
                     //                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
                     //                        ZStack {
@@ -86,12 +98,16 @@ struct LocationView: View {
                                 .scaledToFill()
                                 .frame(width: 50, height: 50)
                                 .clipShape(.circle)
+                                .background(
+                                    Circle()
+                                        .frame(width: 75, height: 75)
+                                        .foregroundColor(.white))
                             
                         }
                     }
+                    
                     if let item = locationManager.location?.coordinate {
                         Annotation("", coordinate: item) {
-                            ZStack {
                                 ForEach(feedViewModel.posts) { post in
                                     KFImage(URL(string: post.imageUrl))
                                         .resizable()
@@ -102,29 +118,29 @@ struct LocationView: View {
                                             Circle()
                                                 .frame(width: 80, height: 80)
                                                 .foregroundColor(.white))
-                                }
+                                    
                             }
                         }
                     }
                     
-                    if let item = locationManager.postItem {
-                        Annotation("", coordinate: item) {
-                            ZStack {
-                                ForEach(feedViewModel.posts) { post in
-                                    KFImage(URL(string: post.imageUrl))
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 75, height: 75)
-                                        .clipShape(.circle)
-                                        .background(
-                                            Circle()
-                                                .frame(width: 80, height: 80)
-                                                .foregroundColor(.white))
-                                }
-                            }
-                        }
-                    }
-//                         Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
+//                    if let item = locationManager.postItem {
+//                        Annotation("", coordinate: item) {
+//                            ZStack {
+//                                ForEach(feedViewModel.posts) { post in
+//                                    KFImage(URL(string: post.imageUrl))
+//                                        .resizable()
+//                                        .scaledToFill()
+//                                        .frame(width: 75, height: 75)
+//                                        .clipShape(.circle)
+//                                        .background(
+//                                            Circle()
+//                                                .frame(width: 80, height: 80)
+//                                                .foregroundColor(.white))
+//                                }
+//                            }
+//                        }
+//                    }
+                    //                         Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
                     
                     if let item = locationManager.item {
                         Annotation("", coordinate: item) {
@@ -168,16 +184,17 @@ struct LocationView: View {
                     VStack {
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 325)
+                        
                     }
                 }
-                .frame(width: 405, height: 700)
+                .frame(width: 375, height: 625)
                 .cornerRadius(50)
                 .padding()
                 
                 .background(
                     RoundedRectangle(cornerRadius: 65, style: .circular)
                         .foregroundColor(authenticationViewModel.blue[0])
-                        .frame(width: 425, height: 750)
+                        .frame(width: 405, height: 650)
                 )
                 
                 
@@ -206,9 +223,9 @@ struct LocationView: View {
                     
                 })
             }
-            //            VStack {
-            //                searchBar
-            //            }
+//            VStack {
+//                searchBar
+//            }
             
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing).ignoresSafeArea(.all))

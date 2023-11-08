@@ -10,8 +10,76 @@ import SwiftUI
 struct PangeaView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
+    
+    
     var body: some View {
         ZStack {
+            switch authenticationViewModel.currentSignInStatus {
+            case .pangea : pangeaView
+            case .signIn : SignInView()
+            case .signUp : SignUpView()
+            }
+        }
+    }
+}
+
+extension PangeaView {
+    var signUp: some View {
+        ZStack {
+            Button {
+                authenticationViewModel.changeSignUpState(to: .signUp)
+                
+                
+            } label: {
+                withAnimation(.smooth) {
+                    Text("Sign Up")
+                        .font(FontOne.body)
+                        .foregroundColor(.white)
+                        .modifier(ButtonViewModifier())
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .kerning(1.5)
+                        .offset(x: 0.5, y: 0.5)
+                        .overlay {
+                            Text("Sign Up")
+                                .font(FontOne.body)
+                                .kerning(1.5)
+                                .foregroundColor(authenticationViewModel.green[0])
+                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                        }
+                    
+                }
+            }
+        }
+    }
+    
+    var signIn: some View {
+        ZStack {
+            Button {
+                authenticationViewModel.changeSignUpState(to: .signIn )
+            } label: {
+                withAnimation(.smooth) {
+                    Text("Sign In")
+                        .font(FontOne.body)
+                        .foregroundColor(.white)
+                        .modifier(ButtonViewModifier())
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .kerning(1.5)
+                        .offset(x: 0.5, y: 0.5)
+                        .overlay {
+                            Text("Sign In")
+                                .font(FontOne.body)
+                                .kerning(1.5)
+                                .foregroundColor(authenticationViewModel.green[0])
+                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                        }
+                }
+            }
+        }
+    }
+    
+    var pangeaView: some View {
+        ZStack {
+            
             
             LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
@@ -73,63 +141,6 @@ struct PangeaView: View {
                             .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
                             .padding(.leading, 175)
                     }
-            }
-        }
-    }
-}
-
-extension PangeaView {
-    var signUp: some View {
-        ZStack {
-            NavigationLink {
-                SignUpView()
-                    .navigationBarBackButtonHidden(true)
-                
-            } label: {
-                withAnimation(.smooth) {
-                    Text("Sign Up")
-                        .font(FontOne.body)
-                        .foregroundColor(.white)
-                        .modifier(ButtonViewModifier())
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                        .kerning(1.5)
-                        .offset(x: 0.5, y: 0.5)
-                        .overlay {
-                            Text("Sign Up")
-                                .font(FontOne.body)
-                                .kerning(1.5)
-                                .foregroundColor(authenticationViewModel.green[0])
-                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
-                        }
-                    
-                }
-            }
-        }
-    }
-    
-    var signIn: some View {
-        ZStack {
-            NavigationLink {
-                SignInView()
-                    .navigationBarBackButtonHidden(true)
-                
-            } label: {
-                withAnimation(.smooth) {
-                    Text("Sign In")
-                        .font(FontOne.body)
-                        .foregroundColor(.white)
-                        .modifier(ButtonViewModifier())
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                        .kerning(1.5)
-                        .offset(x: 0.5, y: 0.5)
-                        .overlay {
-                            Text("Sign In")
-                                .font(FontOne.body)
-                                .kerning(1.5)
-                                .foregroundColor(authenticationViewModel.green[0])
-                                .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
-                        }
-                }
             }
         }
     }

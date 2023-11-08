@@ -37,7 +37,8 @@ struct SignInView: View {
                 Divider()
                 
                 VStack(spacing: 0) {
-                    TextField("Enter Username", text: $username)                        .modifier(MaterialViewModifier())
+                    TextField("Enter Username", text: $username)                 
+                        .modifier(MaterialViewModifier())
                     
                     TextField("Enter Email", text: $email)
                         .modifier(MaterialViewModifier())
@@ -60,7 +61,7 @@ struct SignInView: View {
                             try await authenticationViewModel.signIn(withEmail: email, password: password)
                             
                             if let user = authenticationViewModel.currentUser {
-                                navRouter.push(Screen(user: user))
+//                                navRouter.push(Screen(user: user))
                             }
                         } catch {
                             print(error.localizedDescription)
@@ -84,9 +85,10 @@ struct SignInView: View {
                 .cornerRadius(15)
                 
                 
-                NavigationLink {
-                    SignUpView()
-                        .navigationBarBackButtonHidden(true)
+                Button {
+//                    navRouter.safePop()
+//                    navRouter.push(SignUpView())
+                    authenticationViewModel.changeSignUpState(to: .signUp)
                 } label: {
                     Text("Don't have an account? **Sign Up** ")
                         .padding(.leading, 15)

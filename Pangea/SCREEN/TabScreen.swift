@@ -16,14 +16,19 @@ struct TabScreen: View {
             if let user = authenticationViewModel.currentUser {
                 Screen(user: user)
                     .tabItem { Image("globe") }
+                
+                
+                
+                LocationView()
+                    .tabItem { Image(systemName: "globe") }
+                
+                
+                AllFeedView(post: Post.MOCK_POST[0])
+                    .tabItem { Image(systemName: "globe") }
+                
+            } else {
+                // TODO: need loading view if user does not load
             }
-            
-            LocationView()
-                .tabItem { Image(systemName: "globe") }
-            
-        
-            AllFeedView(post: Post.MOCK_POST[0])
-                .tabItem { Image(systemName: "globe") }
         }
         .accentColor(authenticationViewModel.pink[0])
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))

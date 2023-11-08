@@ -85,12 +85,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             
         }
         
-        //        for index in post.location {
-        //
-        //            fetchLocation(address: index) { (placemark, error) in
-        //                self.postItem = placemark
-        //            }
-        //        }
+                for index in post.location {
+        
+                    fetchLocation(address: index.description) { (placemark, error) in
+                        self.postItem = placemark
+                    }
+                }
         
         fetchLocation(address: post.location) { (placemark, error) in
             self.item = placemark
@@ -102,7 +102,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     //        if let post = post?.location {
     //            func getLocation(from: post?.) { (placemark, error) in
-    //                self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 0.0, longitude: post?.longitude ?? 0.0) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    //                self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 37.0974, longitude: post?.longitude ?? -113.59) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     //
     //        }
     
