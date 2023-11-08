@@ -42,8 +42,6 @@ struct LocationView: View {
     var body: some View {
         ScrollView {
             VStack {
-                                searchBar
-                
                 Map(position: $cameraPosition, selection: $selectedResult) {
                     
                     
@@ -77,11 +75,6 @@ struct LocationView: View {
                             
                         }
                     }
-                    
-                    
-                    
-                    
-                    //                    ForEach(locationManager.item) { item in
                     
                     if let item = locationManager.item {
                         //                        ForEach(feedViewModel.posts) { image in
@@ -173,9 +166,13 @@ struct LocationView: View {
                     
                 })
             }
+            VStack {
+                searchBar
+            }
             
         }
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 

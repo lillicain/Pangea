@@ -97,13 +97,13 @@ struct Screen: View {
                                 .padding()
                         }
                         
-//                        HStack {
-//                            UserInformation(value: 1, title: "Post")
-//                                .padding()
-//                                .padding(.vertical, 50)
-//                            
-//                            Spacer()
-//
+                        //                        HStack {
+                        //                            UserInformation(value: 1, title: "Post")
+                        //                                .padding()
+                        //                                .padding(.vertical, 50)
+                        //
+                        //                            Spacer()
+                        //
                         
                         Rectangle()
                             .frame(maxWidth: .infinity)
@@ -120,10 +120,10 @@ struct Screen: View {
                 
                 VStack {
                     PostItemView(user: user.self)
+                    
                 }
             }
-                .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-            
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
     }
 }
