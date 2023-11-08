@@ -29,7 +29,6 @@ struct PangeaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            
             Group {
                 
                 if authenticationViewModel.userSession == nil {

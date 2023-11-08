@@ -10,8 +10,6 @@ import PhotosUI
 
 struct EditScreen: View {
     
-//    @NavRouter var navRouter
-    
     @AppStorage("appearance") var appearance: Bool = false
     @AppStorage("backgroundColors") var backgroundColors: String = ""
     
@@ -29,7 +27,6 @@ struct EditScreen: View {
     @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF6700", "FFFF00", "F10C45", "003AE7", "601EF9", "FF4500"]
     
     var body: some View {
-//        NavigationRouter {
             ZStack {
                 
                 VStack {
@@ -195,7 +192,6 @@ extension EditScreen {
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
-//                    navRouter.push(PangeaView())
                 }
                 authenticationViewModel.changeSignUpState(to: .pangea)
             } label: {
@@ -215,7 +211,6 @@ extension EditScreen {
                     do {
                         try await editUserViewModel.deleteAccount()
                         try await authenticationViewModel.deleteAccount()
-//                        navRouter.push(PangeaView())
                     } catch {
                         
                         print(error.localizedDescription)
@@ -229,14 +224,3 @@ extension EditScreen {
         }
     }
 }
-//    var navigation: some View {
-//        ZStack {
-//            NavigationLink {
-//                PangeaView()
-//                    .navigationBarBackButtonHidden(true)
-//            } label: {
-//
-//            }
-//        }
-//    }
-//}

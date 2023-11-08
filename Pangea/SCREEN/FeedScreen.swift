@@ -11,41 +11,39 @@ import Kingfisher
 struct FeedScreen: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
- 
+    
     let post: Post
     
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .trailing, spacing: 15) {
-                postImage
-                   
-             
-//                postControl
-                
-                HStack {
-                    VStack(alignment: .leading) {
-                        
-                        Text(post.location)
-                            .font(FontOne.extraSmall)
-                        
-                        Text("\(post.timestamp.dateValue())")
+        VStack(alignment: .trailing, spacing: 15) {
+            postImage
+            
+            
+            //                postControl
+            
+            HStack {
+                VStack(alignment: .leading) {
                     
-                        
-                        Text("\(post.description)")
-                        
-                        
-                
-                        
-                    }
-                    Spacer()
-                        
+                    Text(post.location)
+                        .font(FontOne.extraSmall)
+                    
+                    Text("\(post.timestamp.dateValue())")
+                    
+                    
+                    Text("\(post.description)")
+                    
+                    
+                    
                     
                 }
-                postUser
-                    .modifier(ButtonViewModifier())
+                Spacer()
+                
+                
             }
-            .padding()
+            postUser
+                .modifier(ButtonViewModifier())
         }
+        .padding()
     }
 }
 
@@ -81,7 +79,7 @@ extension FeedScreen {
                     
                     NavigationLink {
                         LocationView()
-                        
+                        // TODO: Work on location view
                     } label: {
                         Image(systemName: "mappin.and.ellipse.circle")
                             .resizable()
