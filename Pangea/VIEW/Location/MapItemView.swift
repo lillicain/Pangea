@@ -25,6 +25,12 @@ struct MapItemView: View {
         ZStack {
             VStack(spacing: 15) {
                 Button {
+                    cameraPosition = .automatic
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                
+                Button {
                     if let location = locationManager.location?.coordinate {
                         visibleRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locationManager.location?.coordinate.longitude ?? 0.0, longitude: locationManager.location?.coordinate.longitude ?? 0.0), span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
                     }

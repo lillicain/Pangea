@@ -62,7 +62,7 @@ struct AllFeedView: View {
                 .task {
                     try? await feedViewModel.fetchPosts()
                     try? await postViewModel.uploadPost(description: description, location: location)
-                
+                    
                     locationManager.requestLocation()
                     
                     if let post = locationManager.location?.coordinate {
@@ -78,27 +78,29 @@ struct AllFeedView: View {
                     .toolbar(.hidden, for: .navigationBar)
             })
             
-            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                NavigationLink {
-                    SearchScreen()
-                } label: {
-                    Text("Search")
-                }
-            }
             
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    newPost.toggle()
-                    
-                } label: {
-                    Text("Post")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SearchScreen()
+                    } label: {
+                        Text("Search")
+                    }
                 }
                 
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        newPost.toggle()
+                        
+                    } label: {
+                        Text("Post")
+                    }
+                    
+                }
             }
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+    
     }
 }
 

@@ -18,8 +18,6 @@ struct LocationView: View {
     
     @StateObject private var locationManager = LocationManager()
     
-//    let post: Post
-    
     @State var selectedPost: MKMapItem?
     
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
@@ -43,27 +41,36 @@ struct LocationView: View {
         ScrollView {
             VStack {
                 Map(position: $cameraPosition, selection: $selectedResult) {
-                    
-                    
-                    Marker("ME", coordinate: .schoolLocation)
-                    
                     UserAnnotation()
                     
-                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
+                    Marker("Dixie Tech", coordinate: .schoolLocation)
+                    
+                    Annotation("School", coordinate: .schoolLocation) {
                         ZStack {
                             Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(Color(.systemBlue).opacity(0.25))
-                            
-                            Circle()
-                                .frame(width: 22.5, height: 22.5)
-                                .foregroundColor(.white)
-                            
-                            Circle()
-                                .frame(width: 15, height: 15)
-                                .foregroundColor(Color(.systemBlue))
+                                .frame(width: 35, height: 35)
+//                                .foregroundColor(authenticationViewModel.green[0[]
+               
                         }
                     }
+                    
+              
+                    
+//                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
+//                        ZStack {
+//                            Circle()
+//                                .frame(width: 30, height: 30)
+//                                .foregroundColor(Color(.systemBlue).opacity(0.25))
+//                            
+//                            Circle()
+//                                .frame(width: 22.5, height: 22.5)
+//                                .foregroundColor(.white)
+//                            
+//                            Circle()
+//                                .frame(width: 15, height: 15)
+//                                .foregroundColor(Color(.systemBlue))
+//                        }
+//                    }
                     
                     Annotation("", coordinate: locationManager.postLocation) {
                         ForEach(feedViewModel.posts) { post in
@@ -75,33 +82,23 @@ struct LocationView: View {
                             
                         }
                     }
+//                    Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
                     
                     if let item = locationManager.item {
-                        //                        ForEach(feedViewModel.posts) { image in
-                        //                            Marker("", image: KFImage(URL(string: image.imageUrl)), coordinate: post.coordinate)
                         Annotation("", coordinate: item) {
                             ZStack {
-                                
-                                
                                 ForEach(feedViewModel.posts) { post in
                                     KFImage(URL(string: post.imageUrl))
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 70, height: 70)
+                                        .frame(width: 75, height: 75)
                                         .clipShape(.circle)
                                         .background(
                                             Circle()
-                                                .frame(width: 75, height: 75)
+                                                .frame(width: 80, height: 80)
                                                 .foregroundColor(.white))
-                                    
-                                    //                                }
-                                    //                                Circle()
-                                    //                                    .frame(width: 30, height: 30)
-                                    //                                    .foregroundColor(authenticationViewModel.green[0])
-                                    
                                 }
                             }
-                            //                        Marker("Post", coordinate: post.coordinate)
                         }
                     }
                     
@@ -130,7 +127,7 @@ struct LocationView: View {
                         MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                             .padding(.leading, 325)
                     }
-            }
+                }
                 .frame(width: 405, height: 635)
                 .cornerRadius(50)
                 .padding()
