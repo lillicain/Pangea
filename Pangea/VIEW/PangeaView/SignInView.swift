@@ -84,9 +84,11 @@ struct SignInView: View {
                 .cornerRadius(15)
                 
                 
-                NavigationLink {
-                    SignUpView()
-                        .navigationBarBackButtonHidden(true)
+                Button {
+//                    SignUpView()
+//                        .navigationBarBackButtonHidden(true)
+                    navRouter.safePop()
+                    navRouter.push(SignUpView())
                 } label: {
                     Text("Don't have an account? **Sign Up** ")
                         .padding(.leading, 15)

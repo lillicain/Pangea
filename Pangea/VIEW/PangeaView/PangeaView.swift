@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import NavigationRouter
 
 struct PangeaView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    
+    @NavRouter var navRouter
     var body: some View {
         ZStack {
             
@@ -81,9 +82,10 @@ struct PangeaView: View {
 extension PangeaView {
     var signUp: some View {
         ZStack {
-            NavigationLink {
-                SignUpView()
-                    .navigationBarBackButtonHidden(true)
+            Button {
+                navRouter.push(SignInView())
+//                SignUpView()
+//                    .navigationBarBackButtonHidden(true)
                 
             } label: {
                 withAnimation(.smooth) {

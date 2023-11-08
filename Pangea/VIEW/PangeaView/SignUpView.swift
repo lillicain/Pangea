@@ -79,7 +79,8 @@ struct SignUpView: View {
                         do {
                             //                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
                             if let user = authenticationViewModel.currentUser {
-                                navRouter.push(Screen(user: user))
+//                                navRouter.push(Screen(user: user))
+//                                navRouter.push
                             }
 
                             try await authenticationViewModel.createUser(email: email, username: username, password: password)
@@ -105,9 +106,12 @@ struct SignUpView: View {
                 .opacity(isValid ? 1.0 : 0.5)
                 .cornerRadius(15)
                 
-                NavigationLink {
-                    SignInView()
-                        .navigationBarBackButtonHidden(true)
+                Button {
+//                    SignInView()
+//                        .navigationBarBackButtonHidden(true)
+                    
+                    navRouter.safePop()
+                    navRouter.push(SignInView())
                 } label: {
                     Text("Already have an account? **Sign In** ")
                         .padding(.leading, 15)
