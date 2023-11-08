@@ -12,8 +12,8 @@ import AVKit
 import CoreLocationUI
 
 struct AllFeedView: View {
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-
+//    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+@ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
     
     @StateObject var postViewModel = PostViewModel()
@@ -151,7 +151,7 @@ extension AllFeedView {
                             print(error.localizedDescription)
                         }
                     }
-                    
+                    description = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     

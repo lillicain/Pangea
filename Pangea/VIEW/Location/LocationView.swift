@@ -18,7 +18,7 @@ struct LocationView: View {
     
     @StateObject private var locationManager = LocationManager()
     
-    let post: Post
+//    let post: Post
     
     @State var selectedPost: MKMapItem?
     
@@ -84,7 +84,7 @@ struct LocationView: View {
                     if let item = locationManager.item {
 //                        ForEach(feedViewModel.posts) { image in
 //                            Marker("", image: KFImage(URL(string: image.imageUrl)), coordinate: post.coordinate)
-                            Annotation(post.user?.username ?? "", coordinate: item) {
+                            Annotation("", coordinate: item) {
                             ZStack {
                                 
                                 
