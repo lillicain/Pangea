@@ -34,7 +34,7 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
-    @State var posts: [Post] = []
+    let post: Post = Post.MOCK_POST[0]
     
     var body: some View {
         ScrollView {
@@ -48,12 +48,20 @@ struct LocationView: View {
                         ZStack {
                             Circle()
                                 .frame(width: 35, height: 35)
-                            //                                .foregroundColor(authenticationViewModel.green[0[]
+                                    .foregroundColor(authenticationViewModel.green[0])
                             
                         }
                     }
                     
-                    
+//                    ForEach(fee ViewModel.posts, id: \.self) { post in
+//
+//                        locationManager.getLocation(from: post.location) { placemark in
+//                            
+//                            Annotation("", coordinate: placemark) {
+//                                
+//                            }
+//                        }
+//                    }
                     
                     //                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
                     //                        ZStack {
@@ -81,7 +89,42 @@ struct LocationView: View {
                             
                         }
                     }
-                    //                    Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
+                    if let item = locationManager.location?.coordinate {
+                        Annotation("", coordinate: item) {
+                            ZStack {
+                                ForEach(feedViewModel.posts) { post in
+                                    KFImage(URL(string: post.imageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 75, height: 75)
+                                        .clipShape(.circle)
+                                        .background(
+                                            Circle()
+                                                .frame(width: 80, height: 80)
+                                                .foregroundColor(.white))
+                                }
+                            }
+                        }
+                    }
+                    
+                    if let item = locationManager.postItem {
+                        Annotation("", coordinate: item) {
+                            ZStack {
+                                ForEach(feedViewModel.posts) { post in
+                                    KFImage(URL(string: post.imageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 75, height: 75)
+                                        .clipShape(.circle)
+                                        .background(
+                                            Circle()
+                                                .frame(width: 80, height: 80)
+                                                .foregroundColor(.white))
+                                }
+                            }
+                        }
+                    }
+//                         Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
                     
                     if let item = locationManager.item {
                         Annotation("", coordinate: item) {

@@ -22,8 +22,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     var locationManager = CLLocationManager()
     var post: Post = Post.MOCK_POST[0]
+    var geocoder = CLGeocoder()
     
-    @Published var geocoder = CLGeocoder()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
@@ -32,17 +32,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     @Published var currentLocation: String = ""
     @Published var postLocation = CLLocationCoordinate2D()
-
     
+    @Published var any = [String : Any]()
     @Published var item: CLLocationCoordinate2D?
+    @Published var postItem: CLLocationCoordinate2D?
     
-//    @Published private(set) var annotationItems: [AnnotationItem] = []
-  
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
     }
+    
     
     func requestLocation() {
         locationManager.requestLocation()
@@ -61,11 +61,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-
+        
         self.location = location
         self.item = location.coordinate
+        self.postItem = location.coordinate
         self.region = region
         self.geocode()
+        
+        print(location.description)
+        print(location.coordinate)
         
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?.first
@@ -75,21 +79,40 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             self.currentLocation = placemark ?? ""
         }
         
+        getLocation(from: post.location) { item in
+            self.postItem = item
+            self.item = item
+            
+        }
+        
+        //        for index in post.location {
+        //
+        //            fetchLocation(address: index) { (placemark, error) in
+        //                self.postItem = placemark
+        //            }
+        //        }
+        
         fetchLocation(address: post.location) { (placemark, error) in
             self.item = placemark
+            
         }
         
-        getLocation(from: post.location) { post in
-            self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 0.0, longitude: post?.longitude ?? 0.0) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        }
         
-        print(location.description)
-        print(location.coordinate)
         
-      
-    
-      
     }
+    //        if let post = post?.location {
+    //            func getLocation(from: post?.) { (placemark, error) in
+    //                self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 0.0, longitude: post?.longitude ?? 0.0) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    //
+    //        }
+    
+    
+    
+    
+    //        fetchLocation(address: any.first.debugDescription) { (post error)  in
+    //            self.post = CLLocation(latitude: post.location., longitude: <#T##CLLocationDegrees#>) as Any as! [Any]
+    
+
     
     nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
@@ -139,6 +162,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
+    
     func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in

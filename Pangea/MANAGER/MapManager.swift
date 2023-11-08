@@ -18,7 +18,7 @@
 //    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
 //    
 //    var geopoints = [String : Any]()
-//    
+//    var post: Post?
 //    var username = ""
 //    var results = [MKMapItem]()
 //    var searchText = ""
@@ -51,6 +51,9 @@
 //            point.title = index.key
 //            uiView.removeAnnotations(uiView.annotations)
 //            uiView.addAnnotation(point)
+//            if let post {
+//                point. = post.location
+//            }
 //        }
 //    }
 //    

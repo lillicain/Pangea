@@ -30,7 +30,7 @@ struct AllFeedView: View {
     
     let post: Post
     
-    @State var coordinate: CLLocationCoordinate2D?
+//    @State var coordinate: [Any]?
     @State var date: Date?
     
     var body: some View {
@@ -40,7 +40,7 @@ struct AllFeedView: View {
                 userInformation
                 
                 
-                //                .padding(.top)
+                    .padding(.top)
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
@@ -55,10 +55,8 @@ struct AllFeedView: View {
                     try? await postViewModel.uploadPost(description: description, location: location)
                     
                     locationManager.requestLocation()
-                    
-                    if let post = locationManager.location?.coordinate {
-                        locationManager.postLocation = post
-                    }
+//                    coordinate?.append(locationManager.location?.coordinate as Any)
+//                    locationManager.any = [location : coordinate!.append(locationManager.location?.coordinate as Any)]
                 }
                 .padding(.top)
             }
@@ -228,20 +226,7 @@ extension AllFeedView {
                                 .padding(.all)
                                 .padding(.leading)
                                 .foregroundColor(.white)
-                        
-                        )
-//                        .foregroundColor(.white.opacity(0.75))
-//                        .offset(x: -1.0, y: 1.0)
-//                        .padding(.leading)
-//                        .overlay {
-//                            Text("\(post.timestamp.dateValue())")
-//                                .padding(.top)
-//                                .kerning(5)
-//                                .foregroundColor(authenticationViewModel.pink[0])
-//                            
-//                                .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
-//                                .padding(.leading)
-//                        }
+                            )
                 }
             }
         }
