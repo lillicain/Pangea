@@ -40,9 +40,11 @@ struct LocationView: View {
         ScrollView {
             VStack {
                 Map(position: $cameraPosition, selection: $selectedResult) {
+                    
                     UserAnnotation()
                     
                     Marker("Dixie Tech", coordinate: .schoolLocation)
+                        .tint(authenticationViewModel.green[0])
                     
                     Annotation("School", coordinate: .schoolLocation) {
                         ZStack {
