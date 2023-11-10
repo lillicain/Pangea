@@ -15,31 +15,22 @@ struct FeedScreen: View {
     let post: Post
     
     var body: some View {
-        VStack(alignment: .trailing, spacing: 15) {
+        VStack(alignment: .center, spacing: 25) {
             postImage
-        
+            
             
             HStack {
                 VStack(alignment: .leading) {
-                    
                     Text(post.location)
                         .font(FontOne.extraSmall)
                     
                     Text("\(post.timestamp.dateValue())")
                     
-                    
                     Text("\(post.description)")
-                    
-                    
-                    
-                    
                 }
-                Spacer()
-                
-                
             }
-            postUser
-                .modifier(ButtonViewModifier())
+            
+           postUser
         }
         .padding()
     }
@@ -48,33 +39,25 @@ struct FeedScreen: View {
 extension FeedScreen {
     var postUser: some View {
         ZStack {
-     
-                if let user = post.user {
-              
-                    NavigationLink(destination: Screen(user: user)) {
-                        VStack {
-                            RoundedRectangle(cornerRadius: 25, style: .circular)
-                                .foregroundColor(authenticationViewModel.green[0])
-                                .frame(width: 350, height: 95)
+            RoundedRectangle(cornerRadius: 25, style: .circular)
+                .foregroundColor(authenticationViewModel.green[0])
+                .frame(width: 250, height: 70)
+               
+            RoundedRectangle(cornerRadius: 25, style: .circular)
+                .foregroundColor(.white)
+                .frame(width: 225, height: 60)
+           
+                HStack {
+                    if let user = post.user {
+                        NavigationLink(destination: Screen(user: user)) {
                             
-                                .overlay {
-                                    HStack {
-                                        ProfileImageManager(user: user, size: .extraSmall)
-                                        
-                                        Text(user.username)
-                                            .font(FontNine.extraSmall)
-                                        
-                                    }
-                                    
-                                    
-                                }
-                                .padding()
-                                .background(.white)
-                                .frame(width: 325, height: 82.5, alignment: .leading)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                            ProfileImageManager(user: user, size: .extraSmall)
+                            
+                            Text(user.username)
+                                .font(FontNine.extraSmall)
                         }
+                    
                 }
-                Spacer()
             }
         }
     }
@@ -87,33 +70,33 @@ extension FeedScreen {
                 .frame(width: 375, height: 500)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
-                        NavigationLink {
-                            
-                            LocationView(post: post)
+                    NavigationLink {
                         
-                            
-                        } label: {
-                            Image(systemName: "mappin.and.ellipse.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(authenticationViewModel.blue[0])
-                                .frame(width: 100, height: 100)
-                                .offset(x: 1.5, y: -1.5)
-                                .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
-                                .overlay {
-                                    Image(systemName: "mappin.and.ellipse.circle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(authenticationViewModel.green[0])
-                                        .frame(width: 100, height: 100)
-                                }
-                            
-    
-                                .padding(.leading, 225)
-                                .padding(.top, 350)
-                            
-                        }
+                        LocationView(post: post)
+                        
+                        
+                    } label: {
+                        Image(systemName: "mappin.and.ellipse.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(authenticationViewModel.blue[0])
+                            .frame(width: 100, height: 100)
+                            .offset(x: 1.5, y: -1.5)
+                            .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
+                            .overlay {
+                                Image(systemName: "mappin.and.ellipse.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(authenticationViewModel.green[0])
+                                    .frame(width: 100, height: 100)
+                            }
+                        
+                        
+                            .padding(.leading, 225)
+                            .padding(.top, 350)
+                        
                     }
+                }
         }
     }
     
