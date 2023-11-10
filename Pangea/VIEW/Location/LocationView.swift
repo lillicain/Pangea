@@ -20,7 +20,7 @@ struct LocationView: View {
     
     @State var selectedPost: MKMapItem?
     
-    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)//.region(.userRegion)
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var searchText = ""
     @State var results = [MKMapItem]()
     @State var selectedResult: MKMapItem?
@@ -34,7 +34,7 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
-    let post: Post = Post.MOCK_POST[0]
+    let post: Post
     
     var body: some View {
         NavigationStack {
