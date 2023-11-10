@@ -10,55 +10,54 @@ import SwiftUI
 import PhotosUI
 import AVKit
 import CoreLocationUI
+import MapKit
 
 struct AllFeedView: View {
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    //    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
+    
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
+    
     @StateObject var postViewModel = PostViewModel()
     @StateObject var feedViewModel = FeedViewModel()
     
     @State var searchText = ""
     @State var newPost = false
-    @State var caption = ""
+    @State var description = ""
+    @State var location = ""
     @State var image: UIImage?
     @State var showCamera = false
     @State var showImagePicker = false
-    @State var location = ""
-//    @State var date = ""
     
     let post: Post
+    
+//    @State var coordinate: [Any]?
+    @State var date: Date?
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        if let user = authenticationViewModel.currentUser?.username {
-                            Text("Hello, \(user)")
-                            
-                                .font(FontOne.small)
-                                .scaledToFill()
-                                .lineLimit(1)
-                                .padding(.leading)
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(.top)
-                .padding(.bottom, 250)
+                
+                userInformation
+                
+                
+                    .padding(.top)
+                    .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts.reversed()) { post in
+                    ForEach(feedViewModel.posts) { post in
                         FeedScreen(post: post)
                         
                     }
                 }
-                .task {
-                    try? await postViewModel.uploadPost(caption: caption, location: location)
-                    locationManager.requestLocation()
-                }
                 
+                .task {
+                    try? await feedViewModel.fetchPosts()
+                    try? await postViewModel.uploadPost(description: description, location: location)
+                    
+                    locationManager.requestLocation()
+//                    coordinate?.append(locationManager.location?.coordinate as Any)
+//                    locationManager.any = [location : coordinate!.append(locationManager.location?.coordinate as Any)]
+                }
                 .padding(.top)
             }
             .sheet(isPresented: $newPost, content: {
@@ -68,27 +67,29 @@ struct AllFeedView: View {
                     .toolbar(.hidden, for: .navigationBar)
             })
             
-            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                NavigationLink {
-                    SearchScreen()
-                } label: {
-                    Text("Search")
-                }
-            }
             
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    newPost.toggle()
-                    
-                } label: {
-                    Text("Post")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SearchScreen()
+                    } label: {
+                        Text("Search")
+                    }
                 }
                 
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        newPost.toggle()
+                        
+                    } label: {
+                        Text("Post")
+                    }
+                    
+                }
             }
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+        
     }
 }
 
@@ -108,7 +109,6 @@ extension AllFeedView {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
             }
-            
             .onAppear {
                 showImagePicker.toggle()
             }
@@ -133,7 +133,7 @@ extension AllFeedView {
                     .padding()
             }
             
-            TextField("Enter Text...", text: $caption)
+            TextField("Enter Text...", text: $description)
                 .modifier(OneViewModifier())
                 .scrollDismissesKeyboard(.automatic)
             
@@ -142,25 +142,16 @@ extension AllFeedView {
                     
                     Task {
                         do {
-                            try await postViewModel.uploadPost(caption: caption, location: String(describing: locationManager.currentLocation))
+                            try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation)
                             postViewModel.uiImage = image
-                       
-//                            locationManager.currentLocation = postViewModel.location ?? location
                             
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
-                    
-                    
-                    
-                    
-                    
-                    caption = ""
+                    description = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
-//                    postViewModel.location = ""
-//                    locationManager.currentLocation = ""
                     
                 } label: {
                     Text("Post")
@@ -175,14 +166,6 @@ extension AllFeedView {
                 Text(locationManager.currentLocation)
                     .font(FontOne.body)
                     .padding(.all, 25)
-                
-                let location = String(describing: locationManager.currentLocation)
-                    Text(location)
-             
-                
-//                locationManager.currentLocation = location
-//                location = postViewModel.location
-                
             }
             
             HStack(spacing: 25) {
@@ -202,8 +185,51 @@ extension AllFeedView {
                         .modifier(PostViewModifier())
                 }
             }
-            
-            
+        }
+    }
+    
+    var userInformation: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    if let user = authenticationViewModel.currentUser?.username {
+                        
+                        Text("Hello, \(user)")
+                            .font(FontEight.title)
+                            .foregroundColor(authenticationViewModel.blue[0])
+                            .offset(x: -2.5, y: 2.5)
+                            .kerning(1.5)
+                            .overlay {
+                                Text("Hello, \(user)")
+                                    .font(FontEight.title)
+                                    .kerning(1.5)
+                                    .foregroundColor(authenticationViewModel.green[0])
+                                
+                            }
+                            .padding(.all)
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                    
+                }
+                HStack {
+                    Text("\(post.timestamp.dateValue())")
+                        .font(FontFour.small)
+                        .padding(.all)
+                        .padding(.leading)
+                        .foregroundColor(authenticationViewModel.blue[0])
+                        .offset(x: -0.5, y: 0.5)
+                        .background(
+                            Text("\(post.timestamp.dateValue())")
+                                .font(FontFour.small)
+                                .padding(.all)
+                                .padding(.leading)
+                                .foregroundColor(.white)
+                            )
+                }
+            }
         }
     }
 }
+

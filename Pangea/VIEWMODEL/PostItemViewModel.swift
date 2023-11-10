@@ -10,7 +10,7 @@ import Foundation
 class PostItemViewModel: ObservableObject {
     @Published var posts = [Post]()
     
-    private let user: User
+    let user: User
     
     init(user: User) {
         self.user = user

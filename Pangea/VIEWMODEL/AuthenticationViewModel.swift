@@ -21,6 +21,8 @@ class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
+    @Published var currentSignInStatus = SignInState.pangea
+    
     @Published var backgroundColor: Color?
     @Published var blue = ["2D00F7"].hexToColorArray()
     @Published var lightBlue = ["003AE7"].hexToColorArray()
@@ -51,6 +53,10 @@ class AuthenticationViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func changeSignUpState(to signInState: SignInState) {
+        currentSignInStatus = signInState
     }
     
     @MainActor
