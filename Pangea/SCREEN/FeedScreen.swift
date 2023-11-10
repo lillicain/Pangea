@@ -17,9 +17,7 @@ struct FeedScreen: View {
     var body: some View {
         VStack(alignment: .trailing, spacing: 15) {
             postImage
-            
-            
-            //                postControl
+        
             
             HStack {
                 VStack(alignment: .leading) {
@@ -50,20 +48,31 @@ struct FeedScreen: View {
 extension FeedScreen {
     var postUser: some View {
         ZStack {
-            HStack {
+     
                 if let user = post.user {
               
                     NavigationLink(destination: Screen(user: user)) {
-                        
-                        ProfileImageManager(user: user, size: .extraSmall)
-//                        
-                        Text(user.username)
-                            .font(FontNine.extraSmall)
-//                        
-                    }
-//                    .navigationDestination(for: User.self, destination: { user in
-//                        Screen(user: user)
-//                    })
+                        VStack {
+                            RoundedRectangle(cornerRadius: 25, style: .circular)
+                                .foregroundColor(authenticationViewModel.green[0])
+                                .frame(width: 350, height: 95)
+                            
+                                .overlay {
+                                    HStack {
+                                        ProfileImageManager(user: user, size: .extraSmall)
+                                        
+                                        Text(user.username)
+                                            .font(FontNine.extraSmall)
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                .padding()
+                                .background(.white)
+                                .frame(width: 325, height: 82.5, alignment: .leading)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                        }
                 }
                 Spacer()
             }
