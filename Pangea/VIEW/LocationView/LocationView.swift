@@ -58,34 +58,37 @@ struct LocationView: View {
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("COORDINATE", coordinate: location) {
-                                postLocations
 //                                ZStack {
-//                                    KFImage(URL(string: post.imageUrl))
-//                                        .resizable()
-//                                        .scaledToFill()
-//                                        .frame(width: 95, height: 95)
-//                                        .clipShape(.circle)
-//                                        .background(
-//                                            Circle()
-//                                                .frame(width: 100, height: 100)
-//                                                .foregroundColor(.white))
-//                                }
+                                KFImage(URL(string: post.imageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 95, height: 95)
+                                    .clipShape(.circle)
+                                    Circle()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(authenticationViewModel.blue[0])
+                                   
+                                       
+//                                        }
+                                
                             }
                         }
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
                                 ZStack {
-                                    ForEach(feedViewModel.posts) { post in
-                                        KFImage(URL(string: post.imageUrl))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 85, height: 85)
-                                            .clipShape(.circle)
-                                            .background(
-                                                Circle()
-                                                    .frame(width: 90, height: 90)
-                                                    .foregroundColor(authenticationViewModel.green[0]))
-                                    }
+                                    postLocations
+                                        .offset(x: 50, y: -25)
+                                    //                                    ForEach(feedViewModel.posts) { post in
+                                    //                                        KFImage(URL(string: post.imageUrl))
+                                    //                                            .resizable()
+                                    //                                            .scaledToFill()
+                                    //                                            .frame(width: 85, height: 85)
+                                    //                                            .clipShape(.circle)
+                                    //                                            .background(
+                                    //                                                Circle()
+                                    //                                                    .frame(width: 90, height: 90)
+                                    //                                                    .foregroundColor(authenticationViewModel.green[0]))
+                                    //                                    }
                                 }
                                 
                             }
@@ -191,31 +194,10 @@ struct LocationView: View {
                             .presentationCornerRadius(50)
                     })
                 }
-                VStack {
-                    RoundedRectangle(cornerRadius: 25, style: .circular)
-                        .foregroundColor(authenticationViewModel.green[0])
-                        .frame(width: 350, height: 65)
-                        .overlay {
-                            TextField("Search...", text: $searchText)
-                                .foregroundColor(Color(.systemGray))
-                                .fontWeight(.semibold)
-                                .kerning(2.5)
-                                .padding()
-                                .cornerRadius(25)
-                                .padding()
-                                .background(.white)
-                                .frame(width: 325, height: 45)
-                                .clipShape(RoundedRectangle(cornerRadius: 17.5))
-                                .onSubmit(of: .text) {
-                                    Task {
-                                        await searchPlaces()
-                                    }
-                                }
-                        }
-                }
-                //                            VStack {
-                //                                searchBar
-                //                            }
+            }
+            VStack {
+                searchBar
+                
                 
             }
             .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
@@ -237,61 +219,61 @@ extension LocationView {
                         Circle()
                             .frame(width: 90, height: 90)
                             .foregroundColor(authenticationViewModel.green[0]))
-            
+                
             }
         }
     }
-        
-        var searchBar: some View {
-            VStack {
-                RoundedRectangle(cornerRadius: 25, style: .circular)
-                    .foregroundColor(authenticationViewModel.green[0])
-                    .frame(width: 350, height: 65)
-                    .overlay {
-                        TextField("Search...", text: $searchText)
-                            .foregroundColor(Color(.systemGray))
-                            .fontWeight(.semibold)
-                            .kerning(2.5)
-                            .padding()
-                            .cornerRadius(25)
-                            .padding()
-                            .background(.white)
-                            .frame(width: 325, height: 45)
-                            .clipShape(RoundedRectangle(cornerRadius: 17.5))
-                            .onSubmit(of: .text) {
-                                Task {
-                                    await searchPlaces()
-                                }
+    
+    var searchBar: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 25, style: .circular)
+                .foregroundColor(authenticationViewModel.green[0])
+                .frame(width: 350, height: 65)
+                .overlay {
+                    TextField("Search...", text: $searchText)
+                        .foregroundColor(Color(.systemGray))
+                        .fontWeight(.semibold)
+                        .kerning(2.5)
+                        .padding()
+                        .cornerRadius(25)
+                        .padding()
+                        .background(.white)
+                        .frame(width: 325, height: 45)
+                        .clipShape(RoundedRectangle(cornerRadius: 17.5))
+                        .onSubmit(of: .text) {
+                            Task {
+                                await searchPlaces()
                             }
-                    }
-            }
-        }
-        
-        func searchPlaces() async {
-            let request = MKLocalSearch.Request()
-            request.naturalLanguageQuery = searchText
-            request.region = .userRegion
-            let results = try? await MKLocalSearch(request: request).start()
-            self.results = results?.mapItems ?? []
-        }
-        
-        func fetchRoute() {
-            if let selectedResult {
-                let request = MKDirections.Request()
-                request.source = MKMapItem(placemark: .init(coordinate: .schoolLocation))
-                request.destination = selectedResult
-                Task {
-                    let result = try? await MKDirections(request: request).calculate()
-                    route = result?.routes.first
-                    routeDestination = selectedResult
-                    withAnimation(.snappy) {
-                        routeDisplaying = true
-                        showDetails = false
-                        if let rect = route?.polyline.boundingMapRect, routeDisplaying {
-                            cameraPosition = .rect(rect)
                         }
+                }
+        }
+    }
+    
+    func searchPlaces() async {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        request.region = .userRegion
+        let results = try? await MKLocalSearch(request: request).start()
+        self.results = results?.mapItems ?? []
+    }
+    
+    func fetchRoute() {
+        if let selectedResult {
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: .init(coordinate: .schoolLocation))
+            request.destination = selectedResult
+            Task {
+                let result = try? await MKDirections(request: request).calculate()
+                route = result?.routes.first
+                routeDestination = selectedResult
+                withAnimation(.snappy) {
+                    routeDisplaying = true
+                    showDetails = false
+                    if let rect = route?.polyline.boundingMapRect, routeDisplaying {
+                        cameraPosition = .rect(rect)
                     }
                 }
             }
         }
     }
+}
