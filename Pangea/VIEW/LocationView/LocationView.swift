@@ -182,7 +182,7 @@ struct LocationView: View {
                     }
                     .mapStyle(.standard(elevation: .realistic))
                     .mapControls {
-                        MapInformation()
+                            MapInformation()
                     }
                     .safeAreaInset(edge: .bottom) {
                         VStack {
@@ -191,10 +191,10 @@ struct LocationView: View {
                                 .padding()
                         }
                     }
+                  
                     .frame(width: 375, height: 625)
                     .cornerRadius(50)
                     .padding()
-                    
                     .background(
                         RoundedRectangle(cornerRadius: 65, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])

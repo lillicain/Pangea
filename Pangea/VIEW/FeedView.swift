@@ -30,21 +30,17 @@ struct FeedView: View {
     
     let post: Post
     
-//    @State var coordinate: [Any]?
-    @State var date: Date?
-    
     var body: some View {
         NavigationStack {
             ScrollView {
                 
                 userInformation
                 
-                
                     .padding(.top)
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts) { post in
+                    ForEach(feedViewModel.posts, id: \.timestamp) { post in
                         FeedItemView(post: post)
                         
                     }
@@ -207,12 +203,11 @@ extension FeedView {
                                 
                             }
                             .padding(.all)
-                            .padding(.leading)
                         
                         Spacer()
                     }
-                    
                 }
+                
                 HStack {
                     Text("\(post.timestamp.dateValue())")
                         .font(FontFour.small)

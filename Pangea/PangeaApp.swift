@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FirebaseCore
-import NavigationRouter
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -23,24 +22,18 @@ struct PangeaApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @NavRouter var navRouter
-    
     @StateObject var authenticationViewModel = AuthenticationViewModel()
     
     var body: some Scene {
         WindowGroup {
             Group {
-                
                 if authenticationViewModel.userSession == nil {
-                  
-                        PangeaView()
-                        
+                    PangeaView()
                     
                 } else {
                     TabScreen()
                         .modifier(DarkModeViewModifier())
                 }
-                
             }
             .environmentObject(authenticationViewModel)
         }

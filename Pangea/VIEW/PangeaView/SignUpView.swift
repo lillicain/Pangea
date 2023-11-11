@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @State var username = ""
@@ -19,7 +18,6 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            
             LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0], authenticationViewModel.blue[0], authenticationViewModel.pink[0]], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
             
@@ -72,14 +70,8 @@ struct SignUpView: View {
                     .font(.system(size: 12.5))
                 
                 Button {
-                    
                     Task {
                         do {
-                            //                            try await AuthenticationViewModel.shared.createUser(email: email, username: username, password: password)
-                            if let user = authenticationViewModel.currentUser {
-//                                navRouter.push(Screen(user: user))
-                            }
-
                             try await authenticationViewModel.createUser(email: email, username: username, password: password)
                             
                         } catch {

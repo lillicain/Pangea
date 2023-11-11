@@ -10,6 +10,7 @@ import Kingfisher
 
 struct PostItemView: View {
     @StateObject var postItemViewModel: PostItemViewModel
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     init(user: User) {
