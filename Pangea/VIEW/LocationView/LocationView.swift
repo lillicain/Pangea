@@ -62,11 +62,11 @@ struct LocationView: View {
                                 KFImage(URL(string: post.imageUrl))
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 75, height: 75)
+                                        .frame(width: 95, height: 95)
                                         .clipShape(.circle)
                                         .background(
                                             Circle()
-                                                .frame(width: 80, height: 80)
+                                                .frame(width: 100, height: 100)
                                                 .foregroundColor(.white))
                                 }
                         }
@@ -78,12 +78,12 @@ struct LocationView: View {
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 75, height: 75)
+                                            .frame(width: 85, height: 85)
                                             .clipShape(.circle)
                                             .background(
                                                 Circle()
-                                                    .frame(width: 80, height: 80)
-                                                    .foregroundColor(.white))
+                                                    .frame(width: 90, height: 90)
+                                                    .foregroundColor(authenticationViewModel.green[0]))
                                     }
                                 }
 
@@ -94,10 +94,10 @@ struct LocationView: View {
                         if let selectedPost = locationManager.postItem {
                             Annotation("Post Item", coordinate: selectedPost) {
                                 ZStack {
-//                                    ForEach(feedViewModel.posts) { post in
+                                    ForEach(feedViewModel.posts) { post in
                                     Circle()
                                         .frame(width: 80, height: 80)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(authenticationViewModel.pink[0])
                                     KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
@@ -105,7 +105,7 @@ struct LocationView: View {
                                             .clipShape(.circle)
                                         
                                                
-//                                    }
+                                    }
                                 }
                             }
                         }
