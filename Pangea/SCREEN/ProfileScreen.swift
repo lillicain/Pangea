@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-struct Screen: View {
+struct ProfileScreen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @EnvironmentObject var editUserViewModel: EditUserViewModel
     

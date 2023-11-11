@@ -181,11 +181,14 @@ struct LocationView: View {
                         }
                     }
                     .mapStyle(.standard(elevation: .realistic))
+                    .mapControls {
+                        MapInformation()
+                    }
                     .safeAreaInset(edge: .bottom) {
                         VStack {
                             MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                                 .padding(.leading, 325)
-                            
+                                .padding()
                         }
                     }
                     .frame(width: 375, height: 625)
@@ -197,11 +200,7 @@ struct LocationView: View {
                             .foregroundColor(authenticationViewModel.blue[0])
                             .frame(width: 405, height: 650)
                     )
-                    
-                    
-                    .mapControls {
-                        MapInformation()
-                    }
+                
                     .task {
                         locationManager.requestLocation()
                     }
@@ -221,7 +220,6 @@ struct LocationView: View {
                             .presentationDetents([.height(350)])
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
-                        
                     })
                 }
                 //            VStack {
@@ -229,7 +227,7 @@ struct LocationView: View {
                 //            }
                 
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }

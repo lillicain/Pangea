@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct FeedScreen: View {
+struct FeedItemView: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
@@ -36,7 +36,7 @@ struct FeedScreen: View {
     }
 }
 
-extension FeedScreen {
+extension FeedItemView {
     var postUser: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .circular)
@@ -49,7 +49,7 @@ extension FeedScreen {
            
                 HStack {
                     if let user = post.user {
-                        NavigationLink(destination: Screen(user: user)) {
+                        NavigationLink(destination: ProfileScreen(user: user)) {
                             
                             ProfileImageManager(user: user, size: .extraSmall)
                             

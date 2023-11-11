@@ -10,8 +10,6 @@ import SwiftUI
 struct PangeaView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-    
-    
     var body: some View {
         ZStack {
             switch authenticationViewModel.currentSignInStatus {
@@ -29,7 +27,6 @@ extension PangeaView {
             Button {
                 authenticationViewModel.changeSignUpState(to: .signUp)
                 
-                
             } label: {
                 withAnimation(.smooth) {
                     Text("Sign Up")
@@ -46,7 +43,6 @@ extension PangeaView {
                                 .foregroundColor(authenticationViewModel.green[0])
                                 .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                         }
-                    
                 }
             }
         }

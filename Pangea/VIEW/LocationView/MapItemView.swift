@@ -39,14 +39,6 @@ struct MapItemView: View {
                     Image(systemName: "magnifyingglass")
                 }
                 
-//                Button {
-//                    searchPlaces(for: "Places")
-//                    cameraPosition = .automatic
-//                } label: {
-//                    Image(systemName: "mappin.and.ellipse")
-//                    
-//                }
-                
                 Button {
                     cameraPosition = .userLocation(fallback: .automatic)
                     
@@ -61,7 +53,6 @@ struct MapItemView: View {
                     Image(systemName: "rotate.3d")
                 }
             }
-            .padding(.bottom)
             .padding()
             .buttonBorderShape(.circle)
             .buttonStyle(.borderedProminent)

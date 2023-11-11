@@ -20,13 +20,12 @@ struct SearchScreen: View {
             ScrollViewReader { proxy in
                 LazyVStack(spacing: 35) {
                     ForEach(searchViewModel.users, id: \.username) { user in
-                        NavigationLink(destination: Screen(user: user)) {
+                        NavigationLink(destination: ProfileScreen(user: user)) {
                             
                             VStack {
                                 RoundedRectangle(cornerRadius: 25, style: .circular)
                                     .foregroundColor(authenticationViewModel.green[0])
                                     .frame(width: 350, height: 95)
-                                
                                     .overlay {
                                         ZStack {
                                             HStack {
@@ -63,12 +62,11 @@ struct SearchScreen: View {
                         }
                     })
                 }
-                .padding(5)
+                .padding(.all)
                 .padding(.top)
                 .searchable(text: $searchText, prompt: "Search...")
             }
-            .navigationBarTitleDisplayMode(.inline)
         }
-        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.05)], startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .top, endPoint: .bottom))
     }
 }
