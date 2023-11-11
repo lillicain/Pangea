@@ -14,24 +14,44 @@ struct TabScreen: View {
     var body: some View {
         TabView {
             if let user = authenticationViewModel.currentUser {
-                Screen(user: user)
+                ProfileScreen(user: user)
                     .tabItem { Image("globe") }
                 
-                
-                
                 LocationView(post: Post.MOCK_POST[0])
-                    .tabItem { Image(systemName: "globe") }
-                
-                
-                AllFeedView(post: Post.MOCK_POST[0])
-                    .tabItem { Image(systemName: "globe") }
-                
-            } else {
-                // TODO: need loading view if user does not load
+                        .tabItem { Image(systemName: "globe") }
+                    
+                    FeedView(post: Post.MOCK_POST[0])
+                        .tabItem { Image(systemName: "globe") }
+                    
+                } else {
+                    loadingScreen
             }
         }
         .accentColor(authenticationViewModel.pink[0])
         .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
-        .edgesIgnoringSafeArea(.bottom)
+        .ignoresSafeArea(.all)
+    }
+}
+
+extension TabScreen {
+    
+    var loadingScreen: some View {
+        ZStack {
+            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
+                .ignoresSafeArea(.all)
+            
+            Image(systemName: "globe")
+                .resizable()
+                .frame(width: 315, height: 315)
+                .offset(x: -5, y: 5)
+                .foregroundColor(authenticationViewModel.green[0])
+                .overlay {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .frame(width: 312.5, height: 312.5)
+                        .foregroundColor(authenticationViewModel.violet[0])
+                        .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                }
+        }
     }
 }

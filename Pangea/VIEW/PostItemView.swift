@@ -10,7 +10,6 @@ import Kingfisher
 
 struct PostItemView: View {
     @StateObject var postItemViewModel: PostItemViewModel
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     init(user: User) {
         self._postItemViewModel = StateObject(wrappedValue: PostItemViewModel(user: user))
@@ -20,13 +19,13 @@ struct PostItemView: View {
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 2) - 2.5
     
     var body: some View {
-        LazyVGrid(columns: gridItems, spacing: 5) {
+        LazyVGrid(columns: gridItems, spacing: 12.5) {
             ForEach(postItemViewModel.posts) { post in
                 KFImage(URL(string: post.imageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: imageDimension, height: imageDimension)
-                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 12.5))
             }
         }
     }

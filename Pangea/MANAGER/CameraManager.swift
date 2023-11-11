@@ -14,13 +14,15 @@ struct CameraViewController: UIViewControllerRepresentable {
     
     @Binding var selectedImage: UIImage?
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { }
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { 
+
+    }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraViewController>) -> UIImagePickerController {
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.delegate = context.coordinator
-        return vc
+        let controller = UIImagePickerController()
+        controller.sourceType = .camera
+    controller.delegate = context.coordinator
+        return controller
     }
     
     func makeCoordinator() -> Coordinator {
@@ -47,91 +49,36 @@ struct CameraViewController: UIViewControllerRepresentable {
         
             var pickerImage: UIImage?
             
-            
-            
-            if let URL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
-                print("Image URL: \(URL)")
-                let opts = PHFetchOptions()
-                opts.fetchLimit = 1
-                let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
-                
-                print(assets)
-                
-                
-                for assetIndex in 0..<assets.count {
-                    let asset = assets[assetIndex]
-                    let location = asset.location
-                    
-                    
-                    let latitude = asset.location?.coordinate.latitude
-                    let longitude = asset.location?.coordinate.longitude
-                    
-          
-                    
-                    
-                    print(latitude)
-                    print(longitude)
-         
-                    
-                    print(location)
-                    
-                    DispatchQueue.main.async {
-                        self.parent.selectedImage = pickerImage
-                       
-                    }
-                    
-                    
-                }
-            }
-            
             if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
                 pickerImage = editedImage
             } else if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 pickerImage = selectedImage
             }
+            if let URL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+                print("Image URL: \(URL)")
+                let option = PHFetchOptions()
+                option.fetchLimit = 1
+                let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: option)
+                
+                print(assets)
+                
+                for assetIndex in 0..<assets.count {
+                    let asset = assets[assetIndex]
+                    let location = asset.location
+                
+                    let latitude = asset.location?.coordinate.latitude
+                    let longitude = asset.location?.coordinate.longitude
+                    
+                    print(latitude)
+                    print(longitude)
+         
+                    print(location)
+                    
+                    DispatchQueue.main.async {
+                        self.parent.selectedImage = pickerImage
+                    }
+                }
+            }
         }
     }
 }
-//
-//init(_ imagePickerController: CameraViewController) {
-//    self.parent = imagePickerController
-//}
-//
-//func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey : Any]) {
-//    guard let image = info[.originalImage] as? UIImage else { return }
-//    
-//    parent.selectedImage = image
-//    parent.presentationMode.wrappedValue.dismiss()
-//    
-//    var pickerImage: UIImage?
-//    
-//
-//    
-//    if let URL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
-//        print("Image URL: \(URL)")
-//        let opts = PHFetchOptions()
-//        opts.fetchLimit = 1
-//        let asset = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
-//        
-//        print(asset)
-//        
-//        
-//        for index in 0..<asset.count {
-//            let image = asset[index]
-//            let location = image.location
-//            
-//            let latitude = image.location?.coordinate.latitude
-//            let longitude = image.location?.coordinate.longitude
-//            
-//            
-//            
-//            print(location?.coordinate)
-//      
-//            
-//            
-//        }
-//    }
-//
-//}
-//}
-//}

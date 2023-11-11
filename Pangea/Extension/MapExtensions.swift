@@ -11,10 +11,14 @@ import CoreLocation
 import CoreLocationUI
 
 extension CLLocationCoordinate2D {
-    static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.5915)
-    
     static var schoolLocation: CLLocationCoordinate2D {
         return .init(latitude: 37.0974, longitude: -113.5915)
+    }
+}
+
+extension CLLocationCoordinate2D: CustomStringConvertible {
+    public var description: String {
+        return "\(self.latitude), \(self.longitude)"
     }
 }
 
@@ -44,4 +48,14 @@ extension MKCoordinateRegion {
         center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     static let thirdMapitem = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.09745, longitude: -113.5914), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+}
+
+extension CLLocation {
+    var latitude: Double {
+        return self.coordinate.latitude
+    }
+    
+    var longitude: Double {
+        return self.coordinate.longitude
+    }
 }

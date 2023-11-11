@@ -6,10 +6,8 @@
 //
 
 import SwiftUI
-import NavigationRouter
 
 struct SignInView: View {
-    @NavRouter var navRouter
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
@@ -86,8 +84,6 @@ struct SignInView: View {
                 
                 
                 Button {
-//                    navRouter.safePop()
-//                    navRouter.push(SignUpView())
                     authenticationViewModel.changeSignUpState(to: .signUp)
                 } label: {
                     Text("Don't have an account? **Sign Up** ")

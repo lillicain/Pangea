@@ -43,74 +43,23 @@ struct LocationView: View {
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         UserAnnotation()
                         
-                        //                    Marker("Dixie Tech", coordinate: .schoolLocation)
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             ZStack {
                                 Circle()
-                                    .frame(width: 35, height: 35)
+                                    .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                 Circle()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 45, height: 45)
                                     .foregroundColor(authenticationViewModel.pink[0])
-                                Image(systemName: "graduationcap")
-                                    .imageScale(.large)
+                                Image(systemName: "graduationcap.fill")
                                     .foregroundColor(.white)
                             }
                         }
-                        //                    Annotation("School", coordinate: .schoolLocation) {
-                        //                        ZStack {
-                        //                            Circle()
-                        //                                .frame(width: 35, height: 35)
-                        //                                .foregroundColor(authenticationViewModel.green[0])
-                        //                            
-                        //                        }
-                        //                    }
                         
-                        //                    ForEach(fee ViewModel.posts, id: \.self) { post in
-                        //
-                        //                        locationManager.getLocation(from: post.location) { placemark in
-                        //
-                        //                            Annotation("", coordinate: placemark) {
-                        //
-                        //                            }
-                        //                        }
-                        //                    }
-                        
-                        //                    Annotation("\(authenticationViewModel.currentUser?.username ?? "")", coordinate: .schoolLocation) {
-                        //                        ZStack {
-                        //                            Circle()
-                        //                                .frame(width: 30, height: 30)
-                        //                                .foregroundColor(Color(.systemBlue).opacity(0.25))
-                        //
-                        //                            Circle()
-                        //                                .frame(width: 22.5, height: 22.5)
-                        //                                .foregroundColor(.white)
-                        //
-                        //                            Circle()
-                        //                                .frame(width: 15, height: 15)
-                        //                                .foregroundColor(Color(.systemBlue))
-                        //                        }
-                        //                    }
-                        
-                        Annotation("", coordinate: locationManager.postLocation) {
-                            ForEach(feedViewModel.posts) { post in
+                        if let location = locationManager.placemark?.location?.coordinate {
+                        Annotation("COORDINATE", coordinate: location) {
+                            ZStack {
                                 KFImage(URL(string: post.imageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 50, height: 50)
-                                    .clipShape(.circle)
-                                    .background(
-                                        Circle()
-                                            .frame(width: 75, height: 75)
-                                            .foregroundColor(.white))
-                                
-                            }
-                        }
-                        
-                        if let item = locationManager.location?.coordinate {
-                            Annotation("", coordinate: item) {
-                                ForEach(feedViewModel.posts) { post in
-                                    KFImage(URL(string: post.imageUrl))
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 75, height: 75)
@@ -119,32 +68,50 @@ struct LocationView: View {
                                             Circle()
                                                 .frame(width: 80, height: 80)
                                                 .foregroundColor(.white))
-                                    
+                                }
+                        }
+                    }
+                        if let location = locationManager.location {
+                            Annotation("Location", coordinate: location.coordinate) {
+                                ZStack {
+                                    ForEach(feedViewModel.posts) { post in
+                                        KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 75, height: 75)
+                                            .clipShape(.circle)
+                                            .background(
+                                                Circle()
+                                                    .frame(width: 80, height: 80)
+                                                    .foregroundColor(.white))
+                                    }
+                                }
+
+                            }
+                        }
+               
+                        
+                        if let selectedPost = locationManager.postItem {
+                            Annotation("Post Item", coordinate: selectedPost) {
+                                ZStack {
+//                                    ForEach(feedViewModel.posts) { post in
+                                    Circle()
+                                        .frame(width: 80, height: 80)
+                                        .foregroundColor(.white)
+                                    KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 75, height: 75)
+                                            .clipShape(.circle)
+                                        
+                                               
+//                                    }
                                 }
                             }
                         }
                         
-                        //                    if let item = locationManager.postItem {
-                        //                        Annotation("", coordinate: item) {
-                        //                            ZStack {
-                        //                                ForEach(feedViewModel.posts) { post in
-                        //                                    KFImage(URL(string: post.imageUrl))
-                        //                                        .resizable()
-                        //                                        .scaledToFill()
-                        //                                        .frame(width: 75, height: 75)
-                        //                                        .clipShape(.circle)
-                        //                                        .background(
-                        //                                            Circle()
-                        //                                                .frame(width: 80, height: 80)
-                        //                                                .foregroundColor(.white))
-                        //                                }
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                         Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
-                        
-                        if let item = locationManager.item {
-                            Annotation("", coordinate: item) {
+                        if let items = locationManager.item {
+                            Annotation("Items", coordinate: items) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
@@ -181,29 +148,29 @@ struct LocationView: View {
                         }
                     }
                     .mapStyle(.standard(elevation: .realistic))
+                    .mapControls {
+                            MapInformation()
+                    }
                     .safeAreaInset(edge: .bottom) {
                         VStack {
                             MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                                 .padding(.leading, 325)
-                            
+                                .padding()
                         }
                     }
+                  
                     .frame(width: 375, height: 625)
                     .cornerRadius(50)
                     .padding()
-                    
                     .background(
                         RoundedRectangle(cornerRadius: 65, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
                             .frame(width: 405, height: 650)
                     )
-                    
-                    
-                    .mapControls {
-                        MapInformation()
-                    }
+                
                     .task {
                         locationManager.requestLocation()
+                        
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in
@@ -221,15 +188,14 @@ struct LocationView: View {
                             .presentationDetents([.height(350)])
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
-                        
                     })
                 }
-                //            VStack {
-                //                searchBar
-                //            }
+//                            VStack {
+//                                searchBar
+//                            }
                 
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }
@@ -256,7 +222,6 @@ extension LocationView {
                                 await searchPlaces()
                             }
                         }
-                        .foregroundColor(.black)
                 }
         }
     }

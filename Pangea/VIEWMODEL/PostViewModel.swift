@@ -22,6 +22,7 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
     var uiImage: UIImage?
 
     static let shared = PostViewModel()

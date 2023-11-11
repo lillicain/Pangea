@@ -13,7 +13,6 @@ struct LocationInformation: View {
     @Binding var selectedResult: MKMapItem?
     @Binding var showDetails: Bool
     @Binding var getDirections: Bool
-    
     @Binding var lookAroundScene: MKLookAroundScene?
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel

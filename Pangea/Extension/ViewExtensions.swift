@@ -8,6 +8,16 @@
 import Foundation
 import SwiftUI
 
+struct DarkModeViewModifier: ViewModifier {
+    @AppStorage("appearance") var appearance: Bool = false
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.colorScheme, appearance ? .dark : .light)
+            .preferredColorScheme(appearance ? .dark : .light)
+    }
+}
+
 struct MaterialViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -36,7 +46,6 @@ struct OneViewModifier: ViewModifier {
         content
             .padding(35)
             .background(.white)
-        
             .font(.system(size: 17.5).bold())
             .foregroundColor(AuthenticationViewModel().blue[0])
             .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
@@ -45,7 +54,6 @@ struct OneViewModifier: ViewModifier {
         RoundedRectangle(cornerRadius: 25, style: .circular)
             .foregroundColor(AuthenticationViewModel().green[0])
             .frame(width: 350, height: 100)
-           
         )
     }
 }
@@ -62,36 +70,23 @@ struct PostViewModifier: ViewModifier {
         RoundedRectangle(cornerRadius: 25, style: .circular)
             .foregroundColor(AuthenticationViewModel().green[0])
             .frame(width: 175, height: 57.5)
-           
-        
         )
     }
 }
 
-struct DarkModeViewModifier: ViewModifier {
-    @AppStorage("appearance") var appearance: Bool = false
-    
+struct EditViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .environment(\.colorScheme, appearance ? .dark : .light)
-            .preferredColorScheme(appearance ? .dark : .light)
-    }
-}
-
-enum ProfileImageSize {
-    case extraSmall
-    case small
-    case medium
-    case large
-    case extraLarge
-    
-    var dimension: CGFloat {
-        switch self {
-        case .extraSmall: return 50
-        case .small: return 75
-        case .medium: return 95
-        case .large: return 125
-        case .extraLarge: return 175
-        }
+            .padding(9.5)
+            .background(.white)
+            .font(FontOne.small)
+            .foregroundColor(AuthenticationViewModel().blue[0])
+            .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+            .padding()
+            .background(
+        RoundedRectangle(cornerRadius: 25, style: .circular)
+            .foregroundColor(AuthenticationViewModel().green[0])
+            .frame(width: 175, height: 50)
+        )
     }
 }
