@@ -46,13 +46,12 @@ struct LocationView: View {
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             ZStack {
                                 Circle()
-                                    .frame(width: 35, height: 35)
+                                    .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                 Circle()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 45, height: 45)
                                     .foregroundColor(authenticationViewModel.pink[0])
-                                Image(systemName: "graduationcap")
-                                    .imageScale(.large)
+                                Image(systemName: "graduationcap.fill")
                                     .foregroundColor(.white)
                             }
                         }
@@ -122,8 +121,8 @@ struct LocationView: View {
                             }
                         }
                         
-                        if let item = locationManager.item {
-                            Annotation("", coordinate: item) {
+                        if let items = locationManager.item {
+                            Annotation("", coordinate: items) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
