@@ -15,9 +15,8 @@ struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var feedViewModel = FeedViewModel()
-    
     @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
-    
+    @ObservedObject var postViewModel = PostViewModel()
     @StateObject var locationManager = LocationManager()
     
     @State var selectedPost: MKMapItem?
@@ -56,13 +55,25 @@ struct LocationView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                        
+                    
+                        Annotation("Home", coordinate: .homeLocation) {
+                            ZStack {
+                                Circle()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.white)
+                                Circle()
+                                    .frame(width: 45, height: 45)
+                                    .foregroundColor(authenticationViewModel.pink[0])
+                                Image(systemName: "house.fill")
+                                    .foregroundColor(.white)
+                            }
+                        }
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("COORDINATE", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 95, height: 95)
+                                    .frame(width: 105, height: 105)
                                     .clipShape(.circle)
                                 
                             }
@@ -72,17 +83,6 @@ struct LocationView: View {
                             Annotation("Location", coordinate: location.coordinate) {
                                 postLocation
                                     .offset(x: 50, y: -25)
-                                //                                    ForEach(feedViewModel.posts) { post in
-                                //                                        KFImage(URL(string: post.imageUrl))
-                                //                                            .resizable()
-                                //                                            .scaledToFill()
-                                //                                            .frame(width: 85, height: 85)
-                                //                                            .clipShape(.circle)
-                                //                                            .background(
-                                //                                                Circle()
-                                //                                                    .frame(width: 90, height: 90)
-                                //                                                    .foregroundColor(authenticationViewModel.green[0]))
-                                
                             }
                         }
                         
@@ -112,14 +112,21 @@ struct LocationView: View {
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 75, height: 75)
+                                            .frame(width: 85, height: 85)
                                             .clipShape(.circle)
                                             .background(
                                                 Circle()
-                                                    .frame(width: 80, height: 80)
-                                                    .foregroundColor(.white))
+                                                    .frame(width: 95, height: 95)
+                                                    .foregroundColor(authenticationViewModel.blue[0])
+                                            .overlay {
+                                                Circle()
+                                                    .frame(width: 90, height: 90)
+                                                    .foregroundColor(.white)
+                                            }
+                                                )
                                     }
                                 }
+                                .offset(x: 7.5, y: -7.5)
                             }
                         }
                         
@@ -128,13 +135,12 @@ struct LocationView: View {
                                 if item == routeDestination {
                                     let placemark = item.placemark
                                     Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                        .tint(authenticationViewModel.red[0])
+                                        .tint(authenticationViewModel.pink[0])
                                 }
-                                
                             } else {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.red[0])
+                                    .tint(authenticationViewModel.orangeRed[0])
                             }
                             if let route {
                                 MapPolyline(route.polyline)
@@ -163,7 +169,7 @@ struct LocationView: View {
                     )
                     .task {
                         locationManager.requestLocation()
-        
+                        try? await postItemViewModel.fetchUserPosts()
                         try? await feedViewModel.fetchPosts()
                     }
                     
@@ -188,7 +194,7 @@ struct LocationView: View {
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }
@@ -201,11 +207,11 @@ extension LocationView {
                 KFImage(URL(string: post.imageUrl))
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 85, height: 85)
+                    .frame(width: 95, height: 95)
                     .clipShape(.circle)
                     .background(
                         Circle()
-                            .frame(width: 90, height: 90)
+                            .frame(width: 105, height: 105)
                             .foregroundColor(authenticationViewModel.green[0]))
                 
             }
@@ -222,7 +228,6 @@ extension LocationView {
                         .foregroundColor(Color(.systemGray))
                         .fontWeight(.semibold)
                         .kerning(2.5)
-                        .padding()
                         .cornerRadius(25)
                         .padding()
                         .background(.white)
