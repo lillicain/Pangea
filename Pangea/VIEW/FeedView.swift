@@ -15,7 +15,7 @@ import MapKit
 struct FeedView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    @StateObject var locationManager = LocationManager()
+    @ObservedObject var locationManager = LocationManager()
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var feedViewModel = FeedViewModel()
@@ -40,17 +40,17 @@ struct FeedView: View {
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts.reversed(), id: \.self) { post in
+                    ForEach(feedViewModel.posts.reversed()) { post in
                         FeedItemView(post: post)
                         
                     }
                 }
                 
                 .task {
+                    locationManager.requestLocation()
+                    
                     try? await feedViewModel.fetchPosts()
                     try? await postViewModel.uploadPost(description: description, location: location)
-                    
-                    locationManager.requestLocation()
                 }
                 .padding(.top)
             }
@@ -61,7 +61,7 @@ struct FeedView: View {
                     .toolbar(.hidden, for: .navigationBar)
             })
             
-            
+    
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
@@ -82,8 +82,8 @@ struct FeedView: View {
                 }
             }
             
-            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
-            .ignoresSafeArea(.all)
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+       
         }
     }
 }
@@ -198,7 +198,9 @@ extension FeedView {
                                     .foregroundColor(authenticationViewModel.green[0])
                                 
                             }
+                            .padding(.leading)
                             .padding(.all)
+                            
                         
                         Spacer()
                     }

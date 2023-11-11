@@ -45,6 +45,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     
     func geocode() {
+        let geocoder = CLGeocoder()
         guard let location = self.location else { return }
         geocoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
             if error == nil {
@@ -78,15 +79,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         getLocation(from: post.location) { item in
             self.postItem = item
             self.item = item
-            
         }
         
-                for index in post.location {
-        
-                    fetchLocation(address: index.description) { (placemark, error) in
-                        self.postItem = placemark
-                    }
-                }
+        for index in post.location {
+            
+            fetchLocation(address: index.description) { (placemark, error) in
+                self.postItem = placemark
+            }
+        }
         
         fetchLocation(address: post.location) { (placemark, error) in
             self.item = placemark
@@ -108,15 +108,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     //        fetchLocation(address: any.first.debugDescription) { (post error)  in
     //            self.post = CLLocation(latitude: post.location., longitude: <#T##CLLocationDegrees#>) as Any as! [Any]
     
-
     
-    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
     func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
+        let geocoder = CLGeocoder()
         if let lastLocation = locationManager.location {
-            
             geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
                 if error == nil {
                     let firstLocation = placemarks?[0].name
@@ -132,6 +132,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     
     func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
+        let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {
@@ -156,9 +157,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     
     func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
+        let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks,
-            let location = placemarks.first?.location?.coordinate else {
+                  let location = placemarks.first?.location?.coordinate else {
                 completion(nil)
                 return
             }
