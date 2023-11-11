@@ -75,8 +75,8 @@ struct LocationView: View {
                         }
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
-                                ZStack {
-                                    postLocations
+//                                ZStack {
+                                    postLocation
                                         .offset(x: 50, y: -25)
                                     //                                    ForEach(feedViewModel.posts) { post in
                                     //                                        KFImage(URL(string: post.imageUrl))
@@ -89,7 +89,7 @@ struct LocationView: View {
                                     //                                                    .frame(width: 90, height: 90)
                                     //                                                    .foregroundColor(authenticationViewModel.green[0]))
                                     //                                    }
-                                }
+//                                }
                                 
                             }
                         }
@@ -162,7 +162,6 @@ struct LocationView: View {
                                 .padding()
                         }
                     }
-                    
                     .frame(width: 375, height: 625)
                     .cornerRadius(50)
                     .padding()
@@ -193,12 +192,10 @@ struct LocationView: View {
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
                     })
+                    VStack {
+                        searchBar
+                    }
                 }
-            }
-            VStack {
-                searchBar
-                
-                
             }
             .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
@@ -207,7 +204,7 @@ struct LocationView: View {
 
 extension LocationView {
     
-    var postLocations: some View {
+    var postLocation: some View {
         ZStack {
             ForEach(feedViewModel.posts, id: \.self) { post in
                 KFImage(URL(string: post.imageUrl))
