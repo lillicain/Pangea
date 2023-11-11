@@ -41,7 +41,6 @@ struct MapItemView: View {
                 
                 Button {
                     cameraPosition = .userLocation(fallback: .automatic)
-                    
                 } label: {
                     Image(systemName: "person.fill")
                 }

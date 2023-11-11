@@ -92,22 +92,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             self.item = placemark
             
         }
-        
-        
-        
     }
-    //        if let post = post?.location {
-    //            func getLocation(from: post?.) { (placemark, error) in
-    //                self.postLocation = CLLocationCoordinate2D(latitude: post?.latitude ?? 37.0974, longitude: post?.longitude ?? -113.59) //?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-    //
-    //        }
-    
-    
-    
-    
-    //        fetchLocation(address: any.first.debugDescription) { (post error)  in
-    //            self.post = CLLocation(latitude: post.location., longitude: <#T##CLLocationDegrees#>) as Any as! [Any]
-    
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

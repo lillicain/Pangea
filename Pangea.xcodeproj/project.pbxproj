@@ -320,8 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				6AB3021F2AE614AA0036DB06 /* UserManager.swift */,
-				6AB3024A2AE62A050036DB06 /* MapManager.swift */,
 				6AB3022A2AE616980036DB06 /* PostManager.swift */,
+				6AB3024A2AE62A050036DB06 /* MapManager.swift */,
 				6AB3022F2AE617860036DB06 /* ImageManager.swift */,
 				6AB3023A2AE618DD0036DB06 /* CameraManager.swift */,
 				6AB302342AE617B90036DB06 /* ProfileImageManager.swift */,

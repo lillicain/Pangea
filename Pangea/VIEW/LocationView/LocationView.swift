@@ -56,15 +56,6 @@ struct LocationView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                        //                    Annotation("School", coordinate: .schoolLocation) {
-                        //                        ZStack {
-                        //                            Circle()
-                        //                                .frame(width: 35, height: 35)
-                        //                                .foregroundColor(authenticationViewModel.green[0])
-                        //                            
-                        //                        }
-                        //                    }
-                        
                         //                    ForEach(fee ViewModel.posts, id: \.self) { post in
                         //
                         //                        locationManager.getLocation(from: post.location) { placemark in
@@ -91,56 +82,45 @@ struct LocationView: View {
                         //                        }
                         //                    }
                         
-                        Annotation("", coordinate: locationManager.postLocation) {
-                            ForEach(feedViewModel.posts) { post in
-                                KFImage(URL(string: post.imageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 50, height: 50)
-                                    .clipShape(.circle)
-                                    .background(
-                                        Circle()
-                                            .frame(width: 75, height: 75)
-                                            .foregroundColor(.white))
-                                
-                            }
-                        }
+                  
                         
-                        if let item = locationManager.location?.coordinate {
-                            Annotation("", coordinate: item) {
+//                        if let item = locationManager.location?.coordinate {
+//                            Annotation("", coordinate: item) {
+//                                ZStack {
+//                                    ForEach(feedViewModel.posts) { post in
+//                                        KFImage(URL(string: post.imageUrl))
+//                                            .resizable()
+//                                            .scaledToFill()
+//                                            .frame(width: 75, height: 75)
+//                                            .clipShape(.circle)
+//                                            .background(
+//                                                Circle()
+//                                                    .frame(width: 80, height: 80)
+//                                                    .foregroundColor(.white))
+//                                            .offset(x: 25)
+//                                    }
+//                                    
+//                                }
+//                            }
+//                        }
+                        
+                        if let selectedPost = locationManager.postItem {
+                            Annotation("", coordinate: selectedPost) {
+                                ZStack {
                                 ForEach(feedViewModel.posts) { post in
-                                    KFImage(URL(string: post.imageUrl))
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 75, height: 75)
-                                        .clipShape(.circle)
-                                        .background(
-                                            Circle()
-                                                .frame(width: 80, height: 80)
-                                                .foregroundColor(.white))
-                                    
+                                        KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 75, height: 75)
+                                            .clipShape(.circle)
+                                            .background(
+                                                Circle()
+                                                    .frame(width: 80, height: 80)
+                                                    .foregroundColor(.white))
+                                    }
                                 }
                             }
                         }
-                        
-                        //                    if let item = locationManager.postItem {
-                        //                        Annotation("", coordinate: item) {
-                        //                            ZStack {
-                        //                                ForEach(feedViewModel.posts) { post in
-                        //                                    KFImage(URL(string: post.imageUrl))
-                        //                                        .resizable()
-                        //                                        .scaledToFill()
-                        //                                        .frame(width: 75, height: 75)
-                        //                                        .clipShape(.circle)
-                        //                                        .background(
-                        //                                            Circle()
-                        //                                                .frame(width: 80, height: 80)
-                        //                                                .foregroundColor(.white))
-                        //                                }
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                         Marker("Post Marker", coordinate: locationManager.location?.coordinate ?? locationManager.postLocation)
                         
                         if let item = locationManager.item {
                             Annotation("", coordinate: item) {
@@ -221,13 +201,12 @@ struct LocationView: View {
                             .presentationCornerRadius(50)
                     })
                 }
-                            VStack {
-                                searchBar
-                            }
+//                            VStack {
+//                                searchBar
+//                            }
                 
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing))
-            .ignoresSafeArea(.all)
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }

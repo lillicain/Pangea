@@ -60,7 +60,6 @@ struct FeedView: View {
                     .presentationCornerRadius(50)
                     .toolbar(.hidden, for: .navigationBar)
             })
-            
     
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

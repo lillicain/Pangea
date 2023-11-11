@@ -27,85 +27,84 @@ struct EditScreen: View {
     @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF6700", "FFFF00", "F10C45", "003AE7", "601EF9", "FF4500"]
     
     var body: some View {
-            ZStack {
-                
-                VStack {
-                    PhotosPicker(selection: $editUserViewModel.selectedImage) {
-                        VStack {
-                            if let image = editUserViewModel.profileImage {
-                                image
-                                    .resizable()
-                                    .background(Color(.systemGray))
-                                    .clipShape(Circle())
-                                    .padding()
-                                
-                            } else {
-                                ZStack {
-                                    Circle()
-                                        .frame(width: 135)
-                                        .foregroundColor(backgroundColor)
-                                        .onAppear {
-                                            backgroundColor = authenticationViewModel.blue[0]
-                                        }
-                                    
-                                    ZStack {
-                                        ProfileImageManager(user: editUserViewModel.user, size: .large)
-                                        
+        ZStack {
+            VStack {
+                PhotosPicker(selection: $editUserViewModel.selectedImage) {
+                    VStack {
+                        if let image = editUserViewModel.profileImage {
+                            image
+                                .resizable()
+                                .background(Color(.systemGray))
+                                .clipShape(Circle())
+                                .padding()
+                            
+                        } else {
+                            ZStack {
+                                Circle()
+                                    .frame(width: 135)
+                                    .foregroundColor(backgroundColor)
+                                    .onAppear {
+                                        backgroundColor = authenticationViewModel.blue[0]
                                     }
+                                
+                                ZStack {
+                                    ProfileImageManager(user: editUserViewModel.user, size: .large)
+                                    
                                 }
                             }
-                            Text("Edit Profile Picture")
-                                .fontWeight(.semibold)
-                                .padding(5)
-                            
                         }
-                        .padding(.vertical)
+                        Text("Edit Profile Picture")
+                            .fontWeight(.semibold)
+                            .padding(5)
+                        
                     }
-                    
-                    Form {
-                        Section {
-                            userInformation
-                        }
-                        
-                        Section {
-                            userInformationTwo
-                            
-                        }
-                        Section {
-                            userInformationThree
-                        }
-                        
-                        
-                        Section {
-                            userInformationFour
-                                .padding(5)
-                        }
-                        
-                        
-                        Section {
-                            userInformationFive
-                                .padding(5)
-                        }
-                    }
-                    .scrollContentBackground(.hidden)
+                    .padding(.vertical)
                 }
                 
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            Task {
-                                try await editUserViewModel.updateUserData()
-                            }
-                        } label: {
-                            Text("Save")
-                                .fontWeight(.semibold)
+                Form {
+                    Section {
+                        userInformation
+                    }
+                    
+                    Section {
+                        userInformationTwo
+                        
+                    }
+                    Section {
+                        userInformationThree
+                    }
+                    
+                    
+                    Section {
+                        userInformationFour
+                            .padding(5)
+                    }
+                    
+                    
+                    Section {
+                        userInformationFive
+                            .padding(5)
+                    }
+                }
+                .scrollContentBackground(.hidden)
+            }
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        Task {
+                            try await editUserViewModel.updateUserData()
                         }
+                    } label: {
+                        Text("Save")
+                            .fontWeight(.semibold)
                     }
                 }
             }
         }
+        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
     }
-//}
+}
 
 extension EditScreen {
     var userInformation: some View {
@@ -134,7 +133,6 @@ extension EditScreen {
             .kerning(0.5)
         }
     }
-    
     
     var userInformationTwo: some View {
         VStack {
@@ -166,7 +164,6 @@ extension EditScreen {
                                 .fill(color)
                                 .frame(width: 50, height: 50)
                                 .padding(3.5)
-                            
                         }
                     })
                 }
