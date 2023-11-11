@@ -58,38 +58,32 @@ struct LocationView: View {
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("COORDINATE", coordinate: location) {
-//                                ZStack {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 95, height: 95)
                                     .clipShape(.circle)
-                                    Circle()
-                                        .frame(width: 100, height: 100)
-                                        .foregroundColor(authenticationViewModel.blue[0])
-                                   
-                                       
-//                                        }
                                 
                             }
                         }
+                        
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
-//                                ZStack {
-                                    postLocation
-                                        .offset(x: 50, y: -25)
-                                    //                                    ForEach(feedViewModel.posts) { post in
-                                    //                                        KFImage(URL(string: post.imageUrl))
-                                    //                                            .resizable()
-                                    //                                            .scaledToFill()
-                                    //                                            .frame(width: 85, height: 85)
-                                    //                                            .clipShape(.circle)
-                                    //                                            .background(
-                                    //                                                Circle()
-                                    //                                                    .frame(width: 90, height: 90)
-                                    //                                                    .foregroundColor(authenticationViewModel.green[0]))
-                                    //                                    }
-//                                }
+                                //                                ZStack {
+                                postLocation
+                                    .offset(x: 50, y: -25)
+                                //                                    ForEach(feedViewModel.posts) { post in
+                                //                                        KFImage(URL(string: post.imageUrl))
+                                //                                            .resizable()
+                                //                                            .scaledToFill()
+                                //                                            .frame(width: 85, height: 85)
+                                //                                            .clipShape(.circle)
+                                //                                            .background(
+                                //                                                Circle()
+                                //                                                    .frame(width: 90, height: 90)
+                                //                                                    .foregroundColor(authenticationViewModel.green[0]))
+                                //                                    }
+                                //                                }
                                 
                             }
                         }
@@ -170,10 +164,8 @@ struct LocationView: View {
                             .foregroundColor(authenticationViewModel.blue[0])
                             .frame(width: 405, height: 650)
                     )
-                    
                     .task {
                         locationManager.requestLocation()
-                        
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in
@@ -181,7 +173,6 @@ struct LocationView: View {
                             fetchRoute()
                         }
                     })
-                    
                     .onChange(of: selectedResult, { oldValue, newValue in
                         showDetails = newValue != nil
                     })
@@ -192,6 +183,7 @@ struct LocationView: View {
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
                     })
+                    
                     VStack {
                         searchBar
                     }
