@@ -191,6 +191,28 @@ struct LocationView: View {
                             .presentationCornerRadius(50)
                     })
                 }
+                VStack {
+                    RoundedRectangle(cornerRadius: 25, style: .circular)
+                        .foregroundColor(authenticationViewModel.green[0])
+                        .frame(width: 350, height: 65)
+                        .overlay {
+                            TextField("Search...", text: $searchText)
+                                .foregroundColor(Color(.systemGray))
+                                .fontWeight(.semibold)
+                                .kerning(2.5)
+                                .padding()
+                                .cornerRadius(25)
+                                .padding()
+                                .background(.white)
+                                .frame(width: 325, height: 45)
+                                .clipShape(RoundedRectangle(cornerRadius: 17.5))
+                                .onSubmit(of: .text) {
+                                    Task {
+                                        await searchPlaces()
+                                    }
+                                }
+                        }
+                }
                 //                            VStack {
                 //                                searchBar
                 //                            }

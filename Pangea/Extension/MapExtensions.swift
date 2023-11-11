@@ -41,7 +41,7 @@ extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
 
 extension MKCoordinateRegion {
     static var userRegion: MKCoordinateRegion {
-        return .init(center: .schoolLocation, latitudinalMeters: 15000, longitudinalMeters: 15000)
+        return MKCoordinateRegion()
     }
     static let firstMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0976, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     static let secondMapItem = MKCoordinateRegion(
