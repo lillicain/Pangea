@@ -16,7 +16,7 @@ struct LocationView: View {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var feedViewModel = FeedViewModel()
     
-    @StateObject private var locationManager = LocationManager()
+    @ObservedObject var locationManager = LocationManager()
     
     @State var selectedPost: MKMapItem?
     
