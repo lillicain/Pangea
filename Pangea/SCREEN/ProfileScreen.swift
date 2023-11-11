@@ -26,7 +26,7 @@ struct ProfileScreen: View {
                             .frame(width: 412.5, height: 272.5)
                             .padding(.horizontal, 5)
                             .overlay(alignment: .top) {
-                                LocationView(post: Post.MOCK_POST[0])
+                                LocationView()
                                     .mapControlVisibility(.hidden)
                                     .frame(width: 400, height: 257.5)
                                     .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))

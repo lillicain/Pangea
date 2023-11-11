@@ -39,8 +39,8 @@ struct FeedView: View {
                     .padding(.top)
                     .padding(.bottom, 250)
                 
-                LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts.reversed()) { post in
+                LazyVStack(spacing: 125) {
+                    ForEach(feedViewModel.posts, id: \.self) { post in
                         FeedItemView(post: post)
                     }
                 }
