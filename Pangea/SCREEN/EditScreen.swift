@@ -177,7 +177,8 @@ extension EditScreen {
     var userInformationFour: some View {
         VStack {
             Button {
-
+                authenticationViewModel.changeSignUpState(to: .pangea)
+                
                 AuthenticationViewModel.shared.signOut()
                 
                 Task {
@@ -187,13 +188,10 @@ extension EditScreen {
                         print(error.localizedDescription)
                     }
                 }
-               
-                
                 Task {
                     authenticationViewModel.signOut()
                     authenticationViewModel.currentUser = nil
                 }
-                authenticationViewModel.changeSignUpState(to: .pangea)
             } label: {
                 Text("Sign Out")
                     .fontWeight(.semibold)
@@ -205,14 +203,12 @@ extension EditScreen {
     var userInformationFive: some View {
         VStack {
             Button(role: .destructive) {
-                
-                
+                authenticationViewModel.changeSignUpState(to: .pangea)
                 Task {
                     do {
                         try await editUserViewModel.deleteAccount()
                         try await authenticationViewModel.deleteAccount()
                     } catch {
-                        
                         print(error.localizedDescription)
                     }
                 }

@@ -78,20 +78,3 @@ struct DarkModeViewModifier: ViewModifier {
     }
 }
 
-enum ProfileImageSize {
-    case extraSmall
-    case small
-    case medium
-    case large
-    case extraLarge
-    
-    var dimension: CGFloat {
-        switch self {
-        case .extraSmall: return 50
-        case .small: return 75
-        case .medium: return 95
-        case .large: return 125
-        case .extraLarge: return 175
-        }
-    }
-}
