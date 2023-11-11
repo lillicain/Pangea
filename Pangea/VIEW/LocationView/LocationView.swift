@@ -57,55 +57,53 @@ struct LocationView: View {
                         }
                         
                         if let location = locationManager.placemark?.location?.coordinate {
-                        Annotation("COORDINATE", coordinate: location) {
-                            ZStack {
+                            Annotation("COORDINATE", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 75, height: 75)
-                                        .clipShape(.circle)
-                                        .background(
-                                            Circle()
-                                                .frame(width: 80, height: 80)
-                                                .foregroundColor(.white))
-                                }
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 95, height: 95)
+                                    .clipShape(.circle)
+                                
+                            }
                         }
-                    }
+                        
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
+                                //                                ZStack {
+                                postLocation
+                                    .offset(x: 50, y: -25)
+                                //                                    ForEach(feedViewModel.posts) { post in
+                                //                                        KFImage(URL(string: post.imageUrl))
+                                //                                            .resizable()
+                                //                                            .scaledToFill()
+                                //                                            .frame(width: 85, height: 85)
+                                //                                            .clipShape(.circle)
+                                //                                            .background(
+                                //                                                Circle()
+                                //                                                    .frame(width: 90, height: 90)
+                                //                                                    .foregroundColor(authenticationViewModel.green[0]))
+                                //                                    }
+                                //                                }
+                                
+                            }
+                        }
+                        
+                        
+                        if let selectedPost = locationManager.postItem {
+                            Annotation("Post Item", coordinate: selectedPost) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
+                                        Circle()
+                                            .frame(width: 80, height: 80)
+                                            .foregroundColor(authenticationViewModel.pink[0])
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
                                             .frame(width: 75, height: 75)
                                             .clipShape(.circle)
-                                            .background(
-                                                Circle()
-                                                    .frame(width: 80, height: 80)
-                                                    .foregroundColor(.white))
-                                    }
-                                }
-
-                            }
-                        }
-               
-                        
-                        if let selectedPost = locationManager.postItem {
-                            Annotation("Post Item", coordinate: selectedPost) {
-                                ZStack {
-//                                    ForEach(feedViewModel.posts) { post in
-                                    Circle()
-                                        .frame(width: 80, height: 80)
-                                        .foregroundColor(.white)
-                                    KFImage(URL(string: post.imageUrl))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 75, height: 75)
-                                            .clipShape(.circle)
                                         
-                                               
-//                                    }
+                                        
+                                    }
                                 }
                             }
                         }
@@ -149,7 +147,7 @@ struct LocationView: View {
                     }
                     .mapStyle(.standard(elevation: .realistic))
                     .mapControls {
-                            MapInformation()
+                        MapInformation()
                     }
                     .safeAreaInset(edge: .bottom) {
                         VStack {
@@ -158,7 +156,6 @@ struct LocationView: View {
                                 .padding()
                         }
                     }
-                  
                     .frame(width: 375, height: 625)
                     .cornerRadius(50)
                     .padding()
@@ -167,10 +164,8 @@ struct LocationView: View {
                             .foregroundColor(authenticationViewModel.blue[0])
                             .frame(width: 405, height: 650)
                     )
-                
                     .task {
                         locationManager.requestLocation()
-                        
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in
@@ -178,7 +173,6 @@ struct LocationView: View {
                             fetchRoute()
                         }
                     })
-                    
                     .onChange(of: selectedResult, { oldValue, newValue in
                         showDetails = newValue != nil
                     })
@@ -189,11 +183,11 @@ struct LocationView: View {
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
                     })
+                    
+                    VStack {
+                        searchBar
+                    }
                 }
-//                            VStack {
-//                                searchBar
-//                            }
-                
             }
             .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
@@ -201,6 +195,24 @@ struct LocationView: View {
 }
 
 extension LocationView {
+    
+    var postLocation: some View {
+        ZStack {
+            ForEach(feedViewModel.posts, id: \.self) { post in
+                KFImage(URL(string: post.imageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 85, height: 85)
+                    .clipShape(.circle)
+                    .background(
+                        Circle()
+                            .frame(width: 90, height: 90)
+                            .foregroundColor(authenticationViewModel.green[0]))
+                
+            }
+        }
+    }
+    
     var searchBar: some View {
         VStack {
             RoundedRectangle(cornerRadius: 25, style: .circular)

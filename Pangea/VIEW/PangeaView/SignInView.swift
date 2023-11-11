@@ -52,14 +52,12 @@ struct SignInView: View {
                 
                 
                 Button {
-                    
-                    
                     Task {
                         do {
                             try await authenticationViewModel.signIn(withEmail: email, password: password)
                             
                             if let user = authenticationViewModel.currentUser {
-//                                navRouter.push(Screen(user: user))
+                            
                             }
                         } catch {
                             print(error.localizedDescription)
