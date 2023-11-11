@@ -28,7 +28,7 @@ struct TabScreen: View {
             }
         }
         .accentColor(authenticationViewModel.pink[0])
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .bottomLeading, endPoint: .bottomTrailing))
+        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .center, endPoint: .bottomTrailing))
         .ignoresSafeArea(.all)
     }
 }
@@ -39,7 +39,10 @@ extension TabScreen {
         ZStack {
             LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
-            
+            ZStack {
+                LinearGradient(colors: [.clear, authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
+                    .ignoresSafeArea(.all)
+            }
             Image(systemName: "globe")
                 .resizable()
                 .frame(width: 315, height: 315)

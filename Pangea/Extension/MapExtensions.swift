@@ -12,13 +12,10 @@ import CoreLocationUI
 
 extension CLLocationCoordinate2D {
     static var schoolLocation: CLLocationCoordinate2D {
-        return .init(latitude: 37.0974, longitude: -113.5915)
+        return .init(latitude: 37.098473, longitude: -113.591548)
     }
-}
-
-extension CLLocationCoordinate2D: CustomStringConvertible {
-    public var description: String {
-        return "\(self.latitude), \(self.longitude)"
+    static var homeLocation: CLLocationCoordinate2D {
+        return .init(latitude: 37.1349, longitude: -113.38032)
     }
 }
 

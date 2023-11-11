@@ -33,15 +33,15 @@ struct FeedView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                
                 userInformation
                 
                     .padding(.top)
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 125) {
-                    ForEach(feedViewModel.posts, id: \.self) { post in
+                    ForEach(feedViewModel.posts, id: \.timestamp) { post in
                         FeedItemView(post: post)
+        
                     }
                 }
                 
@@ -50,12 +50,13 @@ struct FeedView: View {
                     
                     try? await feedViewModel.fetchPosts()
                     try? await postViewModel.uploadPost(description: description, location: location)
+                    
                 }
                 .padding(.top)
             }
             .sheet(isPresented: $newPost, content: {
                 postView
-                    .presentationDetents([.height(650)])
+                    .presentationDetents([.height(750)])
                     .presentationCornerRadius(50)
                     .toolbar(.hidden, for: .navigationBar)
             })
@@ -111,15 +112,18 @@ extension FeedView {
                     .scaledToFill()
                     .frame(width: 350, height: 350)
                     .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
                     .padding()
             } else if image != nil {
                 Image(uiImage: image!)
                     .scaledToFill()
                     .frame(width: 350, height: 350)
                     .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
                     .padding()
             }
-            
+    
+
             TextField("Enter Text...", text: $description)
                 .modifier(OneViewModifier())
                 .scrollDismissesKeyboard(.automatic)
@@ -131,6 +135,9 @@ extension FeedView {
                         do {
                             try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation)
                             postViewModel.uiImage = image
+                            try await feedViewModel.fetchPosts()
+                           
+                        
                             
                         } catch {
                             print(error.localizedDescription)

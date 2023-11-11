@@ -134,7 +134,7 @@ extension PangeaView {
                             .kerning(5)
                             .foregroundColor(authenticationViewModel.pink[0])
                             .shadow(color: .black.opacity(0.15), radius: 0.5, x: 1.5, y: -0.5)
-                            .shadow(color: .white.opacity(0.51), radius: 0.5, x: -0.5, y: 1.5)
+                            .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 1.5)
                             .padding(.leading, 175)
                     }
             }
