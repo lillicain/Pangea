@@ -29,11 +29,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var placemark: CLPlacemark?
     @Published var heading: CLHeading?
     @Published var location: CLLocation?
-    
     @Published var currentLocation: String = ""
     @Published var postLocation = CLLocationCoordinate2D()
-    
-    @Published var any = [String : Any]()
     @Published var item: CLLocationCoordinate2D?
     @Published var postItem: CLLocationCoordinate2D?
     
@@ -42,7 +39,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
     }
-    
     
     func requestLocation() {
         locationManager.requestLocation()
@@ -120,12 +116,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
         if let lastLocation = locationManager.location {
-            let geocoder = CLGeocoder()
             
             geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
-                
                 if error == nil {
-                    
                     let firstLocation = placemarks?[0].name
                     completionHandler(firstLocation)
                     
@@ -139,7 +132,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     
     func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-     
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {
@@ -164,7 +156,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     }
     
     func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks,
             let location = placemarks.first?.location?.coordinate else {

@@ -14,13 +14,15 @@ struct CameraViewController: UIViewControllerRepresentable {
     
     @Binding var selectedImage: UIImage?
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { }
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { 
+    
+    }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraViewController>) -> UIImagePickerController {
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.delegate = context.coordinator
-        return vc
+        let controller = UIImagePickerController()
+        controller.sourceType = .camera
+    controller.delegate = context.coordinator
+        return controller
     }
     
     func makeCoordinator() -> Coordinator {
@@ -47,37 +49,29 @@ struct CameraViewController: UIViewControllerRepresentable {
         
             var pickerImage: UIImage?
             
-            
-            
             if let URL = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                 print("Image URL: \(URL)")
-                let opts = PHFetchOptions()
-                opts.fetchLimit = 1
-                let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
+                let option = PHFetchOptions()
+                option.fetchLimit = 1
+                let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: option)
                 
                 print(assets)
-                
                 
                 for assetIndex in 0..<assets.count {
                     let asset = assets[assetIndex]
                     let location = asset.location
                     
-                    
+        
                     let latitude = asset.location?.coordinate.latitude
                     let longitude = asset.location?.coordinate.longitude
-                    
-          
-                    
                     
                     print(latitude)
                     print(longitude)
          
-                    
                     print(location)
                     
                     DispatchQueue.main.async {
                         self.parent.selectedImage = pickerImage
-                       
                     }
                     
                     

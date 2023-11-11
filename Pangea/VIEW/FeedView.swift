@@ -40,7 +40,7 @@ struct FeedView: View {
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 75) {
-                    ForEach(feedViewModel.posts, id: \.timestamp) { post in
+                    ForEach(feedViewModel.posts.reversed(), id: \.self) { post in
                         FeedItemView(post: post)
                         
                     }
@@ -51,8 +51,6 @@ struct FeedView: View {
                     try? await postViewModel.uploadPost(description: description, location: location)
                     
                     locationManager.requestLocation()
-//                    coordinate?.append(locationManager.location?.coordinate as Any)
-//                    locationManager.any = [location : coordinate!.append(locationManager.location?.coordinate as Any)]
                 }
                 .padding(.top)
             }
@@ -83,14 +81,12 @@ struct FeedView: View {
                     
                 }
             }
+            
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom))
+            .ignoresSafeArea(.all)
         }
-        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
-        
     }
 }
-
-
-
 
 extension FeedView {
     
@@ -221,7 +217,7 @@ extension FeedView {
                                 .padding(.all)
                                 .padding(.leading)
                                 .foregroundColor(.white)
-                            )
+                        )
                 }
             }
         }

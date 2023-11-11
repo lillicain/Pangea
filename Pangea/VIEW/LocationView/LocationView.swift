@@ -43,7 +43,6 @@ struct LocationView: View {
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         UserAnnotation()
                         
-                        //                    Marker("Dixie Tech", coordinate: .schoolLocation)
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             ZStack {
                                 Circle()
@@ -227,7 +226,8 @@ struct LocationView: View {
                 //            }
                 
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing))
+            .ignoresSafeArea(.all)
         }
     }
 }
