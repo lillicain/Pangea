@@ -11,8 +11,6 @@ import CoreLocation
 import CoreLocationUI
 
 extension CLLocationCoordinate2D {
-    static let items = CLLocationCoordinate2D(latitude: 37.0975, longitude: -113.5915)
-    
     static var schoolLocation: CLLocationCoordinate2D {
         return .init(latitude: 37.0974, longitude: -113.5915)
     }
@@ -22,8 +20,8 @@ extension CLLocationCoordinate2D: CustomStringConvertible {
     public var description: String {
         return "\(self.latitude), \(self.longitude)"
     }
-    
 }
+
 extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
     public var id: Int {
         return hashValue

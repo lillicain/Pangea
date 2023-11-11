@@ -12,15 +12,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-protocol AuthenticationProtocol {
-    var isValid: Bool { get }
-}
-
 @MainActor
 class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    
     @Published var currentSignInStatus = SignInState.pangea
     
     @Published var backgroundColor: Color?
@@ -37,7 +32,6 @@ class AuthenticationViewModel: ObservableObject {
     @Published var red = ["FF0000"].hexToColorArray()
     @Published var black = ["0C0F0A"].hexToColorArray()
     @Published var white = ["FDFFFC"].hexToColorArray()
-    
     
     static let shared = AuthenticationViewModel()
     

@@ -25,8 +25,9 @@ struct ProfileScreen: View {
                             .foregroundColor(authenticationViewModel.blue[0])
                             .frame(width: 412.5, height: 262.5)
                         
-                        ZStack {
+                        ZStack(alignment: .top) {
                             LocationView(post: Post.MOCK_POST[0])
+                                .mapControlVisibility(.hidden)                          
                                 .frame(width: 400, height: 250, alignment: .top)
                                 .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
                                 .padding(.bottom)
@@ -54,10 +55,10 @@ struct ProfileScreen: View {
                                     
                                 } label: {
                                     Text("Edit Profile")
-                                        .modifier(PostViewModifier())
+                                        .modifier(EditViewModifier())
                                 }
-                                .padding(.leading, 207.5)
-                                .padding(.bottom, 235)
+                                .padding(.leading, 205)
+                                .padding(.top, 175)
                             }
                         }
                     }
@@ -100,7 +101,7 @@ struct ProfileScreen: View {
                             
                             Rectangle()
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 5)
+                                .frame(height: 3.5)
                                 .padding(.top, 25)
                                 .padding(.vertical, 50)
                                 .foregroundColor(authenticationViewModel.blue[0])

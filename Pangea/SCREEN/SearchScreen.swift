@@ -29,7 +29,7 @@ struct SearchScreen: View {
                                     .overlay {
                                         ZStack {
                                             HStack {
-                                                ProfileImageManager(user: user, size: .small)
+                                                ProfileImageManager(user: user, size: .searchScreen)
                                                 
                                                 VStack(alignment: .leading) {
                                                     Text(user.username)
@@ -62,11 +62,11 @@ struct SearchScreen: View {
                         }
                     })
                 }
-                .padding(.all)
                 .padding(.top)
+                .padding(.all, 5)
                 .searchable(text: $searchText, prompt: "Search...")
             }
         }
-        .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .center, endPoint: .bottom).ignoresSafeArea(.all))
     }
 }

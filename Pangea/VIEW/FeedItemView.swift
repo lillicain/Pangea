@@ -15,12 +15,13 @@ struct FeedItemView: View {
     let post: Post
     
     var body: some View {
-        VStack(alignment: .center, spacing: 25) {
+        VStack(alignment: .center, spacing: 5) {
+            postUser
             postImage
             
             
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text(post.location)
                         .font(FontOne.extraSmall)
                     
@@ -28,11 +29,10 @@ struct FeedItemView: View {
                     
                     Text("\(post.description)")
                 }
+                .padding()
             }
-            
-           postUser
         }
-        .padding()
+//        .padding()
     }
 }
 
@@ -71,9 +71,7 @@ extension FeedItemView {
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
                     NavigationLink {
-                        
                         LocationView(post: post)
-                        
                         
                     } label: {
                         Image(systemName: "mappin.and.ellipse.circle")

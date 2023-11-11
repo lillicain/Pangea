@@ -74,3 +74,19 @@ struct PostViewModifier: ViewModifier {
     }
 }
 
+struct EditViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(9.5)
+            .background(.white)
+            .font(FontOne.small)
+            .foregroundColor(AuthenticationViewModel().blue[0])
+            .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
+            .padding()
+            .background(
+        RoundedRectangle(cornerRadius: 25, style: .circular)
+            .foregroundColor(AuthenticationViewModel().green[0])
+            .frame(width: 175, height: 50)
+        )
+    }
+}

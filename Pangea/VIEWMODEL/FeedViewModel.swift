@@ -10,16 +10,18 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+@MainActor
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
+    
+    static let shared = FeedViewModel()
     
     init() {
         Task {
             try await fetchPosts()
         }
     }
-    static let shared = FeedViewModel()
-    
+   
     @MainActor
     func fetchPosts() async throws {
         let snapshot = try await Firestore.firestore().collection("posts").getDocuments()

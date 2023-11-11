@@ -36,6 +36,7 @@ struct FontThree {
 struct FontFour {
     static let body = Font.fontFour(size: 25)
     static let title = Font.fontFour(size: 45)
+    static let extraSmall = Font.fontFour(size: 15)
     static let small = Font.fontFour(size: 20)
     static let medium = Font.fontFour(size: 30)
     static let large = Font.fontFour(size: 35)
@@ -70,7 +71,7 @@ struct FontEight {
     static let title = Font.fontEight(size: 55)
     static let small = Font.fontEight(size: 20)
     static let medium = Font.fontEight(size: 35)
-    static let large = Font.fontEight(size: 45)
+    static let large = Font.fontEight(size: 50)
 }
 struct FontNine {
     static let body = Font.fontNine(size: 25)

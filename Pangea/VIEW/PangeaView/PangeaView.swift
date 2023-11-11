@@ -16,6 +16,7 @@ struct PangeaView: View {
             case .pangea : pangeaView
             case .signIn : SignInView()
             case .signUp : SignUpView()
+                
             }
         }
     }
@@ -75,8 +76,6 @@ extension PangeaView {
     
     var pangeaView: some View {
         ZStack {
-            
-            
             LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
             

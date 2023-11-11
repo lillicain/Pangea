@@ -46,6 +46,9 @@ struct EditScreen: View {
                                     .onAppear {
                                         backgroundColor = authenticationViewModel.blue[0]
                                     }
+                                Circle()
+                                    .frame(width: 130)
+                                    .foregroundColor(.white)
                                 
                                 ZStack {
                                     ProfileImageManager(user: editUserViewModel.user, size: .large)

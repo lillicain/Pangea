@@ -55,10 +55,7 @@ struct LocationView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                    
-                        //                    ForEach(fee ViewModel.posts, id: \.self) { post in
-                        //
-                        //                        locationManager.getLocation(from: post.location) { placemark in
+                        //locationManager.getLocation(from: post.location) { placemark in
                         //
                         //                            Annotation("", coordinate: placemark) {
                         //
@@ -234,7 +231,6 @@ extension LocationView {
                                 await searchPlaces()
                             }
                         }
-                        .foregroundColor(.black)
                 }
         }
     }

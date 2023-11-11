@@ -15,15 +15,15 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-@MainActor
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     var locationManager = CLLocationManager()
-    var post: Post = Post.MOCK_POST[0]
     var geocoder = CLGeocoder()
     
+    var post: Post
+  
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
@@ -36,7 +36,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var postAnnotation = MKPointAnnotation()
     
     override init() {
+        self.post = Post.MOCK_POST[0]
+        
         super.init()
+      
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
     }

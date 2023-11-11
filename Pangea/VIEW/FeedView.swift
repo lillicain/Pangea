@@ -182,40 +182,44 @@ extension FeedView {
                     if let user = authenticationViewModel.currentUser?.username {
                         
                         Text("Hello, \(user)")
-                            .font(FontEight.title)
+                            .font(FontEight.large)
                             .foregroundColor(authenticationViewModel.blue[0])
                             .offset(x: -2.5, y: 2.5)
                             .kerning(1.5)
                             .overlay {
                                 Text("Hello, \(user)")
-                                    .font(FontEight.title)
+                                    .font(FontEight.large)
                                     .kerning(1.5)
                                     .foregroundColor(authenticationViewModel.green[0])
-                                
                             }
                             .padding(.leading)
-                            .padding(.all)
-                            
-                        
-                        Spacer()
+                            .padding(.all, 5)
                     }
                 }
                 
                 HStack {
                     Text("\(post.timestamp.dateValue())")
-                        .font(FontFour.small)
-                        .padding(.all)
+                        .font(FontFour.extraSmall)
                         .padding(.leading)
+                        .padding(.all, 5)
                         .foregroundColor(authenticationViewModel.blue[0])
-                        .offset(x: -0.5, y: 0.5)
+                        .offset(x: -0.25, y: -0.25)
                         .background(
                             Text("\(post.timestamp.dateValue())")
-                                .font(FontFour.small)
-                                .padding(.all)
+                                .font(FontFour.extraSmall)
                                 .padding(.leading)
-                                .foregroundColor(.white)
+                                .padding(.all, 5)
+                                .foregroundColor(authenticationViewModel.blue[0])
                         )
                 }
+                
+                Rectangle()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 3.5)
+                    .padding(.top, 15)
+                    .padding(.vertical)
+                    .foregroundColor(authenticationViewModel.blue[0])
+                
             }
         }
     }

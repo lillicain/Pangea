@@ -69,6 +69,7 @@
 		6AB302632AE636D70036DB06 /* Views.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AB302622AE636D70036DB06 /* Views.ttf */; };
 		6AB302672AE69D4F0036DB06 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302662AE69D4F0036DB06 /* SearchViewModel.swift */; };
 		6AB302692AE69D650036DB06 /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB302682AE69D650036DB06 /* SearchScreen.swift */; };
+		6AB693C02AFF7F53001C9ABC /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB693BF2AFF7F53001C9ABC /* AuthenticationProtocol.swift */; };
 		6ABEE0FC2AF446E0005C00BC /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEE0FB2AF446E0005C00BC /* FeedView.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		6AB302622AE636D70036DB06 /* Views.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Views.ttf; sourceTree = "<group>"; };
 		6AB302662AE69D4F0036DB06 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		6AB302682AE69D650036DB06 /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
+		6AB693BF2AFF7F53001C9ABC /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
 		6ABEE0FB2AF446E0005C00BC /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +197,7 @@
 				6A7064912AE9939200B3A2E6 /* Info.plist */,
 				6A5A13C02AE1E6EE0041E188 /* PangeaApp.swift */,
 				6A28775A2AE8B7F4007C11E5 /* Extension */,
+				6AB693BE2AFF7F00001C9ABC /* Protocol */,
 				6A93D8492AFC3AFD00887A06 /* ENUM */,
 				6AB3022C2AE616D40036DB06 /* VIEWMODEL */,
 				6AB3022E2AE616ED0036DB06 /* MANAGER */,
@@ -329,6 +332,14 @@
 				6A7064942AE9B18F00B3A2E6 /* LocationManager.swift */,
 			);
 			path = MANAGER;
+			sourceTree = "<group>";
+		};
+		6AB693BE2AFF7F00001C9ABC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				6AB693BF2AFF7F53001C9ABC /* AuthenticationProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,6 +478,7 @@
 				6A7064952AE9B18F00B3A2E6 /* LocationManager.swift in Sources */,
 				6A5A13C12AE1E6EE0041E188 /* PangeaApp.swift in Sources */,
 				6AB302172AE611410036DB06 /* User.swift in Sources */,
+				6AB693C02AFF7F53001C9ABC /* AuthenticationProtocol.swift in Sources */,
 				6A7FF6582AF193BA00D10D9B /* MapItemView.swift in Sources */,
 				6A0A9AEA2AE8147300E5318E /* ProfileScreen.swift in Sources */,
 			);
