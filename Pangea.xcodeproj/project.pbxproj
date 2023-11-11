@@ -325,8 +325,8 @@
 				6AB3022F2AE617860036DB06 /* ImageManager.swift */,
 				6AB3023A2AE618DD0036DB06 /* CameraManager.swift */,
 				6AB302342AE617B90036DB06 /* ProfileImageManager.swift */,
-				6A7064942AE9B18F00B3A2E6 /* LocationManager.swift */,
 				6A37823F2AF2F4E7006F4772 /* SearchManager.swift */,
+				6A7064942AE9B18F00B3A2E6 /* LocationManager.swift */,
 			);
 			path = MANAGER;
 			sourceTree = "<group>";

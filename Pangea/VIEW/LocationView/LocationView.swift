@@ -221,9 +221,9 @@ struct LocationView: View {
                             .presentationCornerRadius(50)
                     })
                 }
-                //            VStack {
-                //                searchBar
-                //            }
+                            VStack {
+                                searchBar
+                            }
                 
             }
             .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.10)], startPoint: .bottom, endPoint: .bottomTrailing))
