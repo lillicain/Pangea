@@ -39,7 +39,6 @@ class AuthenticationViewModel: ObservableObject {
     @Published var white = ["FDFFFC"].hexToColorArray()
     
     
-    
     static let shared = AuthenticationViewModel()
     
     init() {

@@ -33,6 +33,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var postLocation = CLLocationCoordinate2D()
     @Published var item: CLLocationCoordinate2D?
     @Published var postItem: CLLocationCoordinate2D?
+    @Published var postAnnotation = MKPointAnnotation()
     
     override init() {
         super.init()

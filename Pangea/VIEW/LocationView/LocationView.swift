@@ -55,6 +55,7 @@ struct LocationView: View {
                                     .foregroundColor(.white)
                             }
                         }
+                    
                         //                    ForEach(fee ViewModel.posts, id: \.self) { post in
                         //
                         //                        locationManager.getLocation(from: post.location) { placemark in
@@ -181,6 +182,7 @@ struct LocationView: View {
                 
                     .task {
                         locationManager.requestLocation()
+                    
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in

@@ -18,6 +18,12 @@ extension CLLocationCoordinate2D {
     }
 }
 
+extension CLLocationCoordinate2D: CustomStringConvertible {
+    public var description: String {
+        return "\(self.latitude), \(self.longitude)"
+    }
+    
+}
 extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
     public var id: Int {
         return hashValue

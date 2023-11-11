@@ -42,7 +42,6 @@ struct FeedView: View {
                 LazyVStack(spacing: 75) {
                     ForEach(feedViewModel.posts.reversed()) { post in
                         FeedItemView(post: post)
-                        
                     }
                 }
                 
@@ -77,12 +76,9 @@ struct FeedView: View {
                     } label: {
                         Text("Post")
                     }
-                    
                 }
             }
-            
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
-       
         }
     }
 }
