@@ -42,13 +42,13 @@ extension TabScreen {
             
             Image(systemName: "globe")
                 .resizable()
-                .frame(width: 345, height: 345)
+                .frame(width: 315, height: 315)
                 .offset(x: -5, y: 5)
                 .foregroundColor(authenticationViewModel.green[0])
                 .overlay {
                     Image(systemName: "globe")
                         .resizable()
-                        .frame(width: 342.5, height: 342.5)
+                        .frame(width: 312.5, height: 312.5)
                         .foregroundColor(authenticationViewModel.violet[0])
                         .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                 }

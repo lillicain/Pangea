@@ -100,7 +100,7 @@ extension PangeaView {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(.white)
                     .kerning(2.5)
-                    .offset(x: -1.5, y: 1.5)
+                    .offset(x: -1.75, y: 1.75)
                     .overlay {
                         Text("PANGEA")
                             .font(FontNine.title)
@@ -111,29 +111,30 @@ extension PangeaView {
                             .shadow(color: .white.opacity(0.25), radius: 1.5, x: -1.5, y: 1.5)
                     }
                     .padding(.top, 375)
+    
                 
-                
-                VStack {
+                VStack(spacing: 0) {
                     signUp
                     signIn
                 }
             }
+            
             ZStack {
                 Text("Reconnect")
                     .font(FontFour.small)
                     .padding(.top, 165)
-                    .kerning(7.5)
-                    .foregroundColor(.white.opacity(0.75))
+                    .kerning(5)
+                    .foregroundColor(authenticationViewModel.pink[0])
                     .offset(x: -1.5, y: 1.5)
                     .padding(.leading, 175)
                     .overlay {
                         Text("Reconnect")
                             .font(FontFour.small)
                             .padding(.top, 165)
-                            .kerning(7.5)
+                            .kerning(5)
                             .foregroundColor(authenticationViewModel.pink[0])
-                        
-                            .shadow(color: .white.opacity(0.25), radius: 0.5, x: -0.5, y: 0.5)
+                            .shadow(color: .black.opacity(0.15), radius: 0.5, x: 1.5, y: -0.5)
+                            .shadow(color: .white.opacity(0.51), radius: 0.5, x: -0.5, y: 1.5)
                             .padding(.leading, 175)
                     }
             }

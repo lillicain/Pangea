@@ -23,15 +23,15 @@ struct ProfileScreen: View {
                     ZStack(alignment: .top) {
                         RoundedRectangle(cornerRadius: 50, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: 412.5, height: 262.5)
+                            .frame(width: 412.5, height: 272.5)
+                            .padding(.horizontal, 5)
+                            .overlay(alignment: .top) {
+                                LocationView(post: Post.MOCK_POST[0])
+                                    .mapControlVisibility(.hidden)
+                                    .frame(width: 400, height: 257.5)
+                                    .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
+                            }
                         
-                        ZStack(alignment: .top) {
-                            LocationView(post: Post.MOCK_POST[0])
-                                .mapControlVisibility(.hidden)                          
-                                .frame(width: 400, height: 250, alignment: .top)
-                                .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
-                                .padding(.bottom)
-                        }
                         
                         ZStack {
                             Circle()
@@ -57,8 +57,8 @@ struct ProfileScreen: View {
                                     Text("Edit Profile")
                                         .modifier(EditViewModifier())
                                 }
-                                .padding(.leading, 205)
-                                .padding(.top, 175)
+                                .padding(.leading, 195)
+                                .padding(.top, 305)
                             }
                         }
                     }
@@ -112,7 +112,6 @@ struct ProfileScreen: View {
                     
                     VStack {
                         PostItemView(user: user.self)
-                        
                     }
                 }
             }
