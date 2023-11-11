@@ -22,8 +22,8 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
     
-    var post: Post
-  
+    let post = Post.MOCK_POST[0]
+
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
@@ -36,10 +36,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     @Published var postAnnotation = MKPointAnnotation()
     
     override init() {
-        self.post = Post.MOCK_POST[0]
-        
         super.init()
-      
         locationManager.delegate = self
         locationManager.activityType = .automotiveNavigation
     }
@@ -49,7 +46,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
     
     func geocode() {
-        let geocoder = CLGeocoder()
         guard let location = self.location else { return }
         geocoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
             if error == nil {
@@ -80,108 +76,146 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
             self.currentLocation = placemark ?? ""
         }
         
-        getLocation(from: post.location) { item in
-            self.postItem = item
-            self.item = item
-        }
-        
-        for index in post.location {
+        geocoder.geocodeAddressString(post.location, completionHandler: { placemarks, error in
+            if error != nil {print(error!); return}
             
-            fetchLocation(address: index.description) { (placemark, error) in
-                self.postItem = placemark
-            }
-        }
-        
-        fetchLocation(address: post.location) { (placemark, error) in
-            self.item = placemark
-            
-        }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    
-    func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
-        let geocoder = CLGeocoder()
-        if let lastLocation = locationManager.location {
-            geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
-                if error == nil {
-                    let firstLocation = placemarks?[0].name
-                    completionHandler(firstLocation)
-                    
-                } else {
-                    completionHandler(nil)
-                }
-            })
-        } else {
-            completionHandler(nil)
-        }
-    }
-    
-    func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            if error == nil {
-                if let placemark = placemarks?[0] {
-                    let location = placemark.location!
-                    let postLocation: CLLocationCoordinate2D = placemark.location!.coordinate
-                    print("Latitude: \(postLocation.latitude), Longitude: \(postLocation.longitude)")
-                    completionHandler(location.coordinate, nil)
-                    return
-                }
-            } else {
-                if let placemark = placemarks?[0] {
-                    let location = placemark.location!
-                    let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
-                    print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
-                    
-                    completionHandler(location.coordinate, nil)
-                    return
+            if let placemarks = placemarks {
+              
+                let placemark = placemarks[0]
+   
+                let annotation = MKPointAnnotation()
+                annotation.title = self.post.location
+                annotation.subtitle = self.post.userUid
+                
+                if let location = placemark.location {
+                    annotation.coordinate = location.coordinate
+                
                 }
             }
-            completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
+        })
+        
+        
+    
+    
+    getLocation(from: post.location) { item in
+        self.postItem = item
+        self.item = item
+    }
+    
+    for index in post.location {
+        
+        fetchLocation(address: index.description) { (placemark, error) in
+            self.postItem = placemark
         }
     }
     
-    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks,
-                  let location = placemarks.first?.location?.coordinate else {
-                completion(nil)
+    fetchLocation(address: post.location) { (placemark, error) in
+        self.item = placemark
+        
+    }
+}
+
+
+func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(error.localizedDescription)
+}
+private func getCoordinate(addressString : String,
+                           completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+        if error == nil {
+            if let placemark = placemarks?[0] {
+                let location = placemark.location!
+                
+                completionHandler(location.coordinate, nil)
                 return
             }
-            completion(location)
         }
+        
+        completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
     }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization()
+}
+
+
+func fetchCurrentLocation(completionHandler: @escaping (String?) -> Void) {
+    let geocoder = CLGeocoder()
+    if let lastLocation = locationManager.location {
+        geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
+            if error == nil {
+                let firstLocation = placemarks?[0].name
+                completionHandler(firstLocation)
+                
+            } else {
+                completionHandler(nil)
+            }
+        })
+    } else {
+        completionHandler(nil)
     }
-    
-    func checkLocationAuthorization() {
-        switch locationManager.authorizationStatus {
-        case .notDetermined: locationManager.requestAlwaysAuthorization()
-        case .restricted: print("Change Settings")
-        case .denied: print("Change Settings")
-        case .authorizedAlways, .authorizedWhenInUse: break
-            
-        @unknown default: break
-            
-        }
-    }
-    
-    func checkIfLocationServicesIsEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
-            
-            checkLocationAuthorization()
+}
+
+func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(address) { (placemarks, error) in
+        if error == nil {
+            if let placemark = placemarks?[0] {
+                let location = placemark.location!
+                let postLocation: CLLocationCoordinate2D = placemark.location!.coordinate
+                print("Latitude: \(postLocation.latitude), Longitude: \(postLocation.longitude)")
+                completionHandler(location.coordinate, nil)
+                return
+            }
         } else {
-            print("Alert")
+            if let placemark = placemarks?[0] {
+                let location = placemark.location!
+                let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
+                print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
+                
+                completionHandler(location.coordinate, nil)
+                return
+            }
         }
+        completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
     }
+}
+
+func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?) -> Void) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(address) { (placemarks, error) in
+        guard let placemarks = placemarks,
+              let location = placemarks.first?.location?.coordinate else {
+            completion(nil)
+            return
+        }
+        completion(location)
+    }
+}
+
+func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    checkLocationAuthorization()
+}
+
+func checkLocationAuthorization() {
+    switch locationManager.authorizationStatus {
+    case .notDetermined: locationManager.requestAlwaysAuthorization()
+    case .restricted: print("Change Settings")
+    case .denied: print("Change Settings")
+    case .authorizedAlways, .authorizedWhenInUse: break
+        
+    @unknown default: break
+        
+    }
+}
+
+func checkIfLocationServicesIsEnabled() {
+    if CLLocationManager.locationServicesEnabled() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        
+        checkLocationAuthorization()
+    } else {
+        print("Alert")
+    }
+}
 }
 

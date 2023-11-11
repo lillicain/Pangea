@@ -34,6 +34,8 @@ struct LocationView: View {
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
     
+    let post: Post
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -53,8 +55,24 @@ struct LocationView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                        if let post = locationManager.location {
-                            Annotation("Location", coordinate: post.coordinate) {
+                        
+                        if let location = locationManager.placemark?.location?.coordinate {
+                        Annotation("COORDINATE", coordinate: location) {
+                            ZStack {
+                                KFImage(URL(string: post.imageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 75, height: 75)
+                                        .clipShape(.circle)
+                                        .background(
+                                            Circle()
+                                                .frame(width: 80, height: 80)
+                                                .foregroundColor(.white))
+                                }
+                        }
+                    }
+                        if let location = locationManager.location {
+                            Annotation("Location", coordinate: location.coordinate) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
@@ -74,25 +92,26 @@ struct LocationView: View {
                
                         
                         if let selectedPost = locationManager.postItem {
-                            Annotation("", coordinate: selectedPost) {
+                            Annotation("Post Item", coordinate: selectedPost) {
                                 ZStack {
-                                    ForEach(feedViewModel.posts) { post in
-                                        KFImage(URL(string: post.imageUrl))
+//                                    ForEach(feedViewModel.posts) { post in
+                                    Circle()
+                                        .frame(width: 80, height: 80)
+                                        .foregroundColor(.white)
+                                    KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
                                             .frame(width: 75, height: 75)
                                             .clipShape(.circle)
-                                            .background(
-                                                Circle()
-                                                    .frame(width: 80, height: 80)
-                                                    .foregroundColor(.white))
-                                    }
+                                        
+                                               
+//                                    }
                                 }
                             }
                         }
                         
                         if let items = locationManager.item {
-                            Annotation("", coordinate: items) {
+                            Annotation("Items", coordinate: items) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
