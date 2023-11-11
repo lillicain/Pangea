@@ -16,10 +16,11 @@ struct LocationView: View {
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var feedViewModel = FeedViewModel()
     
+    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
+    
     @StateObject var locationManager = LocationManager()
     
     @State var selectedPost: MKMapItem?
-    
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State var searchText = ""
     @State var results = [MKMapItem]()
@@ -69,7 +70,6 @@ struct LocationView: View {
                         
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
-                                //                                ZStack {
                                 postLocation
                                     .offset(x: 50, y: -25)
                                 //                                    ForEach(feedViewModel.posts) { post in
@@ -82,8 +82,6 @@ struct LocationView: View {
                                 //                                                Circle()
                                 //                                                    .frame(width: 90, height: 90)
                                 //                                                    .foregroundColor(authenticationViewModel.green[0]))
-                                //                                    }
-                                //                                }
                                 
                             }
                         }
@@ -101,7 +99,6 @@ struct LocationView: View {
                                             .scaledToFill()
                                             .frame(width: 75, height: 75)
                                             .clipShape(.circle)
-                                        
                                         
                                     }
                                 }
@@ -166,6 +163,8 @@ struct LocationView: View {
                     )
                     .task {
                         locationManager.requestLocation()
+        
+                        try? await feedViewModel.fetchPosts()
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in
