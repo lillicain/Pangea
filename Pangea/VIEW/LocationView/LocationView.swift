@@ -45,9 +45,9 @@ struct LocationView: View {
                         UserAnnotation()
                         
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
-                           schoolAnnotation
+                            schoolAnnotation
                         }
-                    
+                        
                         Annotation("Home", coordinate: .homeLocation) {
                             homeAnnotation
                         }
@@ -151,7 +151,7 @@ struct LocationView: View {
                     )
                     .task {
                         locationManager.requestLocation()
-                      
+                        
                         try? await feedViewModel.fetchPosts()
                         try? await postItemViewModel.fetchUserPosts()
                     }
@@ -171,7 +171,7 @@ struct LocationView: View {
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
                     })
-                 
+                    
                     VStack {
                         searchBar
                     }
@@ -185,17 +185,17 @@ struct LocationView: View {
 extension LocationView {
     
     var schoolAnnotation: some View {
-            ZStack {
-                Circle()
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.white)
-                Circle()
-                    .frame(width: 45, height: 45)
-                    .foregroundColor(authenticationViewModel.pink[0])
-                Image(systemName: "graduationcap")
-                    .foregroundColor(.white)
-       
-            }
+        ZStack {
+            Circle()
+                .frame(width: 50, height: 50)
+                .foregroundColor(.white)
+            Circle()
+                .frame(width: 45, height: 45)
+                .foregroundColor(authenticationViewModel.pink[0])
+            Image(systemName: "graduationcap")
+                .foregroundColor(.white)
+            
+        }
     }
     
     var homeAnnotation: some View {
@@ -223,7 +223,7 @@ extension LocationView {
                         Circle()
                             .frame(width: 100, height: 100)
                             .foregroundColor(.white)
-                )
+                    )
             }
         }
     }

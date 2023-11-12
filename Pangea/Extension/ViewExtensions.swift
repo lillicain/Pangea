@@ -49,7 +49,7 @@ struct OneViewModifier: ViewModifier {
             .font(.system(size: 17.5).bold())
             .foregroundColor(AuthenticationViewModel().blue[0])
             .clipShape(RoundedRectangle(cornerRadius: 25, style: .circular))
-            .padding()
+            .frame(width: 325, height: 75)
             .background(
         RoundedRectangle(cornerRadius: 25, style: .circular)
             .foregroundColor(AuthenticationViewModel().green[0])

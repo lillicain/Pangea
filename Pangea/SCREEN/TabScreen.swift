@@ -13,9 +13,11 @@ struct TabScreen: View {
     
     var body: some View {
         TabView {
+            
             if let user = authenticationViewModel.currentUser {
+                
                 ProfileScreen(user: user)
-                    .tabItem { Image("globe") }
+                    .tabItem { Image(systemName: "globe") }
                 
                 LocationView(post: Post.MOCK_POST[0])
                     .tabItem { Image(systemName: "globe") }
@@ -28,8 +30,6 @@ struct TabScreen: View {
             }
         }
         .accentColor(authenticationViewModel.pink[0])
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .center, endPoint: .bottomTrailing))
-        .ignoresSafeArea(.all)
     }
 }
 
@@ -46,12 +46,14 @@ extension TabScreen {
                 .offset(x: -15, y: 15)
                 .foregroundColor(authenticationViewModel.violet[0])
                 .overlay {
+                    
                     Image(systemName: "globe")
                         .resizable()
                         .frame(width: 325, height: 325)
                         .foregroundColor(authenticationViewModel.green[0])
                         .shadow(color: .black.opacity(0.25), radius: 1.0, x: 1.0, y: -1.0)
                 }
+            
         }
     }
 }

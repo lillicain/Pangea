@@ -39,10 +39,11 @@ struct FeedView: View {
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 125) {
-                    ForEach(feedViewModel.posts, id: \.timestamp) { post in
+                    ForEach(feedViewModel.posts) { post in
                         FeedItemView(post: post)
                     }
                 }
+                
                 .task {
                     locationManager.requestLocation()
                     
@@ -63,7 +64,7 @@ struct FeedView: View {
                     NavigationLink {
                         SearchScreen()
                     } label: {
-                        Text("Search")
+                        Image(systemName: "magnifyingglass")
                     }
                 }
                 
@@ -71,11 +72,11 @@ struct FeedView: View {
                     Button {
                         newPost.toggle()
                     } label: {
-                        Text("Post")
+                        Text("Create Post")
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
         }
     }
 }
@@ -102,29 +103,33 @@ extension FeedView {
     
     var postInformation: some View {
         VStack {
-            if let image = postViewModel.postImage {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 350, height: 350)
-                    .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .padding()
-                    .padding(.top)
-            } else if image != nil {
-                Image(uiImage: image!)
-                    .scaledToFill()
-                    .frame(width: 350, height: 350)
-                    .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .padding()
-                    .padding(.top)
+            VStack {
+                if let image = postViewModel.postImage {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
+                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .padding()
+                } else if image != nil {
+                    Image(uiImage: image!)
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
+                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .padding()
+                }
             }
+            .padding(.top, 75)
+            .padding(.vertical)
             
-            TextField("Enter Text...", text: $description)
-                .modifier(OneViewModifier())
-                .scrollDismissesKeyboard(.automatic)
-            
+            VStack {
+                TextField("Enter Text...", text: $description)
+                    .modifier(OneViewModifier())
+                    .scrollDismissesKeyboard(.automatic)
+            }
+                
             VStack {
                 Button {
                     Task {
@@ -149,16 +154,17 @@ extension FeedView {
                         .padding(.trailing)
                         .modifier(PostViewModifier())
                 }
+                .padding()
+                .padding(.vertical)
             }
-            .padding()
-            .padding(.vertical, 25)
             
             VStack {
                 Text(locationManager.currentLocation)
                     .font(FontOne.body)
-                    .padding(.all, 25)
+                    .padding(.all)
                     .padding(.vertical)
             }
+            
             
             HStack(spacing: 25) {
                 Button {
@@ -217,14 +223,13 @@ extension FeedView {
                                 .foregroundColor(authenticationViewModel.blue[0])
                         )
                 }
-                
+    
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .frame(height: 3.5)
                     .padding(.top, 15)
                     .padding(.vertical)
                     .foregroundColor(authenticationViewModel.blue[0])
-                
             }
         }
     }

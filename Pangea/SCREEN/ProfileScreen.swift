@@ -12,6 +12,8 @@ struct ProfileScreen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @EnvironmentObject var editUserViewModel: EditUserViewModel
     
+    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
+    
     @State var showScreen = false
     
     let user: User
@@ -31,14 +33,12 @@ struct ProfileScreen: View {
                                     .frame(width: 375, height: 257.5)
                                     .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
                             }
-                        
-                        
+                    
                         ZStack {
                             Circle()
                                 .frame(width: 182.5, height: 185.5)
                                 .foregroundColor(.white)
                                 .padding(.top, 100)
-                            
                             ZStack {
                                 ProfileImageManager(user: user, size: .extraLarge)
                             }
@@ -113,9 +113,12 @@ struct ProfileScreen: View {
                     VStack {
                         PostItemView(user: user.self)
                     }
+                    .task {
+                        try? await postItemViewModel.fetchUserPosts()
+                    }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
         }
     }
 }

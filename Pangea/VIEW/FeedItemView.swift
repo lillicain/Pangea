@@ -15,10 +15,9 @@ struct FeedItemView: View {
     let post: Post
     
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
+        VStack(alignment: .center, spacing: 7.5) {
             postUser
             postImage
-            
             
             HStack {
                 VStack(alignment: .leading, spacing: 15) {
@@ -41,7 +40,7 @@ extension FeedItemView {
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(authenticationViewModel.green[0])
                 .frame(width: 250, height: 70)
-               
+        
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(.white)
                 .frame(width: 225, height: 60)
@@ -49,7 +48,6 @@ extension FeedItemView {
                 HStack {
                     if let user = post.user {
                         NavigationLink(destination: ProfileScreen(user: user)) {
-                            
                             ProfileImageManager(user: user, size: .extraSmall)
                             
                             Text(user.username)
@@ -87,11 +85,8 @@ extension FeedItemView {
                                     .foregroundColor(authenticationViewModel.green[0])
                                     .frame(width: 100, height: 100)
                             }
-                        
-                        
                             .padding(.leading, 225)
                             .padding(.top, 350)
-                        
                     }
                 }
         }
