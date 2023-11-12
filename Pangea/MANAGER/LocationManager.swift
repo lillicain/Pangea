@@ -15,7 +15,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
@@ -23,7 +23,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     var geocoder = CLGeocoder()
     
     let post = Post.MOCK_POST[0]
-
+    @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
@@ -69,42 +69,21 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         print(location.coordinate)
         
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
-            self.placemark = placemark?.first
+            self.placemark = placemark?[0]
         }
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
         
-        geocoder.geocodeAddressString(post.location, completionHandler: { placemarks, error in
-            if error != nil {print(error!); return}
-            
-            if let placemarks = placemarks {
-              
-                let placemark = placemarks[0]
-   
-                let annotation = MKPointAnnotation()
-                annotation.title = self.post.location
-                annotation.subtitle = self.post.userUid
-                
-                if let location = placemark.location {
-                    annotation.coordinate = location.coordinate
-                
-                }
-            }
-        })
-        
-        
-    
-    
-    getLocation(from: post.location) { item in
+        getLocation(from: post.location) { item in
         self.postItem = item
         self.item = item
     }
     
-    for index in post.location {
+        for index in posts {
         
-        fetchLocation(address: index.description) { (placemark, error) in
+            fetchLocation(address: index.location) { (placemark, error) in
             self.postItem = placemark
         }
     }
