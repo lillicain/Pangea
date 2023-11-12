@@ -17,6 +17,7 @@ struct LocationView: View {
     @ObservedObject var feedViewModel = FeedViewModel()
     @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
     @ObservedObject var postViewModel = PostViewModel()
+    
     @StateObject var locationManager = LocationManager()
     
     @State var selectedPost: MKMapItem?
@@ -44,43 +45,25 @@ struct LocationView: View {
                         UserAnnotation()
                         
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
-                            ZStack {
-                                Circle()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.white)
-                                Circle()
-                                    .frame(width: 45, height: 45)
-                                    .foregroundColor(authenticationViewModel.pink[0])
-                                Image(systemName: "graduationcap.fill")
-                                    .foregroundColor(.white)
-                            }
+                           schoolAnnotation
                         }
                     
                         Annotation("Home", coordinate: .homeLocation) {
-                            ZStack {
-                                Circle()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.white)
-                                Circle()
-                                    .frame(width: 45, height: 45)
-                                    .foregroundColor(authenticationViewModel.pink[0])
-                                Image(systemName: "house.fill")
-                                    .foregroundColor(.white)
-                            }
+                            homeAnnotation
                         }
+                        
                         if let location = locationManager.placemark?.location?.coordinate {
-                            Annotation("COORDINATE", coordinate: location) {
+                            Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 105, height: 105)
+                                    .frame(width: 125, height: 125)
                                     .clipShape(.circle)
-                                
                             }
                         }
                         
                         if let location = locationManager.location {
-                            Annotation("Location", coordinate: location.coordinate) {
+                            Annotation("Post", coordinate: location.coordinate) {
                                 postLocation
                                     .offset(x: 50, y: -25)
                             }
@@ -88,16 +71,16 @@ struct LocationView: View {
                         
                         
                         if let selectedPost = locationManager.postItem {
-                            Annotation("Post Item", coordinate: selectedPost) {
+                            Annotation("Post", coordinate: selectedPost) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         Circle()
-                                            .frame(width: 80, height: 80)
-                                            .foregroundColor(authenticationViewModel.pink[0])
+                                            .frame(width: 75, height: 75)
+                                            .foregroundColor(.white)
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 75, height: 75)
+                                            .frame(width: 70, height: 70)
                                             .clipShape(.circle)
                                         
                                     }
@@ -106,27 +89,24 @@ struct LocationView: View {
                         }
                         
                         if let items = locationManager.item {
-                            Annotation("Items", coordinate: items) {
+                            Annotation("Post", coordinate: items) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 85, height: 85)
+                                            .frame(width: 90, height: 90)
                                             .clipShape(.circle)
                                             .background(
                                                 Circle()
                                                     .frame(width: 95, height: 95)
-                                                    .foregroundColor(authenticationViewModel.blue[0])
-                                            .overlay {
-                                                Circle()
-                                                    .frame(width: 90, height: 90)
                                                     .foregroundColor(.white)
-                                            }
-                                                )
+                                                
+                                            )
                                     }
+                                    
+                                    .offset(x: 25, y: -25)
                                 }
-                                .offset(x: 7.5, y: -7.5)
                             }
                         }
                         
@@ -135,16 +115,16 @@ struct LocationView: View {
                                 if item == routeDestination {
                                     let placemark = item.placemark
                                     Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                        .tint(authenticationViewModel.pink[0])
+                                        .tint(authenticationViewModel.blue[0])
                                 }
                             } else {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.violet[0])
+                                    .tint(authenticationViewModel.blue[0])
                             }
                             if let route {
                                 MapPolyline(route.polyline)
-                                    .stroke(authenticationViewModel.green[0].opacity(0.5), lineWidth: 5)
+                                    .stroke(authenticationViewModel.blue[0].opacity(0.25), lineWidth: 5)
                             }
                         }
                     }
@@ -190,13 +170,12 @@ struct LocationView: View {
                             .presentationCornerRadius(50)
                     })
                  
-                   
                     VStack {
                         searchBar
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }
@@ -240,9 +219,9 @@ extension LocationView {
                     .clipShape(.circle)
                     .background(
                         Circle()
-                            .frame(width: 105, height: 105)
-                            .foregroundColor(authenticationViewModel.green[0]))
-                
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.white)
+                )
             }
         }
     }

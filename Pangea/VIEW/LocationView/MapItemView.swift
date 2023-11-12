@@ -31,7 +31,6 @@ struct MapItemView: View {
                 Button {
                     cameraPosition = .userLocation(fallback: .automatic)
                     searchPlaces(for: "Park")
-
                 } label: {
                     Image(systemName: "binoculars")
                 }
