@@ -20,7 +20,6 @@ class AuthenticationViewModel: ObservableObject {
     @Published var currentSignInStatus = SignInState.pangea
     
     @Published var backgroundColor: Color?
-    
     @Published var blue = ["0030FF"].hexToColorArray()
     @Published var green = ["CCFF00"].hexToColorArray()
     @Published var violet = ["480CA8"].hexToColorArray()
