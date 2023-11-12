@@ -35,25 +35,25 @@ struct FeedItemView: View {
 }
 
 extension FeedItemView {
+    
     var postUser: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(authenticationViewModel.green[0])
                 .frame(width: 325, height: 70)
-        
+            
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(.white)
                 .frame(width: 300, height: 60)
-           
-                HStack {
-                    if let user = post.user {
-                        NavigationLink(destination: ProfileScreen(user: user)) {
-                            ProfileImageManager(user: user, size: .extraSmall)
-                            
-                            Text(user.username)
-                                .font(FontNine.extraSmall)
-                                
-                        }
+            
+            HStack {
+                if let user = post.user {
+                    NavigationLink(destination: ProfileScreen(user: user)) {
+                        ProfileImageManager(user: user, size: .extraSmall)
+                        
+                        Text(user.username)
+                            .font(FontNine.extraSmall)
+                    }
                     
                 }
             }
