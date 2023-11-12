@@ -140,15 +140,16 @@ struct LocationView: View {
                             } else {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.orangeRed[0])
+                                    .tint(authenticationViewModel.violet[0])
                             }
                             if let route {
                                 MapPolyline(route.polyline)
-                                    .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
+                                    .stroke(authenticationViewModel.green[0].opacity(0.5), lineWidth: 5)
                             }
                         }
                     }
                     .mapStyle(.standard(elevation: .realistic))
+                    .safeAreaPadding(.top)
                     .mapControls {
                         MapInformation()
                     }
@@ -156,7 +157,7 @@ struct LocationView: View {
                         VStack {
                             MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
                                 .padding(.leading, 325)
-                                .padding()
+                                .padding(.bottom, 50)
                         }
                     }
                     .frame(width: 375, height: 625)
@@ -188,7 +189,8 @@ struct LocationView: View {
                             .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
                             .presentationCornerRadius(50)
                     })
-                    
+                 
+                   
                     VStack {
                         searchBar
                     }
@@ -200,6 +202,33 @@ struct LocationView: View {
 }
 
 extension LocationView {
+    
+    var schoolAnnotation: some View {
+            ZStack {
+                Circle()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(.white)
+                Circle()
+                    .frame(width: 45, height: 45)
+                    .foregroundColor(authenticationViewModel.pink[0])
+                Image(systemName: "graduationcap")
+                    .foregroundColor(.white)
+       
+            }
+    }
+    
+    var homeAnnotation: some View {
+        ZStack {
+            Circle()
+                .frame(width: 50, height: 50)
+                .foregroundColor(.white)
+            Circle()
+                .frame(width: 45, height: 45)
+                .foregroundColor(authenticationViewModel.pink[0])
+            Image(systemName: "house")
+                .foregroundColor(.white)
+        }
+    }
     
     var postLocation: some View {
         ZStack {

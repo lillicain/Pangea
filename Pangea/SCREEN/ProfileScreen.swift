@@ -21,14 +21,14 @@ struct ProfileScreen: View {
             ScrollView {
                 VStack {
                     ZStack(alignment: .top) {
-                        RoundedRectangle(cornerRadius: 50, style: .circular)
+                        RoundedRectangle(cornerRadius: 65, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: 412.5, height: 272.5)
+                            .frame(width: 405, height: 272.5)
                             .padding(.horizontal, 5)
                             .overlay(alignment: .top) {
                                 LocationView(post: Post.MOCK_POST[0])
                                     .mapControlVisibility(.hidden)
-                                    .frame(width: 400, height: 257.5)
+                                    .frame(width: 375, height: 257.5)
                                     .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
                             }
                         
@@ -115,7 +115,7 @@ struct ProfileScreen: View {
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
         }
     }
 }
