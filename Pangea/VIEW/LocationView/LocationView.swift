@@ -91,7 +91,7 @@ struct LocationView: View {
                         if let items = locationManager.item {
                             Annotation("Post", coordinate: items) {
                                 ZStack {
-                                    ForEach(feedViewModel.posts) { post in
+                                    ForEach(feedViewModel.posts.reversed()) { post in
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
                                             .scaledToFill()
@@ -129,14 +129,15 @@ struct LocationView: View {
                         }
                     }
                     .mapStyle(.standard(elevation: .realistic))
-                    .safeAreaPadding(.top)
+                    .safeAreaPadding(.top, 25)
+                    .safeAreaPadding(.trailing, 5)
                     .mapControls {
                         MapInformation()
                     }
                     .safeAreaInset(edge: .bottom) {
                         VStack {
                             MapItemView(cameraPosition: $cameraPosition, results: $results, visibleRegion: $visibleRegion, username: $username)
-                                .padding(.leading, 325)
+                                .padding(.leading, 315)
                                 .padding(.bottom, 50)
                         }
                     }
@@ -150,8 +151,9 @@ struct LocationView: View {
                     )
                     .task {
                         locationManager.requestLocation()
-                        try? await postItemViewModel.fetchUserPosts()
+                      
                         try? await feedViewModel.fetchPosts()
+                        try? await postItemViewModel.fetchUserPosts()
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in

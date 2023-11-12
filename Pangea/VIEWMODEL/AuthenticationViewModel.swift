@@ -14,28 +14,18 @@ import FirebaseFirestoreSwift
 
 @MainActor
 class AuthenticationViewModel: ObservableObject {
+    
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     @Published var currentSignInStatus = SignInState.pangea
     
     @Published var backgroundColor: Color?
     
-//    @Published var blue = ["2D00F7"].hexToColorArray()
     @Published var blue = ["0030FF"].hexToColorArray()
-    @Published var lightBlue = ["0030FF"].hexToColorArray()
-    @Published var lightGreen = ["CCFF00"].hexToColorArray()
-//    @Published var green = ["C1FF00"].hexToColorArray()
     @Published var green = ["CCFF00"].hexToColorArray()
-    
-    @Published var pinkRed = ["FF3B5B"].hexToColorArray()
-    @Published var pink = ["FF206E"].hexToColorArray()
     @Published var violet = ["480CA8"].hexToColorArray()
-    @Published var purple = ["601EF9"].hexToColorArray()
-    
-    @Published var yellow = ["FFFF00"].hexToColorArray()
-    @Published var orange = ["FF6700"].hexToColorArray()
-    @Published var orangeRed = ["FF4500"].hexToColorArray()
-   
+    @Published var pink = ["FF3B5B"].hexToColorArray()
+    @Published var orange = ["FF4500"].hexToColorArray()
     @Published var black = ["0C0F0A"].hexToColorArray()
     @Published var white = ["FDFFFC"].hexToColorArray()
     

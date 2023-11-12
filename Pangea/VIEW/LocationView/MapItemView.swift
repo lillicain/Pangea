@@ -21,7 +21,7 @@ struct MapItemView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 12.5) {
                 Button {
                     cameraPosition = .automatic
                 } label: {
@@ -42,10 +42,10 @@ struct MapItemView: View {
                     Image(systemName: "mappin.and.ellipse")
                 }
             }
+            .padding()
             .controlSize(.regular)
             .buttonBorderShape(.circle)
             .buttonStyle(.borderedProminent)
-            .accentColor(authenticationViewModel.pink[0])
         }
     }
 }
