@@ -39,11 +39,11 @@ extension FeedItemView {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(authenticationViewModel.green[0])
-                .frame(width: 250, height: 70)
+                .frame(width: 325, height: 70)
         
             RoundedRectangle(cornerRadius: 25, style: .circular)
                 .foregroundColor(.white)
-                .frame(width: 225, height: 60)
+                .frame(width: 300, height: 60)
            
                 HStack {
                     if let user = post.user {
@@ -52,6 +52,7 @@ extension FeedItemView {
                             
                             Text(user.username)
                                 .font(FontNine.extraSmall)
+                                
                         }
                     
                 }
