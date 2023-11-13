@@ -145,7 +145,7 @@ extension FeedView {
                         }
                     }
                     
-                    description = ""
+                    description = description
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     

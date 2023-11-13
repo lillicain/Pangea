@@ -67,52 +67,52 @@ struct LocationView: View {
                         
                         
                         if let location = locationManager.location {
-                            Annotation("Post", coordinate: location.coordinate) {
+                            Annotation("Post Location", coordinate: location.coordinate) {
                                 postLocation
                                     .offset(x: 50, y: -25)
                             }
                         }
                         
                         
-                        //                        if let selectedPost = locationManager.coordinates {
-                        //                            Annotation("Post", coordinate: selectedPost) {
-                        //                                ZStack {
-                        //                                        Circle()
-                        //                                            .frame(width: 75, height: 75)
-                        //                                            .foregroundColor(.white)
-                        //                                    ForEach(feedViewModel.posts) { post in
-                        //                                        KFImage(URL(string: post.imageUrl))
-                        //                                            .resizable()
-                        //                                            .scaledToFill()
-                        //                                            .frame(width: 70, height: 70)
-                        //                                            .clipShape(.circle)
-                        //                                            .offset(x: 250)
-                        //                                    }
-                        //                                }
-                        //                            }
-                        //                        }
+                        if let selectedPost = locationManager.coordinates {
+                            Annotation("Coordinates", coordinate: selectedPost) {
+                                ZStack {
+                                    Circle()
+                                        .frame(width: 75, height: 75)
+                                        .foregroundColor(.white)
+                                    ForEach(feedViewModel.posts) { post in
+                                        KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 70, height: 70)
+                                            .clipShape(.circle)
+                                            .offset(x: 250)
+                                    }
+                                }
+                            }
+                        }
                         
-                        //                        if let items = locationManager.item {
-                        //                            Annotation("PostItem", coordinate: items) {
-                        //                                ZStack {
-                        //                                    ForEach(feedViewModel.posts) { post in
-                        //                                        KFImage(URL(string: post.imageUrl))
-                        //                                            .resizable()
-                        //                                            .scaledToFill()
-                        //                                            .frame(width: 90, height: 90)
-                        //                                            .clipShape(.circle)
-                        //                                            .background(
-                        //                                                Circle()
-                        //                                                    .frame(width: 95, height: 95)
-                        //                                                    .foregroundColor(.white)
-                        //
-                        //                                            )
-                        //                                    }
-                        //
-                        //                                    .offset(x: 25, y: -25)
-                        //                                }
-                        //                            }
-                        //                        }
+                        if let items = locationManager.item {
+                            Annotation("Item Location Manager", coordinate: items) {
+                                ZStack {
+                                    ForEach(feedViewModel.posts) { post in
+                                        KFImage(URL(string: post.imageUrl))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 90, height: 90)
+                                            .clipShape(.circle)
+                                            .background(
+                                                Circle()
+                                                    .frame(width: 95, height: 95)
+                                                    .foregroundColor(.white)
+                                                
+                                            )
+                                    }
+                                    
+                                    .offset(x: 25, y: -25)
+                                }
+                            }
+                        }
                         
                         ForEach(results, id: \.self) { item in
                             if routeDisplaying {

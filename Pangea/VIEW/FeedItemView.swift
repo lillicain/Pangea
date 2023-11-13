@@ -75,7 +75,6 @@ extension FeedItemView {
                         Image(systemName: "mappin.and.ellipse.circle")
                             .resizable()
                             .scaledToFit()
-//                            .foregroundStyle(LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .topLeading, endPoint: .bottomTrailing))
                             .foregroundColor(.white)
                             .frame(width: 100, height: 100)
                             .offset(x: 0.5, y: -0.5)

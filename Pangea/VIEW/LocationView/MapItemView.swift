@@ -37,7 +37,6 @@ struct MapItemView: View {
                 
                 Button {
                     cameraPosition = .camera(MapCamera(centerCoordinate: .schoolLocation, distance: 980, heading: 242, pitch: 60))
-                    
                 } label: {
                     Image(systemName: "mappin.and.ellipse")
                 }
