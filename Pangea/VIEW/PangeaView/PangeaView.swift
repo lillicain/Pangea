@@ -77,22 +77,22 @@ extension PangeaView {
     
     var pangeaView: some View {
         ZStack {
-            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
             
             Image(systemName: "globe")
                 .resizable()
-                .frame(width: 325, height: 325)
+                .frame(width: 300, height: 300)
                 .padding(.bottom, 395)
-                .offset(x: -5, y: 5)
+                .offset(x: 7.5, y: 7.5)
                 .foregroundColor(authenticationViewModel.green[0])
                 .overlay {
                     Image(systemName: "globe")
                         .resizable()
-                        .frame(width: 325, height: 325)
+                        .frame(width: 300, height: 300)
                         .padding(.bottom, 395)
                         .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
-                        .foregroundStyle(LinearGradient(colors: [authenticationViewModel.violet[0], authenticationViewModel.violet[0], authenticationViewModel.violet[0], authenticationViewModel.pink[0]], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .foregroundColor(authenticationViewModel.violet[0])
                 }
             
             VStack(spacing: 100) {
@@ -100,18 +100,18 @@ extension PangeaView {
                     .font(FontNine.title)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(.white)
-                    .kerning(2.5)
+                    .kerning(3.0)
                     .offset(x: -1.5, y: 1.5)
                     .overlay {
                         Text("PANGEA")
                             .font(FontNine.title)
                             .scaledToFit()
                             .foregroundColor(authenticationViewModel.green[0])
-                            .kerning(2.5)
+                            .kerning(3.0)
                             .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
                         
                     }
-                    .padding(.top, 375)
+                    .padding(.top, 325)
                 
                 
                 VStack(spacing: 0) {
@@ -123,7 +123,7 @@ extension PangeaView {
             ZStack {
                 Text("Reconnect")
                     .font(FontFour.small)
-                    .padding(.top, 165)
+                    .padding(.top, 135)
                     .kerning(5)
                     .foregroundColor(authenticationViewModel.pink[0])
                     .offset(x: -0.5, y: -0.5)
@@ -131,7 +131,7 @@ extension PangeaView {
                     .overlay {
                         Text("Reconnect")
                             .font(FontFour.small)
-                            .padding(.top, 165)
+                            .padding(.top, 135)
                             .kerning(5)
                             .foregroundStyle(LinearGradient(colors: [authenticationViewModel.violet[0], authenticationViewModel.pink[0], authenticationViewModel.pink[0], authenticationViewModel.pink[0]], startPoint: .top, endPoint: .center))
                             .shadow(color: .black.opacity(0.25), radius: 0.5, x: 1.5, y: -0.5)

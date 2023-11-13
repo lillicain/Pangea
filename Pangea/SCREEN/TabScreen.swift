@@ -43,10 +43,9 @@ extension TabScreen {
             Image(systemName: "globe")
                 .resizable()
                 .frame(width: 325, height: 325)
-                .offset(x: -15, y: 15)
+                .offset(x: -7.5, y: 7.5)
                 .foregroundColor(authenticationViewModel.violet[0])
                 .overlay {
-                    
                     Image(systemName: "globe")
                         .resizable()
                         .frame(width: 325, height: 325)

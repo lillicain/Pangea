@@ -79,11 +79,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             self.currentLocation = placemark ?? ""
         }
         
-        getLocation { newPost in
-            self.coordinates = newPost
-          
-            
-        }
+//        getLocation { newPost in
+//            self.coordinates = newPost
+//           
+//        }
     }
     
     
@@ -152,22 +151,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         }
     }
     
-    func getLocation(completionHandler: @escaping (CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder()
-        if let newPost = post?.location {
-            geocoder.geocodeAddressString(newPost, completionHandler: { (placemarks, error) in
-                if error == nil {
-                    let locationCoordinates = placemarks?[0].location
-                    completionHandler(locationCoordinates?.coordinate)
-                    
-                } else {
-                    completionHandler(nil)
-                }
-            })
-        } else {
-            completionHandler(nil)
-        }
-    }
+//    func getLocation(completionHandler: @escaping (CLLocationCoordinate2D?) -> Void) {
+//        let geocoder = CLGeocoder()
+//        if let newPost = post.location {
+//            geocoder.geocodeAddressString(newPost, completionHandler: { (placemarks, error) in
+//                if error == nil {
+//                    let locationCoordinates = placemarks?[0].location
+//                    completionHandler(locationCoordinates?.coordinate)
+//                    
+//                } else {
+//                    completionHandler(nil)
+//                }
+//            })
+//        } else {
+//            completionHandler(nil)
+//        }
+//    }
     
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
