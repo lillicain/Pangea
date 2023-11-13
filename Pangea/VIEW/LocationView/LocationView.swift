@@ -14,9 +14,9 @@ import Kingfisher
 struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    @ObservedObject var feedViewModel = FeedViewModel()
-    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
-    @ObservedObject var postViewModel = PostViewModel()
+    @StateObject var feedViewModel = FeedViewModel() // Should not be created here
+    @StateObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
+    @StateObject var postViewModel = PostViewModel()
     
     @StateObject var locationManager = LocationManager()
     
