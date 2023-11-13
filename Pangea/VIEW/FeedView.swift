@@ -127,8 +127,8 @@ extension FeedView {
             
             VStack {
                 TextField("Enter Text...", text: $description)
+                    .colorMultiply(.black)
                     .modifier(OneViewModifier())
-                    .modifier(DarkModeViewModifier())
             }
                 
             VStack {
@@ -151,18 +151,18 @@ extension FeedView {
                     
                 } label: {
                     Text("Post")
-                        .padding(.leading)
-                        .padding(.trailing)
+                        .padding(.leading, 35)
+                        .padding(.trailing, 35)
                         .modifier(PostViewModifier())
                 }
-                .padding()
+                .padding(.all)
                 .padding(.vertical)
             }
             
             VStack {
                 Text(locationManager.currentLocation)
                     .font(FontOne.body)
-                    .padding(.all)
+                    .padding(.bottom, 25)
                     .padding(.vertical)
             }
             
