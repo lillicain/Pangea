@@ -34,7 +34,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var postLocation = CLLocationCoordinate2D()
     @Published var item: CLLocationCoordinate2D?
     @Published var coordinates: CLLocationCoordinate2D?
-    @Published var postAnnotation = MKPointAnnotation()
+    @Published var postAnnotation = [MKMapItem]()
     
     override init() {
         self.post = Post.MOCK_POST[0]
@@ -46,6 +46,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     
     func requestLocation() {
         locationManager.requestLocation()
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
     
     func geocode() {
@@ -78,19 +83,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
-        
+//        for index in posts {
+//            let location = index.location
+//            let
+//            
+//        }
 //        getLocation { newPost in
 //            self.coordinates = newPost
 //           
 //        }
     }
     
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    private func getCoordinate(addressString : String,
-                               completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
+ 
+    private func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {

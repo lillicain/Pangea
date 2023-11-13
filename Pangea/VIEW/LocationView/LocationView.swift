@@ -37,7 +37,6 @@ struct LocationView: View {
     
     let post: Post
     
-  
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -53,6 +52,7 @@ struct LocationView: View {
                             homeAnnotation
                         }
                         
+                        
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
@@ -60,8 +60,11 @@ struct LocationView: View {
                                     .scaledToFill()
                                     .frame(width: 125, height: 125)
                                     .clipShape(.circle)
+                                    .offset(x: 50, y: 100)
                             }
+                            
                         }
+                        
                         
                         if let location = locationManager.location {
                             Annotation("Post", coordinate: location.coordinate) {
@@ -71,45 +74,45 @@ struct LocationView: View {
                         }
                         
                         
-                        if let selectedPost = locationManager.coordinates {
-                            Annotation("Post", coordinate: selectedPost) {
-                                ZStack {
-                                    ForEach(feedViewModel.posts) { post in
-                                        Circle()
-                                            .frame(width: 75, height: 75)
-                                            .foregroundColor(.white)
-                                        KFImage(URL(string: post.imageUrl))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 70, height: 70)
-                                            .clipShape(.circle)
-                                        
-                                    }
-                                }
-                            }
-                        }
+                        //                        if let selectedPost = locationManager.coordinates {
+                        //                            Annotation("Post", coordinate: selectedPost) {
+                        //                                ZStack {
+                        //                                        Circle()
+                        //                                            .frame(width: 75, height: 75)
+                        //                                            .foregroundColor(.white)
+                        //                                    ForEach(feedViewModel.posts) { post in
+                        //                                        KFImage(URL(string: post.imageUrl))
+                        //                                            .resizable()
+                        //                                            .scaledToFill()
+                        //                                            .frame(width: 70, height: 70)
+                        //                                            .clipShape(.circle)
+                        //                                            .offset(x: 250)
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                        }
                         
-                        if let items = locationManager.item {
-                            Annotation("Post", coordinate: items) {
-                                ZStack {
-                                    ForEach(feedViewModel.posts.reversed()) { post in
-                                        KFImage(URL(string: post.imageUrl))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 90, height: 90)
-                                            .clipShape(.circle)
-                                            .background(
-                                                Circle()
-                                                    .frame(width: 95, height: 95)
-                                                    .foregroundColor(.white)
-                                                
-                                            )
-                                    }
-                                    
-                                    .offset(x: 25, y: -25)
-                                }
-                            }
-                        }
+                        //                        if let items = locationManager.item {
+                        //                            Annotation("PostItem", coordinate: items) {
+                        //                                ZStack {
+                        //                                    ForEach(feedViewModel.posts) { post in
+                        //                                        KFImage(URL(string: post.imageUrl))
+                        //                                            .resizable()
+                        //                                            .scaledToFill()
+                        //                                            .frame(width: 90, height: 90)
+                        //                                            .clipShape(.circle)
+                        //                                            .background(
+                        //                                                Circle()
+                        //                                                    .frame(width: 95, height: 95)
+                        //                                                    .foregroundColor(.white)
+                        //
+                        //                                            )
+                        //                                    }
+                        //
+                        //                                    .offset(x: 25, y: -25)
+                        //                                }
+                        //                            }
+                        //                        }
                         
                         ForEach(results, id: \.self) { item in
                             if routeDisplaying {
@@ -236,7 +239,8 @@ extension LocationView {
                 .frame(width: 350, height: 65)
                 .overlay {
                     TextField("Search...", text: $searchText)
-                        .foregroundColor(Color(.systemGray))
+                        .colorMultiply(.black)
+                        .padding()
                         .fontWeight(.semibold)
                         .kerning(2.5)
                         .cornerRadius(25)

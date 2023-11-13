@@ -34,7 +34,7 @@ struct FeedView: View {
         NavigationStack {
             ScrollView {
                 userInformation
-                
+            
                     .padding(.top)
                     .padding(.bottom, 250)
                 
@@ -46,9 +46,9 @@ struct FeedView: View {
                 
                 .task {
                     locationManager.requestLocation()
-                    
-                    try? await feedViewModel.fetchPosts()
+                
                     try? await postViewModel.uploadPost(description: description, location: location)
+                    try? await feedViewModel.fetchPosts()
                 }
                 .padding(.top)
             }
@@ -64,7 +64,8 @@ struct FeedView: View {
                     NavigationLink {
                         SearchScreen()
                     } label: {
-                        Image(systemName: "magnifyingglass")
+                        Image(systemName: "magnifyingglass.circle")
+                            .imageScale(.large)
                     }
                 }
                 
@@ -127,6 +128,7 @@ extension FeedView {
             VStack {
                 TextField("Enter Text...", text: $description)
                     .modifier(OneViewModifier())
+                    .modifier(DarkModeViewModifier())
             }
                 
             VStack {

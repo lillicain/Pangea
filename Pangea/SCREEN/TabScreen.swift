@@ -17,14 +17,14 @@ struct TabScreen: View {
             if let user = authenticationViewModel.currentUser {
                 
                 ProfileScreen(user: user)
-                    .tabItem { Image(systemName: "globe") }
+                    .tabItem { Image(systemName: "person.crop.circle") }
                 
                 LocationView(post: Post.MOCK_POST[0])
-                    .tabItem { Image(systemName: "globe") }
+                    .tabItem { Image(systemName: "mappin.circle") }
                 
                 FeedView(post: Post.MOCK_POST[0])
                     .tabItem { Image(systemName: "globe") }
-                
+
             } else {
                 loadingScreen
             }

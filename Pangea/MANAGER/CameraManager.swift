@@ -8,13 +8,16 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseFirestore
 
 struct CameraViewController: UIViewControllerRepresentable {
+    
     @Environment(\.presentationMode) var presentationMode
     
     @Binding var selectedImage: UIImage?
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { 
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
 
     }
     
@@ -69,13 +72,13 @@ struct CameraViewController: UIViewControllerRepresentable {
                     let latitude = asset.location?.coordinate.latitude
                     let longitude = asset.location?.coordinate.longitude
                     
-                    print(latitude)
-                    print(longitude)
-         
+//                    LocationManager().location = asset.location
+                    
                     print(location)
                     
                     DispatchQueue.main.async {
                         self.parent.selectedImage = pickerImage
+//                        LocationManager().location = asset.location
                     }
                 }
             }
