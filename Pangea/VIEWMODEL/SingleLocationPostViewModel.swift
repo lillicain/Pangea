@@ -9,23 +9,22 @@ import Foundation
 import SwiftUI
 import MapKit
 
+@MainActor
 class SingleLocationPostViewModel: ObservableObject {
     
-    @Published var latLong: (Double, Double) = (0.0, 0.0)
+    @Published var coordinates: (Double, Double) = (0.0, 0.0)
     
-    @MainActor
-    func foo(post: Post) async {
-//        print("Post Address:\(post.location)")
-        let geoCoder = CLGeocoder()
+    func getCoordinates(post: Post) async {
+        let geocoder = CLGeocoder()
         
         Task {
             do {
-                let coordinate = try await LocationManager().getCoordinateAsync(geocoder: geoCoder, addressString: post.location)
-                latLong = (coordinate.latitude, coordinate.longitude)
-                print(" lat:\(latLong.0)")
-                print(" long:\(latLong.1)")
+                let coordinate = try await LocationManager().getCoordinateAsync(geocoder: geocoder, addressString: post.location)
+                coordinates = (coordinate.latitude, coordinate.longitude)
+                print("Latitude: \(coordinates.0)")
+                print("Longitude: \(coordinates.1)")
             } catch {
-                print("error with foo:\(error)")
+                print(error.localizedDescription)
             }
         }
     }
