@@ -13,23 +13,23 @@ struct TabScreen: View {
     
     var body: some View {
         TabView {
+            
             if let user = authenticationViewModel.currentUser {
+                
                 ProfileScreen(user: user)
-                    .tabItem { Image("globe") }
+                    .tabItem { Image(systemName: "globe") }
                 
                 LocationView(post: Post.MOCK_POST[0])
-                        .tabItem { Image(systemName: "globe") }
-                    
-                    FeedView(post: Post.MOCK_POST[0])
-                        .tabItem { Image(systemName: "globe") }
-                    
-                } else {
-                    loadingScreen
+                    .tabItem { Image(systemName: "globe") }
+                
+                FeedView(post: Post.MOCK_POST[0])
+                    .tabItem { Image(systemName: "globe") }
+                
+            } else {
+                loadingScreen
             }
         }
         .accentColor(authenticationViewModel.pink[0])
-        .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.25)], startPoint: .center, endPoint: .bottomTrailing))
-        .ignoresSafeArea(.all)
     }
 }
 
@@ -37,24 +37,22 @@ extension TabScreen {
     
     var loadingScreen: some View {
         ZStack {
-            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
+            LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea(.all)
-            ZStack {
-                LinearGradient(colors: [.clear, authenticationViewModel.violet[0]], startPoint: .center, endPoint: .bottomTrailing)
-                    .ignoresSafeArea(.all)
-            }
+            
             Image(systemName: "globe")
                 .resizable()
-                .frame(width: 315, height: 315)
-                .offset(x: -5, y: 5)
-                .foregroundColor(authenticationViewModel.green[0])
+                .frame(width: 325, height: 325)
+                .offset(x: -7.5, y: 7.5)
+                .foregroundColor(authenticationViewModel.violet[0])
                 .overlay {
                     Image(systemName: "globe")
                         .resizable()
-                        .frame(width: 312.5, height: 312.5)
-                        .foregroundColor(authenticationViewModel.violet[0])
-                        .shadow(color: .black.opacity(0.25), radius: 1.5, x: 1.5, y: -1.5)
+                        .frame(width: 325, height: 325)
+                        .foregroundColor(authenticationViewModel.green[0])
+                        .shadow(color: .black.opacity(0.25), radius: 1.0, x: 1.0, y: -1.0)
                 }
+            
         }
     }
 }

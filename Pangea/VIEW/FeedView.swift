@@ -39,9 +39,8 @@ struct FeedView: View {
                     .padding(.bottom, 250)
                 
                 LazyVStack(spacing: 125) {
-                    ForEach(feedViewModel.posts, id: \.timestamp) { post in
+                    ForEach(feedViewModel.posts) { post in
                         FeedItemView(post: post)
-        
                     }
                 }
                 
@@ -50,7 +49,6 @@ struct FeedView: View {
                     
                     try? await feedViewModel.fetchPosts()
                     try? await postViewModel.uploadPost(description: description, location: location)
-                    
                 }
                 .padding(.top)
             }
@@ -60,26 +58,25 @@ struct FeedView: View {
                     .presentationCornerRadius(50)
                     .toolbar(.hidden, for: .navigationBar)
             })
-    
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
                         SearchScreen()
                     } label: {
-                        Text("Search")
+                        Image(systemName: "magnifyingglass")
                     }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         newPost.toggle()
-                        
                     } label: {
-                        Text("Post")
+                        Text("Create Post")
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
         }
     }
 }
@@ -106,61 +103,68 @@ extension FeedView {
     
     var postInformation: some View {
         VStack {
-            if let image = postViewModel.postImage {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 350, height: 350)
-                    .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .padding()
-            } else if image != nil {
-                Image(uiImage: image!)
-                    .scaledToFill()
-                    .frame(width: 350, height: 350)
-                    .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .padding()
+            VStack {
+                if let image = postViewModel.postImage {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
+                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .padding()
+                } else if image != nil {
+                    Image(uiImage: image!)
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
+                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .padding()
+                }
             }
-    
-
-            TextField("Enter Text...", text: $description)
-                .modifier(OneViewModifier())
-                .scrollDismissesKeyboard(.automatic)
+            .padding(.top, 75)
+            .padding(.vertical)
             
             VStack {
+                TextField("Enter Text...", text: $description)
+                    .modifier(OneViewModifier())
+                    .scrollDismissesKeyboard(.automatic)
+            }
+                
+            VStack {
                 Button {
-                    
                     Task {
                         do {
                             try await postViewModel.uploadPost(description: description, location: locationManager.currentLocation)
-                            postViewModel.uiImage = image
                             try await feedViewModel.fetchPosts()
-                           
-                        
+                            
+                            postViewModel.uiImage = image
                             
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
+                    
                     description = ""
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     
                 } label: {
                     Text("Post")
+                        .padding(.leading)
+                        .padding(.trailing)
                         .modifier(PostViewModifier())
                 }
+                .padding()
+                .padding(.vertical)
             }
-            .padding()
-            
-            Divider()
             
             VStack {
                 Text(locationManager.currentLocation)
                     .font(FontOne.body)
-                    .padding(.all, 25)
+                    .padding(.all)
+                    .padding(.vertical)
             }
+            
             
             HStack(spacing: 25) {
                 Button {
@@ -219,14 +223,13 @@ extension FeedView {
                                 .foregroundColor(authenticationViewModel.blue[0])
                         )
                 }
-                
+    
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .frame(height: 3.5)
                     .padding(.top, 15)
                     .padding(.vertical)
                     .foregroundColor(authenticationViewModel.blue[0])
-                
             }
         }
     }

@@ -24,7 +24,7 @@ struct EditScreen: View {
     @State var size: CGFloat = 17.5
     @State var backgroundColor = AuthenticationViewModel().backgroundColor
     
-    @State var backgroundColorSelected = ["2D00F7", "C1FF00", "FF206E", "480CA8", "FF6700", "FFFF00", "F10C45", "003AE7", "601EF9", "FF4500"]
+    @State var backgroundColorSelected = ["0030FF", "CCFF00", "FF3B5B", "480CA8", "FF4500"]
     
     var body: some View {
         ZStack {

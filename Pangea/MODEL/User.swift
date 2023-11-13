@@ -16,14 +16,7 @@ struct User: Identifiable, Hashable, Codable {
     var name: String?
     var profileImage: String?
     var profileInformation: String?
-    var initials: String {
-        let formatter = PersonNameComponentsFormatter()
-        if let components = formatter.personNameComponents(from: username) {
-            formatter.style = .abbreviated
-            return formatter.string(from: components)
-        }
-        return ""
-    }
+   
     var isCurrentUser: Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
         return currentUid == id

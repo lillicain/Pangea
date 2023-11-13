@@ -12,6 +12,8 @@ struct ProfileScreen: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @EnvironmentObject var editUserViewModel: EditUserViewModel
     
+    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
+    
     @State var showScreen = false
     
     let user: User
@@ -21,24 +23,22 @@ struct ProfileScreen: View {
             ScrollView {
                 VStack {
                     ZStack(alignment: .top) {
-                        RoundedRectangle(cornerRadius: 50, style: .circular)
+                        RoundedRectangle(cornerRadius: 65, style: .circular)
                             .foregroundColor(authenticationViewModel.blue[0])
-                            .frame(width: 412.5, height: 272.5)
+                            .frame(width: 405, height: 272.5)
                             .padding(.horizontal, 5)
                             .overlay(alignment: .top) {
                                 LocationView(post: Post.MOCK_POST[0])
                                     .mapControlVisibility(.hidden)
-                                    .frame(width: 400, height: 257.5)
+                                    .frame(width: 375, height: 257.5)
                                     .clipShape(RoundedRectangle(cornerRadius: 50, style: .circular))
                             }
-                        
-                        
+                    
                         ZStack {
                             Circle()
                                 .frame(width: 182.5, height: 185.5)
                                 .foregroundColor(.white)
                                 .padding(.top, 100)
-                            
                             ZStack {
                                 ProfileImageManager(user: user, size: .extraLarge)
                             }
@@ -113,9 +113,12 @@ struct ProfileScreen: View {
                     VStack {
                         PostItemView(user: user.self)
                     }
+                    .task {
+                        try? await postItemViewModel.fetchUserPosts()
+                    }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))
         }
     }
 }

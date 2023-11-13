@@ -10,9 +10,8 @@ import MapKit
 import CoreLocationUI
 
 struct MapItemView: View {
-
-    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
     
     @Binding var cameraPosition: MapCameraPosition
@@ -20,42 +19,33 @@ struct MapItemView: View {
     @Binding var visibleRegion: MKCoordinateRegion?
     @Binding var username: String
     
-    
     var body: some View {
         ZStack {
-            VStack(spacing: 5) {
+            VStack(spacing: 12.5) {
                 Button {
                     cameraPosition = .automatic
                 } label: {
-                    Image(systemName: "person.fill")
-                        .padding(1.5)
-                }
-                
-                Button {
-                    searchPlaces(for: "Parks")
-                    cameraPosition = .automatic
-                    
-                } label: {
-                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "network")
                 }
                 
                 Button {
                     cameraPosition = .userLocation(fallback: .automatic)
+                    searchPlaces(for: "Park")
                 } label: {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "binoculars")
                 }
                 
                 Button {
                     cameraPosition = .camera(MapCamera(centerCoordinate: .schoolLocation, distance: 980, heading: 242, pitch: 60))
                     
                 } label: {
-                    Image(systemName: "rotate.3d")
+                    Image(systemName: "mappin.and.ellipse")
                 }
             }
             .padding()
+            .controlSize(.regular)
             .buttonBorderShape(.circle)
             .buttonStyle(.borderedProminent)
-            .accentColor(authenticationViewModel.violet[0])
         }
     }
 }
@@ -65,7 +55,7 @@ extension MapItemView {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = query
         request.resultTypes = .pointOfInterest
-        request.region = visibleRegion ?? MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.5915), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        request.region = visibleRegion ?? MKCoordinateRegion()
         Task {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()
