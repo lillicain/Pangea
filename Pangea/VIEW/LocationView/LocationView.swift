@@ -37,6 +37,7 @@ struct LocationView: View {
     
     let post: Post
     
+  
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -70,7 +71,7 @@ struct LocationView: View {
                         }
                         
                         
-                        if let selectedPost = locationManager.postItem {
+                        if let selectedPost = locationManager.coordinates {
                             Annotation("Post", coordinate: selectedPost) {
                                 ZStack {
                                     ForEach(feedViewModel.posts) { post in
