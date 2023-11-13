@@ -75,10 +75,10 @@ extension FeedItemView {
                         Image(systemName: "mappin.and.ellipse.circle")
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(authenticationViewModel.blue[0])
+//                            .foregroundStyle(LinearGradient(colors: [authenticationViewModel.blue[0], authenticationViewModel.violet[0]], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .foregroundColor(.white)
                             .frame(width: 100, height: 100)
-                            .offset(x: 1.5, y: -1.5)
-                            .shadow(color: .white.opacity(0.05), radius: 0.5, x: 0.5, y: -0.5)
+                            .offset(x: 0.5, y: -0.5)
                             .overlay {
                                 Image(systemName: "mappin.and.ellipse.circle")
                                     .resizable()

@@ -95,7 +95,7 @@ extension FeedView {
                 CameraViewController(selectedImage: $image)
                     .ignoresSafeArea(.all)
             }
-            .onAppear {
+            .task {
                 showImagePicker.toggle()
             }
             .photosPicker(isPresented: $showImagePicker, selection: $postViewModel.selectedImage)
