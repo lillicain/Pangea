@@ -22,19 +22,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
     
-    let post: Post
+    var post: Post
     
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
-    @Published var heading: CLHeading?
+
     @Published var location: CLLocation?
     @Published var currentLocation: String = ""
-    @Published var postLocation = CLLocationCoordinate2D()
     @Published var item: CLLocationCoordinate2D?
     @Published var coordinates: CLLocationCoordinate2D?
-    @Published var postAnnotation = MKPointAnnotation()
     
     override init() {
         self.post = Post.MOCK_POST[0]
@@ -48,11 +46,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         locationManager.requestLocation()
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    
     func geocode() {
         guard let location = self.location else { return }
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (location, error) in
             if error == nil {
-                self.placemark = places?[0]
+                
+                self.placemark = location?[0]
             } else {
                 self.placemark = nil
             }
@@ -79,18 +83,16 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             self.currentLocation = placemark ?? ""
         }
         
-//        getLocation { newPost in
-//            self.coordinates = newPost
-//           
-//        }
+        getLocation { placemark in
+            self.coordinates = placemark
+        }
+        
+        
     }
     
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    private func getCoordinate(addressString : String,
-                               completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
+
+    private func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
@@ -151,22 +153,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         }
     }
     
-//    func getLocation(completionHandler: @escaping (CLLocationCoordinate2D?) -> Void) {
-//        let geocoder = CLGeocoder()
-//        if let newPost = post.location {
-//            geocoder.geocodeAddressString(newPost, completionHandler: { (placemarks, error) in
-//                if error == nil {
-//                    let locationCoordinates = placemarks?[0].location
-//                    completionHandler(locationCoordinates?.coordinate)
-//                    
-//                } else {
-//                    completionHandler(nil)
-//                }
-//            })
-//        } else {
-//            completionHandler(nil)
-//        }
-//    }
+    func getLocation(completionHandler: @escaping (CLLocationCoordinate2D?) -> Void) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.geocodeAddressString(post.location, completionHandler: { (placemarks, error) in
+            if error == nil {
+                let locationCoordinates = placemarks?[0].location
+                completionHandler(locationCoordinates?.coordinate)
+                self.coordinates = locationCoordinates?.coordinate
+            }
+            
+        })
+    }
+                                            
     
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -176,8 +175,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined: locationManager.requestAlwaysAuthorization()
-        case .restricted: print("Change Settings")
-        case .denied: print("Change Settings")
+        case .restricted: print("Go To Settings")
+        case .denied: print("Go To Settings")
         case .authorizedAlways, .authorizedWhenInUse: break
             
         @unknown default: break
@@ -192,7 +191,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             
             checkLocationAuthorization()
         } else {
-            print("Alert")
+            print("Location Access")
         }
     }
 }

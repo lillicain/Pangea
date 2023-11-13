@@ -14,8 +14,8 @@ struct CameraViewController: UIViewControllerRepresentable {
     
     @Binding var selectedImage: UIImage?
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { 
-
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+        
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraViewController>) -> UIImagePickerController {

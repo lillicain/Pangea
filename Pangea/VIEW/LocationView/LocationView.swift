@@ -34,14 +34,16 @@ struct LocationView: View {
     @State var visibleRegion: MKCoordinateRegion?
     @State var isSelected = false
     @State var lookAroundScene: MKLookAroundScene?
+    @State var posts = [Post]()
     
-    let post: Post
+//    let post: Post
     
-  
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
+                    MapManager()
+                    
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         UserAnnotation()
                         
@@ -53,15 +55,17 @@ struct LocationView: View {
                             homeAnnotation
                         }
                         
-                        if let location = locationManager.placemark?.location?.coordinate {
-                            Annotation("\(location)", coordinate: location) {
-                                KFImage(URL(string: post.imageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 125, height: 125)
-                                    .clipShape(.circle)
-                            }
-                        }
+                    
+                        
+//                        if let location = locationManager.placemark?.location?.coordinate {
+//                            Annotation("\(location)", coordinate: location) {
+//                                KFImage(URL(string: post.imageUrl))
+//                                    .resizable()
+//                                    .scaledToFill()
+//                                    .frame(width: 100, height: 100)
+//                                    .clipShape(.circle)
+//                            }
+//                        }
                         
                         if let location = locationManager.location {
                             Annotation("Post", coordinate: location.coordinate) {
@@ -155,6 +159,7 @@ struct LocationView: View {
                         
                         try? await feedViewModel.fetchPosts()
                         try? await postItemViewModel.fetchUserPosts()
+                        
                     }
                     
                     .onChange(of: getDirections, { oldValue, newValue in
@@ -195,7 +200,6 @@ extension LocationView {
                 .foregroundColor(authenticationViewModel.pink[0])
             Image(systemName: "graduationcap")
                 .foregroundColor(.white)
-            
         }
     }
     

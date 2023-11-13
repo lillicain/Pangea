@@ -19,7 +19,7 @@ struct TabScreen: View {
                 ProfileScreen(user: user)
                     .tabItem { Image(systemName: "globe") }
                 
-                LocationView(post: Post.MOCK_POST[0])
+                LocationView()
                     .tabItem { Image(systemName: "globe") }
                 
                 FeedView(post: Post.MOCK_POST[0])
