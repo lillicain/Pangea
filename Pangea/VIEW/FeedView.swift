@@ -127,7 +127,6 @@ extension FeedView {
             VStack {
                 TextField("Enter Text...", text: $description)
                     .modifier(OneViewModifier())
-                    .scrollDismissesKeyboard(.automatic)
             }
                 
             VStack {

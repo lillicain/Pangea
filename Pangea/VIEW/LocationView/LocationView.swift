@@ -168,8 +168,8 @@ struct LocationView: View {
                     
                     .sheet(isPresented: $showDetails, content: {
                         LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
-                            .presentationDetents([.height(350)])
-                            .presentationBackgroundInteraction(.enabled(upThrough: .height(350)))
+                            .presentationDetents([.height(375)])
+                            .presentationBackgroundInteraction(.enabled(upThrough: .height(375)))
                             .presentationCornerRadius(50)
                     })
                     
@@ -178,7 +178,7 @@ struct LocationView: View {
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.15)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.05)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
         }
     }
 }
@@ -242,7 +242,7 @@ extension LocationView {
                         .cornerRadius(25)
                         .padding()
                         .background(.white)
-                        .frame(width: 325, height: 45)
+                        .frame(width: 325, height: 55)
                         .clipShape(RoundedRectangle(cornerRadius: 17.5))
                         .onSubmit(of: .text) {
                             Task {
