@@ -10,15 +10,16 @@ import MapKit
 import CoreLocationUI
 
 struct LocationInformation: View {
+    
     @Binding var selectedResult: MKMapItem?
     @Binding var showDetails: Bool
     @Binding var getDirections: Bool
     @Binding var lookAroundScene: MKLookAroundScene?
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-  
+    
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -40,14 +41,13 @@ struct LocationInformation: View {
                     dismiss()
                     showDetails.toggle()
                     selectedResult = nil
-                    
                 } label: {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
                         .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundStyle(.gray, Color(.systemGray3))
+                        .frame(width: 17.5, height: 17.5)
+                        .foregroundColor(Color(.systemGray3))
+                        .padding()
                 }
-                .padding(5)
             }
             .padding(.horizontal)
             .padding(.top)
@@ -57,7 +57,6 @@ struct LocationInformation: View {
                     .frame(height: 150)
                     .cornerRadius(25)
                     .padding()
-                
             } else {
                 LookAroundPreview(initialScene: lookAroundScene)
                     .frame(height: 150)
@@ -82,7 +81,6 @@ struct LocationInformation: View {
                 Button {
                     getDirections = true
                     showDetails = false
-                    
                 } label: {
                     Text("Get Directions")
                         .fontWeight(.semibold)

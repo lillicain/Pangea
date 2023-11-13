@@ -116,16 +116,16 @@ struct LocationView: View {
                                 if item == routeDestination {
                                     let placemark = item.placemark
                                     Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                        .tint(authenticationViewModel.blue[0])
+                                        .tint(authenticationViewModel.orange[0])
                                 }
                             } else {
                                 let placemark = item.placemark
                                 Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                                    .tint(authenticationViewModel.blue[0])
+                                    .tint(authenticationViewModel.orange[0])
                             }
                             if let route {
                                 MapPolyline(route.polyline)
-                                    .stroke(authenticationViewModel.blue[0].opacity(0.25), lineWidth: 5)
+                                    .stroke(authenticationViewModel.blue[0].opacity(0.5), lineWidth: 5)
                             }
                         }
                     }
