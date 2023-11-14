@@ -42,14 +42,17 @@ struct LocationView: View {
             ScrollView {
                 VStack {
                     Map(position: $cameraPosition, selection: $selectedResult) {
+                        
                         UserAnnotation()
                         
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             schoolAnnotation
+                                .offset(x: 25)
                         }
                         
                         Annotation("Home", coordinate: .homeLocation) {
                             homeAnnotation
+                                .offset(x: 25)
                         }
                         
                         
@@ -62,7 +65,6 @@ struct LocationView: View {
                                     .clipShape(.circle)
                                     .offset(x: 50, y: 100)
                             }
-                            
                         }
                         
                         

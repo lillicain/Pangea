@@ -34,7 +34,7 @@ struct FeedView: View {
         NavigationStack {
             ScrollView {
                 userInformation
-            
+                
                     .padding(.top)
                     .padding(.bottom, 250)
                 
@@ -46,7 +46,7 @@ struct FeedView: View {
                 
                 .task {
                     locationManager.requestLocation()
-                
+                    
                     try? await postViewModel.uploadPost(description: description, location: location)
                     try? await feedViewModel.fetchPosts()
                 }
@@ -130,7 +130,7 @@ extension FeedView {
                     .colorMultiply(.black)
                     .modifier(OneViewModifier())
             }
-                
+            
             VStack {
                 Button {
                     Task {
@@ -140,12 +140,15 @@ extension FeedView {
                             
                             postViewModel.uiImage = image
                             
+                            description = description
+                            
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
                     
-                    description = description
+                    description = ""
+                    
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
                     
@@ -224,7 +227,7 @@ extension FeedView {
                                 .foregroundColor(authenticationViewModel.blue[0])
                         )
                 }
-    
+                
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .frame(height: 3.5)
