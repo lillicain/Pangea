@@ -7,10 +7,13 @@
 
 import SwiftUI
 import MapKit
+import Kingfisher
 
 struct SingleLocationPostView: View {
     
     let post: Post
+    
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     
     @StateObject var sLPViewModel = SingleLocationPostViewModel()
     
@@ -41,8 +44,7 @@ struct SingleLocationPostView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 65, style: .circular)
-//                .foregroundColor(authenticationViewModel.blue[0])
-                .foregroundStyle(Color.blue) // Change later
+                .foregroundColor(authenticationViewModel.blue[0])
                 .frame(width: 405, height: 650)
         )
     }
@@ -51,19 +53,18 @@ struct SingleLocationPostView: View {
 extension SingleLocationPostView {
     var mapView: some View {
         Map(position: $cameraPosition) {
+            
             UserAnnotation()
             
-            // Dont leave this here
-//            Annotation("Home", coordinate: .homeLocation) {
-//                homeAnnotation
-//            }
-            
             Annotation("Post", coordinate: CLLocationCoordinate2D(latitude: sLPViewModel.latLong.0, longitude: sLPViewModel.latLong.1)) {
-                Circle()
-                    .frame(width: 200, height: 200)
-                    .foregroundStyle(Color.green)
+                KFImage(URL(string: post.imageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 125, height: 125)
+                    .clipShape(.circle)
+                    .offset(x: 50, y: 50)
+                
             }
-//            sLPViewModel.getAnnotation(geoCoder: geoCoder, post: post)
             
         }
         .task {
@@ -78,17 +79,11 @@ extension SingleLocationPostView {
                 .foregroundColor(.white)
             Circle()
                 .frame(width: 45, height: 45)
-//                .foregroundColor(authenticationViewModel.pink[0])
+                .foregroundColor(authenticationViewModel.pink[0])
             Image(systemName: "house")
                 .foregroundColor(.white)
         }
     }
 }
-
-//Annotation("Post", coordinate: CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)) {
-//    Circle()
-//        .frame(width: 200)
-//        .foregroundStyle(Color.green)
-//}
 
 

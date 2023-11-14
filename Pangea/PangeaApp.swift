@@ -23,7 +23,6 @@ struct PangeaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @StateObject var authenticationViewModel = AuthenticationViewModel()
-//    @StateObject var locationManager = LocationManager()
     
     var body: some Scene {
         WindowGroup {
@@ -37,7 +36,6 @@ struct PangeaApp: App {
                 }
             }
             .environmentObject(authenticationViewModel)
-//            .environmentObject(locationManager)
         }
     }
 }

@@ -69,16 +69,11 @@ struct CameraViewController: UIViewControllerRepresentable {
                     let asset = assets[assetIndex]
                     let location = asset.location
                 
-                    let latitude = asset.location?.coordinate.latitude
-                    let longitude = asset.location?.coordinate.longitude
-                    
-//                    LocationManager().location = asset.location
-                    
+                                        
                     print(location)
                     
                     DispatchQueue.main.async {
                         self.parent.selectedImage = pickerImage
-//                        LocationManager().location = asset.location
                     }
                 }
             }

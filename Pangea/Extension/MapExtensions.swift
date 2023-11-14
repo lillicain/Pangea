@@ -23,13 +23,16 @@ extension CLLocationCoordinate2D: Identifiable, Hashable, Equatable {
     public var id: Int {
         return hashValue
     }
+    
     public func hash(into hasher: inout Hasher)  {
         hasher.combine(latitude)
         hasher.combine(longitude)
     }
+    
     public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return lhs.longitude == rhs.longitude && lhs.latitude == rhs.latitude
     }
+    
     public static func <(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return lhs.longitude < rhs.longitude
     }
@@ -46,9 +49,11 @@ extension CLLocation {
 }
 
 extension MKCoordinateRegion {
+    
     static var userRegion: MKCoordinateRegion {
         return MKCoordinateRegion()
     }
+    
     static let firstMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0976, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     static let secondMapItem = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.0974, longitude: -113.591), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))

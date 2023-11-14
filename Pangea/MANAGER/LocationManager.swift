@@ -9,7 +9,6 @@ import Foundation
 import CoreLocation
 import CoreLocationUI
 import MapKit
-import UIKit
 import SwiftUI
 import Firebase
 import FirebaseFirestore
@@ -17,20 +16,17 @@ import FirebaseFirestoreSwift
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
-    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    
     @Published var post: Post? = nil
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
+    
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
-    @Published var heading: CLHeading?
     @Published var location: CLLocation?
     @Published var currentLocation: String = ""
-    @Published var postLocation = CLLocationCoordinate2D()
-    @Published var item: CLLocationCoordinate2D?
-    @Published var coordinates: CLLocationCoordinate2D?
-    @Published var postAnnotation = [MKMapItem]()
+    @Published var item1: CLLocationCoordinate2D?
+    @Published var item2: CLLocationCoordinate2D?
+    @Published var item3: CLLocationCoordinate2D?
     
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
@@ -66,10 +62,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
-        self.location = location
-        self.item = location.coordinate
-        
+        self.item1 = location.coordinate
+        self.item2 = locations.last?.coordinate
+        self.item3 = locations.first?.coordinate
         self.region = region
+        
         self.geocode()
         
         print(location.description)
@@ -83,9 +80,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             self.currentLocation = placemark ?? ""
         }
         
-        fetchLocation(address: post?.location ?? "") { placemark, error in
-            
-        }
     }
     
     func getCoordinateAsync(geocoder: CLGeocoder, addressString: String) async throws -> CLLocationCoordinate2D {
@@ -103,13 +97,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         }
     }
     
-    private func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
+    func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
-                    
                     completionHandler(location.coordinate, nil)
                     return
                 }

@@ -15,7 +15,6 @@ class SingleLocationPostViewModel: ObservableObject {
     
     @MainActor
     func foo(post: Post) async {
-//        print("Post Address:\(post.location)")
         let geoCoder = CLGeocoder()
         
         Task {
