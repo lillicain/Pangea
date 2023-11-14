@@ -15,9 +15,9 @@ struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var feedViewModel = FeedViewModel()
-    @ObservedObject var postItemViewModel: PostItemViewModel
+    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
     
-    @StateObject var locationManager = LocationManager()
+    @ObservedObject var locationManager = LocationManager()
     
     @State var selectedPost: MKMapItem?
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
@@ -65,16 +65,15 @@ struct LocationView: View {
                         }
                         
                         
-                        if let location = locationManager.location {
-                            Annotation("Post Location", coordinate: location.coordinate) {
+                        let location2 = locationManager.location
+                            Annotation("Post Location", coordinate: location2.coordinate) {
                                 postLocation
                                     .offset(x: 50, y: -25)
-                            }
                         }
                         
                         
-                        if let selectedPost = locationManager.coordinates {
-                            Annotation("Coordinates", coordinate: selectedPost) {
+                        if let location3 = locationManager.item3 {
+                            Annotation("Coordinates", coordinate: location3) {
                                 ZStack {
                                     Circle()
                                         .frame(width: 75, height: 75)

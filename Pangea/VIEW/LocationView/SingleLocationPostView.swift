@@ -33,7 +33,7 @@ struct SingleLocationPostView: View {
                     homeAnnotation
                 }
                 
-                Annotation("Post", coordinate: CLLocationCoordinate2D(latitude: singleLocationPostViewModel.latLong.0, longitude: singleLocationPostViewModel.latLong.1)) {
+                Annotation("Post", coordinate: CLLocationCoordinate2D(latitude: singleLocationPostViewModel.coordinates.0, longitude: singleLocationPostViewModel.coordinates.1)) {
                     KFImage(URL(string: post.imageUrl))
                         .resizable()
                         .scaledToFill()

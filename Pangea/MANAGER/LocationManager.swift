@@ -26,6 +26,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var location = CLLocation()
     @Published var currentLocation: String = ""
     @Published var item: CLLocationCoordinate2D?
+    @Published var item2: CLLocationCoordinate2D?
+    @Published var item3: CLLocationCoordinate2D?
     
     override init() {
         super.init()
@@ -63,6 +65,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
 
         self.location = location
         self.item = location.coordinate
+        
         self.region = region
         
         print(location.description)
@@ -71,7 +74,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?[0]
         }
-       
         
         fetchCurrentAddress { placemark in
             self.currentLocation = placemark ?? ""
@@ -141,9 +143,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         if let location = locationManager.location {
             geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
                 if error == nil {
-                    let locationName = "\(String(describing: placemarks?[0].name)), \(String(describing: placemarks?[0].locality)), \(String(describing: placemarks?[0].administrativeArea))"
-                    
-                    print("Location: \(locationName)")
+                    let locationName = placemarks?[0].name
                     let locationCoordinates = placemarks?[0].location
                     completionHandler(locationName)
                     

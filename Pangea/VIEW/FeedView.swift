@@ -15,8 +15,8 @@ import MapKit
 struct FeedView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-    @ObservedObject var locationManager = LocationManager()
     
+    @StateObject var locationManager = LocationManager()
     @StateObject var postViewModel = PostViewModel()
     @StateObject var feedViewModel = FeedViewModel()
     
