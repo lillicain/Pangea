@@ -14,7 +14,8 @@ import Kingfisher
 struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-  
+    @ObservedObject var feedViewModel = FeedViewModel()
+    @ObservedObject var postItemViewModel: PostItemViewModel
     
     @StateObject var locationManager = LocationManager()
     
