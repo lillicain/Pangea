@@ -68,9 +68,6 @@ struct CameraViewController: UIViewControllerRepresentable {
                 for assetIndex in 0..<assets.count {
                     let asset = assets[assetIndex]
                     let location = asset.location
-                
-                    
-//                    LocationManager().location = asset.location
                     
                     print(location)
                     

@@ -41,17 +41,18 @@ struct LocationView: View {
             ScrollView {
                 VStack {
                     Map(position: $cameraPosition, selection: $selectedResult) {
-                        UserAnnotation()
-                        
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             schoolAnnotation
-                                .offset(x: 5, y: 5)
+                                .offset(x: 25, y: 5)
                         }
                         
                         Annotation("Home", coordinate: .homeLocation) {
                             homeAnnotation
-                                .offset(x: 5, y: 5)
+                                .offset(x: 25, y: 5)
                         }
+                        
+                        UserAnnotation()
+                        
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
@@ -65,7 +66,7 @@ struct LocationView: View {
                         }
                         
                         if let location = locationManager.location {
-                            Annotation("Post Location", coordinate: location.coordinate) {
+                            Annotation("Location", coordinate: location.coordinate) {
                                 postAnnotation
                                     .offset(x: -50, y: -50)
                             }
@@ -79,7 +80,7 @@ struct LocationView: View {
                         }
                         
                         if let item2 = locationManager.item2 {
-                            Annotation("Posts", coordinate: item2) {
+                            Annotation("Posts", coordinate: .homeLocation) {
                                 VStack(spacing: -25) {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
@@ -93,8 +94,7 @@ struct LocationView: View {
                                             )
                                     }
                                 }
-                                            .offset(x: -75, y: -75)
-                            
+                                .offset(x: -75, y: -75)
                             }
                         }
                         
@@ -171,7 +171,7 @@ struct LocationView: View {
                     }
                 }
             }
-            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.05)], startPoint: .topTrailing, endPoint: .bottomTrailing).ignoresSafeArea(.all))
+            .background(LinearGradient(colors: [.clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .topTrailing, endPoint: .trailing).ignoresSafeArea(.all))
         }
     }
 }
