@@ -57,7 +57,7 @@ struct LocationView: View {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 125, height: 125)
+                                    .frame(width: 150, height: 150)
                                     .clipShape(.circle)
                                     .offset(x: 50, y: 100)
                             }
@@ -68,7 +68,7 @@ struct LocationView: View {
                         let location2 = locationManager.location
                             Annotation("Post Location", coordinate: location2.coordinate) {
                                 postLocation
-                                    .offset(x: 50, y: -25)
+                                    .offset(x: -50, y: -50)
                         }
                         
                         
@@ -84,7 +84,7 @@ struct LocationView: View {
                                             .scaledToFill()
                                             .frame(width: 70, height: 70)
                                             .clipShape(.circle)
-                                            .offset(x: 250)
+                                            .offset(x: 75, y: 75)
                                     }
                                 }
                             }
@@ -92,7 +92,7 @@ struct LocationView: View {
                         
                         if let items = locationManager.item {
                             Annotation("Item Location Manager", coordinate: items) {
-                                ZStack {
+                                VStack {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
                                             .resizable()
@@ -106,7 +106,6 @@ struct LocationView: View {
                                                 
                                             )
                                     }
-                                    
                                     .offset(x: 25, y: -25)
                                 }
                             }

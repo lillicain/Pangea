@@ -69,8 +69,7 @@ extension FeedItemView {
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
                     NavigationLink {
-                        SingleLocationPostView(post: post)
-//                        LocationView(post: post)
+                        LocationView(post: post)
                         
                     } label: {
                         Image(systemName: "mappin.and.ellipse.circle")
