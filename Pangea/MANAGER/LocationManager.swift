@@ -16,8 +16,6 @@ import FirebaseFirestoreSwift
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
 
-    var locationManager = CLLocationManager()
-
     @Published var post: Post? = nil
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
@@ -25,9 +23,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var placemark: CLPlacemark?
     @Published var location = CLLocation()
     @Published var currentLocation: String = ""
-    @Published var item: CLLocationCoordinate2D?
+    
+    @Published var item1: CLLocationCoordinate2D?
     @Published var item2: CLLocationCoordinate2D?
     @Published var item3: CLLocationCoordinate2D?
+    
+    var locationManager = CLLocationManager()
     
     override init() {
         super.init()
@@ -64,7 +65,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         self.geocode()
 
         self.location = location
-        self.item = location.coordinate
+        self.item1 = location.coordinate
+        self.item2 = .homeLocation
+        self.item3 = locations.first?.coordinate
         
         self.region = region
         
@@ -74,17 +77,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?[0]
         }
-        
-        fetchCurrentAddress { placemark in
-            self.currentLocation = placemark ?? ""
-        }
-        
+    
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
-        }
-        
-        fetchLocation(address: post?.location ?? "") { placemark, error in
-        
         }
     }
     

@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct ProfileScreen: View {
-    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @EnvironmentObject var editUserViewModel: EditUserViewModel
     
     @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
@@ -113,9 +113,10 @@ struct ProfileScreen: View {
                     VStack {
                         PostItemView(user: user.self)
                     }
-                    .task {
-                        try? await postItemViewModel.fetchUserPosts()
-                    }
+//                    .task {
+//                        try? await postItemViewModel.fetchUserPosts()
+//                         
+//                    }
                 }
             }
             .background(LinearGradient(colors: [.clear, .clear, .clear, authenticationViewModel.violet[0].opacity(0.175)], startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all))

@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import MapKit
 
-@MainActor
 class SingleLocationPostViewModel: ObservableObject {
     
     @Published var coordinates: (Double, Double) = (0.0, 0.0)

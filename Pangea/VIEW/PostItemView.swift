@@ -28,5 +28,8 @@ struct PostItemView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12.5))
             }
         }
+        .task {
+            try? await postItemViewModel.fetchUserPosts()
+        }
     }
 }
