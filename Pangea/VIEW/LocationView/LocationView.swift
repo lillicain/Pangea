@@ -41,20 +41,37 @@ struct LocationView: View {
             ScrollView {
                 VStack {
                     Map(position: $cameraPosition, selection: $selectedResult) {
+                        
+                        UserAnnotation()
+                        
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             schoolAnnotation
-                                .offset(x: 25, y: 5)
+                                .offset(x: 25)
                         }
                         
                         Annotation("Home", coordinate: .homeLocation) {
                             homeAnnotation
-                                .offset(x: 25, y: 5)
+                                .offset(x: 25)
                         }
                         
-                        UserAnnotation()
+                        Annotation("", coordinate: .homeLocation) {
+                            VStack(spacing: -25) {
+                                ForEach(feedViewModel.posts) { post in
+                                    KFImage(URL(string: post.imageUrl))
+                                        .scaledToFill()
+                                        .frame(width: 95, height: 95)
+                                        .clipShape(.circle)
+                                        .background(
+                                            Circle()
+                                                .frame(width: 100, height: 100)
+                                                .foregroundColor(.white)
+                                        )
+                                }
+                            }
+                            .offset(x: 75)
+                        }
                         
-                        
-                        if let location = locationManager.placemark?.location?.coordinate {
+                        if let location = locationManager.placemark?.location {
                             Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
@@ -68,7 +85,7 @@ struct LocationView: View {
                         if let location = locationManager.location {
                             Annotation("Location", coordinate: location.coordinate) {
                                 postAnnotation
-                                    .offset(x: -50, y: -50)
+                                    .offset(x: -50)
                             }
                         }
                         
@@ -80,24 +97,12 @@ struct LocationView: View {
                         }
                         
                         if let item2 = locationManager.item2 {
-                            Annotation("Posts", coordinate: .homeLocation) {
-                                VStack(spacing: -25) {
-                                    ForEach(feedViewModel.posts) { post in
-                                        KFImage(URL(string: post.imageUrl))
-                                            .scaledToFill()
-                                            .frame(width: 95, height: 95)
-                                            .clipShape(.circle)
-                                            .background(
-                                                Circle()
-                                                    .frame(width: 100, height: 100)
-                                                    .foregroundColor(.white)
-                                            )
-                                    }
-                                }
-                                .offset(x: -75, y: -75)
+                            Annotation("2", coordinate: item2) {
+                                postAnnotation
+                                    .offset(x: -75)
                             }
                         }
-                        
+                    
                         if let item3 = locationManager.item3 {
                             Annotation("3", coordinate: item3) {
                                 postAnnotation

@@ -62,7 +62,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         
         self.region = region
         self.item1 = location.coordinate
-        self.item2 = .homeLocation
+        self.item2 = locations.last?.coordinate
         self.item3 = locations.first?.coordinate
         
         self.geocode()
