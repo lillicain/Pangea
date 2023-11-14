@@ -14,18 +14,21 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
-
-    var locationManager = CLLocationManager()
-
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
+    
     @Published var post: Post? = nil
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
-    @Published var location = CLLocation()
+    @Published var location: CLLocation?
     @Published var currentLocation: String = ""
-    @Published var item: CLLocationCoordinate2D?
+    @Published var item1: CLLocationCoordinate2D?
+    @Published var item2: CLLocationCoordinate2D?
+    @Published var item3: CLLocationCoordinate2D?
+    
+    var locationManager = CLLocationManager()
+    var geocoder = CLGeocoder()
     
     override init() {
         super.init()
@@ -38,32 +41,31 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         locationManager.requestLocation()
     }
     
-    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
     func geocode() {
-        let geocoder = CLGeocoder()
-       let location = self.location
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemark, error) in
-            if error == nil {
-                self.placemark = placemark?[0]
-            } else {
-                self.placemark = nil
-            }
-        })
+        guard let location = location else { return }
+            geocoder.reverseGeocodeLocation(location, completionHandler: { (placemark, error) in
+                if error == nil {
+                    self.placemark = placemark?[0]
+                } else {
+                    self.placemark = nil
+                }
+            })
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        let geocoder = CLGeocoder()
+        
+        guard let location = locations.first else { return }
+        
+        self.region = region
+        self.item1 = location.coordinate
+        self.item2 = .homeLocation
+        self.item3 = locations.first?.coordinate
         
         self.geocode()
-
-        self.location = location
-        self.item = location.coordinate
-        self.region = region
         
         print(location.description)
         print(location.coordinate)
@@ -71,22 +73,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             self.placemark = placemark?[0]
         }
-       
-        
-        fetchCurrentAddress { placemark in
-            self.currentLocation = placemark ?? ""
-        }
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
         }
-        
-        fetchLocation(address: post?.location ?? "") { placemark, error in
-        
-        }
     }
     
-    @MainActor
     func getCoordinateAsync(geocoder: CLGeocoder, addressString: String) async throws -> CLLocationCoordinate2D {
         return try await withCheckedThrowingContinuation { continuation in
             geocoder.geocodeAddressString(addressString) { (placemarks, error) in
@@ -101,7 +93,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             }
         }
     }
- 
+    
     private func getCoordinate(addressString : String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void ) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
@@ -141,12 +133,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         if let location = locationManager.location {
             geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
                 if error == nil {
-                    let locationName = "\(String(describing: placemarks?[0].name)), \(String(describing: placemarks?[0].locality)), \(String(describing: placemarks?[0].administrativeArea))"
-                    
-                    print("Location: \(locationName)")
-                    let locationCoordinates = placemarks?[0].location
+                    let locationName = placemarks?[0].name
                     completionHandler(locationName)
-                    
                 } else {
                     completionHandler(nil)
                 }
@@ -155,7 +143,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
             completionHandler(nil)
         }
     }
-    
     
     func fetchLocation(address: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
         let geocoder = CLGeocoder()
@@ -173,7 +160,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
                     let location = placemark.location!
                     let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
                     print("Latitude: \(coordinates.latitude), Longitude: \(coordinates.longitude)")
-                    
                     completionHandler(location.coordinate, nil)
                     return
                 }

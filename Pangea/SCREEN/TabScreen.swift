@@ -52,7 +52,6 @@ extension TabScreen {
                         .foregroundColor(authenticationViewModel.green[0])
                         .shadow(color: .black.opacity(0.25), radius: 1.0, x: 1.0, y: -1.0)
                 }
-            
         }
     }
 }

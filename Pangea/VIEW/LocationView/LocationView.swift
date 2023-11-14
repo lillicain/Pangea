@@ -14,7 +14,8 @@ import Kingfisher
 struct LocationView: View {
     
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
-  
+    @ObservedObject var feedViewModel = FeedViewModel()
+    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
     
     @StateObject var locationManager = LocationManager()
     
@@ -42,73 +43,63 @@ struct LocationView: View {
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         UserAnnotation()
                         
-                        Annotation("Dixie Tech", coordinate: .schoolLocation) {
-                            schoolAnnotation
-                        }
-                        
-                        Annotation("Home", coordinate: .homeLocation) {
-                            homeAnnotation
-                        }
-                        
+//                        Annotation("Dixie Tech", coordinate: .schoolLocation) {
+//                            schoolAnnotation
+//                        }
+//                        
+//                        Annotation("Home", coordinate: .homeLocation) {
+//                            homeAnnotation
+//                        }
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 125, height: 125)
+                                    .frame(width: 150, height: 150)
                                     .clipShape(.circle)
-                                    .offset(x: 50, y: 100)
+                                    .offset(x: 50, y: 50)
                             }
-                            
                         }
-                        
                         
                         if let location = locationManager.location {
                             Annotation("Post Location", coordinate: location.coordinate) {
-                                postLocation
-                                    .offset(x: 50, y: -25)
+                                postAnnotation
+                                    .offset(x: -50, y: -50)
                             }
                         }
                         
-                        
-                        if let selectedPost = locationManager.coordinates {
-                            Annotation("Coordinates", coordinate: selectedPost) {
-                                ZStack {
-                                    Circle()
-                                        .frame(width: 75, height: 75)
-                                        .foregroundColor(.white)
-                                    ForEach(feedViewModel.posts) { post in
-                                        KFImage(URL(string: post.imageUrl))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 70, height: 70)
-                                            .clipShape(.circle)
-                                            .offset(x: 250)
-                                    }
-                                }
+                        if let item1 = locationManager.item1 {
+                            Annotation("1", coordinate: item1) {
+                                postAnnotation
+                                    .offset(x: 100, y: 100)
                             }
                         }
                         
-                        if let items = locationManager.item {
-                            Annotation("Item Location Manager", coordinate: items) {
-                                ZStack {
+                        if let item2 = locationManager.item2 {
+                            Annotation("Posts", coordinate: item2) {
+                                VStack(spacing: -25) {
                                     ForEach(feedViewModel.posts) { post in
                                         KFImage(URL(string: post.imageUrl))
-                                            .resizable()
                                             .scaledToFill()
-                                            .frame(width: 90, height: 90)
+                                            .frame(width: 95, height: 95)
                                             .clipShape(.circle)
                                             .background(
                                                 Circle()
-                                                    .frame(width: 95, height: 95)
+                                                    .frame(width: 100, height: 100)
                                                     .foregroundColor(.white)
-                                                
                                             )
                                     }
-                                    
-                                    .offset(x: 25, y: -25)
                                 }
+                                            .offset(x: -75, y: -75)
+                            
+                            }
+                        }
+                        
+                        if let item3 = locationManager.item3 {
+                            Annotation("3", coordinate: item3) {
+                                postAnnotation
+                                    .offset(x: -50, y: 50)
                             }
                         }
                         
@@ -166,7 +157,6 @@ struct LocationView: View {
                     .onChange(of: selectedResult, { oldValue, newValue in
                         showDetails = newValue != nil
                     })
-                    
                     .sheet(isPresented: $showDetails, content: {
                         LocationInformation(selectedResult: $selectedResult, showDetails: $showDetails, getDirections: $getDirections, lookAroundScene: $lookAroundScene)
                             .presentationDetents([.height(375)])
@@ -213,7 +203,7 @@ extension LocationView {
         }
     }
     
-    var postLocation: some View {
+    var postAnnotation: some View {
         ZStack {
             ForEach(feedViewModel.posts, id: \.self) { post in
                 KFImage(URL(string: post.imageUrl))
