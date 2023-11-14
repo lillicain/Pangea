@@ -19,7 +19,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var post: Post? = nil
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
-    
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
     @Published var location: CLLocation?

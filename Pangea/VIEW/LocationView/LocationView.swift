@@ -46,12 +46,10 @@ struct LocationView: View {
                         
                         Annotation("Dixie Tech", coordinate: .schoolLocation) {
                             schoolAnnotation
-                                .offset(x: 25)
                         }
                         
                         Annotation("Home", coordinate: .homeLocation) {
-                            homeAnnotation
-                                .offset(x: 25)
+                            homeAnnotation             
                         }
                         
                         
