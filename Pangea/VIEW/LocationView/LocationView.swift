@@ -43,13 +43,15 @@ struct LocationView: View {
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         UserAnnotation()
                         
-//                        Annotation("Dixie Tech", coordinate: .schoolLocation) {
-//                            schoolAnnotation
-//                        }
-//                        
-//                        Annotation("Home", coordinate: .homeLocation) {
-//                            homeAnnotation
-//                        }
+                        Annotation("Dixie Tech", coordinate: .schoolLocation) {
+                            schoolAnnotation
+                                .offset(x: 5, y: 5)
+                        }
+                        
+                        Annotation("Home", coordinate: .homeLocation) {
+                            homeAnnotation
+                                .offset(x: 5, y: 5)
+                        }
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
@@ -186,7 +188,6 @@ extension LocationView {
                 .foregroundColor(authenticationViewModel.pink[0])
             Image(systemName: "graduationcap")
                 .foregroundColor(.white)
-            
         }
     }
     
