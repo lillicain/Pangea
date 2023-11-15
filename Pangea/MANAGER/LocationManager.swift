@@ -12,7 +12,6 @@ import MapKit
 import SwiftUI
 import Firebase
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -28,6 +27,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var item2: CLLocationCoordinate2D?
     @Published var item3: CLLocationCoordinate2D?
     
+    @Published var coordinates: (Double, Double) = (0.0, 0.0)
+    
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
     
@@ -42,10 +43,25 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     func requestLocation() {
         locationManager.requestLocation()
     }
-    
+
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    @MainActor
+    func fetchPosts(post: Post) async {
+        let geocoder = CLGeocoder()
+        
+        Task {
+            do {
+                let coordinate = try await getCoordinateAsync(geocoder: geocoder, addressString: post.location)
+                coordinates = (coordinate.latitude, coordinate.longitude)
+                print("Coordinates: \(coordinates.0), \(coordinates.1)")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func geocode() {

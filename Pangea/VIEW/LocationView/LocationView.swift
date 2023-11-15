@@ -138,6 +138,8 @@ struct LocationView: View {
                     .task {
                         locationManager.requestLocation()
                         
+                        await locationManager.fetchPosts(post: post)
+                        
                         try? await feedViewModel.fetchPosts()
                         try? await postItemViewModel.fetchUserPosts()
                     }
