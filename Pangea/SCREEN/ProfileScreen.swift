@@ -9,10 +9,9 @@ import SwiftUI
 import MapKit
 
 struct ProfileScreen: View {
+    
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @EnvironmentObject var editUserViewModel: EditUserViewModel
-    
-    @ObservedObject var postItemViewModel = PostItemViewModel(user: AuthenticationViewModel().currentUser ?? User.MOCK_USER[0])
     
     @State var showScreen = false
     
@@ -112,9 +111,6 @@ struct ProfileScreen: View {
                     
                     VStack {
                         PostItemView(user: user.self)
-                    }
-                    .task {
-                        try? await postItemViewModel.fetchUserPosts()
                     }
                 }
             }

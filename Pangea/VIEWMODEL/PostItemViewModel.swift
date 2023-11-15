@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class PostItemViewModel: ObservableObject {
     @Published var posts = [Post]()
     
