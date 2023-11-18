@@ -22,11 +22,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var authorizationState: CLAuthorizationStatus?
     @Published var placemark: CLPlacemark?
     @Published var location: CLLocation?
+    
     @Published var currentLocation: String = ""
     @Published var item1: CLLocationCoordinate2D?
-    
-//    @Published var item2: CLLocationCoordinate2D?
-//    @Published var item3: CLLocationCoordinate2D?
+    @Published var item2: CLLocationCoordinate2D?
+    @Published var item3: CLLocationCoordinate2D?
     
     @Published var coordinates: (Double, Double) = (0.0, 0.0)
     
@@ -80,8 +80,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         guard let location = locations.first else { return }
         
         self.item1 = location.coordinate
-//        self.item2 = locations.last?.coordinate
-//        self.item3 = locations.first?.coordinate
+        self.item2 = locations.last?.coordinate
+        self.item3 = locations.first?.coordinate
         self.region = region
         
         self.geocode()

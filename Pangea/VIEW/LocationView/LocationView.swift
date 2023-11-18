@@ -82,19 +82,19 @@ struct LocationView: View {
                             }
                         }
                         
-//                        if let item2 = locationManager.item2 {
-//                            Annotation("2", coordinate: item2) {
-//                                postAnnotation
-//                                    .offset(x: -75)
-//                            }
-//                        }
+                        if let item2 = locationManager.item2 {
+                            Annotation("2", coordinate: item2) {
+                                postAnnotation
+                                    .offset(x: -75)
+                            }
+                        }
                         
-//                        if let item3 = locationManager.item3 {
-//                            Annotation("3", coordinate: item3) {
-//                                postAnnotation
-//                                    .offset(x: -50, y: 50)
-//                            }
-//                        }
+                        if let item3 = locationManager.item3 {
+                            Annotation("3", coordinate: item3) {
+                                postAnnotation
+                                    .offset(x: -50, y: 50)
+                            }
+                        }
                         
                         ForEach(results, id: \.self) { item in
                             if routeDisplaying {
