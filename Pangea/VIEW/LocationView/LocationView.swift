@@ -54,6 +54,9 @@ struct LocationView: View {
                                 .offset(x: 25)
                         }
                         
+                        ForEach(feedViewModel.posts) { post in
+                            LocationItemView(post: post)
+                        }
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
