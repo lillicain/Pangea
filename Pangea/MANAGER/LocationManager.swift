@@ -15,7 +15,7 @@ import FirebaseFirestore
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MKMapViewDelegate {
     
-    @Published var post: Post? = nil
+    @Published var post: Post
     @Published var posts = [Post]()
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.094, longitude: -113.5915), latitudinalMeters: 10000, longitudinalMeters: 10000)
     
@@ -27,6 +27,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var item1: CLLocationCoordinate2D?
     @Published var item2: CLLocationCoordinate2D?
     @Published var item3: CLLocationCoordinate2D?
+    
+    @Published var postImages = CLLocationCoordinate2D()
     
     @Published var coordinates: (Double, Double) = (0.0, 0.0)
     
@@ -44,7 +46,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     func requestLocation() {
         locationManager.requestLocation()
     }
-
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
@@ -76,6 +77,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         })
     }
     
+    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
@@ -95,8 +97,20 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
+            
         }
         
+//        FeedViewModel().posts.forEach { post in
+            fetchLocation(address: post.location) { placemark, error in
+//                Annotation("", coordinate: placemark) {
+                    self.postImages = placemark
+//                LocationItemView(post: post, location: $postImages)
+//                }
+//            }
+//            Annotation(post.location.description, coordinate: post.location) {
+                
+            
+        }
     }
     
     func getCoordinateAsync(geocoder: CLGeocoder, addressString: String) async throws -> CLLocationCoordinate2D {

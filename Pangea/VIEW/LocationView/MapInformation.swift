@@ -19,7 +19,7 @@ struct MapInformation: View {
                 VStack {
                     MapUserLocationButton(scope: mapScope)
                     MapPitchToggle(scope: mapScope)
-                    
+
                     MapCompass(scope: mapScope)
                         .mapControlVisibility(.visible)
                 }

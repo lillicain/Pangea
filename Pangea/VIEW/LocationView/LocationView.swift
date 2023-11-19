@@ -40,10 +40,9 @@ struct LocationView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    ForEach(feedViewModel.posts) { post in
-                        LocationItemView(post: post)
-                        
-                    }
+
+                
+
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         
                         UserAnnotation()
@@ -58,8 +57,23 @@ struct LocationView: View {
                                 .offset(x: 25)
                         }
                         
-                    
+//                        Annotation("", coordinate: locationManager.postImages) {
+//                            LocationItemView(post: post, annotation: locationManager.postImages)
+//                        }
                         
+                                            ForEach(feedViewModel.posts) { post in
+//                        ForEach(locationManager.postImages) { posts in
+//
+//                        
+                                                Annotation("", coordinate: locationManager.postImages) {
+//
+                                                LocationItemView(post: post)
+                    
+                                                    }
+                                            }
+                        
+                    
+
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
@@ -119,6 +133,12 @@ struct LocationView: View {
                             }
                         }
                     }
+                    
+//                    ForEach(feedViewModel.posts) { post in
+//                            LocationItemView(post: post)
+//                        }
+            
+                    
                     .mapStyle(.standard(elevation: .realistic))
                     .safeAreaPadding(.top, 25)
                     .safeAreaPadding(.trailing, 5)
