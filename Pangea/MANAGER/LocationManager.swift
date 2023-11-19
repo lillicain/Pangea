@@ -24,9 +24,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
     @Published var location: CLLocation?
     
     @Published var currentLocation: String = ""
-    @Published var item1: CLLocationCoordinate2D?
-    @Published var item2: CLLocationCoordinate2D?
-    @Published var item3: CLLocationCoordinate2D?
+    @Published var item: CLLocationCoordinate2D?
     
     @Published var postImages = CLLocationCoordinate2D()
     
@@ -77,13 +75,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         })
     }
     
-    @MainActor
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
-        self.item1 = location.coordinate
-        self.item2 = locations.last?.coordinate
-        self.item3 = locations.first?.coordinate
+        self.item = location.coordinate
+       
         self.region = region
         
         self.geocode()
@@ -97,18 +93,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, MK
         
         fetchCurrentLocation { placemark in
             self.currentLocation = placemark ?? ""
-            
         }
         
-//        FeedViewModel().posts.forEach { post in
-            fetchLocation(address: post.location) { placemark, error in
-//                Annotation("", coordinate: placemark) {
-                    self.postImages = placemark
-//                LocationItemView(post: post, location: $postImages)
-//                }
-//            }
-//            Annotation(post.location.description, coordinate: post.location) {
-                
+        fetchLocation(address: post.location) { placemark, error in
+            self.postImages = placemark
             
         }
     }

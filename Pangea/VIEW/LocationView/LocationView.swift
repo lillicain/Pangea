@@ -40,9 +40,6 @@ struct LocationView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-
-                
-
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         
                         UserAnnotation()
@@ -57,23 +54,14 @@ struct LocationView: View {
                                 .offset(x: 25)
                         }
                         
-//                        Annotation("", coordinate: locationManager.postImages) {
-//                            LocationItemView(post: post, annotation: locationManager.postImages)
-//                        }
-                        
-                                            ForEach(feedViewModel.posts) { post in
-//                        ForEach(locationManager.postImages) { posts in
-//
-//                        
-                                                Annotation("", coordinate: locationManager.postImages) {
-//
-                                                LocationItemView(post: post)
+                        ForEach(feedViewModel.posts) { post in
+                            Annotation("", coordinate: locationManager.postImages) {
+                            
+                                    LocationItemView(post: post)
+                                
+                            }
+                        }
                     
-                                                    }
-                                            }
-                        
-                    
-
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
                                 KFImage(URL(string: post.imageUrl))
@@ -93,25 +81,10 @@ struct LocationView: View {
                             }
                         }
                         
-                        
-                        if let item1 = locationManager.item1 {
-                            Annotation("1", coordinate: item1) {
+                        if let item = locationManager.item {
+                            Annotation("1", coordinate: item) {
                                 postAnnotation
                                     .offset(x: 100, y: 100)
-                            }
-                        }
-                        
-                        if let item2 = locationManager.item2 {
-                            Annotation("2", coordinate: item2) {
-                                postAnnotation
-                                    .offset(x: -75)
-                            }
-                        }
-                        
-                        if let item3 = locationManager.item3 {
-                            Annotation("3", coordinate: item3) {
-                                postAnnotation
-                                    .offset(x: -50, y: 50)
                             }
                         }
                         
@@ -133,12 +106,6 @@ struct LocationView: View {
                             }
                         }
                     }
-                    
-//                    ForEach(feedViewModel.posts) { post in
-//                            LocationItemView(post: post)
-//                        }
-            
-                    
                     .mapStyle(.standard(elevation: .realistic))
                     .safeAreaPadding(.top, 25)
                     .safeAreaPadding(.trailing, 5)

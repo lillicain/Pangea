@@ -13,17 +13,13 @@ struct LocationItemView: View {
     
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
-    @ObservedObject var locationManager = LocationManager()
     @ObservedObject var feedViewModel = FeedViewModel()
     
     let post: Post
     
-//    let location: CLLocationCoordinate2D
-    
     var body: some View {
-        ZStack {
+        VStack(spacing: -50) {
             postImage
-            
         }
     }
 }
@@ -33,7 +29,7 @@ extension LocationItemView {
         KFImage(URL(string: post.imageUrl))
             .resizable()
             .scaledToFill()
-            .frame(width: 375, height: 500)
+            .frame(width: 100, height: 100)
             .clipShape(.circle)
             .overlay {
                 if let user = post.user {
