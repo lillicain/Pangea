@@ -40,6 +40,10 @@ struct LocationView: View {
         NavigationStack {
             ScrollView {
                 VStack {
+                    ForEach(feedViewModel.posts) { post in
+                        LocationItemView(post: post)
+                        
+                    }
                     Map(position: $cameraPosition, selection: $selectedResult) {
                         
                         UserAnnotation()
@@ -54,9 +58,7 @@ struct LocationView: View {
                                 .offset(x: 25)
                         }
                         
-                        ForEach(feedViewModel.posts) { post in
-                            LocationItemView(post: post)
-                        }
+                    
                         
                         if let location = locationManager.placemark?.location?.coordinate {
                             Annotation("\(location)", coordinate: location) {
