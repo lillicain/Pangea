@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2322810A2D92119B0060452C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 232281092D92119B0060452C /* GoogleService-Info.plist */; };
 		6A042F252AF63C12009A8966 /* TabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A042F242AF63C12009A8966 /* TabScreen.swift */; };
 		6A0A9AEA2AE8147300E5318E /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0A9AE92AE8147300E5318E /* ProfileScreen.swift */; };
 		6A296DEC2AE726B900C906F0 /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A296DEB2AE726B900C906F0 /* MapExtensions.swift */; };
 		6A3782402AF2F4E7006F4772 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A37823F2AF2F4E7006F4772 /* SearchManager.swift */; };
-		6A5509AC2AE61029005B48F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */; };
 		6A5509AF2AE61080005B48F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5509AE2AE61080005B48F6 /* FirebaseAnalytics */; };
 		6A5509B12AE61080005B48F6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5509B02AE61080005B48F6 /* FirebaseAnalyticsOnDeviceConversion */; };
 		6A5509B32AE61080005B48F6 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5509B22AE61080005B48F6 /* FirebaseAnalyticsSwift */; };
@@ -74,11 +74,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		232281092D92119B0060452C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A042F242AF63C12009A8966 /* TabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabScreen.swift; sourceTree = "<group>"; };
 		6A0A9AE92AE8147300E5318E /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		6A296DEB2AE726B900C906F0 /* MapExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapExtensions.swift; sourceTree = "<group>"; };
 		6A37823F2AF2F4E7006F4772 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
-		6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A5520CE2AE86A3200D11498 /* FeedItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemView.swift; sourceTree = "<group>"; };
 		6A5A13BD2AE1E6EE0041E188 /* Pangea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pangea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5A13C02AE1E6EE0041E188 /* PangeaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PangeaApp.swift; sourceTree = "<group>"; };
@@ -205,9 +205,9 @@
 				6A0A9AE82AE8144900E5318E /* SCREEN */,
 				6AB302272AE616090036DB06 /* VIEW */,
 				6A5A13DC2AE1E8940041E188 /* Font */,
-				6A5509AB2AE61029005B48F6 /* GoogleService-Info.plist */,
 				6A5A13C42AE1E6EE0041E188 /* Assets.xcassets */,
 				6A5A13C62AE1E6EE0041E188 /* Preview Content */,
+				232281092D92119B0060452C /* GoogleService-Info.plist */,
 			);
 			path = Pangea;
 			sourceTree = "<group>";
@@ -420,12 +420,12 @@
 			files = (
 				6AB302552AE635CA0036DB06 /* Aerobics.ttf in Resources */,
 				6AB302512AE635910036DB06 /* Abuela Grillo.ttf in Resources */,
+				2322810A2D92119B0060452C /* GoogleService-Info.plist in Resources */,
 				6AB3024F2AE635720036DB06 /* 13_Misa.TTF in Resources */,
 				6AB3025F2AE636A10036DB06 /* Orbitronio.ttf in Resources */,
 				6A5A13C82AE1E6EE0041E188 /* Preview Assets.xcassets in Resources */,
 				6AB3025D2AE636740036DB06 /* pallini.ttf in Resources */,
 				6AB302612AE636BF0036DB06 /* Trag.ttf in Resources */,
-				6A5509AC2AE61029005B48F6 /* GoogleService-Info.plist in Resources */,
 				6AB302632AE636D70036DB06 /* Views.ttf in Resources */,
 				6AB3024D2AE635600036DB06 /* 5curvo.ttf in Resources */,
 				6AB3025B2AE6362A0036DB06 /* Goolangola-Bold.otf in Resources */,
