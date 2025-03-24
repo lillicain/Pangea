@@ -24,7 +24,7 @@ class PostViewModel: ObservableObject {
     }
     
     var uiImage: UIImage?
-
+    
     static let shared = PostViewModel()
     
     func loadImage(fromItem item: PhotosPickerItem?) async {
@@ -40,7 +40,9 @@ class PostViewModel: ObservableObject {
         guard let uiImage = uiImage else { return }
         let posts = Firestore.firestore().collection("posts").document()
         guard let imageUrl = try await ImageManager.uploadImage(image: uiImage) else { return }
-        let post = Post(id: posts.documentID, userUid: uid, description: description, count: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location)
+        guard let coordinate = LocationManager().locationManager.location?.coordinate else { return }
+        
+        let post = Post(id: posts.documentID, userUid: uid, description: description, count: 0, imageUrl: imageUrl, timestamp: Timestamp(), location: location, latitude: coordinate.latitude, longitude: coordinate.longitude)
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
         try await posts.setData(encodedPost, merge: false)
     }
