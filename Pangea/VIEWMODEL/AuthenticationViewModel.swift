@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Kingfisher
 
 @MainActor
 class AuthenticationViewModel: ObservableObject {
@@ -73,6 +74,7 @@ class AuthenticationViewModel: ObservableObject {
     func loadUserData() async throws {
         self.userSession = Auth.auth().currentUser
         guard let currentUid = userSession?.uid else { return }
+        if let profileImageUrl = currentUser?.profileImage, let url = URL(string: profileImageUrl) { ImagePrefetcher(urls: [url]).start() }
         _ = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
         self.currentUser = try await UserManager.fetchUser(withUid: currentUid)
     }

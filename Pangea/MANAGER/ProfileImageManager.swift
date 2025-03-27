@@ -16,9 +16,11 @@ struct ProfileImageManager: View {
         if let imageUrl = user.profileImage {
             KFImage(URL(string: imageUrl))
                 .resizable()
+                .cacheOriginalImage()
                 .scaledToFill()
                 .frame(width: size.dimension, height: size.dimension)
                 .clipShape(.circle)
+             
         } else {
             Image(systemName: "person.crop.circle")
                 .resizable()
