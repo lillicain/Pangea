@@ -20,10 +20,10 @@ class FeedViewModel: ObservableObject {
             try await fetchPosts()
         }
     }
-   
+    
     @MainActor
     func fetchPosts() async throws {
-        let snapshot = try await Firestore.firestore().collection("posts").getDocuments()
+        let snapshot = try await Firestore.firestore().collection("posts").order(by: "timestamp", descending: true).getDocuments()
         self.posts = try snapshot.documents.compactMap({ try $0.data(as: Post.self) })
         
         for index in 0..<posts.count {

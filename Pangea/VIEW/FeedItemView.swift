@@ -54,7 +54,6 @@ extension FeedItemView {
                         Text(user.username)
                             .font(FontNine.extraSmall)
                     }
-                    
                 }
             }
         }
