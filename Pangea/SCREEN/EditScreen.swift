@@ -13,6 +13,7 @@ struct EditScreen: View {
     @AppStorage("appearance") var appearance: Bool = false
     @AppStorage("backgroundColors") var backgroundColors: String = ""
     
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     @StateObject var editUserViewModel: EditUserViewModel
@@ -97,6 +98,7 @@ struct EditScreen: View {
                     Button {
                         Task {
                             try await editUserViewModel.updateUserData()
+                            dismiss()
                         }
                     } label: {
                         Text("Save")

@@ -14,6 +14,8 @@ import MapKit
 
 struct FeedView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @ObservedObject var authenticationViewModel = AuthenticationViewModel()
     @ObservedObject var locationManager = LocationManager()
     
@@ -58,6 +60,7 @@ struct FeedView: View {
                     .presentationCornerRadius(50)
                     .toolbar(.hidden, for: .navigationBar)
             })
+            
             
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -138,15 +141,17 @@ extension FeedView {
                             try await feedViewModel.fetchPosts()
                             
                             postViewModel.uiImage = image
-                            
+                        
                         } catch {
                             print(error.localizedDescription)
                         }
                     }
                     
-                    description = ""
+                    description = description
                     postViewModel.selectedImage = nil
                     postViewModel.postImage = nil
+                    
+//                    dismiss()
                     
                 } label: {
                     Text("Post")
